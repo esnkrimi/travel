@@ -1,0 +1,103 @@
+<div class="w-100 p-4 text-center" *ngIf="routeType === 'login'; else esignup">
+  <div class="w-100 mt-4 text-center">
+    <p></p>
+    <p class="fw-bold mt-4">Sign In</p>
+    <p class="mb-4">sign in using username and password</p>
+  </div>
+  <div class="w-50 d-inline-block" *ngIf="!loginSuccess">
+    <div class="w-100"></div>
+    <form [formGroup]="formLogin" (submit)="onSubmitLogin()">
+      <div class="w-100">
+        <mat-form-field class="w-100">
+          <mat-label> {{ 'email' | translate }}</mat-label>
+          <input matInput formControlName="email" />
+        </mat-form-field>
+      </div>
+
+      <div class="w-100">
+        <mat-form-field class="w-100">
+          <mat-label> {{ 'password' | translate }}</mat-label>
+          <input matInput formControlName="password" />
+        </mat-form-field>
+      </div>
+
+      <button
+        mat-raised-button
+        color="primary"
+        class="w-100"
+        [disabled]="buttonDisabled || !formLogin.valid"
+      >
+        {{ 'login' | translate }}
+      </button>
+    </form>
+    <div class="text-left">
+      <span
+        class="cursor-pointer link text-small m-2"
+        [routerLink]="['../signup']"
+      >
+        {{ 'createnew' | translate }}</span
+      >
+    </div>
+    <div *ngIf="loginError">
+      <span class="text-warning text-left">
+        incorrect username or password
+      </span>
+    </div>
+  </div>
+</div>
+<ng-template #esignup>
+  <div class="w-100 p-4 mt-4 text-center">
+    <div class="w-100 mt-4 text-center">
+      <p class="fw-bold">Sign Up</p>
+      <p class="mb-4">sign up new account</p>
+    </div>
+    <div class="w-50 mt-4 d-inline-block">
+      <div class="w-100"></div>
+      <form [formGroup]="formSubmit" (submit)="onSubmitSignup()">
+        <div class="w-100">
+          <mat-form-field class="w-100">
+            <mat-label> {{ 'email' | translate }}</mat-label>
+            <input matInput formControlName="email" />
+          </mat-form-field>
+        </div>
+
+        <div class="w-100">
+          <mat-form-field class="w-100">
+            <mat-label> {{ 'password' | translate }}</mat-label>
+            <input matInput formControlName="password" />
+          </mat-form-field>
+        </div>
+        <div class="w-100">
+          <mat-form-field class="w-100">
+            <mat-label> {{ 'repeatpassword' | translate }}</mat-label>
+            <input matInput formControlName="password2" />
+          </mat-form-field>
+        </div>
+
+        <button mat-raised-button color="primary" class="w-100">
+          {{ 'signup' | translate }}
+        </button>
+      </form>
+      <div *ngIf="errorPasswordEqual" class="text-left">
+        <span class="text-small m-2 cursor-pointer"> Password not match </span>
+      </div>
+      <div class="text-left pt-3">
+        <span
+          class="text-small link cursor-pointer"
+          [routerLink]="['../login']"
+        >
+          {{ 'login' | translate }}</span
+        >
+      </div>
+
+      <div class="text-left pt-1">
+        <span
+          class="link text-small cursor-pointer"
+          [routerLink]="['../login']"
+        >
+          {{ 'forgetPassword' | translate }}</span
+        >
+      </div>
+    </div>
+  </div>
+</ng-template>

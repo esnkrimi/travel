@@ -1,0 +1,54 @@
+.loading{
+  width:0%;
+  height: 0.2em;
+  background-color: var(--COLOR-WAITING);
+  animation: loading 2s forwards;
+}
+@keyframes loading {
+  0%{
+    width: 0%;
+  }
+  20%{
+    width:15%
+  }
+  80%{
+    width:40%
+  }
+  100%{
+    width:60%
+  }
+}
+.full{
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background-color: var(--COLOR-DARK);
+  left: 0px;
+  top:0px;
+  opacity: 0.6;
+  z-index: 1900;
+}
+
+.animated-loading-bar{
+  width: 100%;
+  text-align: center;
+  padding: 25%;
+  height: 100%;
+  position: fixed;
+  top:0;
+  left:0;
+}
+.animated-loading-bar>img{
+  width: 100px;
+  height: 100px;
+}
+.img-loading{
+  width: 15em;
+  height: 15em;
+  opacity: 1 !important;
+}
+
+.full div{
+  position: absolute;
+  top:40%;
+}

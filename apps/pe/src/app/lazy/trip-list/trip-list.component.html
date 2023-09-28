@@ -1,0 +1,40 @@
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<pe-advanced-autocomplete
+  (result)="result($event)"
+  [data]="trips"
+></pe-advanced-autocomplete>
+<div *ngFor="let item of trips" class="card m-2">
+  <div class="card-body">
+    <div class="card-title">
+      {{ item.name }}
+      {{ item.family }}
+    </div>
+    <div *ngFor="let trip of item.tripjson" class="">
+      <div class="fw-bold">
+        <h5>
+          <span class="text-muted">
+            {{ trip.title }} ({{ trip.trip[0].dateIncome }} to
+            {{ trip.trip[trip.trip.length - 1].dateIncome }})
+          </span>
+        </h5>
+      </div>
+
+      <div *ngFor="let location of trip.trip" class="p-1">
+        <p>
+          {{ location.locationTitle }} : {{ location.dateIncome
+          }}{{ location.timeIncome }} by {{ location.vehicle }}
+        </p>
+      </div>
+      <a (click)="ask(trip.title, item.uid)" class="btn btn-primary"
+        >Ask to join</a
+      >
+    </div>
+  </div>
+</div>
+
+<button (click)="select()">Click</button>

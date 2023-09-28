@@ -1,0 +1,90 @@
+<div *ngIf="selectLocationActivated" class="div-location w-100 bg-primary">
+  <div class="border">
+    <pe-form-trip-location
+      [currentTrip]="currentTrip"
+      [latSelect]="latSelect"
+      [title]="title"
+      (tripFinished)="tripFinished($event)"
+      (submitedForm)="submitedForm($event)"
+    ></pe-form-trip-location>
+  </div>
+</div>
+<div class="parent">
+  <div>
+    <div class="bg-white text-center" *ngIf="createTripActivate">
+      <pe-trips [currentTrip]="currentTrip"></pe-trips>
+    </div>
+    <!--
+    <div class="bg-white text-center" *ngIf="createTripActivate">
+     <pe-trip-submit [currentTrip]="currentTrip"></pe-trip-submit>
+    </div>
+  -->
+
+    <div class="w-100 text-center border box d-relative">
+      <div class="frame">
+        <pe-help></pe-help>
+      </div>
+      <div class="absolute-50 p-1 border">
+        <div class="bg-light" cdkDragLockAxis="x" cdkDrag>
+          <div
+            class="ride"
+            joyrideStep="firstStep"
+            title="Place type"
+            [doneTemplate]="doneButton"
+            text="A mdraggable feature you can filter place type ex. cinema , airport ,...."
+          ></div>
+
+          <div
+            *ngFor="let item of typeOflocations"
+            (click)="change(item)"
+            class="relative w-100"
+          >
+            <img
+              [title]="item"
+              [src]="'./assets/img/' + item + '.png'"
+              class="img-icon m-1"
+              [class.active-type]="
+                selectedType === item || (item === 'saved' && savedLocation)
+              "
+            />
+          </div>
+
+          <div
+            joyrideStep="secondStep"
+            text="You can measure distance between two place"
+          >
+            <span
+              [class.disabled]="!distanceActivated"
+              (click)="activeDistanceMeter()"
+              class="text-sign language text-dark p-1 m-1"
+            >
+              D
+            </span>
+          </div>
+          <div
+            joyrideStep="thirdStep"
+            text="You can make a trip and schedule it "
+          >
+            <span
+              [class.disabled]="!createTripActivate"
+              (click)="createTrip()"
+              class="text-sign language text-dark p-1 m-1"
+            >
+              T
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="map-container">
+        <div class="map-frame">
+          <div id="map"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<ng-template #doneButton>
+  <button mat-raised-button color="primary" (click)="showTour = false">
+    Done !
+  </button>
+</ng-template>

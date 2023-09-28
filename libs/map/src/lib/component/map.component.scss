@@ -1,0 +1,169 @@
+#map{
+    position: relative;
+    width:100%;
+    height: 1300px;
+}
+.inner{
+    position: relative
+}
+
+
+.img-icon{
+    width: 2em;
+    height: 2em;
+    cursor: pointer;
+    opacity: 0.6;
+}
+.img-icon:hover{
+    opacity: 1 !important;
+    width: 2em;
+    height: 2em;
+    border: solid 3px var(--COLOR-ORANGE);
+}
+
+.active-type{
+    opacity: 1 !important;
+    width: 2.2em;
+    height: 2.2em;
+    border: solid 5px var(--COLOR-ORANGE);
+    animation: clicked 0.3s forwards;
+} 
+.my-markers{
+    opacity: 0.2 !important;
+}
+.parent{
+    margin-top: 5em;
+}
+@media (min-width:1400px) {
+    .parent{
+        width: 100%;
+        height:1200px
+    }
+}
+.ride{
+    position:fixed;
+    width: 500px;
+    height: 500px;
+    top:0;
+    left:0
+}
+
+
+
+::ng-deep  .leaflet-control-geocoder-alternatives,.leaflet-control-geocoder-alternatives>*,ul  {
+display: none !important;
+    color: red !important;
+    height: 1px !important;
+    border: solid 1px red;
+    background: green !important;
+} 
+
+
+::ng-deep .leaflet-popup-content{
+    font-size: 1.15em !important;
+}
+@keyframes animated-scale {
+    0%{
+        transform: scale(0.2)
+    }
+ 
+    50%{
+       transform: scale(2)
+   }
+    100%{
+        transform: scale(1)
+    }
+ }
+  
+
+ .language{
+    cursor: pointer;
+    transition: transform 0.7s ease-in-out;
+    
+ }
+ .language:hover{
+    transform: rotate(360deg);
+}
+.disabled{
+    opacity:0.5 !important
+}
+.relative {
+    width: 100% !important;
+}
+.relative .absolute {
+    opacity: 0.1;
+    background-color: white !important;
+    width: 100% ;
+}
+
+.relative:hover .absolute {
+    opacity: 1;
+    animation: width-animation 0.1s forwards;
+    background-color: white;
+    width: 100% ;
+
+}
+@keyframes width-animation {
+    0%{
+        width:0px
+    }
+    100%{
+        width: 100%;
+    }
+}
+ 
+.absolute-50{
+    position: fixed;
+    right:30px;
+    top:150px;
+    z-index: 1000;
+    animation: animated-scale 0.2s forwards;
+}
+
+::ng-deep{
+    .mat-snack-bar-container{
+        background-color: var(--COLOR-ORANGE) !important;
+        color: white !important;
+        font-weight: bold;
+    }
+    .mat-simple-snack-bar-content{
+        font-size: 1.4em !important;
+    }
+}
+.trip{
+    position: absolute;
+    left:0;
+    top:0;
+    width: 35%;
+    z-index: 1500
+}
+.div-location{
+    position: fixed;
+    z-index: 1501;
+    text-align: center;
+}
+.div-location div{
+    position: inherit;
+    left:25%;
+    height: 900px;
+    overflow: scroll !important;
+    width: 50%;
+    background-color: white;
+}
+.frame{
+    left:0px;
+    top:0px;
+    z-index: 2000 !important;
+    background-color: var(--COLOR-GREEN);
+    position: absolute;
+}
+.d-relative{
+    position: relative !important;
+}
+::ng-deep{
+
+    .leaflet-marker-icon {
+        border: solid 1px var(--COLOR-MAGENTA) !important;
+        border-radius: 50% !important;
+    }
+}

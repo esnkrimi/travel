@@ -1,0 +1,17 @@
+<div [ngSwitch]="mode">
+  <div *ngSwitchCase="'mini'">
+    <div class="loading"></div>
+  </div>
+  <div *ngSwitchCase="'full'">
+    <div class="full">
+      <div class="w-100 text-center">
+        <img src="./assets/img/preloader.gif" class="img-loading" />
+      </div>
+    </div>
+  </div>
+  <div *ngSwitchCase="'animated'">
+    <div class="animated-loading-bar">
+      <img src="./assets/img/loading-img.gif" />
+    </div>
+  </div>
+</div>

@@ -1,0 +1,9 @@
+<p>You can add user to trip :</p>
+<button mat-raised-button (click)="addUser()">Add user</button>
+<div *ngFor="let item of userList" class="row">
+  <div>IMAGE</div>
+  <div>
+    {{ item.name }}
+    {{ item.family }}
+  </div>
+</div>

@@ -1,0 +1,224 @@
+:root {
+    --COLOR-WAITING: rgb(214, 110, 24);
+    --COLOR-RED: rgb(196, 20, 28);
+    --COLOR-DARK: rgb(103, 105, 103);
+    --COLOR-LIGHT-DARK: rgb(212, 218, 212);
+    --COLOR-MUTED: rgb(102, 104, 102);
+    --COLOR-MAGENTA: rgb(70, 91, 138);
+    --COLOR-GREEN: #17dab8;
+    --COLOR-LIGHT: #ffffff;
+    --COLOR-CREAM: #faf6f6;
+    --COLOR-ORANGE: #fdb42a;
+    --BG-LOGIN:'https://topedu.vercel.app/assets/images/login1.png';
+    --BG-SUCCESS:'https://cdn.dribbble.com/users/571236/screenshots/2888472/happystate.gif';
+    @mixin bg-image($bg-url,$size,$height){
+       background: url(var($bg-url));
+       size:$size;
+       height: $height;
+    }
+ }
+ @font-face {
+   font-family: bmd;
+   src: url('./assets/fonts/marson.ttf')
+ }
+
+ @mixin text-bg($bg,$col){
+   color: var($col)  !important;
+   background-color: var($bg) !important;
+}
+
+.bg-cream{
+   @include text-bg(--COLOR-CREAM,--COLOR-DARK)
+}
+.color-light-dark{
+   @include text-bg(--COLOR-LIGHT-DARK,--COLOR-CREAM)
+}
+.color-dark{
+   @include text-bg(--COLOR-LIGHT,--COLOR-DARK)
+}
+.bg-orange{
+   @include text-bg(--COLOR-ORANGE,--COLOR-CREAM)
+}
+.bg-green{
+   @include text-bg(--COLOR-GREEN,--COLOR-CREAM)
+}
+.text-green{
+   @include text-bg(--COLOR-CREAM,--COLOR-GREEN)
+}
+
+.text-right{
+   text-align: right !important;
+}
+.text-small{
+   font-size: 0.9em !important;
+}
+.text-large{
+   font-size: 2em !important;
+}
+.text-meduim{
+   font-size: 1.2em !important;
+}
+.inner{
+   display: inline-block;
+}
+.cursor-pointer {
+   cursor: pointer;
+}
+
+ .text-sign{
+   font-family: bmd;
+   font-weight: 600;
+   font-size: 1.5em;
+ }
+
+.animated-cross{
+   position: absolute;
+   animation: animate-cross 0.3s forwards;
+}
+@keyframes animate-cross {
+   0%{
+       top:-2000px
+   }
+
+   100%{
+      top:0px;
+   }
+}
+
+.animated-cross-inverse{
+   position: absolute;
+   animation: animate-cross-inverse 0.3s forwards;
+}
+@keyframes animate-cross-inverse {
+   0%{
+       top:12000px
+   }
+
+   100%{
+      top:0px;
+   }
+}
+
+.animated-fadein{
+   animation: animate-fadein 2s forwards;
+}
+@keyframes animate-fadein {
+   0%{
+       opacity: 0;
+   }
+
+   100%{
+      opacity: 1;
+   }
+}
+
+
+.animated-rotate{
+   animation: animated-rotate 0.5s forwards;
+}
+@keyframes animated-rotate {
+   0%{
+       transform: rotate(0deg);
+   }
+
+   100%{
+       transform: rotate(720deg);
+   }
+}
+.animated-scale{
+   animation: animated-scale 0.5s forwards;
+}
+@keyframes animated-scale {
+   0%{
+       transform: scale(0.2)
+   }
+
+   50%{
+      transform: scale(2)
+  }
+   100%{
+       transform: scale(1)
+   }
+}
+.text-left{
+   text-align: left;
+}
+.relative{
+   position: relative !important;
+}
+@keyframes clicked {
+   0%{
+       transform: rotateY(0deg);
+   }   
+   100%{
+       transform: rotateY(180deg);
+   } 
+}
+ 
+.transparent-bg{
+   width: 100%;
+   height: 100%;
+   z-index:1000;
+   background-color: rgba(14, 7, 78, 0.4);
+   -webkit-backdrop-filter: blur(5px);
+   backdrop-filter: blur(5px);
+   position: fixed;
+}
+.d-fixed{
+   position: fixed;
+   left: 0;
+   top:5%;
+   z-index: inherit;
+}
+
+.vertical-middle-align-span{
+   display: inline-block;
+   vertical-align: middle;
+}
+
+.link { 
+ color: var(--COLOR-MAGENTA); 
+ font-size: 1em !important;
+ transition: 1s !important;
+}
+.link:hover{
+   color: var(--COLOR-RED); 
+}
+.span-animated-on-hover{
+   transition-property: color;
+   transition-duration: 500ms;
+ }
+ .span-animated-on-hover:hover{
+   color:red;
+   border-bottom :solid 1px #e0dede;
+ 
+ }
+
+.ngx-pagination .current{
+   background-color:var(--COLOR-ORANGE) !important;
+   border-radius: 50% !important;
+}
+.ngx-pagination a, .ngx-pagination button {
+   border: none !important;
+   outline: none !important;
+   text-decoration: none !important;
+}
+.mat-raised-button{
+   background-color: var(--COLOR-GREEN) !important;
+   color:white !important;
+   font-size: 1em;
+   margin: 0.1em;
+}
+.mat-raised-button[disabled]{
+   background-color: white !important;
+}
+
+.img-icon{
+   width: 5em;
+   opacity: 0.5;
+   cursor: pointer;
+}
+.img-icon:hover{
+   opacity: 1;
+}
+

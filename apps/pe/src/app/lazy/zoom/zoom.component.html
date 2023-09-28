@@ -1,0 +1,296 @@
+<ng-container *ngIf="localInformation.country; else loading">
+  <div class="panel-exists">
+    <div class="p-2" *ngIf="!existLocation; else ExistsLocation">
+      <form
+        [formGroup]="form"
+        (submit)="onSubmit('file_1')"
+        enctype="multipart/form-data"
+      >
+        <div class="row flex-nowrap">
+          <div>
+            <div class="row flex-nowrap mb-4">
+              <div class="col-md-6">
+                <img
+                  class="rounded-circle img-country m-2 animated-scale"
+                  [src]="
+                    'https://cdn.countryflags.com/thumbs/' +
+                    lowercase(localInformation.country) +
+                    '/flag-square-250.png'
+                  "
+                />
+                <span>
+                  {{ localInformation.country | uppercase }} -
+                  {{ localInformation.city }}
+                </span>
+              </div>
+              <div class="cil-md-6 text-left"></div>
+            </div>
+            <div>
+              <mat-form-field>
+                <mat-label>
+                  {{ 'County' | translate }}
+                </mat-label>
+                <input
+                  matInput
+                  [readonly]="existLocation"
+                  formControlName="county"
+                />
+              </mat-form-field>
+            </div>
+
+            <div>
+              <mat-form-field>
+                <mat-label> {{ 'district' | translate }} </mat-label>
+                <input
+                  matInput
+                  [readonly]="existLocation"
+                  formControlName="district"
+                />
+              </mat-form-field>
+            </div>
+            <div>
+              <mat-form-field>
+                <mat-label> {{ 'street' | translate }}</mat-label>
+                <input
+                  matInput
+                  [readonly]="existLocation"
+                  formControlName="street"
+                />
+              </mat-form-field>
+            </div>
+
+            <div>
+              <mat-form-field>
+                <mat-label> {{ 'placename' | translate }} </mat-label>
+                <input
+                  matInput
+                  [readonly]="existLocation"
+                  formControlName="title"
+                  placeholder="Ex . google company"
+                />
+              </mat-form-field>
+            </div>
+            <div>
+              <mat-form-field>
+                <mat-label> {{ 'placetype' | translate }}</mat-label>
+                <mat-select formControlName="type">
+                  <mat-option *ngFor="let place of placeType" [value]="place">
+                    {{ place }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+
+            <div>
+              <mat-form-field>
+                <mat-label> {{ 'email' | translate }}</mat-label>
+                <input
+                  matInput
+                  [readonly]="existLocation"
+                  formControlName="email"
+                />
+              </mat-form-field>
+            </div>
+
+            <div>
+              <mat-form-field>
+                <mat-label> {{ 'tell' | translate }}</mat-label>
+                <input
+                  matInput
+                  [readonly]="existLocation"
+                  formControlName="phone"
+                />
+              </mat-form-field>
+            </div>
+
+            <div>
+              <mat-form-field>
+                <mat-label> {{ 'website' | translate }}</mat-label>
+                <input
+                  matInput
+                  [readonly]="existLocation"
+                  formControlName="web"
+                />
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+
+        <div class="w-100">
+          <mat-form-field class="w-100">
+            <mat-label> {{ 'shareexperience' | translate }} </mat-label>
+            <textarea matInput formControlName="describe"></textarea>
+          </mat-form-field>
+        </div>
+
+        <div class="w-100 text-center">
+          <button mat-raised-button *ngIf="userLogined" type="submit">
+            {{ 'submit' | translate }}
+          </button>
+          <button
+            mat-raised-button
+            color="primary"
+            *ngIf="!userLogined"
+            disabled="true"
+          >
+            {{ 'logintosubmit' | translate }}
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <ng-template #ExistsLocation>
+      <div *ngIf="existLocation">
+        <br />
+        <span class="fw-bold text-title">
+          {{ fetchFormInputValue('title') | titlecase }}
+        </span>
+        <span class="fw-bold text-title">
+          {{ fetchFormInputValue('type') | titlecase }}
+        </span>
+        <span>
+          <mat-icon (click)="saved()" [class.selected]="result.saved">
+            {{ 'favorite' | translate }}
+          </mat-icon>
+        </span>
+      </div>
+      <hr />
+      <br />
+
+      <p *ngIf="fetchFormInputValue('city')">
+        <span class="fw-bold">
+          {{ fetchFormInputValue('title') | titlecase }}
+        </span>
+        is a
+        {{ fetchFormInputValue('type') }}
+        placed in
+        {{ fetchFormInputValue('city') }} a city in
+        {{ fetchFormInputValue('country') }}.
+      </p>
+      <p>
+        It's located in
+        {{ fetchFormInputValue('district') }}
+      </p>
+      <p *ngIf="fetchFormInputValue('street')">
+        <span> You can visit here at </span>
+        <span class="fw-bold">
+          {{ fetchFormInputValue('street') }}
+        </span>
+      </p>
+      <p *ngIf="fetchFormInputValue('phone')">
+        Also they have contact number :
+        <span class="fw-bold">
+          {{ fetchFormInputValue('phone') }}
+        </span>
+      </p>
+      <p *ngIf="fetchFormInputValue('email')">
+        They are in access via email :
+        {{ fetchFormInputValue('email') }}
+      </p>
+      <p *ngIf="fetchFormInputValue('web')">
+        Also they have a website that can see more details about their featues :
+        <br />
+        <span class="fst-italic">
+          {{ fetchFormInputValue('web') }}
+        </span>
+      </p>
+      <span
+        class="cursor-pointer p-2 text-green text-small"
+        mat-raised-button
+        (click)="showFormSubmit = !showFormSubmit"
+      >
+        + share your experience
+      </span>
+      <div class="modals" *ngIf="showFormSubmit">
+        <div *ngIf="existLocation" class="w-100 text-left p-2">
+          <span
+            class="fa fa-star cursor-pointer fa-2x checked"
+            [class.selected-rate]="result.score >= 1"
+            (click)="rate(1)"
+          ></span>
+          <span
+            class="fa fa-star cursor-pointer fa-2x checked"
+            [class.selected-rate]="result.score >= 2"
+            (click)="rate(2)"
+          ></span>
+          <span
+            class="fa fa-star cursor-pointer fa-2x checked"
+            [class.selected-rate]="result.score >= 3"
+            (click)="rate(3)"
+          ></span>
+          <span
+            class="fa fa-star cursor-pointer fa-2x"
+            [class.selected-rate]="result.score >= 4"
+            (click)="rate(4)"
+          ></span>
+          <span
+            class="fa fa-star cursor-pointer fa-2x"
+            [class.selected-rate]="result.score === 5"
+            (click)="rate(5)"
+          ></span>
+          <span *ngIf="loadingSmall">
+            <img src="../../../assets/img/loading.png" class="icon-small" />
+          </span>
+        </div>
+        <form
+          [formGroup]="form"
+          (submit)="onSubmit('file')"
+          enctype="multipart/form-data"
+        >
+          <div class="w-100 text-left">
+            <div class="w-100">
+              <mat-form-field class="w-100">
+                <mat-label> {{ 'shareexperience' | translate }} </mat-label>
+                <textarea matInput formControlName="describe"></textarea>
+              </mat-form-field>
+            </div>
+            <div class="w-100 text-left" *ngIf="result?.id > 0">
+              <input
+                (change)="onFileChange($event)"
+                class="input-file-upload"
+                type="file"
+                id="file"
+                #id
+                name="file"
+                formControlName="file"
+              />
+            </div>
+            <div class="w-100 text-left mt-2">
+              <button mat-raised-button *ngIf="userLogined" type="submit">
+                {{ 'submit' | translate }}
+              </button>
+              <button
+                mat-raised-button
+                color="primary"
+                *ngIf="!userLogined"
+                disabled="true"
+              >
+                {{ 'logintosubmit' | translate }}
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </ng-template>
+
+    <div class="mt-4">
+      <div class="div-header">
+        People interrested in
+        {{ fetchFormInputValue('title') | titlecase }}
+        {{ fetchFormInputValue('type  ') | titlecase }}
+      </div>
+      <pe-experiences
+        *ngIf="result?.id > 0"
+        [locationId]="result.id"
+      ></pe-experiences>
+    </div>
+  </div>
+</ng-container>
+
+<ng-template #loading>
+  <div class="w-100 loading-div position-relative p-1">
+    <div class="position-absolute d-inline loading">
+      <pe-loading-image> </pe-loading-image>
+    </div>
+  </div>
+</ng-template>

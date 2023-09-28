@@ -1,0 +1,26 @@
+.mat-mdc-form-field + .mat-mdc-form-field {
+    margin-left: 8px;
+  }
+  div>span{
+    font-size: 1.5em;
+    cursor: pointer;
+  }
+
+
+   .mat-panel-title span{
+    font-weight: bold !important;
+}
+input{
+    border-bottom: solid 1px var(--COLOR-LIGHT-DARK) !important;
+    font-size: 1.5em;
+    color: var(--COLOR-MUTED) !important;
+    width: 20%;
+    cursor: pointer;
+    text-align: center !important;
+}
+.trips>div{
+  padding: 1em;
+}
+.text-review{
+  color: var(--COLOR-GREEN);
+}

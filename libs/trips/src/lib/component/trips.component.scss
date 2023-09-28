@@ -1,0 +1,57 @@
+
+.icon:hover{
+    opacity: 1;
+}
+.grid{
+    display: grid;
+    grid-template-columns: auto auto auto;
+    gap: 10px;
+    padding: 10px;
+    animation: animate-fadein  1s forwards;
+
+}
+.span-animated-border{
+  transition-property: color;
+  transition-duration: 500ms;
+}
+.span-animated-border:hover{
+  color:red;
+  border-bottom :solid 1px #e0dede;
+
+}
+@keyframes border-animated{
+  0%{
+    border-bottom:solid
+  }
+  100%{
+    border-bottom :solid 1px #333
+  }
+}
+
+::ng-deep{
+    .mat-raised-button{
+      background-color: var(--COLOR-GREEN) !important;
+      color:white !important;
+      font-size: 1em;
+      margin: 0.1em;
+    }
+    .mat-raised-button[disabled]{
+        background-color: white !important;
+    }
+  }
+  span{
+    font-size: 2em;
+  }
+ 
+  .fixed-full-width{
+    position: fixed !important;
+    left:0;
+    height: 100%;
+    top:0;
+    z-index: 50000;
+    width: 50%;
+    background-color: var(--COLOR-LIGHT);
+  }
+  .cursor-pointer{
+    cursor: pointer;
+  }

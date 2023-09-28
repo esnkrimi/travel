@@ -1,0 +1,96 @@
+<div class="form-trip text-center bg-white" *ngIf="!formSubmitLocation">
+  <div class="d-inline-block w-100">
+    <div class="animated-fadein" *ngIf="title.length < 1">
+      <form class="bg-white" [formGroup]="formSubmitTitle">
+        <div class="row flex-nowrap">
+          <mat-form-field>
+            <mat-label class="trip-title color-dark">
+              {{ 'selectTitle' | translate }}
+            </mat-label>
+            <input matInput class="input-title" formControlName="inputTitle" />
+          </mat-form-field>
+        </div>
+      </form>
+    </div>
+
+    <div>
+      <form
+        class="bg-white"
+        (ngSubmit)="onSubmitTripLocation()"
+        [formGroup]="formSubmitTripLocation"
+      >
+        <div *ngFor="let item of formItemShow">
+          <ng-container *ngIf="item.label.length > 1">
+            <mat-form-field
+              *ngIf="item.name"
+              class="form-item"
+              [class.invisible]="item.name === 'vehicle'"
+            >
+              <mat-label class="trip-title color-dark"
+                >{{ item.name | translate }}
+              </mat-label>
+              <input
+                class="input-title color-light"
+                matInput
+                placeholder=""
+                [formControlName]="item.name"
+                [type]="item.type"
+              />
+            </mat-form-field>
+            <ng-container *ngIf="item.name === 'vehicle'">
+              <p class="text-left trip-title color-dark">
+                {{ item.name | translate }}
+              </p>
+              <mat-chip-list>
+                <mat-chip
+                  class="chips"
+                  color="primary"
+                  [class.chips-active]="vehicle === v"
+                  *ngFor="let v of vehicles"
+                  (click)="selectVehicle(v)"
+                >
+                  {{ v }}
+                </mat-chip>
+              </mat-chip-list>
+            </ng-container>
+          </ng-container>
+        </div>
+      </form>
+    </div>
+
+    <div class="w-50">
+      <button
+        (click)="formSubmitLocation = true"
+        class="arrow bg-green"
+        mat-button
+      >
+        Submit
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="fixed-rows transparent-bg text-center" *ngIf="formSubmitLocation">
+  <div class="w-50 inner bg-light">
+    <div>
+      <p class="trip-title color-dark">
+        You can insert another place in your trip or finish the trip now !
+      </p>
+    </div>
+
+    <div
+      class="text-select"
+      [class.bg-green]="finishTheTrip === 1"
+      (click)="onCommitSubmitTripLocation(false)"
+    >
+      Add another place !
+    </div>
+    <div
+      class="text-select"
+      [class.bg-green]="finishTheTrip === 2"
+      (click)="FinishSubmitTrip()"
+    >
+      Finish the trip !
+    </div>
+  </div>
+</div>

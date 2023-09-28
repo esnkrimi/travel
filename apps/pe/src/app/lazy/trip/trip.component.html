@@ -1,0 +1,152 @@
+<h3 class="p-2">
+  {{ tripTitle }}
+</h3>
+<div>
+  <button
+    mat-button
+    (click)="cancelTripConfirm = true"
+    *ngIf="!cancelTripConfirm; else esleTmpl"
+  >
+    cancel this trip
+  </button>
+  <ng-template #esleTmpl>
+    <button
+      mat-button
+      (click)="cancelTrip(tripTitle)"
+      *ngIf="cancelTripConfirm"
+    >
+      confirm !
+    </button>
+  </ng-template>
+</div>
+<p class="p-3">
+  <span>
+    If you completed this trip let the system check it by measuring factors.
+  </span>
+  <span
+    class="cursor-pointer text-primary"
+    [routerLink]="['../../review/', tripTitle]"
+  >
+    click here
+  </span>
+</p>
+<p class="p-3 text-green cursor-pointer" (click)="showTours()">
+  quick help tour
+</p>
+<mat-accordion>
+  <mat-expansion-panel
+    [expanded]="true"
+    *ngFor="let item of trip.trip; let i = index"
+    (opened)="panelOpenState = true"
+    (closed)="panelOpenState = false"
+  >
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <span class="fw-bold">
+          {{ item.locationTitle }}
+        </span>
+      </mat-panel-title>
+      <mat-panel-description> </mat-panel-description>
+    </mat-expansion-panel-header>
+    <div class="w-100 trips">
+      <div>
+        <span> we will arrive here at </span>
+        <input
+          joyrideStep="fifthStep"
+          type="date"
+          matInput
+          (change)="
+            change($event, item.locationTitle, 'dateIncome', item, tripTitle)
+          "
+          [value]="item.dateIncome"
+          text="You can change values you inserted before"
+        />
+        <span
+          joyrideStep="fourthStep"
+          style="flex-basis: 7%"
+          class="text-review"
+          text="You can insert real value occured at your trip !"
+          (click)="review(item.locationTitle, 'dateIncome', item)"
+        >
+          / real value
+        </span>
+      </div>
+      <div>
+        <span> on </span>
+        <input
+          (change)="
+            change($event, item.locationTitle, 'timeIncome', item, tripTitle)
+          "
+          type="time"
+          matInput
+          [value]="item.timeIncome"
+        />
+        <span
+          style="flex-basis: 7%"
+          class="text-review"
+          (click)="review(item.locationTitle, 'timeIncome', item)"
+        >
+          / real value
+        </span>
+        .
+      </div>
+      <div>
+        <span>we are </span
+        ><input
+          (change)="
+            change($event, item.locationTitle, 'persons', item, tripTitle)
+          "
+          type="number"
+          matInput
+          [value]="item.persons"
+        /><span>persons</span>
+        <span
+          style="flex-basis: 7%"
+          class="text-review"
+          (click)="review(item.locationTitle, 'persons', item)"
+        >
+          / real value
+        </span>
+      </div>
+      <div>
+        <span>we use </span>
+        <input
+          (change)="
+            change($event, item.locationTitle, 'vehicle', item, tripTitle)
+          "
+          type="text"
+          matInput
+          [value]="item.vehicle"
+        />
+
+        <span
+          style="flex-basis: 7%"
+          class="text-review"
+          (click)="review(item.locationTitle, 'vehicle', item)"
+        >
+          / real value </span
+        ><span></span>
+      </div>
+      <div>
+        <span> we have set a side </span>
+        <input
+          (change)="
+            change($event, item.locationTitle, 'moneyLost', item, tripTitle)
+          "
+          type="number"
+          matInput
+          [value]="item.moneyLost"
+        />$ for this place
+        <span
+          style="flex-basis: 7%"
+          class="text-review"
+          (click)="review(item.locationTitle, 'moneyLost', item)"
+        >
+          / real value
+        </span>
+      </div>
+    </div>
+  </mat-expansion-panel>
+</mat-accordion>
+
+<pe-trip-user [tripTitle]="tripTitle"></pe-trip-user>

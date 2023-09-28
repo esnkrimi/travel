@@ -1,0 +1,125 @@
+<div class="w-100 row z-index position-fixed">
+  <div class="col-md-6 position-static text-center">
+    <div class="d-flex w-100 flex-nowrap">
+      <div class="w-25 p-3"></div>
+      <div class="w-100 position-static">
+        <pe-search (resultOutput)="resultOutput($event)"></pe-search>
+      </div>
+    </div>
+  </div>
+  <div
+    *ngIf="!userLoginInformation?.id; else elseLogin"
+    class="col-md-6 text-right p-1"
+  >
+    <span
+      [@animate]="animationFlag ? 'st1' : 'st2'"
+      class="language"
+      (click)="changeLanguage(languages[languageIndex].title)"
+    >
+      <img
+        *ngIf="languages[languageIndex - 1]?.title"
+        class="img-flag"
+        [src]="'./assets/img/' + languages[languageIndex - 1]?.title + '.png'"
+        onerror="'./assets/img/ar.png'"
+      />
+      <img
+        *ngIf="!languages[languageIndex - 1]?.title"
+        class="img-flag"
+        [src]="'./assets/img/ar.png'"
+      />
+    </span>
+    <span
+      class="text-small"
+      [routerLink]="[{ outlets: { secondRouter: 'lazy/login' } }]"
+    >
+      {{ 'login' | translate }}</span
+    >
+    <span class="text-small">|</span>
+    <span
+      class="text-small"
+      [routerLink]="[{ outlets: { secondRouter: 'lazy/signup' } }]"
+    >
+      {{ 'signup' | translate }}</span
+    >
+  </div>
+  <ng-template #elseLogin class="col-md-6 text-right">
+    <div class="col-md-6 text-right animated-fadein p-2">
+      <span
+        [@animate]="animationFlag ? 'st1' : 'st2'"
+        class="language p-2"
+        (click)="changeLanguage(languages[languageIndex].title)"
+      >
+        <button class="m-1" mat-button>
+          <img
+            *ngIf="languages[languageIndex - 1]?.title"
+            class="img-flag"
+            [src]="
+              './assets/img/' + languages[languageIndex - 1]?.title + '.png'
+            "
+            onerror="'./assets/img/ar.png'"
+          />
+          <img
+            *ngIf="!languages[languageIndex - 1]?.title"
+            class="img-flag"
+            [src]="'./assets/img/ar.png'"
+          />
+        </button>
+      </span>
+      <button (click)="menuShow = !menuShow" mat-button>
+        <mat-icon>arrow_drop_down</mat-icon>
+        <span class="m-2 fw-bold">{{
+          userLoginInformation?.email | titlecase
+        }}</span>
+        <span class="m-2">{{ userLoginInformation?.lname }}</span>
+        <img
+          src="https://d1hb67vd7r4m10.cloudfront.net/images/easyblog_articles/89/b2ap3_large_ee72093c-3c01-433a-8d25-701cca06c975.jpg"
+          class="img-icon rounded-circle"
+        />
+      </button>
+      <div class="position-relative d-inline-block" *ngIf="menuShow">
+        <div class="position-absolute">
+          <p>
+            <span>
+              <i class="fa fa-cog fa-2x" aria-hidden="true"></i>
+            </span>
+            <span>
+              {{ 'settings' | translate }}
+            </span>
+          </p>
+          <p (click)="savedLocations()">
+            <span>
+              <i class="fa fa-2x fa-map-marker" aria-hidden="true"></i>
+            </span>
+            <span>
+              {{ 'savelocation' | translate }}
+            </span>
+          </p>
+          <p [routerLink]="[{ outlets: { secondRouter: 'lazy/mytrips' } }]">
+            <span>
+              <i class="fa fa-2x fa-sign-out" aria-hidden="true"></i>
+            </span>
+            <span>
+              {{ 'mytrips' | translate }}
+            </span>
+          </p>
+          <p [routerLink]="[{ outlets: { secondRouter: 'lazy/trips' } }]">
+            <span>
+              <i class="fa fa-2x fa-sign-out" aria-hidden="true"></i>
+            </span>
+            <span>
+              {{ 'trips' | translate }}
+            </span>
+          </p>
+          <p (click)="logout()">
+            <span>
+              <i class="fa fa-2x fa-sign-out" aria-hidden="true"></i>
+            </span>
+            <span>
+              {{ 'logout' | translate }}
+            </span>
+          </p>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</div>

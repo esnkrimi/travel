@@ -1,0 +1,39 @@
+.mat-mdc-form-field + .mat-mdc-form-field {
+    margin-left: 8px;
+  }
+ 
+  div div:nth-child(1){
+    font-size: 1.1em;
+  }
+  div div:nth-child(2){
+    color:var(--COLOR-DARK);
+  }
+   .mat-panel-title span{
+    font-weight: bold !important;
+}
+input{
+    border-bottom: solid 1px var(--COLOR-LIGHT-DARK) !important;
+    padding: 0.5em;
+    font-size: 1.5em;
+    color: var(--COLOR-MUTED) !important;
+    width: 95%;
+    cursor: pointer;
+}
+.containers{
+  display: grid;
+  grid-template-columns: 1fr 2fr 2fr 1fr;
+
+}
+.item{
+  border-bottom: solid 1px  rgb(216, 211, 211);
+  height: 2em;
+}
+
+.title{
+  font-weight: bold;
+  font-size: 1.1em;
+}
+span{
+  display: inline-block;
+  vertical-align: middle;
+}

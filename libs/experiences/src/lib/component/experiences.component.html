@@ -1,0 +1,32 @@
+<div *ngIf="!result; else elseTmpl">
+  <pe-loading-progress [mode]="'animated'"></pe-loading-progress>
+</div>
+<ng-template #elseTmpl>
+  <div *ngFor="let item of result" class="m-4 p-2">
+    <div class="row flex-nowrap">
+      <div style="flex-basis: 10%">
+        <img
+          src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Circle-icons-profile.svg/2048px-Circle-icons-profile.svg.png"
+          class="w-100"
+        />
+      </div>
+      <div style="flex-basis: 90%">
+        <div class="text-left text-small">
+          {{ item.name | titlecase }}
+        </div>
+        <div class="text-muted text-small">
+          {{ item.date }}
+        </div>
+      </div>
+    </div>
+    <div class="text-left text-medum p-2">
+      {{ item.describtion }}
+    </div>
+    <img
+      (click)="openImage(img, i)"
+      *ngFor="let img of item?.img; let i = index"
+      [src]="img"
+      class="img-icon"
+    />
+  </div>
+</ng-template>

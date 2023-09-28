@@ -1,0 +1,44 @@
+<div *ngIf="!user;else tripPanel">You must login first !</div>
+<ng-template #tripPanel>
+  <div
+    class="inner w-50 cursor-pointer"
+    mat-dialog-close
+    *ngFor="let item of listOfTrip| paginate: { itemsPerPage: 6, currentPage: page } ; let i = index"
+  >
+    <div class="row flex-nowrap cursor-pointer" (click)="zoomTrips(item)">
+      <div style="flex-basis: 95%">
+        <ng-container>
+          <div class="grid">
+            <div class="p-2">
+              <span class="span-animated-on-hover text-large">
+                {{ item.title }}
+              </span>
+              <span class="text-small text-muted">
+                start at {{ item.trip[0]?.dateIncome }}
+              </span>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+  <pagination-controls
+    [autoHide]="true"
+    [responsive]="true"
+    previousLabel=""
+    nextLabel=""
+    (pageChange)="page = $event"
+  ></pagination-controls>
+
+  <div>
+    <span class="text-green"> + </span>
+    <span
+      class="text-green text-large"
+      mat-raised-button
+      mat-dialog-close
+      (click)="showCreateNewGuide()"
+    >
+      create new
+    </span>
+  </div>
+</ng-template>

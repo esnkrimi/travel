@@ -1,0 +1,68 @@
+<mat-drawer-container class="w-100" autosize>
+  <mat-drawer
+    position="start"
+    #drawer
+    class="sidenav"
+    mode="over"
+    [opened]="open"
+  >
+    <router-outlet></router-outlet>
+  </mat-drawer>
+  <div class="sidenav-content w-100 position-relative">
+    <div *ngIf="loadingProgress" class="transparent-background-loading">
+      sss
+    </div>
+    <pe-header
+      (savedLocation)="savedLocation($event)"
+      (resultOutputs)="resultOutputs($event)"
+    ></pe-header>
+    <div class="w-100 row">
+      <div class="w-100 position-relative">
+        <div class="w-100 padding-bottom">
+          <router-outlet name="secondRouter"></router-outlet>
+          <div>
+            <pe-map-component
+              [savedLocation]="savedLocationFlag"
+              [showTour]="showTour"
+              [scope]="scope"
+            ></pe-map-component>
+          </div>
+        </div>
+      </div>
+      <div class="transparent-bg" *ngIf="bgLoader"></div>
+    </div>
+    <pe-footer></pe-footer>
+  </div>
+</mat-drawer-container>
+
+<!--
+  <div [class.skip1]="skip === 1" class="adv p-2" *ngIf="skip >= 0 && skip < 2">
+    <div class="text-left w-100">
+      <p>website features :</p>
+    <p class="tips" *ngFor="let item of tips">
+      <span> </span>
+      <span>
+        {{ item }}
+      </span>
+    </p>
+  </div>
+  <div class="w-100 text-left cursor-pointer">
+    <button mat-flat-button (click)="skip = 1">skip</button>
+  </div>
+</div>
+
+<div class="adv2 animated-fadein" *ngIf="skip === 1">
+  <img
+    src="https://static.vecteezy.com/system/resources/previews/014/531/407/original/travel-guide-and-tour-with-showing-interesting-places-to-group-of-tourist-for-planning-vacation-in-flat-cartoon-hand-drawn-templates-illustration-vector.jpg"
+    class="w-100"
+  />
+  <div class="row w-100 bg-light tour">
+    <div style="flex-basis: 50%">
+      <p class="rounded-circle" (click)="skipNext()">Skip</p>
+    </div>
+    <div style="flex-basis: 50%">
+      <p class="rounded-circle" (click)="showTours()">Start Tour</p>
+    </div>
+  </div>
+</div>
+-->

@@ -1,0 +1,63 @@
+
+span{
+    font-size: 1.2em !important;
+    cursor: pointer;
+    vertical-align: middle;
+    padding: 0.4em;
+
+}
+.img-icon{
+    width:30px;
+    height: 20px;
+}
+.img-flag{
+    width:2.6em;
+    height: 1.5em;
+}
+.position-absolute{
+    background-color: white;
+    width:200px;
+    right:0;
+    top:10;
+    z-index: 809;
+}
+
+ .position-fixed{
+    top: 0;
+    left: 0;
+    z-index: 1200;
+    background-color: white
+
+ }
+ p{
+    text-align: left;
+    font-size: 0.8em;
+    border-bottom: solid 1px #faf8f8;
+    margin: 1em;
+    cursor: pointer; 
+ }
+ p:hover{
+    color:var(--COLOR-ORANGE)
+ }
+ .language{
+    cursor: pointer;
+    transition: transform 0.7s ease-in-out;
+    
+ }
+ .language:hover{
+    transform: rotate(360deg);
+}
+::ng-deep{
+    .mat-input-element, .mat-input-element:hover{
+        border-bottom: solid 1px white !important;
+        outline: none !important;
+    }
+    .mat-form-field-underline {
+        display: block;
+        background-color: rgb(219, 214, 214) !important
+    }
+}
+
+.text-small{
+    font-size: 0.90em !important;
+}

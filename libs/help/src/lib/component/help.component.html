@@ -1,0 +1,15 @@
+<div class="frame" *ngIf="text.length > 0" cdkDragLockAxis="x" cdkDrag>
+  <div class="row flex-nowrap">
+    <div>
+      <img [src]="'./assets/img/help.png'" class="w-100" />
+    </div>
+    <div class="bg-light border-radius text p-4">
+      <span
+        class="text-orange animated-fadein fw-bold text-meduim animated-size"
+        *ngFor="let item of arrayOfText"
+      >
+        {{ item }}
+      </span>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,26 @@
+{
+  "name": "map",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "libs/map/src",
+  "prefix": "pe",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "libs/map/jest.config.ts",
+        "passWithNoTests": true,
+        "styles": [],
+        "scripts": []
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["libs/map/**/*.ts", "libs/map/**/*.html"]
+      }
+    }
+  },
+  "tags": []
+}
