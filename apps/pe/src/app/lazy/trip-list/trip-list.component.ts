@@ -29,8 +29,8 @@ export class TripListComponent implements OnInit {
     this.trips = result;
   }
   ask(tripTitle: string, uid: any) {
-    const user = JSON.parse(this.localStorage.getData('user'));
-    const data = { uid: user.id, tripTitle: tripTitle, owenerid: uid };
+    const userData = JSON.parse(this.localStorage.getData('user'));
+    const data = { uid: userData.id, tripTitle: tripTitle, owenerid: uid };
     this.store.dispatch(actions.getStartAskToJoin({ data: data }));
   }
 
