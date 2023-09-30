@@ -6,6 +6,7 @@ import { TripComponent } from './trip/trip.component';
 import { ReviewTripComponent } from './review-trip/review-trip.component';
 import { MytripsComponent } from './mytrips/mytrips.component';
 import { TripListComponent } from './trip-list/trip-list.component';
+import { MessagesComponent } from './messages/messages.component';
 const routes: Routes = [
   {
     path: 'zoom',
@@ -22,6 +23,10 @@ const routes: Routes = [
   {
     path: 'mytrips',
     component: MytripsComponent,
+  },
+  {
+    path: 'messages',
+    component: MessagesComponent,
   },
   {
     path: 'trips',

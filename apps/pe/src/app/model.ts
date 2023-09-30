@@ -31,7 +31,17 @@ export interface IReviewLocationInTrip {
   persons: string;
   locationTitle: string;
 }
-
+export interface ITripUsers {
+  tripTitle: string;
+  users: [
+    {
+      confirmed?: string;
+      family?: string;
+      name?: string;
+      uid?: string;
+    }
+  ];
+}
 export interface ITrip {
   title: string;
   trip: ILocationInTrip[];
@@ -51,6 +61,18 @@ export interface IAllTrips {
   tripjson_done?: string;
   uid: string;
 }
+export interface ITripRequests {
+  uid: string;
+  tripTitle: string;
+  reqDate: string;
+  messages: string;
+  confirm: boolean;
+  adminConfirm: boolean;
+  ownerid: string;
+  reqUserName: string;
+  reqUserFamily: string;
+  reqUserEmail: string;
+}
 
 export interface ISetview {
   country_code: string;
@@ -66,6 +88,8 @@ export interface ISetview {
   wikiDataId: string;
 }
 export interface state {
+  tripUsers: ITripUsers[];
+  tripRequests: ITripRequests[];
   allTrips: IAllTrips[];
   trip: ITrip[];
   reviewtrip: ITrip[];
@@ -106,6 +130,8 @@ export const AppState: state = {
   },
   usersOfSite: [],
   allTrips: [],
+  tripRequests: [],
+  tripUsers: [],
 };
 
 export interface IuserOfSite {

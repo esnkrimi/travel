@@ -2,7 +2,11 @@ import { Component, OnInit, inject } from '@angular/core';
 import { TripListsService } from './trip-list.service';
 import { Store } from '@ngrx/store';
 import { actions } from '@appBase/+state/actions';
-import { selectAllTrips } from '@appBase/+state/select';
+import {
+  selectAllTrips,
+  selectTripRequests,
+  selectTripUsers,
+} from '@appBase/+state/select';
 import { MapService } from '@appBase/master/map/service';
 import { LocalService } from '@appBase/storage';
 
@@ -13,7 +17,7 @@ import { LocalService } from '@appBase/storage';
 })
 export class TripListComponent implements OnInit {
   trips: any = [];
-
+  tripUsers: any = [];
   constructor(
     private mapService: MapService,
     private service: TripListsService,
@@ -22,25 +26,37 @@ export class TripListComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.store.select(selectTripUsers).subscribe((res) => {
+      this.tripUsers = res;
+    });
     this.mapService.loadingProgress.next(true);
     this.fetchTrips();
   }
-  result(result: any) {
+  results(result: any) {
     this.trips = result;
+    setTimeout(() => {
+      this.mapService.loadingProgress.next(false);
+    }, 500);
   }
   ask(tripTitle: string, uid: any) {
     const userData = JSON.parse(this.localStorage.getData('user'));
     const data = { uid: userData.id, tripTitle: tripTitle, owenerid: uid };
     this.store.dispatch(actions.getStartAskToJoin({ data: data }));
   }
+  fetchTripUsers(tripTitle: string): any {
+    let tmpUser: any = [];
+    for (let i = 0; i < this.tripUsers.length; i++) {
+      if (this.tripUsers[i].tripTitle === tripTitle)
+        tmpUser = this.tripUsers[i].users;
+    }
+    return tmpUser;
+  }
 
   fetchTrips() {
-    this.service.fetchTrips().subscribe(() => {
-      this.store.dispatch(actions.startFetchAllTrips());
-      setTimeout(() => {
-        this.select();
-      }, 2000);
-    });
+    this.store.dispatch(actions.startFetchAllTrips());
+    setTimeout(() => {
+      this.select();
+    }, 500);
   }
 
   select() {

@@ -12,7 +12,11 @@ import { EventEmitter } from '@angular/core';
 import { MapService } from '@appBase/master/map/service';
 import { Store } from '@ngrx/store';
 import { actions } from '@appBase/+state/actions';
-import { selectLocation, selectSetview } from '@appBase/+state/select';
+import {
+  selectAllTrips,
+  selectLocation,
+  selectSetview,
+} from '@appBase/+state/select';
 import { AdvancedAutoCompleteService } from './service';
 
 @Component({
@@ -22,9 +26,9 @@ import { AdvancedAutoCompleteService } from './service';
 })
 export class AdvancedAutocompleteComponent implements OnInit, OnChanges {
   locationInput = new FormControl('', []);
-  @Input() data: any;
   responseData: any = [];
   result: any = [];
+  trips: any = [];
   locationResult: any = [];
   loading = false;
   @Output() results = new EventEmitter<any>();
@@ -35,27 +39,47 @@ export class AdvancedAutocompleteComponent implements OnInit, OnChanges {
     this.listener();
   }
 
+  select() {
+    this.store.select(selectAllTrips).subscribe((res) => {
+      this.trips = res;
+    });
+  }
+  tripSearch(itemToSearch: any) {
+    for (let i = 0; i < this.trips.length; i++)
+      for (let j = 0; j < this.trips[i].tripjson.length; j++)
+        if (this.trips[i].tripjson[j].title === itemToSearch) {
+          return true;
+        }
+    return false;
+  }
+
   search(itemToSearch: any) {
     let j = 0;
-    for (let i = 0; i < this.data.length; i++) {
-      if (this.data[i].family.includes(itemToSearch)) {
-        this.responseData[j] = this.data[i];
+    for (let i = 0; i < this.trips.length; i++) {
+      if (
+        this.trips[i].name === itemToSearch ||
+        this.trips[i].family === itemToSearch
+      ) {
+        this.responseData[j] = this.trips[i];
+        j++;
+      } else if (this.tripSearch(itemToSearch)) {
+        this.responseData[j] = this.trips[i];
         j++;
       }
     }
-    console.log(this.responseData);
-    this.result.emit(this.responseData);
-    console.log(this.responseData);
+    this.results.emit(this.responseData);
   }
 
   listener() {
+    this.select();
     this.locationInput.valueChanges
       .pipe(
         tap((res: any) => {
-          console.log(res);
+          this.mapService.loadingProgress.next(true);
+          this.responseData = [];
           this.search(res);
-        })
-        // debounceTime(1000)
+        }),
+        debounceTime(1000)
       )
       .subscribe();
   }

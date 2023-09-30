@@ -8,6 +8,25 @@ export const reducerStates = createFeature({
   name: 'store',
   reducer: createReducer(
     AppState,
+    on(actions.fillUserTrips, function (states: any, action: any) {
+      return {
+        ...states,
+        tripUsers: action.data,
+      };
+    }),
+    on(actions.confirmRequests, function (states: any, action: any) {
+      return {
+        ...states,
+        tripRequests: action.data,
+      };
+    }),
+
+    on(actions.fetchTripRequests, function (states: any, action: any) {
+      return {
+        ...states,
+        tripRequests: action.data,
+      };
+    }),
     on(actions.fetchAllTrips, function (states: any, action: any) {
       return {
         ...states,

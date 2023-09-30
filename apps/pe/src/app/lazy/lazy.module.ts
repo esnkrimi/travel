@@ -27,6 +27,7 @@ import { TripUserComponent } from './trip-users/trip-user.component';
 import { MytripsComponent } from './mytrips/mytrips.component';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { TripListComponent } from './trip-list/trip-list.component';
+import { MessagesComponent } from './messages/messages.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { TripListComponent } from './trip-list/trip-list.component';
     TripListComponent,
     VehicleDirective,
     ReviewTripComponent,
+    MessagesComponent,
     VehicleCOmparePipe,
     MytripsComponent,
   ],

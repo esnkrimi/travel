@@ -5,6 +5,8 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 @Injectable({ providedIn: 'root' })
 export class DrawerService {
+  showMap = new BehaviorSubject(true);
+
   initialIuser: location = {
     id: 1,
     country: 'Germany',

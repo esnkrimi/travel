@@ -31,7 +31,6 @@ export class SearchComponent implements OnInit {
       center: [event?.latitude, event?.longitude],
       country: event?.country_name,
     };
-    console.log(result);
     this.resultOutput.emit(result);
   }
 }

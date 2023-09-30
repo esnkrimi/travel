@@ -9,15 +9,15 @@ import {
 import { TranslateService } from '@ngx-translate/core';
 import { DrawerService } from './drawer.service';
 import { MatDrawer } from '@angular/material/sidenav';
-import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { Iuser, IuserOfSite } from './model';
 import { EntryService } from './lazy/entry/entry.service';
 import { Store } from '@ngrx/store';
 import { MapService } from './master/map/service';
 import { SettingService } from './setting';
-import { RootService } from './service';
 import { actions } from './+state/actions';
 import { MapApiService } from 'libs/map/src/lib/component/map.service';
+import { selectAllTrips, selectTripRequests } from './+state/select';
 
 @Component({
   selector: 'pe-root',
@@ -26,8 +26,7 @@ import { MapApiService } from 'libs/map/src/lib/component/map.service';
   encapsulation: ViewEncapsulation.Emulated,
 })
 export class AppComponent implements OnInit, AfterViewInit {
-  routeUrl = 'X';
-  routeUrlShow = false;
+  showMap = true;
   tips = [
     'search location by name or on map',
     'write your tript experience or read others',
@@ -55,16 +54,16 @@ export class AppComponent implements OnInit, AfterViewInit {
   };
   showTour = false;
   constructor(
+    @Inject('userSession') public userSession: any,
     private translate: TranslateService,
     private draswerService: DrawerService,
     private settingService: SettingService,
     private route: Router,
     private entryService: EntryService,
-    @Inject('userSession') public userSession: any,
     private store: Store,
     private mapService: MapService,
     private mapApiService: MapApiService,
-    private router: ActivatedRoute
+    private drawerService: DrawerService
   ) {}
   ngAfterViewInit(): void {
     this.drawer.openedChange.subscribe((o: boolean) => {
@@ -78,17 +77,58 @@ export class AppComponent implements OnInit, AfterViewInit {
     this.savedLocationFlag = e;
   }
   getRoute() {
-    this.route.events.subscribe((event: any) => {
-      if (event.url) this.routeUrl = event.url;
-      if (this.routeUrl) {
-        this.routeUrl = this.routeUrl.substring(1, this.routeUrl.length);
-        this.routeUrlShow = this.routeUrl.includes('/');
-      }
+    this.drawerService.showMap.subscribe((res) => {
+      this.showMap = res;
     });
   }
+  fetchRequests() {
+    const uid = JSON.parse(this.userSession).id;
+    this.store.dispatch(actions.getStartFetchTripRequests({ uid: uid }));
+  }
+  fetchAllTrips() {
+    this.store.dispatch(actions.startFetchAllTrips());
+  }
+  fetchUsersOfTrips() {
+    let requestsAll: any = [
+      {
+        tripTitle: '',
+        users: [],
+      },
+    ];
+    let requests: any = [];
+    let trips: any = [];
+
+    this.store.select(selectAllTrips).subscribe((res) => {
+      for (let i = 0; i < res.length; i++) {
+        for (let j = 0; j < res[i].tripjson.length; j++) {
+          requestsAll.push({ tripTitle: res[i].tripjson[j].title, users: [] });
+        }
+      }
+      this.store.select(selectTripRequests).subscribe((res) => {
+        requests = res;
+        for (let i = 0; i < requestsAll.length; i++) {
+          for (let j = 0; j < res.length; j++) {
+            if (res[j].tripTitle === requestsAll[i].tripTitle)
+              requestsAll[i].users.push({
+                name: res[j].reqUserName,
+                family: res[j].reqUserFamily,
+                confirmed: res[j].adminConfirm,
+                uid: res[j].uid,
+              });
+          }
+        }
+      });
+    });
+    setTimeout(() => {
+      this.store.dispatch(actions.fillUserTrips({ data: requestsAll }));
+    }, 2000);
+  }
   ngOnInit(): void {
-    this.fetchUserOfSite();
     this.getRoute();
+    this.fetchRequests();
+    this.fetchUsersOfTrips();
+    this.fetchAllTrips();
+    this.fetchUserOfSite();
     this.mapApiService.bgLoader.subscribe((res) => {
       this.bgLoader = res;
     });
@@ -99,7 +139,7 @@ export class AppComponent implements OnInit, AfterViewInit {
       this.translate.use(res);
     });
     this.mapService.loadingProgress.next(true);
-    let tmpUser = JSON.parse(this.userSession);
+    const tmpUser = JSON.parse(this.userSession);
     if (tmpUser) {
       this.tmpUser = {
         id: tmpUser.id,

@@ -25,6 +25,7 @@
       "@pe/loading-image": ["libs/loading-image/src/index.ts"],
       "@pe/loading-progress": ["libs/loading-progress/src/index.ts"],
       "@pe/map": ["libs/map/src/index.ts"],
+      "@pe/messages": ["libs/messages/src/index.ts"],
       "@pe/public-autocomplete": ["libs/public-autocomplete/src/index.ts"],
       "@pe/trip-submit": ["libs/trip-submit/src/index.ts"],
       "@pe/trips": ["libs/trips/src/index.ts"]

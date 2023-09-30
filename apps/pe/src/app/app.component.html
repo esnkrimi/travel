@@ -9,9 +9,7 @@
     <router-outlet></router-outlet>
   </mat-drawer>
   <div class="sidenav-content w-100 position-relative">
-    <div *ngIf="loadingProgress" class="transparent-background-loading">
-      sss
-    </div>
+    <div *ngIf="loadingProgress" class="transparent-background-loading"></div>
     <pe-header
       (savedLocation)="savedLocation($event)"
       (resultOutputs)="resultOutputs($event)"
@@ -20,13 +18,11 @@
       <div class="w-100 position-relative">
         <div class="w-100 padding-bottom">
           <router-outlet name="secondRouter"></router-outlet>
-          <div>
-            <pe-map-component
-              [savedLocation]="savedLocationFlag"
-              [showTour]="showTour"
-              [scope]="scope"
-            ></pe-map-component>
-          </div>
+          <pe-map-component
+            [savedLocation]="savedLocationFlag"
+            [showTour]="showTour"
+            [scope]="scope"
+          ></pe-map-component>
         </div>
       </div>
       <div class="transparent-bg" *ngIf="bgLoader"></div>

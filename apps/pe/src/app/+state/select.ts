@@ -11,4 +11,6 @@ export const {
   selectReviewtrip,
   selectUsersOfSite,
   selectAllTrips,
+  selectTripRequests,
+  selectTripUsers,
 } = reducerStates;

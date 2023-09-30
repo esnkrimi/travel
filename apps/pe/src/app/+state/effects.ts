@@ -16,9 +16,37 @@ import { LocalService } from '@appBase/storage';
 import { MytripsService } from '@appBase/lazy/mytrips/mytrips.service';
 import { TripUserService } from '@appBase/lazy/trip-users/trip-user.service';
 import { TripListsService } from '@appBase/lazy/trip-list/trip-list.service';
+import { MessagesApiService } from '@appBase/lazy/messages/messages.service';
 
 @Injectable()
 export class storeEffects {
+  startConfirmTripRequests: any = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(actions.getStartConfirmRequests),
+      switchMap((res: any) => {
+        return this.messagesApiService
+          .tripReuestConfirmation(
+            res.ownerId,
+            res.tripTitle,
+            res.uid,
+            res.action
+          )
+          .pipe(map((res: any) => actions.confirmRequests({ data: res })));
+      })
+    );
+  });
+
+  startTripRequests: any = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(actions.getStartFetchTripRequests),
+      switchMap((res: any) => {
+        return this.messagesApiService
+          .fetch(res.uid)
+          .pipe(map((res: any) => actions.fetchTripRequests({ data: res })));
+      })
+    );
+  });
+
   askToJoin: any = createEffect(() => {
     return this.actions$.pipe(
       ofType(actions.getStartAskToJoin),
@@ -31,7 +59,6 @@ export class storeEffects {
   });
 
   getStartFtechAllTrips: any = createEffect(() => {
-    let t: any;
     return this.actions$.pipe(
       ofType(actions.startFetchAllTrips),
       switchMap(() => {
@@ -273,6 +300,7 @@ export class storeEffects {
     private ser: MapApiService,
     private localStorage: LocalService,
     private tripListsService: TripListsService,
+    private messagesApiService: MessagesApiService,
     private service: EntryService,
     private locationService: FetchLocationService,
     private zoomService: ZoomApiService

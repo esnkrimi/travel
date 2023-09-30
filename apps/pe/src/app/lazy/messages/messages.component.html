@@ -1,0 +1,45 @@
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<div *ngFor="let item of tripRequest" class="p-1">
+  <div>
+    <p>
+      <span class="fw-bold"> {{ item.reqUserName }} {{ item.family }} </span>
+      <span> is requested to join to </span>
+      <span class="fw-bold">
+        {{ item.tripTitle }}
+      </span>
+      <span class="text-muted"> {{ item.reqDate }}</span>
+      <span>
+        <a
+          *ngIf="item.adminConfirm === '0'; else elseTmpl"
+          (click)="
+            confirmTripRequest(item.ownerid, item.tripTitle, item.uid, '1')
+          "
+          class="text-warning cursor-pointer ml-4"
+          >confirm</a
+        >
+        <ng-template #elseTmpl>
+          <a
+            (click)="
+              confirmTripRequest(item.ownerid, item.tripTitle, item.uid, '0')
+            "
+            class="text-warning cursor-pointer ml-4"
+            >cancel</a
+          >
+        </ng-template>
+      </span>
+    </p>
+  </div>
+  <div>
+    {{ item.messages }}
+  </div>
+</div>

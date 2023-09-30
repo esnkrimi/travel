@@ -29,5 +29,7 @@
   "mustLogin":"you must login ?",
   "mytrips":"My Trips",
   "confirm":"confirm",
-  "trips":"Trips"   
+  "trips":"Trips"   ,
+  "mymessages":"Messages"
+
 }

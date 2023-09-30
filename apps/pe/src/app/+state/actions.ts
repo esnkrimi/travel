@@ -2,6 +2,7 @@ import {
   IAllTrips,
   ILocationInTrip,
   ITrip,
+  ITripUsers,
   Ilocation,
   IloginInfo,
   Iuser,
@@ -12,6 +13,16 @@ import { State } from './state';
 export const actions = createActionGroup({
   source: 'store',
   events: {
+    'fill user trips': props<{ data: ITripUsers[] }>(),
+    'confirm requests': props<{ data: any }>(),
+    'get start confirm requests': props<{
+      uid: any;
+      ownerId: any;
+      tripTitle: any;
+      action: any;
+    }>(),
+    'fetch trip requests': props<{ data: any }>(),
+    'get start fetch trip requests': props<{ uid: any }>(),
     'ask to join': props<{ data: any }>(),
     'get start ask to join': props<{ data: any }>(),
     'fetch all trips': props<{ trips: IAllTrips[] }>(),

@@ -5,8 +5,7 @@
 <br />
 <br />
 <pe-advanced-autocomplete
-  (result)="result($event)"
-  [data]="trips"
+  (results)="results($event)"
 ></pe-advanced-autocomplete>
 <div *ngFor="let item of trips" class="card m-2">
   <div class="card-body">
@@ -29,6 +28,15 @@
           {{ location.locationTitle }} : {{ location.dateIncome
           }}{{ location.timeIncome }} by {{ location.vehicle }}
         </p>
+      </div>
+      <div>
+        <span *ngFor="let guest of fetchTripUsers(trip.title)">
+          <img
+            src="https://d1hb67vd7r4m10.cloudfront.net/images/easyblog_articles/89/b2ap3_large_ee72093c-3c01-433a-8d25-701cca06c975.jpg"
+            class="rounded img-icon m-2"
+          />
+          <!--[alt]="guest.name" -->
+        </span>
       </div>
       <a (click)="ask(trip.title, item.uid)" class="btn btn-primary"
         >Ask to join</a
