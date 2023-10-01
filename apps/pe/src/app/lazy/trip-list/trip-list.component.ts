@@ -9,6 +9,8 @@ import {
 } from '@appBase/+state/select';
 import { MapService } from '@appBase/master/map/service';
 import { LocalService } from '@appBase/storage';
+import { DrawerService } from '@appBase/drawer.service';
+import { map, tap } from 'rxjs';
 
 @Component({
   selector: 'pe-trip-list',
@@ -20,11 +22,18 @@ export class TripListComponent implements OnInit {
   tripUsers: any = [];
   constructor(
     private mapService: MapService,
-    private service: TripListsService,
+    private drawerService: DrawerService,
     private localStorage: LocalService,
     private store: Store
   ) {}
-
+  fetchCountry(lat: string, lon: string) {
+    return this.drawerService
+      .fetchLocationByLatlng(lat, lon)
+      .subscribe((res) => {
+        // console.log(res.country);
+        return res.country;
+      });
+  }
   ngOnInit(): void {
     this.store.select(selectTripUsers).subscribe((res) => {
       this.tripUsers = res;
@@ -45,6 +54,7 @@ export class TripListComponent implements OnInit {
     const userData = JSON.parse(this.localStorage.getData('user'));
     const data = { uid: userData.id, tripTitle: tripTitle, owenerid: uid };
     this.store.dispatch(actions.getStartAskToJoin({ data: data }));
+    this.fetchTrips();
   }
   fetchTripUsers(tripTitle: string): any {
     let tmpUser: any = [];
@@ -65,6 +75,7 @@ export class TripListComponent implements OnInit {
   select() {
     this.store.select(selectAllTrips).subscribe((res) => {
       this.trips = res;
+      console.log(res);
       this.mapService.loadingProgress.next(false);
     });
   }

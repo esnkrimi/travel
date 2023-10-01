@@ -16,7 +16,6 @@ export class ZoomApiService {
       '&uid=' +
       uid +
       '&i=3';
-    console.log(this.baseUrl);
     return this.httpClient.get(this.baseUrl).pipe(map((res: any) => res[0]));
   }
 

@@ -99,7 +99,7 @@ export class ZoomComponent implements AfterViewInit {
   }
   openDialog() {
     const dialogRef = this.dialog.open(DialogContent);
-    dialogRef.afterClosed().subscribe((result) => {});
+    dialogRef.afterClosed().subscribe();
   }
   onSubmit(fileId: string) {
     this.mapService.loadingProgress.next(true);
