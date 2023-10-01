@@ -1,7 +1,9 @@
 <div class="w-100 row z-index position-fixed">
   <div class="col-md-6 position-static text-center">
     <div class="d-flex w-100 flex-nowrap">
-      <div class="w-25 p-3"></div>
+      <div class="w-25 p-3">
+        <span class="text-brand text-large"> CROWN </span>
+      </div>
       <div class="w-100 position-static">
         <pe-search (resultOutput)="resultOutput($event)"></pe-search>
       </div>
@@ -9,24 +11,26 @@
   </div>
   <div
     *ngIf="!userLoginInformation?.id; else elseLogin"
-    class="col-md-6 text-right p-1"
+    class="col-md-6 text-right p-3"
   >
     <span
       [@animate]="animationFlag ? 'st1' : 'st2'"
-      class="language"
+      class="language p-2"
       (click)="changeLanguage(languages[languageIndex].title)"
     >
-      <img
-        *ngIf="languages[languageIndex - 1]?.title"
-        class="img-flag"
-        [src]="'./assets/img/' + languages[languageIndex - 1]?.title + '.png'"
-        onerror="'./assets/img/ar.png'"
-      />
-      <img
-        *ngIf="!languages[languageIndex - 1]?.title"
-        class="img-flag"
-        [src]="'./assets/img/ar.png'"
-      />
+      <button class="m-1" mat-button>
+        <img
+          *ngIf="languages[languageIndex - 1]?.title"
+          class="img-flag"
+          [src]="'./assets/img/' + languages[languageIndex - 1]?.title + '.png'"
+          onerror="'./assets/img/ar.png'"
+        />
+        <img
+          *ngIf="!languages[languageIndex - 1]?.title"
+          class="img-flag"
+          [src]="'./assets/img/ar.png'"
+        />
+      </button>
     </span>
     <span
       class="text-small"

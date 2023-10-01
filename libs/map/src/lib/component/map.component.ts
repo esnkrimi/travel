@@ -293,7 +293,7 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   savedLocationActive() {
-    this.map.eachLayer((layer: any) => {
+    this.map?.eachLayer((layer: any) => {
       if (!layer._url) layer.remove();
     });
     this.changeCenter();

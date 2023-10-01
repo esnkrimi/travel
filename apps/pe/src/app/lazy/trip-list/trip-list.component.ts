@@ -38,6 +38,9 @@ export class TripListComponent implements OnInit {
       this.mapService.loadingProgress.next(false);
     }, 500);
   }
+  tripZoom(tripTitle: string) {
+    alert(tripTitle);
+  }
   ask(tripTitle: string, uid: any) {
     const userData = JSON.parse(this.localStorage.getData('user'));
     const data = { uid: userData.id, tripTitle: tripTitle, owenerid: uid };

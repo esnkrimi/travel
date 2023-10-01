@@ -1,5 +1,8 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, Inject, OnInit, inject } from '@angular/core';
 import { MytripsService } from './mytrips.service';
+import { Store } from '@ngrx/store';
+import { actions } from '@appBase/+state/actions';
+import { selectTripRequests } from '@appBase/+state/select';
 
 @Component({
   selector: 'pe-mytrips',
@@ -8,13 +11,40 @@ import { MytripsService } from './mytrips.service';
 })
 export class MytripsComponent implements OnInit {
   trips: any = [];
-  constructor(private service: MytripsService) {}
+  tripRequest: any = [];
+  constructor(
+    private store: Store,
+    private service: MytripsService,
+    @Inject('userSession') public userSession: any
+  ) {}
   ngOnInit(): void {
     this.myTrips();
   }
   myTrips() {
-    this.service.myTrips(15).subscribe((res: any) => {
-      this.trips = res;
+    //I should change to ngrx format
+    this.service
+      .myTrips(JSON.parse(this.userSession)?.id)
+      .subscribe((res: any) => {
+        this.trips = res;
+        console.log(this.trips);
+      });
+  }
+  confirm(event: any, ownerId: string, tripTitle: string, userId: string) {
+    const action = event.checked ? 1 : 0;
+    this.store.dispatch(
+      actions.getStartConfirmInvite({
+        ownerId: ownerId,
+        tripTitle: tripTitle,
+        uid: userId,
+        action: action,
+      })
+    );
+    this.tripRequests();
+  }
+
+  tripRequests() {
+    this.store.select(selectTripRequests).subscribe((res) => {
+      this.tripRequest = res;
     });
   }
 }

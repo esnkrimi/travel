@@ -54,14 +54,14 @@ export class MapApiService {
   fetchTrip() {
     const baseUrl =
       'https://www.burjcrown.com/drm/travel/index.php?id=11&uid=' +
-      JSON.parse(this.userSession).id;
+      JSON.parse(this.userSession)?.id;
     return this.httpClient.get(baseUrl);
   }
 
   updateReviewTrip(trip: any) {
     const baseUrl =
       'https://www.burjcrown.com/drm/travel/index.php?id=13&uid=' +
-      JSON.parse(this.userSession).id +
+      JSON.parse(this.userSession)?.id +
       '&trip=' +
       encodeURIComponent(trip);
     return this.httpClient.get(baseUrl);
@@ -69,7 +69,7 @@ export class MapApiService {
   updateTripFactors(trip: any) {
     const baseUrl =
       'https://www.burjcrown.com/drm/travel/index.php?id=15&uid=' +
-      JSON.parse(this.userSession).id +
+      JSON.parse(this.userSession)?.id +
       '&trip=' +
       encodeURIComponent(trip);
     return this.httpClient.get(baseUrl);
@@ -78,7 +78,7 @@ export class MapApiService {
   updateTrip(trip: any) {
     const baseUrl =
       'https://www.burjcrown.com/drm/travel/index.php?id=12&uid=' +
-      JSON.parse(this.userSession).id +
+      JSON.parse(this.userSession)?.id +
       '&trip=' +
       encodeURIComponent(trip);
     return this.httpClient.get(baseUrl);

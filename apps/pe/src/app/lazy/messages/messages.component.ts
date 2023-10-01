@@ -19,7 +19,7 @@ export class MessagesComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.user_id = JSON.parse(this.userSession).id;
+    this.user_id = JSON.parse(this.userSession)?.id;
     this.getStartTripRequests();
     this.tripRequests();
     this.fetchAllTrips();

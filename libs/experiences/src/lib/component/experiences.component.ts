@@ -1,6 +1,9 @@
 import { AfterViewInit, Component, Inject, Input, OnInit } from '@angular/core';
 import { ExperiencesApiService } from './experiences.service';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
+import { Store } from '@ngrx/store';
+import { actions } from '@appBase/+state/actions';
+import { selectLocationComments } from '@appBase/+state/select';
 
 @Component({
   selector: 'pe-experiences',
@@ -10,19 +13,38 @@ import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 export class ExperiencesComponent implements OnInit {
   @Input() locationId: any;
   result: any;
+  userLoginId = JSON.parse(this.userSession)?.id;
   img = [];
   constructor(
-    private service: ExperiencesApiService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private store: Store,
+    @Inject('userSession') public userSession: any
   ) {}
   ngOnInit(): void {
     this.fetch(this.locationId);
   }
+  remove(userId: string, locationId: string) {
+    this.store.dispatch(
+      actions.getStartDeleteLocationComments({
+        locationId: locationId,
+        userId: userId,
+      })
+    );
+    this.selectSource();
+  }
+  selectSource() {
+    setTimeout(() => {
+      this.store.select(selectLocationComments).subscribe((res) => {
+        this.result = res;
+      });
+    }, 500);
+  }
   fetch(locationId: string) {
     this.result = [];
-    this.service.fetch(locationId).subscribe((res) => {
-      this.result = res;
-    });
+    this.store.dispatch(
+      actions.getStartFetchLocationComments({ locationId: locationId })
+    );
+    this.selectSource();
   }
   openImage(img: string, index: any) {
     const dialogRef = this.dialog.open(OpenImage, {

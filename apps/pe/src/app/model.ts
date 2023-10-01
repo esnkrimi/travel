@@ -87,7 +87,19 @@ export interface ISetview {
   state_name: string;
   wikiDataId: string;
 }
+export interface IlocationComments {
+  date: string;
+  describtion: string;
+  img: string[];
+  locationid: string;
+  rate: string;
+  saved: string;
+  time: string;
+  userid: string;
+}
+
 export interface state {
+  locationComments: IlocationComments[];
   tripUsers: ITripUsers[];
   tripRequests: ITripRequests[];
   allTrips: IAllTrips[];
@@ -132,6 +144,7 @@ export const AppState: state = {
   allTrips: [],
   tripRequests: [],
   tripUsers: [],
+  locationComments: [],
 };
 
 export interface IuserOfSite {

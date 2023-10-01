@@ -71,7 +71,8 @@ export class AppComponent implements OnInit, AfterViewInit {
     });
   }
   fetchTrip() {
-    this.store.dispatch(actions.startFetchTrip());
+    if (JSON.parse(this.userSession)?.id)
+      this.store.dispatch(actions.startFetchTrip());
   }
   savedLocation(e: any) {
     this.savedLocationFlag = e;
@@ -82,8 +83,9 @@ export class AppComponent implements OnInit, AfterViewInit {
     });
   }
   fetchRequests() {
-    const uid = JSON.parse(this.userSession).id;
-    this.store.dispatch(actions.getStartFetchTripRequests({ uid: uid }));
+    const uid = JSON.parse(this.userSession)?.id;
+    if (uid)
+      this.store.dispatch(actions.getStartFetchTripRequests({ uid: uid }));
   }
   fetchAllTrips() {
     this.store.dispatch(actions.startFetchAllTrips());

@@ -42,7 +42,7 @@ export class TripUserComponent implements OnInit {
   }
   fetchUserList() {
     this.service
-      .fetchUserList(JSON.parse(this.userSession).id, this.tripTitle)
+      .fetchUserList(JSON.parse(this.userSession)?.id, this.tripTitle)
       .subscribe((res) => (this.userList = res));
   }
 }
@@ -80,7 +80,7 @@ export class DialogDataUserAdd implements OnInit {
       actions.addUserToTripPreparing({
         guestId: user.id,
         tripTitle: this.data.tripTitle,
-        ownerId: JSON.parse(this.userSession).id,
+        ownerId: JSON.parse(this.userSession)?.id,
       })
     );
   }

@@ -13,6 +13,21 @@ import { State } from './state';
 export const actions = createActionGroup({
   source: 'store',
   events: {
+    'delete location comments': props<{ data: any }>(),
+    'get start delete location comments': props<{
+      locationId: any;
+      userId: string;
+    }>(),
+    'fetch location comments': props<{ data: any }>(),
+    'get start fetch location comments': props<{ locationId: any }>(),
+    'confirm invite': props<{ data: any }>(),
+    'get start confirm invite': props<{
+      uid: any;
+      ownerId: any;
+      tripTitle: any;
+      action: any;
+    }>(),
+
     'fill user trips': props<{ data: ITripUsers[] }>(),
     'confirm requests': props<{ data: any }>(),
     'get start confirm requests': props<{

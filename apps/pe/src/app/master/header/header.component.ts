@@ -75,6 +75,7 @@ export class HeaderComponent implements OnInit {
     this.fetchUser();
   }
   changeLanguage(language: string) {
+    console.log(language);
     this.mapServicePrivate.loadingProgress.next(true);
     setTimeout(() => {
       this.mapServicePrivate.loadingProgress.next(false);

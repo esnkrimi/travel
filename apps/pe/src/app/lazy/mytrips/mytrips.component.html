@@ -2,7 +2,10 @@
   <div class="card-body">
     <h1 class="card-titel text-capitalize">{{ item.trip }}</h1>
     <h4 class="card-subtitel text-muted">{{ item.name }}</h4>
-    <mat-slide-toggle [checked]="item.confirm === 1">
+    <mat-slide-toggle
+      (change)="confirm($event, item.ownerid, item.trip, item.user_id)"
+      [checked]="item.confirm === '1'"
+    >
       {{ 'confirm' | translate }}</mat-slide-toggle
     >
   </div>

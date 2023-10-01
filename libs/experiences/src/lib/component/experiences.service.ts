@@ -11,4 +11,13 @@ export class ExperiencesApiService {
       locationId;
     return this.httpClient.get(this.baseUrl);
   }
+
+  deleteLocationComment(userId: string, locationId: string) {
+    this.baseUrl =
+      'https://www.burjcrown.com/drm/travel/index.php?id=31&locationId=' +
+      locationId +
+      '&userId=' +
+      userId;
+    return this.httpClient.get(this.baseUrl);
+  }
 }

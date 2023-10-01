@@ -192,7 +192,6 @@ export class ZoomComponent implements AfterViewInit {
             )
             .subscribe((res: any) => {
               if (res.length) this.existLocation = true;
-
               this.result = res[0];
               if (this.result) {
                 this.form.get('email')?.setValue(this.result.email || '');

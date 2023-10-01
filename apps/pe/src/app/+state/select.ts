@@ -13,4 +13,5 @@ export const {
   selectAllTrips,
   selectTripRequests,
   selectTripUsers,
+  selectLocationComments,
 } = reducerStates;

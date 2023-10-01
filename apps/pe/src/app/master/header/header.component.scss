@@ -4,15 +4,15 @@ span{
     cursor: pointer;
     vertical-align: middle;
     padding: 0.4em;
-
 }
 .img-icon{
-    width:30px;
-    height: 20px;
+    width:60px;
+    height: 45px;
 }
 .img-flag{
-    width:2.6em;
-    height: 1.5em;
+    width:2.2em;
+    height:2em;
+    border-radius: 50%;
 }
 .position-absolute{
     background-color: white;
@@ -21,7 +21,6 @@ span{
     top:10;
     z-index: 809;
 }
-
  .position-fixed{
     top: 0;
     left: 0;
@@ -60,4 +59,7 @@ span{
 
 .text-small{
     font-size: 0.90em !important;
+}
+.text-brand{
+    font-size: 1.90em !important;
 }

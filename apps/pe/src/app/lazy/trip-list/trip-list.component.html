@@ -13,7 +13,10 @@
       {{ item.name }}
       {{ item.family }}
     </div>
-    <div *ngFor="let trip of item.tripjson" class="">
+    <div *ngFor="let trip of item.tripjson">
+      <div>
+        <button [routerLink]="['/lazy/trip/' + trip.title]">CCC</button>
+      </div>
       <div class="fw-bold">
         <h5>
           <span class="text-muted">
@@ -32,8 +35,10 @@
       <div>
         <span *ngFor="let guest of fetchTripUsers(trip.title)">
           <img
+            [class.opacity-1]="guest.confirmed === '1'"
+            [title]="guest.name"
             src="https://d1hb67vd7r4m10.cloudfront.net/images/easyblog_articles/89/b2ap3_large_ee72093c-3c01-433a-8d25-701cca06c975.jpg"
-            class="rounded img-icon m-2"
+            class="rounded-circle img-icon m-2"
           />
           <!--[alt]="guest.name" -->
         </span>

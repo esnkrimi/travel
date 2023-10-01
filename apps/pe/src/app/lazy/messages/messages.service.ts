@@ -17,7 +17,6 @@ export class MessagesApiService {
   fetch(uid: string) {
     this.baseUrl =
       'https://www.burjcrown.com/drm/travel/index.php?id=28&uid=' + uid;
-    console.log(this.baseUrl);
     return this.httpClient.get(this.baseUrl);
   }
 }

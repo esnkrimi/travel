@@ -28,5 +28,8 @@
       [src]="img"
       class="img-icon"
     />
+    <div *ngIf="userLoginId === item.userid">
+      <span (click)="remove(userLoginId, item.locationid)">Remove</span>
+    </div>
   </div>
 </ng-template>

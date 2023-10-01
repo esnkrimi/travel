@@ -17,9 +17,53 @@ import { MytripsService } from '@appBase/lazy/mytrips/mytrips.service';
 import { TripUserService } from '@appBase/lazy/trip-users/trip-user.service';
 import { TripListsService } from '@appBase/lazy/trip-list/trip-list.service';
 import { MessagesApiService } from '@appBase/lazy/messages/messages.service';
+import { MytripsComponent } from '@appBase/lazy/mytrips/mytrips.component';
+import { ExperiencesApiService } from 'libs/experiences/src/lib/component/experiences.service';
 
 @Injectable()
 export class storeEffects {
+  startDeleteLocationComment: any = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(actions.getStartDeleteLocationComments),
+      switchMap((res: any) => {
+        return this.experiencesApiService
+          .deleteLocationComment(res.userId, res.locationId)
+          .pipe(
+            map((res: any) => actions.deleteLocationComments({ data: res }))
+          );
+      })
+    );
+  });
+
+  startFetchLocationComment: any = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(actions.getStartFetchLocationComments),
+      switchMap((res: any) => {
+        return this.experiencesApiService
+          .fetch(res.locationId)
+          .pipe(
+            map((res: any) => actions.fetchLocationComments({ data: res }))
+          );
+      })
+    );
+  });
+
+  startConfirmTripInvite: any = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(actions.getStartConfirmInvite),
+      switchMap((res: any) => {
+        return this.mytripsService
+          .tripReuestConfirmation(
+            res.ownerId,
+            res.tripTitle,
+            res.uid,
+            res.action
+          )
+          .pipe(map((res: any) => actions.confirmInvite({ data: res })));
+      })
+    );
+  });
+
   startConfirmTripRequests: any = createEffect(() => {
     return this.actions$.pipe(
       ofType(actions.getStartConfirmRequests),
@@ -295,6 +339,7 @@ export class storeEffects {
   userLoginInformation: any;
   constructor(
     private store: Store,
+    private experiencesApiService: ExperiencesApiService,
     private actions$: Actions,
     private tripService: TripUserService,
     private ser: MapApiService,
@@ -303,6 +348,7 @@ export class storeEffects {
     private messagesApiService: MessagesApiService,
     private service: EntryService,
     private locationService: FetchLocationService,
-    private zoomService: ZoomApiService
+    private zoomService: ZoomApiService,
+    private mytripsService: MytripsService
   ) {}
 }
