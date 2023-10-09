@@ -57,15 +57,22 @@
         </div>
       </form>
     </div>
+    <div class="row w-100">
+      <div class="flex-50">
+        <button
+          (click)="formSubmitLocation = true"
+          class="arrow bg-green"
+          mat-button
+        >
+          Submit
+        </button>
+      </div>
 
-    <div class="w-50">
-      <button
-        (click)="formSubmitLocation = true"
-        class="arrow bg-green"
-        mat-button
-      >
-        Submit
-      </button>
+      <div>
+        <button (click)="cancelTripSubmit()" class="arrow" mat-button>
+          cancel
+        </button>
+      </div>
     </div>
   </div>
 </div>

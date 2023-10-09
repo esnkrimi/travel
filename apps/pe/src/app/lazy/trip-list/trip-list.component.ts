@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, Inject, OnInit, inject } from '@angular/core';
 import { TripListsService } from './trip-list.service';
 import { Store } from '@ngrx/store';
 import { actions } from '@appBase/+state/actions';
@@ -20,11 +20,15 @@ import { map, tap } from 'rxjs';
 export class TripListComponent implements OnInit {
   trips: any = [];
   tripUsers: any = [];
+  tripUsersAsked: any = [];
+
+  tripRequest: any = [];
   constructor(
     private mapService: MapService,
     private drawerService: DrawerService,
     private localStorage: LocalService,
-    private store: Store
+    private store: Store,
+    @Inject('userSession') public userSession: any
   ) {}
   fetchCountry(lat: string, lon: string) {
     return this.drawerService
@@ -56,6 +60,7 @@ export class TripListComponent implements OnInit {
     this.store.dispatch(actions.getStartAskToJoin({ data: data }));
     this.fetchTrips();
   }
+
   fetchTripUsers(tripTitle: string): any {
     let tmpUser: any = [];
     for (let i = 0; i < this.tripUsers.length; i++) {
@@ -66,7 +71,7 @@ export class TripListComponent implements OnInit {
   }
 
   fetchTrips() {
-    this.store.dispatch(actions.startFetchAllTrips());
+    //    this.store.dispatch(actions.startFetchAllTrips());
     setTimeout(() => {
       this.select();
     }, 500);
@@ -75,7 +80,11 @@ export class TripListComponent implements OnInit {
   select() {
     this.store.select(selectAllTrips).subscribe((res) => {
       this.trips = res;
-      console.log(res);
+      this.mapService.loadingProgress.next(false);
+    });
+
+    this.store.select(selectTripUsers).subscribe((res) => {
+      this.tripRequest = res;
       this.mapService.loadingProgress.next(false);
     });
   }

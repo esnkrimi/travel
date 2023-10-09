@@ -34,6 +34,8 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
   @Input() center: any;
   @Input() showTour: any;
   @Input() tripLocations: any;
+  @Input() savedLocation = false;
+  showMap = true;
   createTripActivate = false;
 
   currentTrip: any = {
@@ -48,7 +50,6 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
   fromOrTo = 'from';
   distanceFrom: any;
   distanceTo: any;
-  @Input() savedLocation = false;
   mapConfig = {
     center: [41.02446333535115, 28.953609466552734],
     countryScope: 'turkey',
@@ -97,6 +98,10 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
     private readonly joyrideService: JoyrideService,
     private _snackBar: MatSnackBar
   ) {}
+  cancelTripSubmitVar(event: any) {
+    this.selectLocationActivated = !event;
+    this.mapApiService.bgLoader.next(false);
+  }
   submitedForm(e: any) {
     this.selectLocationActivated = e.selectLocationActivated;
     this.currentTrip = e.currentTrip;
@@ -154,7 +159,11 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
     this.latSelect = [e.latlng.lat, e.latlng.lng];
     //this.store.dispatch(actions.startAddTripPoin({ trip: trip }));
   }
-
+  getRoute() {
+    this.drawerService.showMap.subscribe((res) => {
+      this.showMap = res;
+    });
+  }
   activeDistanceMeter() {
     this.helpService.messageWrite('select location on map');
     this.createTripActivate = false;
@@ -345,6 +354,7 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
   }
   ngOnInit(): void {
     this.mapService.loadingProgress.next(true);
+    this.getRoute();
     this.fetchTrip();
     this.loadMap(); //map_creation
     this.clickOnMap(); //CLICK ON MAP

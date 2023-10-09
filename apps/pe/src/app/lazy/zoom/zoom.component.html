@@ -124,15 +124,10 @@
         </div>
 
         <div class="w-100 text-center">
-          <button mat-raised-button *ngIf="userLogined" type="submit">
+          <button mat-raised-button type="submit">
             {{ 'submit' | translate }}
           </button>
-          <button
-            mat-raised-button
-            color="primary"
-            *ngIf="!userLogined"
-            disabled="true"
-          >
+          <button mat-raised-button color="primary" disabled="true">
             {{ 'logintosubmit' | translate }}
           </button>
         </div>
@@ -256,15 +251,10 @@
               />
             </div>
             <div class="w-100 text-left mt-2">
-              <button mat-raised-button *ngIf="userLogined" type="submit">
+              <button mat-raised-button type="submit">
                 {{ 'submit' | translate }}
               </button>
-              <button
-                mat-raised-button
-                color="primary"
-                *ngIf="!userLogined"
-                disabled="true"
-              >
+              <button mat-raised-button color="primary" disabled="true">
                 {{ 'logintosubmit' | translate }}
               </button>
             </div>

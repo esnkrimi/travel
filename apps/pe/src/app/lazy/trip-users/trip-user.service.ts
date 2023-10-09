@@ -13,7 +13,6 @@ export class TripUserService {
 
   fetchUserList(uid: any, tripeTitle: any) {
     const url = `${this.baseUrl}id=25&uid=${uid}&tripeTitle=${tripeTitle}`;
-    console.log(url);
     return this.httpClient.get(url);
   }
 

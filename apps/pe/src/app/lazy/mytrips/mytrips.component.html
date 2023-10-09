@@ -1,12 +1,16 @@
+<br />
+<br />
 <div class="card m-2" *ngFor="let item of trips">
   <div class="card-body">
-    <h1 class="card-titel text-capitalize">{{ item.trip }}</h1>
-    <h4 class="card-subtitel text-muted">{{ item.name }}</h4>
-    <mat-slide-toggle
-      (change)="confirm($event, item.ownerid, item.trip, item.user_id)"
-      [checked]="item.confirm === '1'"
-    >
-      {{ 'confirm' | translate }}</mat-slide-toggle
-    >
+    <h1 class="card-titel text-capitalize">{{ item.tripTitle }}</h1>
+    <h4 class="card-subtitel text-muted">{{ item.reqUserName }}</h4>
+    <p>
+      <span *ngIf="item.adminConfirm === '0'; else elseTmpl">
+        waiting to admin confirmation !
+      </span>
+      <ng-template #elseTmpl>
+        <span> Admin confirmed ! </span>
+      </ng-template>
+    </p>
   </div>
 </div>

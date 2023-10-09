@@ -25,6 +25,8 @@ import { MapApiService } from 'libs/map/src/lib/component/map.service';
 export class FormTripLocationComponent implements OnChanges, AfterViewInit {
   @Output() submitedForm = new EventEmitter<any>();
   @Output() tripFinished = new EventEmitter<any>();
+  @Output() cancelTripSubmitVar = new EventEmitter<any>();
+
   vehicle = '';
   finishTheTrip = 0;
   formSubmitLocation = false;
@@ -98,7 +100,9 @@ export class FormTripLocationComponent implements OnChanges, AfterViewInit {
     this.formSubmitTripLocation.get('lat')?.setValue(this.latSelect[0]);
     this.formSubmitTripLocation.get('lon')?.setValue(this.latSelect[1]);
   }
-
+  cancelTripSubmit() {
+    this.cancelTripSubmitVar.emit(true);
+  }
   ngAfterViewInit(): void {
     this.listener();
   }

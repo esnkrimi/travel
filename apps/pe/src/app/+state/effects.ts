@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 import { MapApiService } from 'libs/map/src/lib/component/map.service';
 import { EntryService } from '@appBase/lazy/entry/entry.service';
 import { FetchLocationService } from 'libs/auto-complete/src/lib/autocomplete/service';
-import { merge, zip } from 'rxjs';
+import { merge, pipe, zip } from 'rxjs';
 import { ZoomApiService } from '@appBase/lazy/zoom/api.service';
 import { RootService } from '@appBase/service';
 import { selectReviewtrip, selectTrip } from './select';
@@ -95,9 +95,10 @@ export class storeEffects {
     return this.actions$.pipe(
       ofType(actions.getStartAskToJoin),
       switchMap((res: any) => {
+        pipe(tap((re) => console.log(re)));
         return this.tripListsService
           .askToJoin(res.data.uid, res.data.tripTitle, res.data.owenerid)
-          .pipe(map((res: any) => actions.askToJoin({ data: res })));
+          .pipe(map((res1: any) => actions.askToJoin({ data: res })));
       })
     );
   });

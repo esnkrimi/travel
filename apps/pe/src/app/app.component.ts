@@ -9,7 +9,7 @@ import {
 import { TranslateService } from '@ngx-translate/core';
 import { DrawerService } from './drawer.service';
 import { MatDrawer } from '@angular/material/sidenav';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Iuser, IuserOfSite } from './model';
 import { EntryService } from './lazy/entry/entry.service';
 import { Store } from '@ngrx/store';
@@ -58,7 +58,8 @@ export class AppComponent implements OnInit, AfterViewInit {
     private translate: TranslateService,
     private draswerService: DrawerService,
     private settingService: SettingService,
-    private route: Router,
+    private router: Router,
+    private route: ActivatedRoute,
     private entryService: EntryService,
     private store: Store,
     private mapService: MapService,
@@ -91,19 +92,21 @@ export class AppComponent implements OnInit, AfterViewInit {
     this.store.dispatch(actions.startFetchAllTrips());
   }
   fetchUsersOfTrips() {
-    let requestsAll: any = [
+    const requestsAll: any = [
       {
         tripTitle: '',
         users: [],
       },
     ];
     let requests: any = [];
-    let trips: any = [];
 
     this.store.select(selectAllTrips).subscribe((res) => {
       for (let i = 0; i < res.length; i++) {
         for (let j = 0; j < res[i].tripjson.length; j++) {
-          requestsAll.push({ tripTitle: res[i].tripjson[j].title, users: [] });
+          requestsAll.push({
+            tripTitle: res[i]?.tripjson[j]?.title,
+            users: [],
+          });
         }
       }
       this.store.select(selectTripRequests).subscribe((res) => {
@@ -184,11 +187,14 @@ export class AppComponent implements OnInit, AfterViewInit {
     });
     this.draswerService.drawerType.subscribe((res: any) => {
       this.drawerTypeTmp = res;
-      this.route.navigateByUrl('lazy' + res);
+      this.router.navigateByUrl('lazy' + res);
+      this.draswerService.open.subscribe((res) => {
+        this.open = res;
+      });
+      setTimeout(() => {
+        this.draswerService.showMap.next(true);
+      }, 2000);
       //router.navigate([{outlets: {primary: 'path' ,sidebar: 'path'}}]);
-    });
-    this.draswerService.open.subscribe((res) => {
-      this.open = res;
     });
   }
 }

@@ -74,8 +74,11 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
     this.fetchUser();
   }
+  routeHome() {
+    this.drawerService.showMap.next(true);
+    window.location.reload();
+  }
   changeLanguage(language: string) {
-    console.log(language);
     this.mapServicePrivate.loadingProgress.next(true);
     setTimeout(() => {
       this.mapServicePrivate.loadingProgress.next(false);

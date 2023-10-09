@@ -82,6 +82,14 @@
       </button>
       <div class="position-relative d-inline-block" *ngIf="menuShow">
         <div class="position-absolute">
+          <p (click)="routeHome()">
+            <span>
+              <i class="fa fa-cog fa-2x" aria-hidden="true"></i>
+            </span>
+            <span>
+              {{ 'home' | translate }}
+            </span>
+          </p>
           <p>
             <span>
               <i class="fa fa-cog fa-2x" aria-hidden="true"></i>

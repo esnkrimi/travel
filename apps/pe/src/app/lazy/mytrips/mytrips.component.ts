@@ -3,6 +3,7 @@ import { MytripsService } from './mytrips.service';
 import { Store } from '@ngrx/store';
 import { actions } from '@appBase/+state/actions';
 import { selectTripRequests } from '@appBase/+state/select';
+import { DrawerService } from '@appBase/drawer.service';
 
 @Component({
   selector: 'pe-mytrips',
@@ -11,23 +12,24 @@ import { selectTripRequests } from '@appBase/+state/select';
 })
 export class MytripsComponent implements OnInit {
   trips: any = [];
-  tripRequest: any = [];
   constructor(
     private store: Store,
     private service: MytripsService,
+    private drawerService: DrawerService,
+
     @Inject('userSession') public userSession: any
   ) {}
   ngOnInit(): void {
+    this.hideMap();
     this.myTrips();
   }
+  hideMap() {
+    this.drawerService.showMap.next(false);
+  }
   myTrips() {
-    //I should change to ngrx format
-    this.service
-      .myTrips(JSON.parse(this.userSession)?.id)
-      .subscribe((res: any) => {
-        this.trips = res;
-        console.log(this.trips);
-      });
+    this.store.select(selectTripRequests).subscribe((res) => {
+      this.trips = res;
+    });
   }
   confirm(event: any, ownerId: string, tripTitle: string, userId: string) {
     const action = event.checked ? 1 : 0;
@@ -39,12 +41,6 @@ export class MytripsComponent implements OnInit {
         action: action,
       })
     );
-    this.tripRequests();
-  }
-
-  tripRequests() {
-    this.store.select(selectTripRequests).subscribe((res) => {
-      this.tripRequest = res;
-    });
+    this.myTrips();
   }
 }

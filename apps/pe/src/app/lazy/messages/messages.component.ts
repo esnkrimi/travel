@@ -2,6 +2,7 @@ import { AfterViewInit, Component, Inject, Input, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { actions } from '@appBase/+state/actions';
 import { selectAllTrips, selectTripRequests } from '@appBase/+state/select';
+import { DrawerService } from '@appBase/drawer.service';
 import { Store } from '@ngrx/store';
 
 @Component({
@@ -15,11 +16,13 @@ export class MessagesComponent implements OnInit {
   user_id = '';
   constructor(
     private store: Store,
+    private drawerService: DrawerService,
     @Inject('userSession') public userSession: any
   ) {}
 
   ngOnInit(): void {
     this.user_id = JSON.parse(this.userSession)?.id;
+    this.hideMap();
     this.getStartTripRequests();
     this.tripRequests();
     this.fetchAllTrips();
@@ -44,6 +47,9 @@ export class MessagesComponent implements OnInit {
     this.store.dispatch(
       actions.getStartFetchTripRequests({ uid: this.user_id })
     );
+  }
+  hideMap() {
+    this.drawerService.showMap.next(false);
   }
   tripRequests() {
     this.store.select(selectTripRequests).subscribe((res) => {

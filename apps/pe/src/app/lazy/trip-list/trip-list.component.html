@@ -29,11 +29,11 @@
           <div *ngFor="let location of trip.trip" class="border-bottom">
             <p class="text-small">
               <span class="fw-bold text-capitalize">
-                {{ location.locationTitle }}
+                {{ location?.locationTitle }}
               </span>
               <span>
                 : {{ location.dateIncome }}{{ location.timeIncome }} by
-                {{ location.vehicle }}
+                {{ location?.vehicle }}
               </span>
             </p>
           </div>

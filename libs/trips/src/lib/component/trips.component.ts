@@ -4,6 +4,7 @@ import {
   Component,
   Input,
   OnChanges,
+  OnInit,
   SimpleChanges,
 } from '@angular/core';
 import { LocalService } from '@appBase/storage';
@@ -46,7 +47,7 @@ export class TripsComponent implements OnChanges {
     NgxPaginationModule,
   ],
 })
-export class DialogContentExampleDialog implements AfterViewInit {
+export class DialogContentExampleDialog implements AfterViewInit, OnInit {
   listOfTrip: any;
   user: any;
   page = 1;
@@ -59,6 +60,9 @@ export class DialogContentExampleDialog implements AfterViewInit {
     private drawerService: DrawerService,
     private helpService: HelpService
   ) {}
+  ngOnInit(): void {
+    this.drawerService.showMap.next(true);
+  }
   ngAfterViewInit(): void {
     this.fetchTrip();
     this.user = this.localStorage.getData('user');

@@ -27,6 +27,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { map } from 'rxjs';
 import { TripService } from './trip.service';
 import { JoyrideService } from 'ngx-joyride';
+import { DrawerService } from '@appBase/drawer.service';
 
 @Component({
   selector: 'pe-trip',
@@ -54,9 +55,12 @@ export class TripComponent implements OnInit {
     private store: Store,
     public dialog: MatDialog,
     private readonly myJoyrideService: JoyrideService,
+    private drawerService: DrawerService,
     private translate: TranslateService
   ) {}
-
+  hideMap() {
+    this.drawerService.showMap.next(false);
+  }
   showTours() {
     this.myJoyrideService.startTour(
       { steps: ['fourthStep', 'fifthStep'] } // Your steps order
@@ -97,6 +101,7 @@ export class TripComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.hideMap();
     this.route.paramMap.subscribe((res: any) => {
       this.tripTitle = res.params.trip;
       this.store

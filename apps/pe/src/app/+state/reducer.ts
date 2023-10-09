@@ -8,6 +8,30 @@ export const reducerStates = createFeature({
   name: 'store',
   reducer: createReducer(
     AppState,
+    on(actions.askToJoin, function (states: any, action: any) {
+      return {
+        ...states,
+        tripUsers: states.tripUsers.map((res: any) => {
+          if (res.tripTitle === action.data.data.tripTitle) {
+            const tmp = {
+              confirmed: '0',
+              family: '',
+              name: '',
+              uid: action.data.data.uid,
+            };
+            return {
+              ...res,
+              users: [tmp],
+            };
+          } else {
+            return {
+              ...res,
+              tripUsers: states.tripUsers,
+            };
+          }
+        }),
+      };
+    }),
     on(actions.deleteLocationComments, function (states: any, action: any) {
       return {
         ...states,
@@ -179,9 +203,7 @@ export const reducerStates = createFeature({
       return {
         ...states,
         trip: states.trip.map((res: any) => {
-          console.log(res, action);
           if (res.title === action.trip) {
-            console.log(action);
             return {
               ...res,
               trip: res.trip.map((res: any) => {
