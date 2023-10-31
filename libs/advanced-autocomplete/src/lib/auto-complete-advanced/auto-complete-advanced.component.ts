@@ -24,7 +24,7 @@ import { AdvancedAutoCompleteService } from './service';
   templateUrl: './auto-complete-advanced.component.html',
   styleUrls: ['./auto-complete-advanced.component.scss'],
 })
-export class AdvancedAutocompleteComponent implements OnInit, OnChanges {
+export class AdvancedAutocompleteComponent implements OnInit {
   locationInput = new FormControl('', []);
   responseData: any = [];
   result: any = [];
@@ -33,7 +33,6 @@ export class AdvancedAutocompleteComponent implements OnInit, OnChanges {
   loading = false;
   @Output() results = new EventEmitter<any>();
   constructor(private mapService: MapService, private store: Store) {}
-  ngOnChanges(changes: SimpleChanges): void {}
 
   ngOnInit(): void {
     this.listener();
@@ -54,19 +53,14 @@ export class AdvancedAutocompleteComponent implements OnInit, OnChanges {
   }
 
   search(itemToSearch: any) {
-    let j = 0;
-    for (let i = 0; i < this.trips.length; i++) {
-      if (
-        this.trips[i].name === itemToSearch ||
-        this.trips[i].family === itemToSearch
-      ) {
-        this.responseData[j] = this.trips[i];
-        j++;
-      } else if (this.tripSearch(itemToSearch)) {
-        this.responseData[j] = this.trips[i];
-        j++;
+    let k = 0;
+    for (let i = 0; i < this.trips.length; i++)
+      for (let j = 0; j < this.trips[i].tripjson.length; j++) {
+        if (this.trips[i].tripjson[j].title === itemToSearch) {
+          this.responseData[k] = this.trips[i].tripjson[j];
+          k++;
+        }
       }
-    }
     this.results.emit(this.responseData);
   }
 

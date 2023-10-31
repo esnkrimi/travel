@@ -9,7 +9,6 @@ import {
   IuserOfSite,
 } from '@appBase/model';
 import { createActionGroup, props, emptyProps } from '@ngrx/store';
-import { State } from './state';
 export const actions = createActionGroup({
   source: 'store',
   events: {
@@ -42,6 +41,8 @@ export const actions = createActionGroup({
     'get start ask to join': props<{ data: any }>(),
     'fetch all trips': props<{ trips: IAllTrips[] }>(),
     'start fetch all trips': emptyProps(),
+    'fetch users of trip': props<{ userOfTrip: any }>(),
+    'start fetch users of trip': emptyProps(),
     'fetch users of site': props<{ userOfSite: IuserOfSite[] }>(),
     'start fetch users of sites': emptyProps(),
     'add user to trip': emptyProps(),

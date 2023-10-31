@@ -43,6 +43,7 @@ export class MessagesComponent implements OnInit {
     );
     this.tripRequests();
   }
+
   getStartTripRequests() {
     this.store.dispatch(
       actions.getStartFetchTripRequests({ uid: this.user_id })
@@ -59,7 +60,6 @@ export class MessagesComponent implements OnInit {
   fetchAllTrips() {
     this.store.select(selectAllTrips).subscribe((res) => {
       this.allTrips = res;
-      console.log(res);
     });
   }
 }

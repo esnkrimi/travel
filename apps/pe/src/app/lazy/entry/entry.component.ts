@@ -108,8 +108,12 @@ export class EntryComponent implements OnInit {
       }, 1000);
     }
   }
-
+  hideMap() {
+    this.drawerService.showMap.next(false);
+    console.log(9);
+  }
   ngOnInit(): void {
+    this.hideMap();
     this.routeType = this.route.snapshot.url[0].path;
   }
 }

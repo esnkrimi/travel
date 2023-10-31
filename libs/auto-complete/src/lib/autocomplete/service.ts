@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { map, of } from 'rxjs';
+import { filter, map, of, tap } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class FetchLocationService {
@@ -76,33 +76,71 @@ export class FetchLocationService {
   }
 
   get(item: string) {
+    let tmp: any = {
+      country: '',
+      city: '',
+      sym: '',
+      geo: [],
+    };
     let results: any = [];
-    return this.httpClient.get('./assets/datas/locations.json').pipe(
-      map((res) => Object.entries(res)),
-      map((res) => {
-        results = [];
+    return this.httpClient.get('./assets/datas/geography.json').pipe(
+      map((res: any) =>
+        res.filter((r: any) =>
+          r.name.toLowerCase().includes(item.toLowerCase())
+        )
+      ),
+      map((res: any) => {
+        let tmp: any = {
+          country: '',
+          city: '',
+          sym: '',
+          geo: [],
+        };
         for (let i = 0; i < res.length; i++) {
-          let tmp: any = {
-            country: '',
-            city: '',
-            sym: '',
+          tmp = {
+            country: res[i].country_name,
+            city: res[i].name,
+            sym: res[i].country_name,
             geo: [],
           };
-          const t = res[i][1].join(' ').toLowerCase();
-          if (t.includes(item.toLowerCase())) {
-            res[i][1].forEach((element: any) => {
-              if (element === item) {
-                tmp.city = element;
-              }
-            });
-            tmp.country = res[i][0];
-            tmp.geo = [];
-            tmp.sym = res[i][0];
-            tmp.city && results.push(tmp);
-          }
+          results.push(tmp);
         }
         return results;
       })
     );
   }
+  /*
+  get(item: string) {
+    let results: any = [];
+    return this.httpClient
+      .get('./assets/datas/geography.json')
+      .pipe(
+        map((res) => Object.entries(res)),
+        map((res) => {
+          results = [];
+          for (let i = 0; i < res.length; i++) {
+            let tmp: any = {
+              country: '',
+              city: '',
+              sym: '',
+              geo: [],
+            };
+            const t = res[i][1].join(' ').toLowerCase();
+            if (t.includes(item.toLowerCase())) {
+              res[i][1].forEach((element: any) => {
+                if (element === item) {
+                  tmp.city = element;
+                }
+              });
+              tmp.country = res[i][0];
+              tmp.geo = [];
+              tmp.sym = res[i][0];
+              tmp.city && results.push(tmp);
+            }
+          }
+          console.log(results);
+          return results;
+        })
+      );
+  }*/
 }

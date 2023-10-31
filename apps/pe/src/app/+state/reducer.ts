@@ -1,13 +1,18 @@
 import { createFeature, createReducer, on } from '@ngrx/store';
 import { actions } from './actions';
-import { initialState } from './state';
-import { AppState, state } from '../model';
+import { AppState } from '../model';
 import { act } from '@ngrx/effects';
 
 export const reducerStates = createFeature({
   name: 'store',
   reducer: createReducer(
     AppState,
+    on(actions.fetchUsersOfTrip, function (states: any, action: any) {
+      return {
+        ...states,
+        tripUsers: action.userOfTrip,
+      };
+    }),
     on(actions.askToJoin, function (states: any, action: any) {
       return {
         ...states,
@@ -21,12 +26,12 @@ export const reducerStates = createFeature({
             };
             return {
               ...res,
-              users: [tmp],
+              users: states.users.push(tmp),
             };
           } else {
             return {
               ...res,
-              tripUsers: states.tripUsers,
+              // users: [...states.tripUsers],
             };
           }
         }),

@@ -22,6 +22,18 @@ import { ExperiencesApiService } from 'libs/experiences/src/lib/component/experi
 
 @Injectable()
 export class storeEffects {
+  startFetchUserOfTrip: any = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(actions.startFetchUsersOfTrip),
+      switchMap((res: any) => {
+        return this.tripListsService
+          .userOfTrip()
+          .pipe(
+            map((res: any) => actions.fetchUsersOfTrip({ userOfTrip: res }))
+          );
+      })
+    );
+  });
   startDeleteLocationComment: any = createEffect(() => {
     return this.actions$.pipe(
       ofType(actions.getStartDeleteLocationComments),
@@ -95,7 +107,6 @@ export class storeEffects {
     return this.actions$.pipe(
       ofType(actions.getStartAskToJoin),
       switchMap((res: any) => {
-        pipe(tap((re) => console.log(re)));
         return this.tripListsService
           .askToJoin(res.data.uid, res.data.tripTitle, res.data.owenerid)
           .pipe(map((res1: any) => actions.askToJoin({ data: res })));
@@ -283,6 +294,7 @@ export class storeEffects {
           this.locationService
             .get(str.charAt(0).toUpperCase() + str.slice(1))
             .pipe(
+              tap((res) => console.log(res)),
               map((res: any) => actions.autocompleteAction({ result: res }))
             ),
           this.locationService

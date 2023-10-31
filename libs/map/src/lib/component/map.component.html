@@ -25,7 +25,7 @@
       <div class="frame">
         <pe-help></pe-help>
       </div>
-      <div class="absolute-50 p-1 border">
+      <div [class.invisible]="!showMap" class="absolute-50 p-1 border">
         <div class="bg-light" cdkDragLockAxis="x" cdkDrag>
           <div
             class="ride"
@@ -76,7 +76,7 @@
           </div>
         </div>
       </div>
-      <div class="map-container">
+      <div [class.invisible]="!showMap" class="map-container">
         <div class="map-frame">
           <div id="map"></div>
         </div>

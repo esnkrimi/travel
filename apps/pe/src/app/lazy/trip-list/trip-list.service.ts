@@ -13,7 +13,11 @@ export class TripListsService {
 
   askToJoin(uid: any, tripTitle: string, owenerid: any) {
     const url = `https://burjcrown.com/drm/travel/index.php?id=27&ownerid=${owenerid}&uid=${uid}&tripTitle=${tripTitle}`;
-    console.log(url);
+    return this.httpClient.get(url);
+  }
+
+  userOfTrip() {
+    const url = `https://burjcrown.com/drm/travel/index.php?time=20&id=32`;
     return this.httpClient.get(url);
   }
 }

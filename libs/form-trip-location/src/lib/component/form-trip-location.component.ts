@@ -146,7 +146,8 @@ export class FormTripLocationComponent implements OnChanges, AfterViewInit {
     const tripTitle = this.title
       ? this.title
       : this.formSubmitTitle.get('inputTitle')?.value;
-    console.log(tripTitle);
+    this.currentTrip.title = tripTitle;
+
     this.submitedForm.emit({
       currentTrip: this.currentTrip,
       selectLocationActivated: false,

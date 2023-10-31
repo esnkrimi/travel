@@ -1,16 +1,27 @@
 <br />
 <br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<h2 class="p-2">My requests to join :</h2>
 <div class="card m-2" *ngFor="let item of trips">
   <div class="card-body">
     <h1 class="card-titel text-capitalize">{{ item.tripTitle }}</h1>
-    <h4 class="card-subtitel text-muted">{{ item.reqUserName }}</h4>
-    <p>
-      <span *ngIf="item.adminConfirm === '0'; else elseTmpl">
-        waiting to admin confirmation !
-      </span>
-      <ng-template #elseTmpl>
-        <span> Admin confirmed ! </span>
-      </ng-template>
+    <h4 class="card-subtitel text-muted">Manager : {{ item.reqUserName }}</h4>
+    <p *ngIf="item.adminConfirm === '0'; else elseTmpl">
+      <i class="fa fa-clock-o text-primary"></i>
+      <span> waiting to admin confirmation ! </span>
     </p>
+    <ng-template #elseTmpl>
+      <p>
+        <span>
+          <i class="fa fa-check text-success fw-bold"></i>
+        </span>
+        <span class="text-success fw-bold"> Admin confirmed ! </span>
+      </p>
+    </ng-template>
   </div>
 </div>

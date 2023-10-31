@@ -4,13 +4,22 @@
 <br />
 <br />
 <br />
-<pe-advanced-autocomplete
-  (results)="results($event)"
-></pe-advanced-autocomplete>
-<div *ngFor="let item of trips" class="card m-2 w-75">
-  <div class="card-body border">
-    <div *ngFor="let trip of item.tripjson" class="p-2 rounded m-1 border">
-      <div class="row">
+<form [formGroup]="formSearchTrip">
+  <mat-form-field class="w-100">
+    <mat-label> {{ 'Search...' }}</mat-label>
+    <input matInput formControlName="itemToSearch" class="" />
+  </mat-form-field>
+</form>
+<ng-container *ngFor="let item of trips" class="card m-2 w-75">
+  <ng-container class="card-body border">
+    <ng-container
+      *ngFor="let trip of item.tripjson"
+      class="p-2 rounded m-1 border"
+    >
+      <div
+        *ngIf="trip.title === tripToSearch || tripToSearch === ''"
+        class="row m-2 bg-light"
+      >
         <div style="flex-basis: 20%">
           <img
             class="w-75"
@@ -20,14 +29,17 @@
         <div style="flex-basis: 60%">
           <div class="fw-bold w-75">
             <h5>
-              <span class="text-capitalize text-primary">
+              <span class="text-capitalize">
                 {{ trip.title }} ({{ trip.trip[0].dateIncome }} to
                 {{ trip.trip[trip.trip.length - 1].dateIncome }})
               </span>
             </h5>
           </div>
           <div *ngFor="let location of trip.trip" class="border-bottom">
-            <p class="text-small">
+            <p class="text-small p-1">
+              <span>
+                <i class="fa fa-map-marker"></i>
+              </span>
               <span class="fw-bold text-capitalize">
                 {{ location?.locationTitle }}
               </span>
@@ -39,6 +51,7 @@
           </div>
           <div>
             <span *ngFor="let guest of fetchTripUsers(trip.title)">
+              {{ guest.name }}
               <img
                 [class.opacity-1]="guest.confirmed === '1'"
                 [title]="guest.name"
@@ -50,7 +63,7 @@
           </div>
 
           <div
-            class="card-title p-2 text-small text-red fw-bold text-capitalize"
+            class="card-title p-2 text-small text-muted fw-bold text-capitalize"
           >
             Manager:
             {{ item.name }}
@@ -58,14 +71,25 @@
           </div>
         </div>
         <div style="flex-basis: 20%">
-          <p class="text-dark text-large">1200$</p>
           <p>
-            <a (click)="ask(trip.title, item.uid)" class="btn btn-primary"
+            <span class="text-large"> {{ cost(trip.title) }}$ </span>
+            <span class="text-dark text-small"> per person </span>
+          </p>
+          <p>
+            <a
+              *ngIf="!isAsked(trip?.title); else elseTmpl"
+              (click)="ask(trip.title, item.uid)"
+              class="btn btn-primary"
               >Ask to join ></a
             >
+            <ng-template #elseTmpl>
+              <a (click)="ask(trip.title, item.uid)" class="btn btn-primary"
+                >revoke ></a
+              >
+            </ng-template>
           </p>
         </div>
       </div>
-    </div>
-  </div>
-</div>
+    </ng-container>
+  </ng-container>
+</ng-container>

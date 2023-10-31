@@ -17,7 +17,11 @@ import { MapService } from './master/map/service';
 import { SettingService } from './setting';
 import { actions } from './+state/actions';
 import { MapApiService } from 'libs/map/src/lib/component/map.service';
-import { selectAllTrips, selectTripRequests } from './+state/select';
+import {
+  selectAllTrips,
+  selectTripRequests,
+  selectTripUsers,
+} from './+state/select';
 
 @Component({
   selector: 'pe-root',
@@ -91,6 +95,10 @@ export class AppComponent implements OnInit, AfterViewInit {
   fetchAllTrips() {
     this.store.dispatch(actions.startFetchAllTrips());
   }
+  fetchUserOfTrip() {
+    this.store.dispatch(actions.startFetchUsersOfTrip());
+    // this.store.select(selectTripUsers).subscribe((res) => console.log(res));
+  }
   fetchUsersOfTrips() {
     const requestsAll: any = [
       {
@@ -124,9 +132,9 @@ export class AppComponent implements OnInit, AfterViewInit {
         }
       });
     });
-    setTimeout(() => {
+    /*setTimeout(() => {
       this.store.dispatch(actions.fillUserTrips({ data: requestsAll }));
-    }, 2000);
+    }, 2000);*/
   }
   ngOnInit(): void {
     this.getRoute();
@@ -160,6 +168,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     setTimeout(() => {
       this.skip = 0;
     }, 2000);
+    this.fetchUserOfTrip();
   }
 
   showTours() {
