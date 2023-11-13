@@ -1,5 +1,7 @@
 <p>{{ 'Guests' | translate }}</p>
-<button mat-raised-button (click)="addUser()">Add user</button>
+<button *ngIf="addPermission" mat-raised-button (click)="addUser()">
+  Add user
+</button>
 <div *ngFor="let item of userList" class="row">
   <div>
     <img
@@ -11,7 +13,11 @@
     {{ item.name }}
     {{ item.family }}
   </div>
-  <div class="text-left cursor-pointer" (click)="remove(item)">
+  <div
+    *ngIf="addPermission"
+    class="text-left cursor-pointer"
+    (click)="remove(item)"
+  >
     {{ 'remove' | translate }}
   </div>
 </div>

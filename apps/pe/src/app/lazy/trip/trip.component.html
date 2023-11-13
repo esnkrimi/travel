@@ -62,6 +62,7 @@
           text="You can change values you inserted before"
         />
         <span
+          *ngIf="ownerPermission"
           joyrideStep="fourthStep"
           style="flex-basis: 7%"
           class="text-review"
@@ -82,6 +83,7 @@
           [value]="item.timeIncome"
         />
         <span
+          *ngIf="ownerPermission"
           style="flex-basis: 7%"
           class="text-review"
           (click)="review(item.locationTitle, 'timeIncome', item)"
@@ -101,6 +103,7 @@
           [value]="item.persons"
         /><span>persons</span>
         <span
+          *ngIf="ownerPermission"
           style="flex-basis: 7%"
           class="text-review"
           (click)="review(item.locationTitle, 'persons', item)"
@@ -120,6 +123,7 @@
         />
 
         <span
+          *ngIf="ownerPermission"
           style="flex-basis: 7%"
           class="text-review"
           (click)="review(item.locationTitle, 'vehicle', item)"
@@ -138,6 +142,7 @@
           [value]="item.moneyLost"
         />$ for this place
         <span
+          *ngIf="ownerPermission"
           style="flex-basis: 7%"
           class="text-review"
           (click)="review(item.locationTitle, 'moneyLost', item)"
@@ -149,4 +154,7 @@
   </mat-expansion-panel>
 </mat-accordion>
 
-<pe-trip-user [tripTitle]="tripTitle"></pe-trip-user>
+<pe-trip-user
+  [addPermission]="ownerPermission"
+  [tripTitle]="tripTitle"
+></pe-trip-user>

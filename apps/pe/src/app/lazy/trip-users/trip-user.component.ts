@@ -29,6 +29,7 @@ import { selectUsersOfSite } from '@appBase/+state/select';
 export class TripUserComponent implements OnChanges {
   @Input() tripId: any;
   @Input() tripTitle: any;
+  @Input() addPermission: any;
 
   userList: any = [];
   constructor(

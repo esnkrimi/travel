@@ -22,10 +22,14 @@ import {
 } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { actions } from '@appBase/+state/actions';
-import { selectReviewtrip, selectTrip } from '@appBase/+state/select';
+import {
+  selectReviewtrip,
+  selectTrip,
+  selectTripRequests,
+} from '@appBase/+state/select';
 import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
-import { Subscription, map } from 'rxjs';
+import { Subscription, map, tap } from 'rxjs';
 import { TripService } from './trip.service';
 import { JoyrideService } from 'ngx-joyride';
 import { DrawerService } from '@appBase/drawer.service';
@@ -35,9 +39,10 @@ import { DrawerService } from '@appBase/drawer.service';
   templateUrl: './trip.component.html',
   styleUrls: ['./trip.component.scss'],
 })
-export class TripComponent implements OnInit, OnDestroy {
+export class TripComponent implements OnInit {
   cancelTripConfirm = false;
   panelOpenState = false;
+  ownerPermission = false;
   trip: any;
   listOfReviewTrip: any;
   tripTitle: any;
@@ -55,13 +60,11 @@ export class TripComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private store: Store,
     public dialog: MatDialog,
+    @Inject('userSession') public userSession: any,
     private readonly myJoyrideService: JoyrideService,
     private drawerService: DrawerService,
     private translate: TranslateService
   ) {}
-  ngOnDestroy(): void {
-    this.subscription.unsubscribe();
-  }
   hideMap() {
     this.drawerService.showMap.next(false);
   }
@@ -104,6 +107,21 @@ export class TripComponent implements OnInit, OnDestroy {
     );
   }
 
+  tripOwnerChecking(tripTitle: string): any {
+    const uid = JSON.parse(this.userSession)?.id;
+    this.store
+      .select(selectTripRequests)
+      .pipe(
+        map((res: any) => res.filter((res: any) => res.uid === uid)),
+        map((res: any) => res.filter((res: any) => res.tripTitle === tripTitle))
+      )
+      .subscribe((res) => {
+        // this.trips = res;
+        this.ownerPermission = res.length > 0 ? true : false;
+        // return result;
+      });
+  }
+
   ngOnInit(): void {
     this.hideMap();
     this.route.paramMap.subscribe((res: any) => {
@@ -115,6 +133,7 @@ export class TripComponent implements OnInit, OnDestroy {
         )
         .subscribe((res) => {
           this.trip = res[0];
+          this.tripOwnerChecking(this.trip.title);
         });
 
       this.store

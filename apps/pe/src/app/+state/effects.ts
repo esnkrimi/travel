@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, ofType, createEffect } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
-import { map, switchMap, tap } from 'rxjs/operators';
+import { map, mergeMap, tap } from 'rxjs/operators';
 import { actions } from './actions';
 import { Router } from '@angular/router';
 // eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
@@ -25,7 +25,7 @@ export class storeEffects {
   startRemoveUserFromTrip: any = createEffect(() => {
     return this.actions$.pipe(
       ofType(actions.getStartRemoveUserFromTrip),
-      switchMap((res: any) => {
+      mergeMap((res: any) => {
         return this.tripService
           .removeUserFromTrip(res.userId, res.tripTitle, res.ownerId)
           .pipe(map((res: any) => actions.removeUserFromTrip()));
@@ -36,7 +36,7 @@ export class storeEffects {
   startFetchUserOfTrip: any = createEffect(() => {
     return this.actions$.pipe(
       ofType(actions.startFetchUsersOfTrip),
-      switchMap((res: any) => {
+      mergeMap((res: any) => {
         //console.log(99);
         return this.tripListsService
           .userOfTrip()
@@ -49,7 +49,7 @@ export class storeEffects {
   startDeleteLocationComment: any = createEffect(() => {
     return this.actions$.pipe(
       ofType(actions.getStartDeleteLocationComments),
-      switchMap((res: any) => {
+      mergeMap((res: any) => {
         return this.experiencesApiService
           .deleteLocationComment(res.userId, res.locationId)
           .pipe(
@@ -62,7 +62,7 @@ export class storeEffects {
   startFetchLocationComment: any = createEffect(() => {
     return this.actions$.pipe(
       ofType(actions.getStartFetchLocationComments),
-      switchMap((res: any) => {
+      mergeMap((res: any) => {
         return this.experiencesApiService
           .fetch(res.locationId)
           .pipe(
@@ -75,7 +75,7 @@ export class storeEffects {
   startConfirmTripInvite: any = createEffect(() => {
     return this.actions$.pipe(
       ofType(actions.getStartConfirmInvite),
-      switchMap((res: any) => {
+      mergeMap((res: any) => {
         return this.mytripsService
           .tripReuestConfirmation(
             res.ownerId,
@@ -91,7 +91,7 @@ export class storeEffects {
   startConfirmTripRequests: any = createEffect(() => {
     return this.actions$.pipe(
       ofType(actions.getStartConfirmRequests),
-      switchMap((res: any) => {
+      mergeMap((res: any) => {
         return this.messagesApiService
           .tripReuestConfirmation(
             res.ownerId,
@@ -107,7 +107,7 @@ export class storeEffects {
   startTripRequests: any = createEffect(() => {
     return this.actions$.pipe(
       ofType(actions.getStartFetchTripRequests),
-      switchMap((res: any) => {
+      mergeMap((res: any) => {
         return this.messagesApiService
           .fetch(res.uid)
           .pipe(map((res: any) => actions.fetchTripRequests({ data: res })));
@@ -118,7 +118,7 @@ export class storeEffects {
   askToJoin: any = createEffect(() => {
     return this.actions$.pipe(
       ofType(actions.getStartAskToJoin),
-      switchMap((res: any) => {
+      mergeMap((res: any) => {
         return this.tripListsService
           .askToJoin(res.data.uid, res.data.tripTitle, res.data.owenerid)
           .pipe(map((res1: any) => actions.askToJoin({ data: res })));
@@ -129,7 +129,7 @@ export class storeEffects {
   getStartFtechAllTrips: any = createEffect(() => {
     return this.actions$.pipe(
       ofType(actions.startFetchAllTrips),
-      switchMap(() => {
+      mergeMap(() => {
         return this.tripListsService
           .fetchTrips()
           .pipe(
@@ -150,7 +150,7 @@ export class storeEffects {
     let t: any;
     return this.actions$.pipe(
       ofType(actions.startFetchUsersOfSites),
-      switchMap(() => {
+      mergeMap(() => {
         return this.tripService
           .getUserList()
           .pipe(
@@ -164,7 +164,7 @@ export class storeEffects {
     let t: any;
     return this.actions$.pipe(
       ofType(actions.addUserToTripPreparing),
-      switchMap((res: any) => {
+      mergeMap((res: any) => {
         //console.log(res);
         return this.tripService
           .addUserToTrip(res.guestId, res.tripTitle, res.ownerId)
@@ -177,7 +177,7 @@ export class storeEffects {
     let t: any;
     return this.actions$.pipe(
       ofType(actions.startTripFactorsUpdate),
-      switchMap(() => {
+      mergeMap(() => {
         this.store.select(selectTrip).subscribe((res) => {
           t = JSON.stringify(res);
         });
@@ -192,7 +192,7 @@ export class storeEffects {
     let t: any;
     return this.actions$.pipe(
       ofType(actions.startReviewUpdate),
-      switchMap(() => {
+      mergeMap(() => {
         this.store.select(selectReviewtrip).subscribe((res) => {
           t = JSON.stringify(res);
         });
@@ -206,7 +206,7 @@ export class storeEffects {
   getStartAddTripPoint: any = createEffect(() => {
     return this.actions$.pipe(
       ofType(actions.addTrip),
-      switchMap((result: any) => {
+      mergeMap((result: any) => {
         //console.log(result);
         return this.ser
           .updateTrip(JSON.stringify(result.trip))
@@ -218,7 +218,7 @@ export class storeEffects {
   getStartFetchTrip: any = createEffect(() => {
     return this.actions$.pipe(
       ofType(actions.startFetchTrip),
-      switchMap((result: any) => {
+      mergeMap((result: any) => {
         return this.ser.fetchTrip().pipe(
           map((res: any) =>
             actions.fetchTrip({
@@ -237,7 +237,7 @@ export class storeEffects {
   getStartShareExperience: any = createEffect(() => {
     return this.actions$.pipe(
       ofType(actions.startShareExperience),
-      switchMap((result: any) => {
+      mergeMap((result: any) => {
         return this.zoomService
           .describtion(
             result.uid,
@@ -253,7 +253,7 @@ export class storeEffects {
   getStartLocationSubmit: any = createEffect(() => {
     return this.actions$.pipe(
       ofType(actions.startSubmitLocation),
-      switchMap((result: any) => {
+      mergeMap((result: any) => {
         return this.zoomService
           .submitLocation(result.uid, result.form)
           .pipe(map((res: any) => actions.submitLocation({ form: result })));
@@ -264,7 +264,7 @@ export class storeEffects {
   getStartRating: any = createEffect(() => {
     return this.actions$.pipe(
       ofType(actions.startRateAction),
-      switchMap((result: any) => {
+      mergeMap((result: any) => {
         result = result.updateSaved;
         return this.zoomService
           .rate(result[0], result[1], result[2])
@@ -276,7 +276,7 @@ export class storeEffects {
   getStartSaving: any = createEffect(() => {
     return this.actions$.pipe(
       ofType(actions.startSaveAction),
-      switchMap((result: any) => {
+      mergeMap((result: any) => {
         result = result.updateSaved;
         return this.zoomService
           .saved(result[0], result[1])
@@ -288,7 +288,7 @@ export class storeEffects {
   getStartSetview: any = createEffect(() => {
     return this.actions$.pipe(
       ofType(actions.startSetviewAction),
-      switchMap((str: any) => {
+      mergeMap((str: any) => {
         str = str.location;
         return this.locationService
           .getGeographic(str.city, str.country, str.geo)
@@ -300,7 +300,7 @@ export class storeEffects {
   getStartAutocomplete: any = createEffect(() => {
     return this.actions$.pipe(
       ofType(actions.startAutocompleteAction),
-      switchMap((str: any) => {
+      mergeMap((str: any) => {
         str = str.text;
         return zip(
           this.locationService
@@ -326,7 +326,7 @@ export class storeEffects {
   getLocations: any = createEffect(() => {
     return this.actions$.pipe(
       ofType(actions.startFetchCountryLocationAction),
-      switchMap((location: any) => {
+      mergeMap((location: any) => {
         return this.ser
           .fetchAllByCountry(location.country)
           .pipe(map((res: any) => actions.fetchAction({ location: res })));
@@ -337,7 +337,7 @@ export class storeEffects {
   login: any = createEffect(() => {
     return this.actions$.pipe(
       ofType(actions.startLoginAction),
-      switchMap((loginInfo: any) => {
+      mergeMap((loginInfo: any) => {
         return this.service
           .login(loginInfo.user)
           .pipe(map((res: any) => actions.loginAction({ user: res })));
@@ -348,7 +348,7 @@ export class storeEffects {
   signup: any = createEffect(() => {
     return this.actions$.pipe(
       ofType(actions.startSignupAction),
-      switchMap((signupInfo: any) => {
+      mergeMap((signupInfo: any) => {
         return this.service.signup(signupInfo.user).pipe(
           tap((res: any) => {
             this.localStorage.saveData('user', JSON.stringify(res[0]));

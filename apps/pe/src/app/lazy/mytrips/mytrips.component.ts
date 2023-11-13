@@ -3,6 +3,7 @@ import { Store } from '@ngrx/store';
 import { actions } from '@appBase/+state/actions';
 import { selectTripRequests } from '@appBase/+state/select';
 import { DrawerService } from '@appBase/drawer.service';
+import { map } from 'rxjs';
 
 @Component({
   selector: 'pe-mytrips',
@@ -14,7 +15,6 @@ export class MytripsComponent implements OnInit {
   constructor(
     private store: Store,
     private drawerService: DrawerService,
-
     @Inject('userSession') public userSession: any
   ) {}
   ngOnInit(): void {
@@ -25,9 +25,16 @@ export class MytripsComponent implements OnInit {
     this.drawerService.showMap.next(false);
   }
   myTrips() {
-    this.store.select(selectTripRequests).subscribe((res) => {
-      this.trips = res;
-    });
+    this.store
+      .select(selectTripRequests)
+      .pipe(
+        map((res: any) =>
+          res.filter((res: any) => res.uid === JSON.parse(this.userSession)?.id)
+        )
+      )
+      .subscribe((res) => {
+        this.trips = res;
+      });
   }
   confirm(event: any, ownerId: string, tripTitle: string, userId: string) {
     const action = event.checked ? 1 : 0;
