@@ -8,10 +8,6 @@ import { DrawerService } from '@appBase/drawer.service';
   styleUrls: ['./map.component.scss'],
 })
 export class MapComponent implements OnChanges {
-  constructor(
-    private drawerService: DrawerService,
-    private route: ActivatedRoute
-  ) {}
   center = [41.02446333535115, 28.953609466552734];
   country = 'turkey';
   @Input() scope: any;

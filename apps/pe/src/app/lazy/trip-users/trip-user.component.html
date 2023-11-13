@@ -1,9 +1,17 @@
-<p>You can add user to trip :</p>
+<p>{{ 'Guests' | translate }}</p>
 <button mat-raised-button (click)="addUser()">Add user</button>
 <div *ngFor="let item of userList" class="row">
-  <div>IMAGE</div>
   <div>
+    <img
+      src="https://d1hb67vd7r4m10.cloudfront.net/images/easyblog_articles/89/b2ap3_large_ee72093c-3c01-433a-8d25-701cca06c975.jpg"
+      class="img-icon"
+    />
+  </div>
+  <div class="text-left">
     {{ item.name }}
     {{ item.family }}
+  </div>
+  <div class="text-left cursor-pointer" (click)="remove(item)">
+    {{ 'remove' | translate }}
   </div>
 </div>

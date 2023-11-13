@@ -17,7 +17,7 @@ export class FetchLocationService {
   }
 
   getGeographic(city: string, country: string, geo: any) {
-    if (geo.length > 1) {
+    if (geo?.length > 1) {
       const t = [
         {
           country_name: country,
@@ -109,38 +109,4 @@ export class FetchLocationService {
       })
     );
   }
-  /*
-  get(item: string) {
-    let results: any = [];
-    return this.httpClient
-      .get('./assets/datas/geography.json')
-      .pipe(
-        map((res) => Object.entries(res)),
-        map((res) => {
-          results = [];
-          for (let i = 0; i < res.length; i++) {
-            let tmp: any = {
-              country: '',
-              city: '',
-              sym: '',
-              geo: [],
-            };
-            const t = res[i][1].join(' ').toLowerCase();
-            if (t.includes(item.toLowerCase())) {
-              res[i][1].forEach((element: any) => {
-                if (element === item) {
-                  tmp.city = element;
-                }
-              });
-              tmp.country = res[i][0];
-              tmp.geo = [];
-              tmp.sym = res[i][0];
-              tmp.city && results.push(tmp);
-            }
-          }
-          console.log(results);
-          return results;
-        })
-      );
-  }*/
 }

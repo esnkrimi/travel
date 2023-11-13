@@ -12,6 +12,12 @@ import { createActionGroup, props, emptyProps } from '@ngrx/store';
 export const actions = createActionGroup({
   source: 'store',
   events: {
+    'remove user from trip': emptyProps(),
+    'get start remove user from trip': props<{
+      userId: string;
+      tripTitle: string;
+      ownerId: string;
+    }>(),
     'delete location comments': props<{ data: any }>(),
     'get start delete location comments': props<{
       locationId: any;

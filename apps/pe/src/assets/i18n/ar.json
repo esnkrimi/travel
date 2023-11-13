@@ -31,6 +31,8 @@
   "confirm":"الییذ",
   "trips":"السفر"  ,
   "home":"البیت"  ,
-  "mymessages":"Messages"
+  "mymessages":"Messages",
+  "remove":"حذف",
+  "guests":"Guests"
 
 }

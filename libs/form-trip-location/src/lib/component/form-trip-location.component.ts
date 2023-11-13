@@ -93,7 +93,7 @@ export class FormTripLocationComponent implements OnChanges, AfterViewInit {
   selectLocationActivated = false;
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log(this.title);
+    //console.log(this.title);
 
     this.mapApiService.bgLoader.next(true);
     if (this.title.length > 1) this.indexFormItemShow = 2;
@@ -118,7 +118,7 @@ export class FormTripLocationComponent implements OnChanges, AfterViewInit {
     this.vehicle = vehicle;
   }
   finish() {
-    console.log('IFNI');
+    //console.log('IFNI');
   }
   onCommitSubmitTripLocation(finish: boolean) {
     this.mapService.loadingProgress.next(true);

@@ -22,10 +22,22 @@ import { ExperiencesApiService } from 'libs/experiences/src/lib/component/experi
 
 @Injectable()
 export class storeEffects {
+  startRemoveUserFromTrip: any = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(actions.getStartRemoveUserFromTrip),
+      switchMap((res: any) => {
+        return this.tripService
+          .removeUserFromTrip(res.userId, res.tripTitle, res.ownerId)
+          .pipe(map((res: any) => actions.removeUserFromTrip()));
+      })
+    );
+  });
+
   startFetchUserOfTrip: any = createEffect(() => {
     return this.actions$.pipe(
       ofType(actions.startFetchUsersOfTrip),
       switchMap((res: any) => {
+        //console.log(99);
         return this.tripListsService
           .userOfTrip()
           .pipe(
@@ -153,7 +165,7 @@ export class storeEffects {
     return this.actions$.pipe(
       ofType(actions.addUserToTripPreparing),
       switchMap((res: any) => {
-        console.log(res);
+        //console.log(res);
         return this.tripService
           .addUserToTrip(res.guestId, res.tripTitle, res.ownerId)
           .pipe(map((res: any) => actions.addUserToTrip()));
@@ -195,7 +207,7 @@ export class storeEffects {
     return this.actions$.pipe(
       ofType(actions.addTrip),
       switchMap((result: any) => {
-        console.log(result);
+        //console.log(result);
         return this.ser
           .updateTrip(JSON.stringify(result.trip))
           .pipe(map((res: any) => actions.addTripPoint()));
@@ -294,7 +306,6 @@ export class storeEffects {
           this.locationService
             .get(str.charAt(0).toUpperCase() + str.slice(1))
             .pipe(
-              tap((res) => console.log(res)),
               map((res: any) => actions.autocompleteAction({ result: res }))
             ),
           this.locationService
@@ -341,7 +352,7 @@ export class storeEffects {
         return this.service.signup(signupInfo.user).pipe(
           tap((res: any) => {
             this.localStorage.saveData('user', JSON.stringify(res[0]));
-            console.log(res);
+            //console.log(res);
           }),
           map((res: any) => actions.signupAction({ user: res }))
         );

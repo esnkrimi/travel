@@ -20,4 +20,10 @@ export class TripUserService {
     const url = `${this.baseUrl}id=16&uid=${uid}&trip=${tripTitle}&ownerid=${ownerid}`;
     return this.httpClient.get(url);
   }
+
+  removeUserFromTrip(uid: any, tripTitle: any, ownerid: any) {
+    const url = `${this.baseUrl}id=33&uid=${uid}&trip=${tripTitle}&ownerid=${ownerid}`;
+    //console.log(url);
+    return this.httpClient.get(url);
+  }
 }

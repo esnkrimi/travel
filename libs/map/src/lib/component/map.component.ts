@@ -180,40 +180,41 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
     sizes: any,
     num?: number
   ) {
-    let tooltipPopup: any;
-    let icon: any;
-    if (num) {
-      icon = new L.Icon({
-        iconUrl: `https://raw.githubusercontent.com/sheiun/leaflet-color-number-markers/main/dist/img/red/marker-icon-2x-red-${num}.png`,
-        iconSize: [50, 88],
-      });
-    } else {
-      icon = new L.Icon({
-        iconUrl: `assets/img/${icona}.png`,
-        iconSize: sizes,
-      });
-    }
-    const mrkr = L.marker(position, { icon: icon })
-      .addTo(this.map)
-      .on('click', (e) => {
-        if (this.distanceActivated) this.distanceActive(e);
-        else if (this.createTripActivate) this.startCreateTrip(e);
-        else this.bind(e);
-      })
-      .on('mouseover', (e) => {
-        this.store
-          .select(selectLocation)
-          .pipe(
-            map((res) => {
-              return res.filter(
-                (res: any) => res.lat == e.target.getLatLng().lat
-              );
-            })
-          )
-          .subscribe((res) => {
-            tooltipPopup = L.popup({ offset: L.point(0, -20) });
-            tooltipPopup.setContent(
-              `<b>${this.capitalizeFirstLetter(res[0]?.title)} ${res[0]?.type}
+    if (position) {
+      let tooltipPopup: any;
+      let icon: any;
+      if (num) {
+        icon = new L.Icon({
+          iconUrl: `https://raw.githubusercontent.com/sheiun/leaflet-color-number-markers/main/dist/img/red/marker-icon-2x-red-${num}.png`,
+          iconSize: [50, 88],
+        });
+      } else {
+        icon = new L.Icon({
+          iconUrl: `assets/img/${icona}.png`,
+          iconSize: sizes,
+        });
+      }
+      const mrkr = L.marker(position, { icon: icon })
+        .addTo(this.map)
+        .on('click', (e) => {
+          if (this.distanceActivated) this.distanceActive(e);
+          else if (this.createTripActivate) this.startCreateTrip(e);
+          else this.bind(e);
+        })
+        .on('mouseover', (e) => {
+          this.store
+            .select(selectLocation)
+            .pipe(
+              map((res) => {
+                return res.filter(
+                  (res: any) => res.lat == e.target.getLatLng().lat
+                );
+              })
+            )
+            .subscribe((res) => {
+              tooltipPopup = L.popup({ offset: L.point(0, -20) });
+              tooltipPopup.setContent(
+                `<b>${this.capitalizeFirstLetter(res[0]?.title)} ${res[0]?.type}
               </b>
               <hr>
               Score :
@@ -222,19 +223,20 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
               </b><br>
               Address</b>:<b>
               ${this.capitalizeFirstLetter(res[0]?.district)} - ${
-                res[0]?.street
-              }</b>
+                  res[0]?.street
+                }</b>
               <br>Phone<b>:
               ${res[0]?.phone}</b>`
-            );
-            tooltipPopup.setLatLng(e.target.getLatLng());
-            tooltipPopup.openOn(this.map);
-          });
-      })
-      .on('mouseout', (e) => {
-        tooltipPopup.remove();
-      });
-    this.turnOffProgress(1000);
+              );
+              tooltipPopup.setLatLng(e.target.getLatLng());
+              tooltipPopup.openOn(this.map);
+            });
+        })
+        .on('mouseout', (e) => {
+          tooltipPopup.remove();
+        });
+      this.turnOffProgress(1000);
+    }
   }
 
   turnOffProgress(time: number) {
@@ -284,6 +286,7 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
       .select(selectLocation)
       .pipe(map((res) => res.filter((res) => res.saved || !this.savedLocation)))
       .subscribe((res) => {
+        //console.log(res);
         data = res;
         for (let i = 0; i < data?.length; i++) {
           const obj = {
@@ -294,7 +297,7 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
             this.selectedType === 'all' ||
             this.selectedType === data[i]?.type
           ) {
-            this.addMarker(obj, data[i]?.type, [35, 35]);
+            if (obj) this.addMarker(obj, data[i]?.type, [35, 35]);
           }
         }
         this.turnOffProgress(200);
@@ -333,8 +336,9 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
     this.drawerService.localInformation.next(this.locationSelected);
   }
   //--------------------------------------
-  changeCenter() {
-    this.positionView = this.map?.setView(this.center, 15);
+  async changeCenter() {
+    //console.log(this.center);
+    this.positionView = await this.map?.setView(this.center, 15);
   }
   listener() {
     this.fetchByCountry(this.country);

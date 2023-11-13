@@ -8,6 +8,7 @@ export const reducerStates = createFeature({
   reducer: createReducer(
     AppState,
     on(actions.fetchUsersOfTrip, function (states: any, action: any) {
+      //console.log(action);
       return {
         ...states,
         tripUsers: action.userOfTrip,
@@ -26,7 +27,7 @@ export const reducerStates = createFeature({
             };
             return {
               ...res,
-              users: states.users.push(tmp),
+              users: states?.users?.push(tmp),
             };
           } else {
             return {
@@ -56,13 +57,8 @@ export const reducerStates = createFeature({
       };
     }),
 
-    on(actions.fillUserTrips, function (states: any, action: any) {
-      return {
-        ...states,
-        tripUsers: action.data,
-      };
-    }),
     on(actions.confirmRequests, function (states: any, action: any) {
+      //console.log(action.data);
       return {
         ...states,
         tripRequests: action.data,

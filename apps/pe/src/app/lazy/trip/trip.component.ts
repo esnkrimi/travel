@@ -4,6 +4,7 @@ import {
   Component,
   ElementRef,
   Inject,
+  OnDestroy,
   OnInit,
   ViewChild,
   inject,
@@ -24,7 +25,7 @@ import { actions } from '@appBase/+state/actions';
 import { selectReviewtrip, selectTrip } from '@appBase/+state/select';
 import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
-import { map } from 'rxjs';
+import { Subscription, map } from 'rxjs';
 import { TripService } from './trip.service';
 import { JoyrideService } from 'ngx-joyride';
 import { DrawerService } from '@appBase/drawer.service';
@@ -34,13 +35,13 @@ import { DrawerService } from '@appBase/drawer.service';
   templateUrl: './trip.component.html',
   styleUrls: ['./trip.component.scss'],
 })
-export class TripComponent implements OnInit {
+export class TripComponent implements OnInit, OnDestroy {
   cancelTripConfirm = false;
   panelOpenState = false;
   trip: any;
   listOfReviewTrip: any;
   tripTitle: any;
-
+  subscription: any;
   types = new Map([
     ['dateIncome', 'date'],
     ['timeIncome', 'time'],
@@ -58,6 +59,9 @@ export class TripComponent implements OnInit {
     private drawerService: DrawerService,
     private translate: TranslateService
   ) {}
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
   hideMap() {
     this.drawerService.showMap.next(false);
   }
@@ -70,7 +74,7 @@ export class TripComponent implements OnInit {
     this.openDialog(tripTitle, field, trip);
   }
   cancelTrip(trip: string) {
-    this.tripService.cancelTrip(trip).subscribe();
+    this.subscription = this.tripService.cancelTrip(trip).subscribe();
   }
   openDialog(title: string, field: string, trip: any) {
     const found = this.listOfReviewTrip[0].trip.find(

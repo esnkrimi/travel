@@ -54,6 +54,7 @@ export class MessagesComponent implements OnInit {
   }
   tripRequests() {
     this.store.select(selectTripRequests).subscribe((res) => {
+      //console.log(res);
       this.tripRequest = res;
     });
   }

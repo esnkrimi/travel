@@ -1,5 +1,4 @@
 import { Component, Inject, OnInit, inject } from '@angular/core';
-import { MytripsService } from './mytrips.service';
 import { Store } from '@ngrx/store';
 import { actions } from '@appBase/+state/actions';
 import { selectTripRequests } from '@appBase/+state/select';
@@ -14,7 +13,6 @@ export class MytripsComponent implements OnInit {
   trips: any = [];
   constructor(
     private store: Store,
-    private service: MytripsService,
     private drawerService: DrawerService,
 
     @Inject('userSession') public userSession: any

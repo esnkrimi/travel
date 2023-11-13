@@ -39,7 +39,9 @@
   "confirm":"confirm",
   "trips":"Trips",  
   "home":"home"  ,
-  "mymessages":"Messages"
+  "mymessages":"Messages",
+  "remove":"remove",
+  "guests":"Guests"
 
   
 }

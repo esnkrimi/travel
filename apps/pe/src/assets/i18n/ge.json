@@ -31,6 +31,8 @@
   "confirm":"confirm",
   "home":"home"  ,
   "trips":"Trips"   ,
-  "mymessages":"Messages"
+  "mymessages":"Messages",
+  "remove":"حذف",
+  "guests":"Guests"
 
 }

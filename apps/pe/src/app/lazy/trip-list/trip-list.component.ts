@@ -10,7 +10,6 @@ import {
 import { MapService } from '@appBase/master/map/service';
 import { LocalService } from '@appBase/storage';
 import { DrawerService } from '@appBase/drawer.service';
-import { map, tap } from 'rxjs';
 import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
@@ -54,7 +53,7 @@ export class TripListComponent implements OnInit {
     this.drawerService.showMap.next(false);
   }
   filterAllTrips(item: any) {
-    console.log(this.trips);
+    //console.log(this.trips);
     // this.trips.filter(res=>res.)
   }
   ngOnInit(): void {
@@ -66,20 +65,9 @@ export class TripListComponent implements OnInit {
     this.tripSearchListener();
     this.hideMap();
   }
-  results(result: any) {
-    this.trips = result;
-    setTimeout(() => {
-      this.mapService.loadingProgress.next(false);
-    }, 500);
-  }
+
   tripZoom(tripTitle: string) {
     alert(tripTitle);
-  }
-  ask(tripTitle: string, uid: any) {
-    const userData = JSON.parse(this.localStorage.getData('user'));
-    const data = { uid: userData.id, tripTitle: tripTitle, owenerid: uid };
-    this.store.dispatch(actions.getStartAskToJoin({ data: data }));
-    this.fetchTrips();
   }
 
   fetchTripUsers(tripTitle: string): any {
@@ -110,12 +98,20 @@ export class TripListComponent implements OnInit {
     }
     return sumCost;
   }
+  ask(tripTitle: string, uid: any) {
+    this.mapService.loadingProgress.next(false);
+    const userData = JSON.parse(this.localStorage.getData('user'));
+    const data = { uid: userData.id, tripTitle: tripTitle, owenerid: uid };
+    this.store.dispatch(actions.getStartAskToJoin({ data: data }));
+    this.store.dispatch(actions.startFetchUsersOfTrip());
+  }
+
   select() {
     this.store.select(selectAllTrips).subscribe((res) => {
       this.trips = res;
     });
-
     this.store.select(selectTripUsers).subscribe((res) => {
+      //console.log(res);
       this.tripRequest = res;
       this.mapService.loadingProgress.next(false);
     });

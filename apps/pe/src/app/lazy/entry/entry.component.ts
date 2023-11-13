@@ -43,7 +43,6 @@ export class EntryComponent implements OnInit {
   });
 
   constructor(
-    private router: Router,
     private route: ActivatedRoute,
     private mapService: MapService,
     private service: EntryService,
@@ -110,7 +109,7 @@ export class EntryComponent implements OnInit {
   }
   hideMap() {
     this.drawerService.showMap.next(false);
-    console.log(9);
+    //console.log(9);
   }
   ngOnInit(): void {
     this.hideMap();

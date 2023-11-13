@@ -1,5 +1,12 @@
 import { NgIf } from '@angular/common';
-import { Component, Inject, Input, OnInit } from '@angular/core';
+import {
+  Component,
+  Inject,
+  Input,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
+} from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
   MAT_DIALOG_DATA,
@@ -19,7 +26,7 @@ import { selectUsersOfSite } from '@appBase/+state/select';
   templateUrl: './trip-user.component.html',
   styleUrls: ['./trip-user.component.scss'],
 })
-export class TripUserComponent implements OnInit {
+export class TripUserComponent implements OnChanges {
   @Input() tripId: any;
   @Input() tripTitle: any;
 
@@ -27,11 +34,27 @@ export class TripUserComponent implements OnInit {
   constructor(
     @Inject('userSession') public userSession: any,
     public dialog: MatDialog,
-    private service: TripUserService
+    private service: TripUserService,
+    private store: Store
   ) {}
-  ngOnInit(): void {
+
+  ngOnChanges(changes: SimpleChanges): void {
     this.fetchUserList();
   }
+
+  remove(user: any) {
+    //console.log('start');
+    this.store.dispatch(
+      actions.getStartRemoveUserFromTrip({
+        userId: user.user_id,
+        tripTitle: user.trip,
+        ownerId: user.ownerid,
+      })
+    );
+
+    this.fetchUserList();
+  }
+
   addUser() {
     const dialogRef = this.dialog.open(DialogDataUserAdd, {
       data: { tripTitle: this.tripTitle },
@@ -40,10 +63,14 @@ export class TripUserComponent implements OnInit {
       this.fetchUserList();
     });
   }
+
   fetchUserList() {
     this.service
       .fetchUserList(JSON.parse(this.userSession)?.id, this.tripTitle)
-      .subscribe((res) => (this.userList = res));
+      .subscribe((res) => {
+        //console.log(res);
+        this.userList = res;
+      });
   }
 }
 
@@ -71,9 +98,9 @@ export class DialogDataUserAdd implements OnInit {
     this.fetchUserList();
   }
   fetchUserList() {
-    this.store
-      .select(selectUsersOfSite)
-      .subscribe((res) => (this.userList = res));
+    this.store.select(selectUsersOfSite).subscribe((res) => {
+      this.userList = res;
+    });
   }
   resultSelected(user: any) {
     this.store.dispatch(

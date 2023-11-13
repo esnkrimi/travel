@@ -63,7 +63,6 @@ export class AppComponent implements OnInit, AfterViewInit {
     private draswerService: DrawerService,
     private settingService: SettingService,
     private router: Router,
-    private route: ActivatedRoute,
     private entryService: EntryService,
     private store: Store,
     private mapService: MapService,
@@ -132,9 +131,6 @@ export class AppComponent implements OnInit, AfterViewInit {
         }
       });
     });
-    /*setTimeout(() => {
-      this.store.dispatch(actions.fillUserTrips({ data: requestsAll }));
-    }, 2000);*/
   }
   ngOnInit(): void {
     this.getRoute();

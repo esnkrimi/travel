@@ -33,7 +33,7 @@ export class TripSubmitComponent {
       })
     );
     this.store.select(selectTrip).subscribe((res) => {
-      console.log(res);
+      //console.log(res);
       this.store.dispatch(actions.addTrip({ trip: JSON.stringify(res) }));
     });
     this.currentTrip = {
