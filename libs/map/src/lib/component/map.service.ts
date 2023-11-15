@@ -75,12 +75,15 @@ export class MapApiService {
     return this.httpClient.get(baseUrl);
   }
 
-  updateTrip(trip: any) {
+  updateTrip(title: string, trip: any) {
     const baseUrl =
       'https://www.burjcrown.com/drm/travel/index.php?id=12&uid=' +
       JSON.parse(this.userSession)?.id +
+      '&title=' +
+      title +
       '&trip=' +
       encodeURIComponent(trip);
+    console.log(baseUrl);
     return this.httpClient.get(baseUrl);
   }
 }

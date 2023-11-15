@@ -17,6 +17,7 @@ import { MapApiService } from 'libs/map/src/lib/component/map.service';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { HelpService } from 'libs/help/src/lib/component/help.service';
 import { map } from 'rxjs';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'pe-trips',
@@ -43,6 +44,7 @@ export class TripsComponent implements OnChanges {
   imports: [
     CommonModule,
     MatDialogModule,
+    RouterModule,
     MatButtonModule,
     NgxPaginationModule,
   ],
@@ -85,7 +87,7 @@ export class DialogContentExampleDialog implements AfterViewInit, OnInit {
       'You can manage trip,change input and insert real value after trip occured.you can compare and check if your program was gone well or no !'
     );
     this.mapApiService.tripLocations.next(trip);
-    this.drawerService.drawerType.next('/trip/' + trip.title);
-    this.drawerService.open.next(true);
+    //this.drawerService.drawerType.next('/trip/' + trip.title);
+    //this.drawerService.open.next(true);
   }
 }

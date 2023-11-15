@@ -85,8 +85,10 @@ export class FetchLocationService {
     let results: any = [];
     return this.httpClient.get('./assets/datas/geography.json').pipe(
       map((res: any) =>
-        res.filter((r: any) =>
-          r.name.toLowerCase().includes(item.toLowerCase())
+        res.filter(
+          (r: any) =>
+            r.name.toLowerCase().includes(item.toLowerCase()) ||
+            r.country_name.toLowerCase().includes(item.toLowerCase())
         )
       ),
       map((res: any) => {
@@ -96,7 +98,13 @@ export class FetchLocationService {
           sym: '',
           geo: [],
         };
-        for (let i = 0; i < res.length; i++) {
+        let length = res.length > 1 ? res.length : 1;
+        length = res.length > 5 ? 5 : res.length;
+        if (res[0]?.country_name === res[1]?.country_name) {
+          length = 1;
+          // res[0].name = res[0].country_name;
+        }
+        for (let i = 0; i < length; i++) {
           tmp = {
             country: res[i].country_name,
             city: res[i].name,
@@ -105,6 +113,7 @@ export class FetchLocationService {
           };
           results.push(tmp);
         }
+
         return results;
       })
     );

@@ -4,6 +4,7 @@ import { TripsComponent } from './component/trips.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialogModule } from '@angular/material/dialog';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   imports: [CommonModule, MatIconModule, MatButtonModule, MatDialogModule],

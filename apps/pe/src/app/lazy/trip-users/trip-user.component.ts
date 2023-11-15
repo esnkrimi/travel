@@ -45,13 +45,14 @@ export class TripUserComponent implements OnChanges {
 
   remove(user: any) {
     //console.log('start');
-    this.store.dispatch(
-      actions.getStartRemoveUserFromTrip({
-        userId: user.user_id,
-        tripTitle: user.trip,
-        ownerId: user.ownerid,
-      })
-    );
+    if (this.addPermission)
+      this.store.dispatch(
+        actions.getStartRemoveUserFromTrip({
+          userId: user.user_id,
+          tripTitle: user.trip,
+          ownerId: user.ownerid,
+        })
+      );
 
     this.fetchUserList();
   }

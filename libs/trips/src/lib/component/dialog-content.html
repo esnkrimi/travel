@@ -5,7 +5,10 @@
     mat-dialog-close
     *ngFor="let item of listOfTrip| paginate: { itemsPerPage: 6, currentPage: page } ; let i = index"
   >
-    <div class="row flex-nowrap cursor-pointer" (click)="zoomTrips(item)">
+    <div
+      class="row flex-nowrap cursor-pointer"
+      [routerLink]="[{ outlets: { secondRouter: 'lazy/trip/'+item.title } }]"
+    >
       <div style="flex-basis: 95%">
         <ng-container>
           <div class="grid">

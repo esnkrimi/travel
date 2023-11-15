@@ -34,7 +34,12 @@ export class TripSubmitComponent {
     );
     this.store.select(selectTrip).subscribe((res) => {
       //console.log(res);
-      this.store.dispatch(actions.addTrip({ trip: JSON.stringify(res) }));
+      this.store.dispatch(
+        actions.addTrip({
+          title: this.currentTrip.title,
+          trip: JSON.stringify(res),
+        })
+      );
     });
     this.currentTrip = {
       title: '',

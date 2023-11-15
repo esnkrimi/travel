@@ -229,3 +229,9 @@
 .text-red{
    color:var( --COLOR-RED) ;
 }
+.title-bar{
+   font-weight: bold;
+   padding: 0.4em;
+   margin: 0.5em;
+   border-bottom: solid 1px black;
+}

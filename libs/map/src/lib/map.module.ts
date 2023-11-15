@@ -16,6 +16,7 @@ import { FormTripLocationModule } from '@pe/form-trip-location';
 import { TripsModule } from '@pe/trips';
 import { TripSubmitModule } from '@pe/trip-submit';
 import { HelpModule } from '@pe/help';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [MapBoardComponent, DistancePipe],
@@ -25,6 +26,7 @@ import { HelpModule } from '@pe/help';
     LoadingProgressModule,
     MatButtonModule,
     FormsModule,
+    RouterModule,
     HelpModule,
     MatRippleModule,
     MatFormFieldModule,

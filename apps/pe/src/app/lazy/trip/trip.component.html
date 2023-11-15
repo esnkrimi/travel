@@ -1,6 +1,21 @@
-<h3 class="p-2">
-  {{ tripTitle }}
-</h3>
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<span>
+  <h3 class="p-2">
+    {{ tripTitle }}
+  </h3>
+</span>
+<span>
+  <pe-trip-user
+    [addPermission]="ownerPermission"
+    [tripTitle]="tripTitle"
+  ></pe-trip-user>
+</span>
 <div>
   <button
     mat-button
@@ -19,42 +34,26 @@
     </button>
   </ng-template>
 </div>
-<p class="p-3">
-  <span>
-    If you completed this trip let the system check it by measuring factors.
-  </span>
-  <span
-    class="cursor-pointer text-primary"
-    [routerLink]="['../../review/', tripTitle]"
-  >
-    click here
-  </span>
-</p>
-<p class="p-3 text-green cursor-pointer" (click)="showTours()">
-  quick help tour
-</p>
-<mat-accordion>
-  <mat-expansion-panel
-    [expanded]="true"
-    *ngFor="let item of trip.trip; let i = index"
-    (opened)="panelOpenState = true"
-    (closed)="panelOpenState = false"
-  >
-    <mat-expansion-panel-header>
-      <mat-panel-title>
-        <span class="fw-bold">
-          {{ item.locationTitle }}
-        </span>
-      </mat-panel-title>
-      <mat-panel-description> </mat-panel-description>
-    </mat-expansion-panel-header>
-    <div class="w-100 trips">
+
+<div *ngFor="let item of trip.trip; let i = index" class="p-4">
+  <div>
+    <div class="w-50 border-bottom m-2 p-1">
+      <span class="fw-bold">
+        Location {{ i + 1 }} . {{ item.locationTitle | uppercase }}
+      </span>
+    </div>
+  </div>
+  <div class="w-100 trips">
+    <div class="d-flex">
       <div>
-        <span> we will arrive here at </span>
+        <span> Arrive date</span>
+      </div>
+      <div>
         <input
           joyrideStep="fifthStep"
           type="date"
           matInput
+          [readonly]="!ownerPermission"
           (change)="
             change($event, item.locationTitle, 'dateIncome', item, tripTitle)
           "
@@ -72,8 +71,13 @@
           / real value
         </span>
       </div>
+    </div>
+    <div class="d-flex">
       <div>
         <span> on </span>
+      </div>
+
+      <div>
         <input
           (change)="
             change($event, item.locationTitle, 'timeIncome', item, tripTitle)
@@ -81,6 +85,7 @@
           type="time"
           matInput
           [value]="item.timeIncome"
+          [readonly]="!ownerPermission"
         />
         <span
           *ngIf="ownerPermission"
@@ -90,18 +95,22 @@
         >
           / real value
         </span>
-        .
+      </div>
+    </div>
+    <div class="d-flex">
+      <div>
+        <span>Number of person </span>
       </div>
       <div>
-        <span>we are </span
-        ><input
+        <input
           (change)="
             change($event, item.locationTitle, 'persons', item, tripTitle)
           "
           type="number"
           matInput
           [value]="item.persons"
-        /><span>persons</span>
+          [readonly]="!ownerPermission"
+        />
         <span
           *ngIf="ownerPermission"
           style="flex-basis: 7%"
@@ -111,8 +120,12 @@
           / real value
         </span>
       </div>
+    </div>
+    <div class="d-flex">
       <div>
-        <span>we use </span>
+        <span>Vehicle </span>
+      </div>
+      <div>
         <input
           (change)="
             change($event, item.locationTitle, 'vehicle', item, tripTitle)
@@ -120,6 +133,7 @@
           type="text"
           matInput
           [value]="item.vehicle"
+          [readOnly]="!ownerPermission"
         />
 
         <span
@@ -131,8 +145,12 @@
           / real value </span
         ><span></span>
       </div>
+    </div>
+    <div class="d-flex">
       <div>
-        <span> we have set a side </span>
+        <span> Cost </span>
+      </div>
+      <div>
         <input
           (change)="
             change($event, item.locationTitle, 'moneyLost', item, tripTitle)
@@ -140,7 +158,8 @@
           type="number"
           matInput
           [value]="item.moneyLost"
-        />$ for this place
+          [readOnly]="!ownerPermission"
+        />$
         <span
           *ngIf="ownerPermission"
           style="flex-basis: 7%"
@@ -151,10 +170,7 @@
         </span>
       </div>
     </div>
-  </mat-expansion-panel>
-</mat-accordion>
+  </div>
+</div>
 
-<pe-trip-user
-  [addPermission]="ownerPermission"
-  [tripTitle]="tripTitle"
-></pe-trip-user>
+<pe-review-trip></pe-review-trip>

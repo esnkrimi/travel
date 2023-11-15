@@ -5,9 +5,7 @@
   div div:nth-child(1){
     font-size: 1.1em;
   }
-  div div:nth-child(2){
-    color:var(--COLOR-DARK);
-  }
+
    .mat-panel-title span{
     font-weight: bold !important;
 }
@@ -25,15 +23,18 @@ input{
 
 }
 .item{
-  border-bottom: solid 1px  rgb(216, 211, 211);
-  height: 2em;
+  padding: 0.5em;
+  margin:0.12em;
+  text-transform: capitalize;
 }
 
 .title{
   font-weight: bold;
   font-size: 1.1em;
 }
-span{
-  display: inline-block;
-  vertical-align: middle;
+
+
+.header{
+  background-color: var(--COLOR-MAGENTA);
+  color: white;
 }

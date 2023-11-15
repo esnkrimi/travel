@@ -1,163 +1,185 @@
-<div class="m-3">
-  <span
-    class="cursor-pointer text-primary"
-    [routerLink]="['../../trip/', tripTitle]"
-  >
-    back click here
-  </span>
-  <h3 class="title text-uppercase bg-success text-light p-2">
-    {{ tripTitle }}
-  </h3>
-  <ng-container *ngFor="let item of tripReview.trip; let i = index" class="p-4">
-    <p class="title mt-4 text-capitalize">{{ item.locationTitle }}</p>
-    <div class="w-100 containers">
-      <div class="item"><span>Items</span></div>
-      <div class="item"><span>Program</span></div>
-      <div class="item"><span>Real Value</span></div>
-      <div class="item"><span>Tolerance</span></div>
-      <ng-container>
-        <div class="item"><span>Money</span></div>
-        <div class="item">
-          <span>{{ trip.trip[i].moneyLost }}$</span>
-        </div>
-        <div class="item">
-          <span>{{ item.moneyLost }}$</span>
-        </div>
-        <div
-          class="item"
-          vehicleDirective
-          [valueChanged]="trip.trip[i].moneyLost >= item.moneyLost"
-        >
-          <span>
-            {{ trip.trip[i].moneyLost - item.moneyLost }}
-          </span>
-        </div>
+<div class="m-4">
+  <div class="cursor-pointer title-bar">Result and comparison</div>
+  <ng-container *ngFor="let item of tripReview.trip; let i = index" class="m-2">
+    <div class="m-3">
+      <p class="text-capitalize fw-bold">
+        Location {{ i + 1 }} . {{ item.locationTitle }}
+      </p>
+      <div class="w-100 containers">
+        <div class="item header"><span>Items</span></div>
+        <div class="item header"><span>Program</span></div>
+        <div class="item header"><span>Real Value</span></div>
+        <div class="item header"><span>Tolerance</span></div>
+        <ng-container>
+          <div class="item header"><span>Money</span></div>
+          <div class="item">
+            <span>{{ trip.trip[i].moneyLost }}$</span>
+          </div>
+          <div class="item">
+            <span>{{ item.moneyLost }}$</span>
+          </div>
+          <div
+            class="item"
+            vehicleDirective
+            [valueChanged]="trip.trip[i].moneyLost >= item.moneyLost"
+          >
+            <span
+              [innerHTML]="
+                trip.trip[i].moneyLost - item.moneyLost | moneyCompare
+              "
+            >
+            </span>
+          </div>
 
-        <div class="item"><span>Date</span></div>
-        <div class="item">
-          <span>{{
-            trip.trip[i].dateIncome + ' ' + trip.trip[i].timeIncome
-          }}</span>
-        </div>
-        <div class="item">
-          <span>{{ item.dateIncome + ' ' + item.timeIncome }}</span>
-        </div>
-        <div class="item">
-          <span>
-            {{
+          <div class="item header"><span>Date</span></div>
+          <div class="item">
+            <span>{{
+              trip.trip[i].dateIncome + ' ' + trip.trip[i].timeIncome
+            }}</span>
+          </div>
+          <div class="item">
+            <span>{{ item.dateIncome + ' ' + item.timeIncome }}</span>
+          </div>
+          <div
+            class="item"
+            vehicleDirective
+            [valueChanged]="
               dateDifference(
                 trip.trip[i].dateIncome,
                 trip.trip[i].timeIncome,
                 item.dateIncome,
                 item.timeIncome,
                 true
-              )
-            }}
-          </span>
-        </div>
-        <div class="item"><span>vehicle</span></div>
-        <div class="item">
-          <span>{{ trip.trip[i].vehicle }}</span>
-        </div>
-        <div class="item">
-          <span>{{ item.vehicle }}</span>
-        </div>
-        <div
-          class="item"
-          vehicleDirective
-          [valueChanged]="trip.trip[i].vehicle === item.vehicle"
-        >
-          <span>
-            {{ trip.trip[i].vehicle === item.vehicle | vehicleCompare }}
-          </span>
-        </div>
-      </ng-container>
+              ).includes('0 D ,0 H')
+            "
+          >
+            <span
+              [innerHTML]="
+                dateDifference(
+                  trip.trip[i].dateIncome,
+                  trip.trip[i].timeIncome,
+                  item.dateIncome,
+                  item.timeIncome,
+                  true
+                ) | timeCompare
+              "
+            >
+            </span>
+          </div>
+          <div class="item header"><span>vehicle</span></div>
+          <div class="item">
+            <span>{{ trip.trip[i].vehicle }}</span>
+          </div>
+          <div class="item">
+            <span>{{ item.vehicle }}</span>
+          </div>
+          <div
+            class="item"
+            vehicleDirective
+            [valueChanged]="trip.trip[i].vehicle === item.vehicle"
+          >
+            <span
+              [innerHTML]="
+                trip.trip[i].vehicle === item.vehicle | vehicleCompare
+              "
+            >
+            </span>
+          </div>
+        </ng-container>
+      </div>
+      <!--   <p
+        *ngIf="
+          dateDifference(
+            trip.trip[i].dateIncome,
+            trip.trip[i].timeIncome,
+            item.dateIncome,
+            item.timeIncome,
+            false
+          ) > 0
+        "
+      >
+        You have delay on this location ~{{
+          dateDifference(
+            trip.trip[i].dateIncome,
+            trip.trip[i].timeIncome,
+            item.dateIncome,
+            item.timeIncome,
+            false
+          )
+        }}
+        days
+      </p>
+      <p
+        *ngIf="
+          dateDifference(
+            trip.trip[i].dateIncome,
+            trip.trip[i].timeIncome,
+            item.dateIncome,
+            item.timeIncome,
+            false
+          ) < 0
+        "
+      >
+        You get
+        {{
+          dateDifference(
+            trip.trip[i].dateIncome,
+            trip.trip[i].timeIncome,
+            item.dateIncome,
+            item.timeIncome,
+            false
+          ) * -1
+        }}
+        days
+      </p>
+      <p
+        class="text-green"
+        *ngIf="
+          dateDifference(
+            trip.trip[i].dateIncome,
+            trip.trip[i].timeIncome,
+            item.dateIncome,
+            item.timeIncome,
+            false
+          ) === 0
+        "
+      >
+        Great !
+      </p>
+      <p
+        *ngIf="trip.trip[i].moneyLost > item.moneyLost"
+        class="item"
+        vehicleDirective
+        [valueChanged]="trip.trip[i].moneyLost >= item.moneyLost"
+      >
+        <span>
+          You misss
+          {{ trip.trip[i].moneyLost - item.moneyLost }}
+          $ on this location
+        </span>
+      </p>-->
     </div>
-    <p
-      *ngIf="
-        dateDifference(
-          trip.trip[i].dateIncome,
-          trip.trip[i].timeIncome,
-          item.dateIncome,
-          item.timeIncome,
-          false
-        ) > 0
-      "
-    >
-      You have delay on this location ~{{
-        dateDifference(
-          trip.trip[i].dateIncome,
-          trip.trip[i].timeIncome,
-          item.dateIncome,
-          item.timeIncome,
-          false
-        )
-      }}
-      days
-    </p>
-    <p
-      *ngIf="
-        dateDifference(
-          trip.trip[i].dateIncome,
-          trip.trip[i].timeIncome,
-          item.dateIncome,
-          item.timeIncome,
-          false
-        ) < 0
-      "
-    >
-      You get
-      {{
-        dateDifference(
-          trip.trip[i].dateIncome,
-          trip.trip[i].timeIncome,
-          item.dateIncome,
-          item.timeIncome,
-          false
-        ) * -1
-      }}
-      days
-    </p>
-    <p
-      class="text-green"
-      *ngIf="
-        dateDifference(
-          trip.trip[i].dateIncome,
-          trip.trip[i].timeIncome,
-          item.dateIncome,
-          item.timeIncome,
-          false
-        ) === 0
-      "
-    >
-      Great !
-    </p>
-    <p
-      *ngIf="trip.trip[i].moneyLost > item.moneyLost"
-      class="item"
-      vehicleDirective
-      [valueChanged]="trip.trip[i].moneyLost >= item.moneyLost"
-    >
-      <span>
-        You misss
-        {{ trip.trip[i].moneyLost - item.moneyLost }}
-        $ on this location
-      </span>
-    </p>
   </ng-container>
 
-  <div class="mt-4">
-    <p class="text-green" *ngIf="savedMoney > 0">
+  <div class="m-3">
+    <h5>Economic view</h5>
+
+    <p class="p-2 fw-bold text-muted" *ngIf="savedMoney > 0">
       You saved {{ savedMoney }} on this trip ({{
         (savedMoney * 100) / totalMoney | number : '0.0-0'
       }}%)
     </p>
-    <p *ngIf="savedMoney < 0">
+    <p *ngIf="savedMoney < 0" class="p-2 fw-bold text-muted">
       You miss money about {{ savedMoney }} on this trip
+      {{ (savedMoney * 100) / totalMoney | number : '0.0-0' }}%
     </p>
-    <p *ngIf="delayTime > 0">
+
+    <h5>Time factors</h5>
+    <p *ngIf="delayTime > 0" class="p-2 fw-bold text-muted">
       You have delay on this trip about ~{{ delayTime }} days
     </p>
-    <p class="text-green" *ngIf="delayTime <= 0">Great.You was on time</p>
+    <p class="p-2 fw-bold text-muted" *ngIf="delayTime <= 0">
+      Great.You was on time
+    </p>
   </div>
 </div>

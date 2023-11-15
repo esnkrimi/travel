@@ -1,13 +1,13 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'vehicleCompare',
+  name: 'timeCompare',
 })
-export class VehicleCOmparePipe implements PipeTransform {
+export class TimeCOmparePipe implements PipeTransform {
   transform(value: any, ...args: any[]): any {
-    const result = value
+    const result = value.includes('0 D ,0 H')
       ? '<i class="fa fa-check">'
-      : '<i class="fa fa-close">';
+      : value;
     return result;
   }
 }

@@ -28,6 +28,8 @@ import { MytripsComponent } from './mytrips/mytrips.component';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { TripListComponent } from './trip-list/trip-list.component';
 import { MessagesComponent } from './messages/messages.component';
+import { TimeCOmparePipe } from '@appBase/pipe/time';
+import { MoneyCOmparePipe } from '@appBase/pipe/money';
 
 @NgModule({
   declarations: [
@@ -40,6 +42,8 @@ import { MessagesComponent } from './messages/messages.component';
     ReviewTripComponent,
     MessagesComponent,
     VehicleCOmparePipe,
+    TimeCOmparePipe,
+    MoneyCOmparePipe,
     MytripsComponent,
   ],
   imports: [
