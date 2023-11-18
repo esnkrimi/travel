@@ -6,7 +6,7 @@
 <br />
 <br />
 <span>
-  <h3 class="p-2">
+  <h3 class="p-2 text-uppercase border-bottom">
     {{ tripTitle }}
   </h3>
 </span>
@@ -17,13 +17,15 @@
   ></pe-trip-user>
 </span>
 <div>
+  <!--
   <button
-    mat-button
-    (click)="cancelTripConfirm = true"
-    *ngIf="!cancelTripConfirm; else esleTmpl"
+  mat-button
+  (click)="cancelTripConfirm = true"
+  *ngIf="!cancelTripConfirm; else esleTmpl"
   >
-    cancel this trip
-  </button>
+  cancel this trip
+</button>
+-->
   <ng-template #esleTmpl>
     <button
       mat-button
@@ -35,7 +37,7 @@
   </ng-template>
 </div>
 
-<div *ngFor="let item of trip.trip; let i = index" class="p-4">
+<div *ngFor="let item of trip.trip; let i = index" class="p-4 trip-frame w-75">
   <div>
     <div class="w-50 border-bottom m-2 p-1">
       <span class="fw-bold">
@@ -68,7 +70,7 @@
           text="You can insert real value occured at your trip !"
           (click)="review(item.locationTitle, 'dateIncome', item)"
         >
-          / real value
+          / REAL VALUE
         </span>
       </div>
     </div>
@@ -93,7 +95,7 @@
           class="text-review"
           (click)="review(item.locationTitle, 'timeIncome', item)"
         >
-          / real value
+          / REAL VALUE
         </span>
       </div>
     </div>
@@ -117,7 +119,7 @@
           class="text-review"
           (click)="review(item.locationTitle, 'persons', item)"
         >
-          / real value
+          / REAL VALUE
         </span>
       </div>
     </div>
@@ -142,7 +144,7 @@
           class="text-review"
           (click)="review(item.locationTitle, 'vehicle', item)"
         >
-          / real value </span
+          / REAL VALUE </span
         ><span></span>
       </div>
     </div>
@@ -166,7 +168,7 @@
           class="text-review"
           (click)="review(item.locationTitle, 'moneyLost', item)"
         >
-          / real value
+          / REAL VALUE
         </span>
       </div>
     </div>

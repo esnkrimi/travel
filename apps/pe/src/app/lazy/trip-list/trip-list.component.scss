@@ -5,3 +5,13 @@
     width: 3.5em !important;
     height: 2.5em !important;
 }
+
+.card{
+    margin: 1em !important;
+}
+
+@media only screen and (max-width: 1000px) {
+    .card{
+        width: 100% !important;
+    }
+  }

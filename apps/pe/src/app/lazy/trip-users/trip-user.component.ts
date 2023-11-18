@@ -15,7 +15,7 @@ import {
 } from '@angular/material/dialog';
 import { PublicAutocompleteModule } from '@pe/public-autocomplete';
 import { TripUserService } from './trip-user.service';
-import { filter, map } from 'rxjs';
+import { filter, map, tap } from 'rxjs';
 import { json } from 'stream/consumers';
 import { Store } from '@ngrx/store';
 import { actions } from '@appBase/+state/actions';
@@ -30,8 +30,8 @@ export class TripUserComponent implements OnChanges {
   @Input() tripId: any;
   @Input() tripTitle: any;
   @Input() addPermission: any;
-
   userList: any = [];
+
   constructor(
     @Inject('userSession') public userSession: any,
     public dialog: MatDialog,
@@ -41,10 +41,10 @@ export class TripUserComponent implements OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     this.fetchUserList();
+    console.log(this.addPermission);
   }
 
   remove(user: any) {
-    //console.log('start');
     if (this.addPermission)
       this.store.dispatch(
         actions.getStartRemoveUserFromTrip({
@@ -59,7 +59,7 @@ export class TripUserComponent implements OnChanges {
 
   addUser() {
     const dialogRef = this.dialog.open(DialogDataUserAdd, {
-      data: { tripTitle: this.tripTitle },
+      data: { tripTitle: this.tripTitle, userExistsList: this.userList },
     });
     dialogRef.afterClosed().subscribe((result) => {
       this.fetchUserList();
@@ -70,7 +70,6 @@ export class TripUserComponent implements OnChanges {
     this.service
       .fetchUserList(JSON.parse(this.userSession)?.id, this.tripTitle)
       .subscribe((res) => {
-        //console.log(res);
         this.userList = res;
       });
   }
@@ -91,6 +90,7 @@ export class TripUserComponent implements OnChanges {
 })
 export class DialogDataUserAdd implements OnInit {
   userList: any = [];
+  userListArray: any;
   constructor(
     @Inject('userSession') public userSession: any,
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -99,10 +99,23 @@ export class DialogDataUserAdd implements OnInit {
   ngOnInit(): void {
     this.fetchUserList();
   }
+
+  removeDuplicate(existsUsers: any, userList: any) {}
+
   fetchUserList() {
-    this.store.select(selectUsersOfSite).subscribe((res) => {
-      this.userList = res;
-    });
+    this.userListArray = this.data.userExistsList.map(
+      (res: any) => res.user_id
+    );
+    this.store
+      .select(selectUsersOfSite)
+      .pipe(
+        map((res) =>
+          res.filter((res: any) => !this.userListArray.includes(res.id))
+        )
+      )
+      .subscribe((res) => {
+        this.userList = res;
+      });
   }
   resultSelected(user: any) {
     this.store.dispatch(

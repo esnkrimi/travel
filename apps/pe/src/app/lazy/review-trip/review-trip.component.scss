@@ -38,3 +38,9 @@ input{
   background-color: var(--COLOR-MAGENTA);
   color: white;
 }
+
+@media only screen and (max-width: 1000px) {
+  .trip-frame{
+    width: 100% !important;
+  }
+ }

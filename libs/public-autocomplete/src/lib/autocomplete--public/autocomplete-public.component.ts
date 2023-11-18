@@ -23,7 +23,6 @@ export class AutocompletePoublicComponent implements OnInit {
     this.inputUser.valueChanges.subscribe((result) => {
       const tmp = this.data.filter((res: any) => res.email.includes(result));
       this.result = tmp;
-      //  pipe(map((res: any) => res.filter((res: any) => res.email[0] === 'w')))
     });
   }
   resultSelect(e: any) {

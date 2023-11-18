@@ -143,13 +143,21 @@ display: none !important;
     text-align: center;
 }
 .div-location div{
-    position: inherit;
-    left:25%;
+    position: fixed;
     height: 900px;
     overflow: scroll !important;
-    width: 50%;
     background-color: white;
+    left:25%;
+    width: 50%;
 }
+@media only screen and (max-width: 1000px) {
+    .div-location div{
+        left:5% !important;
+        height: 100% !important;
+        width: 90% !important;
+    }
+}
+
 .frame{
     left:0px;
     top:0px;

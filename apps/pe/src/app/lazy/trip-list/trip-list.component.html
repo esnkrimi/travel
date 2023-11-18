@@ -10,33 +10,37 @@
     <input matInput formControlName="itemToSearch" class="" />
   </mat-form-field>
 </form>
-<ng-container *ngFor="let item of trips" class="card m-2 w-75">
-  <ng-container class="card-body border">
+<div *ngFor="let item of trips" class="card m-4 w-75">
+  <ng-container class="card-body">
     <ng-container
       *ngFor="let trip of item.tripjson"
       class="p-2 rounded m-1 border"
     >
       <div
         *ngIf="trip.title === tripToSearch || tripToSearch === ''"
-        class="row m-2 bg-light"
+        class="d-flex flex-nowrap m-2 bg-light"
       >
-        <div style="flex-basis: 20%">
-          <img
-            class="w-75"
-            src="data:image/png;base64,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"
-          />
-        </div>
-        <div style="flex-basis: 60%">
+        <div style="flex-basis: 85%">
           <div class="fw-bold w-75">
-            <h5>
-              <span class="text-capitalize">
-                {{ trip.title }} ({{ trip.trip[0].dateIncome }} to
+            <div class="row text-capitalize mb-2">
+              <div class="col-md-6">
+                {{ trip.title }}
+              </div>
+              <div class="col-md-6">
+                ({{ trip.trip[0].dateIncome }} to
                 {{ trip.trip[trip.trip.length - 1].dateIncome }})
-              </span>
-            </h5>
+              </div>
+            </div>
+            <div
+              class="card-title p-2 text-small text-muted fw-bold text-capitalize border-bottom"
+            >
+              Manager:
+              {{ item.name }}
+              {{ item.family }}
+            </div>
           </div>
-          <div *ngFor="let location of trip.trip" class="border-bottom">
-            <p class="text-small p-1">
+          <div *ngFor="let location of trip.trip">
+            <p class="text-small">
               <span>
                 <i class="fa fa-map-marker"></i>
               </span>
@@ -51,7 +55,6 @@
           </div>
           <div>
             <span *ngFor="let guest of fetchTripUsers(trip.title)">
-              {{ guest.name }}
               <img
                 [class.opacity-1]="guest.confirmed === '1'"
                 [title]="guest.name"
@@ -61,18 +64,10 @@
               <!--[alt]="guest.name" -->
             </span>
           </div>
-
-          <div
-            class="card-title p-2 text-small text-muted fw-bold text-capitalize"
-          >
-            Manager:
-            {{ item.name }}
-            {{ item.family }}
-          </div>
         </div>
-        <div style="flex-basis: 20%">
+        <div style="flex-basis: 15%">
           <p>
-            <span class="text-large"> {{ cost(trip.title) }}$ </span>
+            <span class="text-medium fw-bold"> {{ cost(trip.title) }}$ </span>
             <span class="text-dark text-small"> per person </span>
           </p>
           <p>
@@ -80,11 +75,11 @@
               *ngIf="!isAsked(trip?.title); else elseTmpl"
               (click)="ask(trip.title, item.uid)"
               class="btn btn-primary"
-              >Ask to join ></a
+              >Ask to join</a
             >
             <ng-template #elseTmpl>
               <a (click)="ask(trip.title, item.uid)" class="btn btn-primary"
-                >revoke ></a
+                >Revoke</a
               >
             </ng-template>
           </p>
@@ -92,4 +87,4 @@
       </div>
     </ng-container>
   </ng-container>
-</ng-container>
+</div>

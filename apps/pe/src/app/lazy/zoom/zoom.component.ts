@@ -102,28 +102,32 @@ export class ZoomComponent implements AfterViewInit {
     dialogRef.afterClosed().subscribe();
   }
   onSubmit(fileId: string) {
-    this.mapService.loadingProgress.next(true);
-    const formData = new FormData();
-    formData.append('file', this.form.get(fileId)?.value);
-    if (this.result?.id) {
-      this.store.dispatch(
-        actions.startShareExperience({
-          uid: this.userLogined,
-          id: this.result?.id,
-          describtion: this.form.get('describe')?.value,
-          formData: formData,
-        })
-      );
+    if (this.userLogined) {
+      this.mapService.loadingProgress.next(true);
+      const formData = new FormData();
+      formData.append('file', this.form.get(fileId)?.value);
+      if (this.result?.id) {
+        this.store.dispatch(
+          actions.startShareExperience({
+            uid: this.userLogined,
+            id: this.result?.id,
+            describtion: this.form.get('describe')?.value,
+            formData: formData,
+          })
+        );
+      } else {
+        this.store.dispatch(
+          actions.startSubmitLocation({
+            form: this.form?.value,
+            uid: this.userLogined,
+          })
+        );
+      }
+      this.drawerService.open.next(false);
+      this.doneSubmit();
     } else {
-      this.store.dispatch(
-        actions.startSubmitLocation({
-          form: this.form?.value,
-          uid: this.userLogined,
-        })
-      );
+      this.openDialog();
     }
-    this.drawerService.open.next(false);
-    this.doneSubmit();
   }
 
   lowercase(country: any) {

@@ -63,3 +63,8 @@ span{
 .text-brand{
     font-size: 1.90em !important;
 }
+@media only screen and (max-width: 1000px) {
+    .mobile{
+        flex-direction: column-reverse;
+    }
+}

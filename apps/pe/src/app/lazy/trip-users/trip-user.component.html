@@ -1,11 +1,11 @@
-<div class="d-flex w-50">
-  <div *ngFor="let item of userList" style="flex-basis: 95%">
-    <span (click)="remove(item)">
+<div class="d-flex w-50" *ngIf="userList.length > 0; else elseTmpl">
+  <div style="flex-basis: 95%">
+    <span *ngFor="let item of userList" (click)="remove(item)">
       <img
         [alt]="item.name + item.family"
         [title]="item.name + item.family"
         src="https://d1hb67vd7r4m10.cloudfront.net/images/easyblog_articles/89/b2ap3_large_ee72093c-3c01-433a-8d25-701cca06c975.jpg"
-        class="img-icon rounded-circle m-4"
+        class="img-icon rounded-circle m-1"
       />
     </span>
   </div>
@@ -15,3 +15,11 @@
     </button>
   </div>
 </div>
+
+<ng-template #elseTmpl>
+  <div class="w-100">
+    <button *ngIf="addPermission" mat-raised-button (click)="addUser()">
+      Add user
+    </button>
+  </div>
+</ng-template>
