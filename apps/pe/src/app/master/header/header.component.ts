@@ -88,6 +88,7 @@ export class HeaderComponent implements OnInit {
     }, 1000);
   }
   resultOutput(event: any) {
+    console.log(event);
     this.resultOutputs.emit(event);
   }
   fetchUser() {

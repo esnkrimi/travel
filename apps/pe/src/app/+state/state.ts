@@ -74,6 +74,12 @@ export interface ITripRequests {
   reqUserEmail: string;
 }
 
+export interface IAutoCompleteFind {
+  city: string;
+  country: string;
+  geo: [];
+  sym: string;
+}
 export interface ISetview {
   country_code: string;
   country_id: string;
@@ -110,6 +116,7 @@ export interface state {
   usersOfSite: IuserOfSite[];
   loginInfo: IloginInfo;
   setview: ISetview;
+  autoCompleteFind: IAutoCompleteFind[];
 }
 export const AppState: state = {
   trip: [],
@@ -145,6 +152,7 @@ export const AppState: state = {
   tripRequests: [],
   tripUsers: [],
   locationComments: [],
+  autoCompleteFind: [],
 };
 
 export interface IuserOfSite {

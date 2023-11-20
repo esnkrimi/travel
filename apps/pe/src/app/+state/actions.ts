@@ -57,7 +57,7 @@ export const actions = createActionGroup({
       tripTitle: string;
       ownerId: string;
     }>(),
-    'start fetch country location action': props<{ country: string }>(),
+    'start fetch country location action': props<{ city: string }>(),
     'fetch action': props<{ location: Ilocation[] }>(),
     'start login action': props<{ user: IloginInfo }>(),
     'start signup action': props<{ user: IloginInfo }>(),

@@ -96,10 +96,13 @@ export const reducerStates = createFeature({
       ...states,
       country: action.country,
     })),
-    on(actions.fetchAction, (states: any, action: any) => ({
-      ...states,
-      location: Object.values(action.location),
-    })),
+    on(actions.fetchAction, function (states: any, action: any) {
+      // console.log(action.location);
+      return {
+        ...states,
+        location: Object.values(action.location),
+      };
+    }),
     on(actions.startFetchCountryLocationAction, (states: any, action: any) => ({
       ...states,
       country: action.country,
@@ -115,10 +118,12 @@ export const reducerStates = createFeature({
     on(actions.startAutocompleteAction, (states: any, action: any) => ({
       ...states,
     })),
-    on(actions.autocompleteAction, (states: any, action: any) => ({
-      ...states,
-      location: Object.values(action.result),
-    })),
+    on(actions.autocompleteAction, function (states: any, action: any) {
+      return {
+        ...states,
+        autoCompleteFind: Object.values(action.result),
+      };
+    }),
     on(actions.startSetviewAction, (states: any, action: any) => ({
       ...states,
     })),

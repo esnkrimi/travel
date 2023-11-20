@@ -5,7 +5,11 @@ import { EventEmitter } from '@angular/core';
 import { MapService } from '@appBase/master/map/service';
 import { Store } from '@ngrx/store';
 import { actions } from '@appBase/+state/actions';
-import { selectLocation, selectSetview } from '@appBase/+state/select';
+import {
+  selectAutoCompleteFind,
+  selectLocation,
+  selectSetview,
+} from '@appBase/+state/select';
 
 @Component({
   selector: 'pe-autocomplete',
@@ -25,7 +29,7 @@ export class AutocompleteComponent implements OnInit {
   }
 
   listener() {
-    this.store.select(selectLocation).subscribe((res) => {
+    this.store.select(selectAutoCompleteFind).subscribe((res) => {
       this.result = res;
       this.loading = false;
     });

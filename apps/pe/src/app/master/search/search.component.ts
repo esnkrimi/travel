@@ -35,7 +35,7 @@ export class SearchComponent implements OnInit {
     this.router.navigateByUrl('');
     const result: any = {
       center: [event?.latitude, event?.longitude],
-      country: event?.country_name,
+      city: event?.name,
     };
     this.resultOutput.emit(result);
   }

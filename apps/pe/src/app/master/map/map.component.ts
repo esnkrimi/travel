@@ -8,16 +8,16 @@ import { DrawerService } from '@appBase/drawer.service';
   styleUrls: ['./map.component.scss'],
 })
 export class MapComponent implements OnChanges {
-  center = [41.02446333535115, 28.953609466552734];
-  country = 'turkey';
-  @Input() scope: any;
+  center = [31.95376472, -89.23450472];
+  city = 'Okolona';
+  @Input() scope: any; //from autocomplete search
   @Input() showTour: any;
   @Input() savedLocation: any;
   showMap = true;
   ngOnChanges(): void {
     if (this.scope) {
       this.center = [this.scope.center[0], this.scope.center[1]];
-      this.country = this.scope.country;
+      this.city = this.scope.city;
     }
   }
 }

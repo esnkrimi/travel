@@ -22,23 +22,7 @@
       >
         <div class="bg-light span-animated-on-hover cursor-pointer">
           <div class="row d-flex flex-nowrap">
-            <div style="flex-basis: 10%">
-              <img
-                class="rounded-circle w-100"
-                [src]="
-                  'https://cdn.countryflags.com/thumbs/' +
-                  lower(item.country) +
-                  '/flag-square-250.png'
-                "
-              />
-              <!--  <img
-                *ngIf="item.geo[0]"
-                class="rounded-circle w-100"
-                [src]="'../assets/img/' + item.type + '.png'"
-              />-->
-            </div>
-
-            <div style="flex-basis: 45%" class="text-left">
+            <div style="flex-basis: 50%" class="text-left">
               {{ item.city }}
             </div>
             <div style="flex-basis: 50%" class="text-left">

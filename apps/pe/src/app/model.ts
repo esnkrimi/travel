@@ -61,6 +61,14 @@ export interface IAllTrips {
   tripjson_done?: string;
   uid: string;
 }
+
+export interface IAutoCompleteFind {
+  city: string;
+  country: string;
+  geo: [];
+  sym: string;
+}
+
 export interface ITripRequests {
   uid: string;
   tripTitle: string;
@@ -99,6 +107,7 @@ export interface IlocationComments {
 }
 
 export interface state {
+  autoCompleteFind: IAutoCompleteFind[];
   locationComments: IlocationComments[];
   tripUsers: ITripUsers[];
   tripRequests: ITripRequests[];
@@ -145,6 +154,7 @@ export const AppState: state = {
   tripRequests: [],
   tripUsers: [],
   locationComments: [],
+  autoCompleteFind: [],
 };
 
 export interface IuserOfSite {

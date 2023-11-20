@@ -1,9 +1,11 @@
 import {
   AfterViewInit,
+  ChangeDetectionStrategy,
   Component,
   Input,
   OnChanges,
   OnInit,
+  SimpleChanges,
 } from '@angular/core';
 
 import { MapService } from '@appBase/master/map/service';
@@ -11,7 +13,7 @@ import { DrawerService } from '@appBase/drawer.service';
 import { Ilocation, typeOflocations } from '@appBase/model';
 import { MapApiService } from './map.service';
 import { LatLngExpression } from 'leaflet';
-import { map } from 'rxjs';
+import { map, tap } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { actions } from '@appBase/+state/actions';
 import { selectLocation, selectTrip } from '@appBase/+state/select';
@@ -27,10 +29,11 @@ import { HelpService } from 'libs/help/src/lib/component/help.service';
   selector: 'pe-map',
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [DistancePipe],
 })
 export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
-  @Input() country: any;
+  @Input() city: any;
   @Input() center: any;
   @Input() showTour: any;
   @Input() tripLocations: any;
@@ -51,8 +54,8 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
   distanceFrom: any;
   distanceTo: any;
   mapConfig = {
-    center: [41.02446333535115, 28.953609466552734],
-    countryScope: 'turkey',
+    center: [31.95376472, -89.23450472],
+    countryScope: 'United States',
     typeOfLocation: 'all',
   };
   typeOflocations = typeOflocations;
@@ -194,8 +197,8 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
           iconSize: sizes,
         });
       }
-      const mrkr = L.marker(position, { icon: icon })
-        .addTo(this.map)
+      const mrkr = L?.marker(position, { icon: icon })
+        ?.addTo(this.map)
         .on('click', (e) => {
           if (this.distanceActivated) this.distanceActive(e);
           else if (this.createTripActivate) this.startCreateTrip(e);
@@ -235,7 +238,7 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
         .on('mouseout', (e) => {
           tooltipPopup.remove();
         });
-      this.turnOffProgress(1000);
+      this.turnOffProgress(1);
     }
   }
 
@@ -274,33 +277,38 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
     }
   }
 
-  fetchByCountry(country: string) {
-    country = country.toLowerCase();
+  fetchByCity(city: string, changedCity: boolean) {
+    city = city.toLowerCase();
     let data: any;
-    this.store.dispatch(
-      actions.startFetchCountryLocationAction({
-        country: country,
-      })
-    );
+    if (changedCity)
+      this.store.dispatch(
+        actions.startFetchCountryLocationAction({
+          city: city,
+        })
+      );
+
     this.store
       .select(selectLocation)
-      .pipe(map((res) => res.filter((res) => res.saved || !this.savedLocation)))
-      .subscribe((res) => {
-        //console.log(res);
-        data = res;
-        for (let i = 0; i < data?.length; i++) {
-          const obj = {
+      .pipe(
+        map((res) => res.filter((res) => res.saved || !this.savedLocation)),
+        map((res) =>
+          res.filter(
+            (res) =>
+              this.selectedType === 'all' || this.selectedType === res?.type
+          )
+        ),
+        tap((r) => {
+          if (r.length === 0) this.mapService.loadingProgress.next(false);
+        })
+      )
+      .subscribe((data) => {
+        for (let i = 0; i < data.length; i++) {
+          const obj: any = {
             lat: data[i]?.lat,
             lng: data[i]?.lon,
           };
-          if (
-            this.selectedType === 'all' ||
-            this.selectedType === data[i]?.type
-          ) {
-            if (obj) this.addMarker(obj, data[i]?.type, [35, 35]);
-          }
+          if (obj) this.addMarker(obj, data[i]?.type, [35, 35]);
         }
-        this.turnOffProgress(200);
       });
   }
 
@@ -309,7 +317,7 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
       if (!layer._url) layer.remove();
     });
     this.changeCenter();
-    this.listener();
+    this.listener(true);
   }
   change(type: string) {
     this.mapService.loadingProgress.next(true);
@@ -317,7 +325,7 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
     this.map.eachLayer((layer: any) => {
       if (!layer._url) layer.remove();
     });
-    this.listener();
+    this.listener(true);
   }
 
   //CLICK ON MAP
@@ -328,6 +336,20 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
       else this.bind(e);
     });
   }
+
+  dragMap() {
+    this.map.on('mouseup', (e: any) => {
+      this.drawerService
+        .fetchLocationByLatlng(e.latlng.lat, e.latlng.lng)
+        .subscribe((res) => {
+          if (res.city !== this.city && res.city) {
+            this.fetchByCity(res.city, true);
+            this.city = res.city;
+          }
+        });
+    });
+  }
+
   bind(e: any) {
     this.drawerService.open.next(true);
     this.drawerService.drawerType.next('/zoom');
@@ -335,13 +357,14 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
     this.locationSelected.lat = e.latlng.lat;
     this.drawerService.localInformation.next(this.locationSelected);
   }
-  //--------------------------------------
+
   async changeCenter() {
     //console.log(this.center);
     this.positionView = await this.map?.setView(this.center, 15);
   }
-  listener() {
-    this.fetchByCountry(this.country);
+
+  listener(changedCity: boolean) {
+    this.fetchByCity(this.city, changedCity);
   }
 
   private loadMap(): void {
@@ -356,15 +379,29 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
       this.listOfTrip = res;
     });
   }
+
   ngOnInit(): void {
     this.mapService.loadingProgress.next(true);
     this.getRoute();
     this.fetchTrip();
     this.loadMap(); //map_creation
     this.clickOnMap(); //CLICK ON MAP
+    this.dragMap(); //CLICK ON MAP
     this.changeCenter();
-    this.listener(); //SETVIEW & FETCH_MARKER_COUNTRY
   }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    this.savedLocationActive();
+    this.addMarker(this.center, 'location', [80, 80]);
+    this.mapApiService.savedLocation.subscribe((res) => {
+      this.changeCenter();
+
+      if (this.showTour) this.showTours();
+    });
+
+    //
+  }
+
   showTours() {
     this.joyrideService.startTour(
       { steps: ['firstStep', 'secondStep', 'thirdStep'] } // Your steps order
@@ -412,21 +449,6 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
         this.fetchLocations(res);
       }
     });
-  }
-
-  ngOnChanges(): void {
-    this.savedLocationActive();
-    this.addMarker(this.center, 'location', [80, 80]);
-    this.mapApiService.savedLocation.subscribe((res) => {
-      if (res) this.savedLocationActive();
-      else {
-        this.changeCenter();
-        this.listener(); //SETVIEW & FETCH_MARKER_COUNTRY
-      }
-      if (this.showTour) this.showTours();
-    });
-
-    //
   }
 
   openSnackBar(msg: string) {

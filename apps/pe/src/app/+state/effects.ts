@@ -328,7 +328,7 @@ export class storeEffects {
       ofType(actions.startFetchCountryLocationAction),
       switchMap((location: any) => {
         return this.ser
-          .fetchAllByCountry(location.country)
+          .fetchAllByCountry(location.city)
           .pipe(map((res: any) => actions.fetchAction({ location: res })));
       })
     );
