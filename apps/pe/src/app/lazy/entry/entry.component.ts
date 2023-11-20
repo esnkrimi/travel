@@ -67,7 +67,6 @@ export class EntryComponent implements OnInit {
         setTimeout(() => {
           this.service.userLoginInformation.next(res);
           this.mapService.loadingProgress.next(false);
-          this.drawerService.open.next(false);
           location.reload();
         }, 2000);
       } else {

@@ -1,4 +1,11 @@
-import { Component, Input, OnChanges, OnInit } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { DrawerService } from '@appBase/drawer.service';
 
@@ -13,11 +20,17 @@ export class MapComponent implements OnChanges {
   @Input() scope: any; //from autocomplete search
   @Input() showTour: any;
   @Input() savedLocation: any;
+  @Output() zoomActivator = new EventEmitter<any>();
+
   showMap = true;
   ngOnChanges(): void {
     if (this.scope) {
       this.center = [this.scope.center[0], this.scope.center[1]];
       this.city = this.scope.city;
     }
+  }
+
+  zoomActivatorFunction(event: any) {
+    this.zoomActivator.emit(event);
   }
 }

@@ -150,6 +150,7 @@ display: none !important;
     left:25%;
     width: 50%;
 }
+
 @media only screen and (max-width: 1000px) {
     .div-location div{
         left:5% !important;
@@ -165,11 +166,12 @@ display: none !important;
     background-color: var(--COLOR-GREEN);
     position: absolute;
 }
+
 .d-relative{
     position: relative !important;
 }
-::ng-deep{
 
+::ng-deep{
     .leaflet-marker-icon {
         border: solid 1px var(--COLOR-MAGENTA) !important;
         border-radius: 50% !important;

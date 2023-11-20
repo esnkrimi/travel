@@ -123,7 +123,6 @@ export class ZoomComponent implements AfterViewInit {
           })
         );
       }
-      this.drawerService.open.next(false);
       this.doneSubmit();
     } else {
       this.openDialog();

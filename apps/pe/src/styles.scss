@@ -168,7 +168,7 @@
    position: fixed;
    left: 0;
    top:5%;
-   z-index: inherit;
+   z-index: 500 !important;
 }
 
 .vertical-middle-align-span{

@@ -4,6 +4,10 @@
     left: 0%;
     top:0px;
   }
+  .d-fixed{
+    width: 90% !important;
+    left: 5% !important;
+  }
 }
 @media (min-width:1000px) {
   .adv2{
@@ -11,6 +15,7 @@
     left: 25%;
     top: 10%;
   }
+
 }
 
 
@@ -116,4 +121,13 @@ text-light{
   -webkit-backdrop-filter: blur(5px);
   backdrop-filter: blur(5px);
   position: fixed;
+}
+.d-fixed{
+  position: fixed;
+  left: 15%;
+  width: 70%;
+  height: 90%;
+  overflow: scroll !important;
+  top:10%;
+  z-index: 500 !important;
 }

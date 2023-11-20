@@ -105,10 +105,13 @@ export class TripListComponent implements OnInit {
     this.store.dispatch(actions.getStartAskToJoin({ data: data }));
     this.store.dispatch(actions.startFetchUsersOfTrip());
   }
-
+  includes(title: any, tripToSearch: any) {
+    return title?.includes(tripToSearch);
+  }
   select() {
     this.store.select(selectAllTrips).subscribe((res) => {
       this.trips = res;
+      console.log(res);
     });
     this.store.select(selectTripUsers).subscribe((res) => {
       //console.log(res);

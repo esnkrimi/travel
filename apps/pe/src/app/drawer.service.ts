@@ -38,7 +38,6 @@ export class DrawerService {
       return new Object();
     },
   };
-  open = new BehaviorSubject(false);
   localInformation = new BehaviorSubject<Ilocation>(this.initialIuser);
   drawerType = new BehaviorSubject<any>('');
 

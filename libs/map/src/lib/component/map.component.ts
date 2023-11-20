@@ -2,9 +2,11 @@ import {
   AfterViewInit,
   ChangeDetectionStrategy,
   Component,
+  EventEmitter,
   Input,
   OnChanges,
   OnInit,
+  Output,
   SimpleChanges,
 } from '@angular/core';
 
@@ -38,6 +40,8 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
   @Input() showTour: any;
   @Input() tripLocations: any;
   @Input() savedLocation = false;
+
+  @Output() zoomActivator = new EventEmitter<any>();
   showMap = true;
   createTripActivate = false;
 
@@ -351,7 +355,8 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   bind(e: any) {
-    this.drawerService.open.next(true);
+    // this.drawerService.open.next(true);
+    this.zoomActivator.emit(true);
     this.drawerService.drawerType.next('/zoom');
     this.locationSelected.lon = e.latlng.lng;
     this.locationSelected.lat = e.latlng.lat;

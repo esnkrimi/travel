@@ -1,35 +1,25 @@
-<mat-drawer-container class="w-100" autosize>
-  <mat-drawer
-    position="start"
-    #drawer
-    class="sidenav"
-    mode="over"
-    [opened]="open"
-  >
-    <router-outlet></router-outlet>
-  </mat-drawer>
-  <div class="sidenav-content w-100 position-relative">
-    <div *ngIf="loadingProgress" class="transparent-background-loading"></div>
-    <pe-header
-      (savedLocation)="savedLocation($event)"
-      (resultOutputs)="resultOutputs($event)"
-    ></pe-header>
-    <div class="w-100 row">
-      <div class="w-100 position-relative">
-        <div class="w-100 padding-bottom">
-          <router-outlet name="secondRouter"></router-outlet>
-          <pe-map-component
-            [savedLocation]="savedLocationFlag"
-            [showTour]="showTour"
-            [scope]="scope"
-          ></pe-map-component>
-        </div>
+<div class="sidenav-content w-100 position-relative">
+  <div *ngIf="loadingProgress" class="transparent-background-loading"></div>
+  <pe-header
+    (savedLocation)="savedLocation($event)"
+    (resultOutputs)="resultOutputs($event)"
+  ></pe-header>
+  <div class="w-100 row">
+    <div class="w-100 position-relative">
+      <div class="w-100 padding-bottom">
+        <router-outlet name="secondRouter"></router-outlet>
+        <pe-map-component
+          [savedLocation]="savedLocationFlag"
+          [showTour]="showTour"
+          [scope]="scope"
+          (zoomActivator)="zoomActivatorFunction($event)"
+        ></pe-map-component>
       </div>
-      <div class="transparent-bg" *ngIf="bgLoader"></div>
     </div>
-    <!--<pe-footer></pe-footer>-->
+    <div class="transparent-bg" *ngIf="bgLoader"></div>
   </div>
-</mat-drawer-container>
+  <!--<pe-footer></pe-footer>-->
+</div>
 <!--
   <div class="adv2 animated-fadein" *ngIf="skip >= 0 && skip < 2">
     <img

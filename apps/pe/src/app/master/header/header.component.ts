@@ -102,7 +102,6 @@ export class HeaderComponent implements OnInit {
   }
 
   route(path: any) {
-    this.drawerService.open.next(true);
     this.drawerService.drawerType.next(`/${path}`);
   }
   // [routerLink]="[{ outlets: { secondRouter: ['lazy'] } }]

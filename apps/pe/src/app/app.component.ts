@@ -9,7 +9,7 @@ import {
 import { TranslateService } from '@ngx-translate/core';
 import { DrawerService } from './drawer.service';
 import { MatDrawer } from '@angular/material/sidenav';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { Iuser, IuserOfSite } from './model';
 import { EntryService } from './lazy/entry/entry.service';
 import { Store } from '@ngrx/store';
@@ -22,6 +22,7 @@ import {
   selectTripRequests,
   selectTripUsers,
 } from './+state/select';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'pe-root',
@@ -29,7 +30,7 @@ import {
   styleUrls: ['./app.component.scss'],
   encapsulation: ViewEncapsulation.Emulated,
 })
-export class AppComponent implements OnInit, AfterViewInit {
+export class AppComponent implements OnInit {
   showMap = true;
   tips = [
     'search location by name or on map',
@@ -63,17 +64,19 @@ export class AppComponent implements OnInit, AfterViewInit {
     private draswerService: DrawerService,
     private settingService: SettingService,
     private router: Router,
+    private acRouter: ActivatedRoute,
     private entryService: EntryService,
     private store: Store,
     private mapService: MapService,
     private mapApiService: MapApiService,
-    private drawerService: DrawerService
+    private drawerService: DrawerService,
+    public dialog: MatDialog
   ) {}
-  ngAfterViewInit(): void {
-    this.drawer.openedChange.subscribe((o: boolean) => {
-      if (!o) this.draswerService.open.next(false);
-    });
+
+  zoomActivatorFunction(event: any) {
+    this.openDialog();
   }
+
   fetchTrip() {
     if (JSON.parse(this.userSession)?.id)
       this.store.dispatch(actions.startFetchTrip());
@@ -186,6 +189,10 @@ export class AppComponent implements OnInit, AfterViewInit {
   resultOutputs(e: any) {
     this.scope = e;
   }
+  openDialog() {
+    const dialogRef = this.dialog.open(DialogContent);
+  }
+
   listener() {
     this.mapService.loadingProgress.subscribe((res) => {
       this.loadingProgress = res;
@@ -193,13 +200,25 @@ export class AppComponent implements OnInit, AfterViewInit {
     this.draswerService.drawerType.subscribe((res: any) => {
       this.drawerTypeTmp = res;
       this.router.navigateByUrl('lazy' + res);
-      this.draswerService.open.subscribe((res) => {
-        this.open = res;
-      });
+
       setTimeout(() => {
         this.draswerService.showMap.next(true);
       }, 2000);
       //router.navigate([{outlets: {primary: 'path' ,sidebar: 'path'}}]);
     });
   }
+}
+
+@Component({
+  selector: 'dialog-content',
+  template: `<div class="d-fixed">
+    <router-outlet></router-outlet>
+  </div> `,
+  styleUrls: ['./app.component.scss'],
+  standalone: true,
+  imports: [RouterModule],
+})
+export class DialogContent implements OnInit {
+  constructor() {}
+  ngOnInit(): void {}
 }
