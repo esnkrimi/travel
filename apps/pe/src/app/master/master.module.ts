@@ -15,6 +15,7 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 //import { masterRouterModule } from './routes';
 import { RouterModule, Routes } from '@angular/router';
 import { masterRouterModule } from './routes';
+import { HelpModule } from '@pe/help';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { masterRouterModule } from './routes';
     MapModule,
     AutoCompleteModule,
     masterRouterModule,
+    HelpModule,
     RouterModule,
     MatButtonModule,
     MatIconModule,
