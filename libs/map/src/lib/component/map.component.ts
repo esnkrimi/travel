@@ -35,11 +35,15 @@ import { HelpService } from 'libs/help/src/lib/component/help.service';
   providers: [DistancePipe],
 })
 export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
+  @Input() formTripShow: any;
+  @Output() formTripShowAction = new EventEmitter<any>();
+
   @Input() city: any;
   @Input() center: any;
   @Input() showTour: any;
   @Input() tripLocations: any;
   @Input() savedLocation = false;
+
   @Output() zoomActivator = new EventEmitter<any>();
   showMap = true;
   createTripActivate = false;
@@ -107,11 +111,16 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
   cancelTripSubmitVar(event: any) {
     this.selectLocationActivated = !event;
     this.mapApiService.bgLoader.next(false);
+    this.formTripShowAction.emit(false);
   }
   submitedForm(e: any) {
     this.selectLocationActivated = e.selectLocationActivated;
     this.currentTrip = e.currentTrip;
     this.title = e.title;
+  }
+
+  hideForm(e: any) {
+    this.formTripShowAction.emit(false);
   }
   distanceDrawer(from: any, to: any) {
     let lineLng: any;
@@ -158,8 +167,9 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   startCreateTrip(e: any) {
+    this.formTripShowAction.emit(true);
     this.helpService.messageWrite('');
-    this.addMarker(e.latlng, 'location', this.tripSelectIndex);
+    this.addMarker(e.latlng, 'location', [35, 35]);
     this.tripSelectIndex++;
     this.selectLocationActivated = true;
     this.latSelect = [e.latlng.lat, e.latlng.lng];
@@ -340,18 +350,7 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
     });
   }
 
-  dragMap() {
-    this.map.on('mouseup', (e: any) => {
-      this.drawerService
-        .fetchLocationByLatlng(e.latlng.lat, e.latlng.lng)
-        .subscribe((res) => {
-          if (res.city !== this.city && res.city) {
-            this.fetchByCity(res.city, true);
-            this.city = res.city;
-          }
-        });
-    });
-  }
+  dragMap() {}
 
   bind(e: any) {
     // this.drawerService.open.next(true);

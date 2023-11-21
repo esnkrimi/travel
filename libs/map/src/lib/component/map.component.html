@@ -1,4 +1,4 @@
-<div *ngIf="selectLocationActivated" class="div-location w-100 bg-primary">
+<div *ngIf="formTripShow" class="div-location w-100 bg-primary">
   <div class="border">
     <pe-form-trip-location
       [currentTrip]="currentTrip"
@@ -6,6 +6,7 @@
       [title]="title"
       (tripFinished)="tripFinished($event)"
       (submitedForm)="submitedForm($event)"
+      (hideForm)="hideForm($event)"
       (cancelTripSubmitVar)="cancelTripSubmitVar($event)"
     ></pe-form-trip-location>
   </div>

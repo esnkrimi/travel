@@ -80,7 +80,7 @@
   @media (min-width:1400px) {
     .sidenav{
       width: 50%;
-      z-index: 500 !important;
+      z-index: 2147483647 !important;
       
     }
 }
@@ -89,7 +89,7 @@
     width: 80%;
     background-color: white !important;
     height: 1800px !important;
-    z-index: 500 !important;
+    z-index: 2147483640 !important;
     position:static !important;
   }
 }

@@ -26,6 +26,7 @@ export class FormTripLocationComponent implements OnChanges, AfterViewInit {
   @Output() submitedForm = new EventEmitter<any>();
   @Output() tripFinished = new EventEmitter<any>();
   @Output() cancelTripSubmitVar = new EventEmitter<any>();
+  @Output() hideForm = new EventEmitter<any>();
 
   vehicle = '';
   finishTheTrip = 0;
@@ -121,6 +122,7 @@ export class FormTripLocationComponent implements OnChanges, AfterViewInit {
     //console.log('IFNI');
   }
   onCommitSubmitTripLocation(finish: boolean) {
+    this.hideForm.emit(false);
     this.mapService.loadingProgress.next(true);
     switch (finish) {
       case true:
@@ -159,6 +161,8 @@ export class FormTripLocationComponent implements OnChanges, AfterViewInit {
   }
 
   FinishSubmitTrip() {
+    this.hideForm.emit(false);
+
     this.onCommitSubmitTripLocation(true);
     this.store.dispatch(
       actions.startAddTripPoint({
