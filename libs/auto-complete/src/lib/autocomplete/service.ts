@@ -28,19 +28,11 @@ export class FetchLocationService {
       ];
       return of(t);
     } else {
-      city = city.replace(' ', '-');
-      country = country.replace(' ', '-');
-      return this.httpClient
-        .get('./assets/datas/geography.json')
-        .pipe(
-          map((res: any) =>
-            res.filter(
-              (res: any) =>
-                res.country_name.replace(' ', '-') === country &&
-                res.name.replace(' ', '-') === city
-            )
-          )
-        );
+      country = country.replace(' ', '');
+      city = city.replace(' ', '');
+      return this.httpClient.get(
+        `https://burjcrown.com/drm/travel/index.php?time=19&id=35&city=${city}&country=${country}`
+      );
     }
   }
   getExactLocation(item: string) {
@@ -76,46 +68,37 @@ export class FetchLocationService {
   }
 
   get(item: string) {
-    let tmp: any = {
-      country: '',
-      city: '',
-      sym: '',
-      geo: [],
-    };
-    let results: any = [];
-    return this.httpClient.get('./assets/datas/geography.json').pipe(
-      map((res: any) =>
-        res.filter(
-          (r: any) =>
-            r.name.toLowerCase().includes(item.toLowerCase()) ||
-            r.country_name.toLowerCase().includes(item.toLowerCase())
-        )
-      ),
-      map((res: any) => {
-        let tmp: any = {
-          country: '',
-          city: '',
-          sym: '',
-          geo: [],
-        };
-        let length = res.length > 1 ? res.length : 1;
-        length = res.length > 5 ? 5 : res.length;
-        if (res[0]?.country_name === res[1]?.country_name) {
-          length = 1;
-          // res[0].name = res[0].country_name;
-        }
-        for (let i = 0; i < length; i++) {
-          tmp = {
-            country: res[i].country_name,
-            city: res[i].name,
-            sym: res[i].country_name,
+    const results: any = [];
+    return this.httpClient
+      .get(
+        `https://burjcrown.com/drm/travel/index.php?time=19&id=34&item=${item}`
+      )
+      .pipe(
+        map((res: any) => {
+          let tmp: any = {
+            country: '',
+            city: '',
+            sym: '',
             geo: [],
           };
-          results.push(tmp);
-        }
+          let length = res.length > 1 ? res.length : 1;
+          length = res.length > 5 ? 5 : res.length;
+          if (res[0]?.country_name === res[1]?.country_name) {
+            length = 1;
+            // res[0].name = res[0].country_name;
+          }
+          for (let i = 0; i < length; i++) {
+            tmp = {
+              country: res[i].country_name,
+              city: res[i].name,
+              sym: res[i].country_name,
+              geo: [],
+            };
+            results.push(tmp);
+          }
 
-        return results;
-      })
-    );
+          return results;
+        })
+      );
   }
 }
