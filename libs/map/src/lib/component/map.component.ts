@@ -350,8 +350,18 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
     });
   }
 
-  dragMap() {}
-
+  dragMap() {
+    this.map.on('mouseup', (e: any) => {
+      this.drawerService
+        .fetchLocationByLatlng(e.latlng.lat, e.latlng.lng)
+        .subscribe((res) => {
+          if (res.city !== this.city && res.city) {
+            this.fetchByCity(res.city, true);
+            this.city = res.city;
+          }
+        });
+    });
+  }
   bind(e: any) {
     // this.drawerService.open.next(true);
     this.zoomActivator.emit(true);
