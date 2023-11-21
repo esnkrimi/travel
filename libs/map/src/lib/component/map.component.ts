@@ -40,7 +40,6 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
   @Input() showTour: any;
   @Input() tripLocations: any;
   @Input() savedLocation = false;
-
   @Output() zoomActivator = new EventEmitter<any>();
   showMap = true;
   createTripActivate = false;

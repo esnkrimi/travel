@@ -21,6 +21,7 @@ export class ZoomApiService {
 
   saved(lid: any, uid: any) {
     this.baseUrl = `https://www.burjcrown.com/drm/travel/index.php?id=10&lid=${lid}&uid=${uid}`;
+    console.log(this.baseUrl);
     return this.httpClient.get(this.baseUrl);
   }
   rate(uid: any, id: any, rate: number) {

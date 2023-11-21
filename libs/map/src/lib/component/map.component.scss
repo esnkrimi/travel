@@ -101,8 +101,8 @@ display: none !important;
     animation: width-animation 0.1s forwards;
     background-color: white;
     width: 100% ;
-
 }
+
 @keyframes width-animation {
     0%{
         width:0px
@@ -130,6 +130,7 @@ display: none !important;
         font-size: 1.4em !important;
     }
 }
+
 .trip{
     position: absolute;
     left:0;
@@ -139,7 +140,7 @@ display: none !important;
 }
 .div-location{
     position: fixed;
-    z-index: 1501;
+    z-index: 5000 !important;
     text-align: center;
 }
 .div-location div{

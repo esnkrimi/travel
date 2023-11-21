@@ -98,7 +98,9 @@ export class HeaderComponent implements OnInit {
   }
   savedLocations() {
     this.savedLocationFlag = !this.savedLocationFlag;
+    this.drawerService.showMap.next(true);
     this.savedLocation.emit(this.savedLocationFlag);
+    this.router.navigateByUrl('lazy/zoom');
   }
 
   route(path: any) {

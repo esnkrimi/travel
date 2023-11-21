@@ -9,6 +9,7 @@
       <div class="w-100 padding-bottom">
         <router-outlet name="secondRouter"></router-outlet>
         <pe-map-component
+          *ngIf="showMap"
           [savedLocation]="savedLocationFlag"
           [showTour]="showTour"
           [scope]="scope"
