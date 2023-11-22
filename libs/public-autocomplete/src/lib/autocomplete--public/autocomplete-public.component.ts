@@ -18,7 +18,6 @@ export class AutocompletePoublicComponent implements OnInit {
   loading = false;
   result: any = [];
   @Output() resultSelected = new EventEmitter<any>();
-  constructor() {}
   ngOnInit(): void {
     this.inputUser.valueChanges.subscribe((result) => {
       const tmp = this.data.filter((res: any) => res.email.includes(result));
@@ -27,5 +26,8 @@ export class AutocompletePoublicComponent implements OnInit {
   }
   resultSelect(e: any) {
     this.resultSelected.emit(e);
+
+    const tmp = this.result.filter((res: any) => res.email !== e.email);
+    this.result = tmp;
   }
 }

@@ -96,7 +96,9 @@ export class TripComponent implements OnInit {
       });
     });
   }
+
   change(valueOfField: any, title: any, field: any, row: any, tripTitle: any) {
+    console.log(tripTitle, valueOfField, title, field, row);
     this.store.dispatch(
       actions.startTripFactorsUpdate({
         location: title,
@@ -135,6 +137,7 @@ export class TripComponent implements OnInit {
         )
         .subscribe((res) => {
           this.trip = res[0];
+          console.log(this.trip);
           this.tripOwnerChecking(this.trip.title);
         });
 

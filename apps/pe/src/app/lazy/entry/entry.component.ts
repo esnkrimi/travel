@@ -103,6 +103,7 @@ export class EntryComponent implements OnInit {
       this.store.dispatch(actions.startLoginAction({ user: signupInfo }));
       setTimeout(() => {
         this.selectUserLogined();
+        location.reload();
       }, 1000);
     }
   }
