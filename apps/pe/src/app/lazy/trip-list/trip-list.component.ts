@@ -73,8 +73,9 @@ export class TripListComponent implements OnInit {
   fetchTripUsers(tripTitle: string): any {
     let tmpUser: any = [];
     for (let i = 0; i < this.tripUsers.length; i++) {
-      if (this.tripUsers[i].tripTitle === tripTitle)
-        tmpUser = this.tripUsers[i].users;
+      if (this.tripUsers[i].tripTitle == tripTitle) {
+        tmpUser.push(this.tripUsers[i]);
+      }
     }
     return tmpUser;
   }
@@ -106,12 +107,11 @@ export class TripListComponent implements OnInit {
     this.store.dispatch(actions.startFetchUsersOfTrip());
   }
   includes(title: any, tripToSearch: any) {
-    return title?.includes(tripToSearch);
+    return title?.toUpperCase().includes(tripToSearch.toUpperCase());
   }
   select() {
     this.store.select(selectAllTrips).subscribe((res) => {
       this.trips = res;
-      console.log(res);
     });
     this.store.select(selectTripUsers).subscribe((res) => {
       //console.log(res);

@@ -2,8 +2,8 @@
   <div style="flex-basis: 95%">
     <span *ngFor="let item of userList" (click)="remove(item)">
       <img
-        [alt]="item.name + item.family"
-        [title]="item.name + item.family"
+        [alt]="item.name + ' ' + item.family"
+        [title]="item.name + ' ' + item.family"
         src="https://d1hb67vd7r4m10.cloudfront.net/images/easyblog_articles/89/b2ap3_large_ee72093c-3c01-433a-8d25-701cca06c975.jpg"
         class="img-icon rounded-circle m-1"
       />

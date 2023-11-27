@@ -114,9 +114,10 @@ export class TripComponent implements OnInit {
     this.store
       .select(selectTripRequests)
       .pipe(
-        map((res: any) => res.filter((res: any) => res.uid === uid)),
         // tap((res) => console.log(res)),
+        map((res: any) => res.filter((res: any) => res.uid === uid)),
         map((res: any) => res.filter((res: any) => res.tripTitle === tripTitle))
+        // tap((res) => console.log(res))
         // tap((res) => console.log(res))
       )
       .subscribe((res) => {
@@ -137,7 +138,6 @@ export class TripComponent implements OnInit {
         )
         .subscribe((res) => {
           this.trip = res[0];
-          console.log(this.trip);
           this.tripOwnerChecking(this.trip.title);
         });
 
