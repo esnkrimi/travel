@@ -18,7 +18,7 @@
     </div>
     <div class="w-100 text-center border box d-relative">
       <div [class.invisible]="!showMap" class="absolute-50 p-1 border">
-        <div class="bg-light" cdkDragLockAxis="x" cdkDrag>
+        <div class="bg-light shadow-lg" cdkDragLockAxis="x" cdkDrag>
           <div
             class="ride"
             joyrideStep="firstStep"
@@ -26,7 +26,6 @@
             [doneTemplate]="doneButton"
             text="A mdraggable feature you can filter place type ex. cinema , airport ,...."
           ></div>
-
           <div
             *ngFor="let item of typeOflocations"
             (click)="change(item)"
@@ -69,6 +68,14 @@
         </div>
       </div>
       <div [class.invisible]="!showMap" class="map-container">
+        <div class="fixed-country m-1 shadow" cdkDrag>
+          {{ draggingLocation.country }} {{ draggingLocation.city }}<br />
+          <span class="text-muted text-small">
+            {{ draggingLocation.suburb }}
+            {{ draggingLocation.street }}
+          </span>
+        </div>
+
         <div class="map-frame">
           <div id="map"></div>
         </div>

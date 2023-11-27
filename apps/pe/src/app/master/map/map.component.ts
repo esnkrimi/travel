@@ -3,11 +3,8 @@ import {
   EventEmitter,
   Input,
   OnChanges,
-  OnInit,
   Output,
 } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { DrawerService } from '@appBase/drawer.service';
 
 @Component({
   selector: 'pe-map-component',
@@ -15,8 +12,9 @@ import { DrawerService } from '@appBase/drawer.service';
   styleUrls: ['./map.component.scss'],
 })
 export class MapComponent implements OnChanges {
-  center = [31.95376472, -89.23450472];
-  city = 'Okolona';
+  center = [40.750929, -73.984326];
+  country = 'United States';
+  city = ' - New York';
   formTripShow = false;
   @Input() scope: any; //from autocomplete search
   @Input() showTour: any;
@@ -32,6 +30,7 @@ export class MapComponent implements OnChanges {
     if (this.scope) {
       this.center = [this.scope.center[0], this.scope.center[1]];
       this.city = this.scope.city;
+      this.country = this.scope.country;
     }
   }
 

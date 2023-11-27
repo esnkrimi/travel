@@ -31,7 +31,7 @@ import { HelpService } from 'libs/help/src/lib/component/help.service';
   selector: 'pe-map',
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  //changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [DistancePipe],
 })
 export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
@@ -43,8 +43,15 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
   @Input() showTour: any;
   @Input() tripLocations: any;
   @Input() savedLocation = false;
+  @Input() country: any;
 
   @Output() zoomActivator = new EventEmitter<any>();
+  draggingLocation = {
+    country: 'United States',
+    city: ' - New York',
+    street: '',
+    suburb: ' ',
+  };
   showMap = true;
   createTripActivate = false;
 
@@ -61,7 +68,7 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
   distanceFrom: any;
   distanceTo: any;
   mapConfig = {
-    center: [31.95376472, -89.23450472],
+    center: [40.750929, -73.984326],
     countryScope: 'United States',
     typeOfLocation: 'all',
   };
@@ -354,7 +361,14 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
     this.map.on('mouseup', (e: any) => {
       this.drawerService
         .fetchLocationByLatlng(e.latlng.lat, e.latlng.lng)
+        .pipe(tap((res) => console.log(res)))
         .subscribe((res) => {
+          this.draggingLocation.country = res.country;
+          this.draggingLocation.street =
+            res.street && res.suburb ? ' - ' + res.street : res.street;
+          this.draggingLocation.city =
+            res.city && res.country ? ' - ' + res.city : res.city;
+          this.draggingLocation.suburb = res.suburb;
           if (res.city !== this.city && res.city) {
             this.fetchByCity(res.city, true);
             this.city = res.city;
@@ -397,6 +411,7 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
     this.mapService.loadingProgress.next(true);
     this.getRoute();
     this.fetchTrip();
+    this.fetchByCity('New York', true);
     this.loadMap(); //map_creation
     this.clickOnMap(); //CLICK ON MAP
     this.dragMap(); //CLICK ON MAP
@@ -404,6 +419,14 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
+    this.draggingLocation.city = this.city;
+    this.draggingLocation.country = this.country;
+    this.draggingLocation = {
+      country: this.country,
+      city: this.city,
+      street: '',
+      suburb: '',
+    };
     this.savedLocationActive();
     this.addMarker(this.center, 'location', [80, 80]);
     this.mapApiService.savedLocation.subscribe((res) => {

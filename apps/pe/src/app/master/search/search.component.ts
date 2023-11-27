@@ -31,11 +31,13 @@ export class SearchComponent implements OnInit {
       .subscribe((res) => (this.setting.placeholder = res));
   }
   results(event: any) {
+    console.log(event);
     this.drawerService.showMap.next(true);
     this.router.navigateByUrl('');
     const result: any = {
       center: [event?.latitude, event?.longitude],
       city: event?.name,
+      country: event?.country_name,
     };
     this.resultOutput.emit(result);
   }

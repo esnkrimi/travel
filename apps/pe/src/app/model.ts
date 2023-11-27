@@ -232,22 +232,18 @@ export abstract class location implements Ilocation {
 }
 
 export const typeOflocations = [
+  'restaurant',
   'cinema',
   'hotel',
-  'disco',
   'club',
-  'autogallery',
-  'hospital',
   'gym',
-  'restaurant',
   'mall',
   'school',
   'petrol',
   'zoo',
   'park',
   'airport',
-  'fun',
-  'pool',
+  'hospital',
 ];
 
 export interface State {
