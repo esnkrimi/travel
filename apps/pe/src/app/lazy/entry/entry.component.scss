@@ -2,16 +2,19 @@
     display: inline-block;
 }
 .bg{
-    //@include bg-image(var(--BG-LOGIN),25em,100% 100%);
-
+ 
 }
 .text-left{
     text-align: left;
 }
 
 .bg-success{
-   // @include bg-image(var(--BG-SUCCESS),25em,100% 100%);
-}
+ }
 .cards{
     top:30%
+}
+
+button{
+    height: 3.5em !important;
+    border-radius: 3%;
 }

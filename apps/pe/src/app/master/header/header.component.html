@@ -1,4 +1,4 @@
-<div class="mobile w-100 row z-index position-fixed">
+<div class="mobile w-100 row z-index position-fixed bg-light">
   <div class="col-md-6 position-static text-center">
     <div class="d-flex w-100 flex-nowrap">
       <div class="w-25 p-3">
@@ -33,14 +33,14 @@
       </button>
     </span>
     <span
-      class="text-small"
+      class="text-small text-purple"
       [routerLink]="[{ outlets: { secondRouter: 'lazy/login' } }]"
     >
       {{ 'login' | translate }}</span
     >
     <span class="text-small">|</span>
     <span
-      class="text-small"
+      class="text-small text-purple"
       [routerLink]="[{ outlets: { secondRouter: 'lazy/signup' } }]"
     >
       {{ 'signup' | translate }}</span

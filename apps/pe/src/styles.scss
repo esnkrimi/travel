@@ -4,10 +4,10 @@
     --COLOR-DARK: rgb(103, 105, 103);
     --COLOR-LIGHT-DARK: rgb(212, 218, 212);
     --COLOR-MUTED: rgb(102, 104, 102);
-    --COLOR-MAGENTA: rgb(70, 91, 138);
+    --COLOR-MAGENTA: rgb(98, 129, 196);
     --COLOR-GREEN: #17dab8;
     --COLOR-LIGHT: #ffffff;
-    --COLOR-CREAM: #faf6f6;
+    --COLOR-CREAM: #eceaea;
     --COLOR-ORANGE: #fdb42a;
     --BG-LOGIN:'https://topedu.vercel.app/assets/images/login1.png';
     --BG-SUCCESS:'https://cdn.dribbble.com/users/571236/screenshots/2888472/happystate.gif';
@@ -205,9 +205,8 @@
 }
 .mat-raised-button{
    background-color: var(--COLOR-GREEN) !important;
-   color:white !important;
-   font-size: 1em;
-   margin: 0.1em;
+   color:black !important;
+   font-size: 1.1em !important;
 }
 .mat-raised-button[disabled]{
    background-color: white !important;
@@ -237,4 +236,17 @@
 }
 .text-large{
    font-size: calc(1vw + 1vh + 1vmin) !important;
+}
+
+.text-purple{
+   color:var(--COLOR-MAGENTA) !important ;
+}
+.border-none{
+   border: none !important;
+}
+.fw-bold{
+   font-weight: 400 !important;
+}
+.bg-light{
+   background-color: var( --COLOR-CREAM) !important ;
 }
