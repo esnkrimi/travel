@@ -6,7 +6,7 @@ export class DistancePipe implements PipeTransform {
     const vehicle = type === 'car' ? 'fa fa-car' : 'fa fa-male';
     const times =
       type === 'car'
-        ? Math.round((distance / 72000) * 66)
+        ? Math.round((distance / 50000) * 66)
         : Math.round(distance / 80);
     const t =
       times > 60

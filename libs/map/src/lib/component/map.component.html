@@ -16,16 +16,9 @@
     <div class="bg-white text-center" *ngIf="createTripActivate">
       <pe-trips [currentTrip]="currentTrip"></pe-trips>
     </div>
-    <div class="w-100 text-center border box d-relative">
-      <div [class.invisible]="!showMap" class="absolute-50 p-1 border">
-        <div class="bg-light shadow-lg" cdkDragLockAxis="x" cdkDrag>
-          <div
-            class="ride"
-            joyrideStep="firstStep"
-            title="Place type"
-            [doneTemplate]="doneButton"
-            text="A mdraggable feature you can filter place type ex. cinema , airport ,...."
-          ></div>
+    <div class="w-100 text-center box d-relative">
+      <div [class.invisible]="!showMap" class="absolute-50 p-1">
+        <div class="bg-light shadow-lg" cdkDrag>
           <div
             *ngFor="let item of typeOflocations"
             (click)="change(item)"
@@ -68,7 +61,7 @@
         </div>
       </div>
       <div [class.invisible]="!showMap" class="map-container">
-        <div class="fixed-country m-1 shadow" cdkDrag>
+        <div class="fixed-country m-1 shadow cursor-pointer" cdkDrag>
           {{ draggingLocation.country }} {{ draggingLocation.city }}<br />
           <span class="text-muted text-small">
             {{ draggingLocation.suburb }}

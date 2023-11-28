@@ -138,20 +138,29 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
       noClip: false,
       color: 'purple',
       weight: 13,
+      className: 'line',
     })
+
+      .setStyle({
+        fillColor: 'red',
+      })
       .bindPopup(
         '<strong>' +
           Math.round(this.distanceValue) / 1000 +
-          'km <br>' +
+          'km </strong><hr>' +
           this.distancePipe.transform(this.distanceValue, 'car') +
           '<br>' +
           this.distancePipe.transform(this.distanceValue, 'walk')
       )
-      .on('click', (event) => {
-        this.closeSnackBar();
+
+      .on('mouseover', (event) => {
+        // this.closeSnackBar();
         polyline.openPopup();
       });
     polyline.addTo(this.map);
+    setTimeout(() => {
+      polyline.openPopup();
+    }, 100);
   }
   distanceActive(e: any) {
     this.addMarker(e.latlng, 'location', [30, 30]);
@@ -235,20 +244,13 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
               })
             )
             .subscribe((res) => {
+              console.log(res);
               tooltipPopup = L.popup({ offset: L.point(0, -20) });
               tooltipPopup.setContent(
                 `<b>${this.capitalizeFirstLetter(res[0]?.title)} ${res[0]?.type}
-              </b>
-              <hr>
-              Score :
-              <b>
-              ${res[0]?.score}
-              </b><br>
-              Address</b>:<b>
-              ${this.capitalizeFirstLetter(res[0]?.district)} - ${
-                  res[0]?.street
-                }</b>
-              <br>Phone<b>:
+              </b> <br>
+              ${this.capitalizeFirstLetter(res[0]?.district)} ${res[0]?.street}
+              <br><b>
               ${res[0]?.phone}</b>`
               );
               tooltipPopup.setLatLng(e.target.getLatLng());
@@ -361,7 +363,7 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
     this.map.on('mouseup', (e: any) => {
       this.drawerService
         .fetchLocationByLatlng(e.latlng.lat, e.latlng.lng)
-        .pipe(tap((res) => console.log(res)))
+        // .pipe(tap((res) => console.log(res)))
         .subscribe((res) => {
           this.draggingLocation.country = res.country;
           this.draggingLocation.street =
