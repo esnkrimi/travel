@@ -25,6 +25,7 @@
     opacity: 1 !important;
     width: 2.2em;
     height: 2.2em;
+    color: green !important;
     border: solid 5px var(--COLOR-ORANGE);
     animation: clicked 0.3s forwards;
 } 
@@ -85,7 +86,8 @@ display: none !important;
     transform: rotate(360deg);
 }
 .disabled{
-    opacity:0.5 !important
+    opacity:1 !important;
+    color:black !important;
 }
 .relative {
     width: 100% !important;
@@ -195,4 +197,13 @@ display: none !important;
   }
 .line{
 z-index: 600 !important;
+}
+.leaflet-touch .leaflet-bar a {
+    top: 10em !important;
+    position: relative !important;
+    line-height: 30px;
+}
+
+.leaflet-right{
+    left: 40% !important;
 }

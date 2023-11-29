@@ -45,7 +45,9 @@
 .text-green{
    @include text-bg(--COLOR-CREAM,--COLOR-GREEN)
 }
-
+body{
+   background-color: var(--COLOR-CREAM) !important;
+}
 .text-right{
    text-align: right !important;
 }
@@ -182,8 +184,16 @@
  transition: 1s !important;
 }
 .link:hover{
-   color: var(--COLOR-RED); 
+   color: var(--COLOR-GREEN); 
 }
+
+.link-darks{
+   color: var(--COLOR-DARK);
+}
+.link-darks:hover{
+   color: var(--COLOR-GREEN); 
+}
+
 .span-animated-on-hover{
    transition-property: color;
    transition-duration: 500ms;

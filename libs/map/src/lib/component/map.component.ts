@@ -397,11 +397,16 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   private loadMap(): void {
-    this.map = L.map('map', {});
+    this.map = L.map('map', { zoomControl: false });
 
     L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
       attribution: '© OpenStreetMap contributors',
     }).addTo(this.map);
+    L.control
+      .zoom({
+        position: 'topright',
+      })
+      .addTo(this.map);
   }
   fetchTrip() {
     this.store.select(selectTrip).subscribe((res) => {

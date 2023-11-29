@@ -18,3 +18,10 @@ button{
     height: 3.5em !important;
     border-radius: 3%;
 }
+
+@media (max-width:1200px) {
+    .login-div {
+      width: 80% !important;
+    }
+  
+  }
