@@ -61,6 +61,14 @@ export interface IAllTrips {
   tripjson_done?: string;
   uid: string;
 }
+
+export interface IAutoCompleteFind {
+  city: string;
+  country: string;
+  geo: [];
+  sym: string;
+}
+
 export interface ITripRequests {
   uid: string;
   tripTitle: string;
@@ -74,12 +82,6 @@ export interface ITripRequests {
   reqUserEmail: string;
 }
 
-export interface IAutoCompleteFind {
-  city: string;
-  country: string;
-  geo: [];
-  sym: string;
-}
 export interface ISetview {
   country_code: string;
   country_id: string;
@@ -105,6 +107,7 @@ export interface IlocationComments {
 }
 
 export interface state {
+  autoCompleteFind: IAutoCompleteFind[];
   locationComments: IlocationComments[];
   tripUsers: ITripUsers[];
   tripRequests: ITripRequests[];
@@ -116,7 +119,6 @@ export interface state {
   usersOfSite: IuserOfSite[];
   loginInfo: IloginInfo;
   setview: ISetview;
-  autoCompleteFind: IAutoCompleteFind[];
 }
 export const AppState: state = {
   trip: [],
@@ -230,22 +232,17 @@ export abstract class location implements Ilocation {
 }
 
 export const typeOflocations = [
-  'cinema',
-  'hotel',
-  'disco',
-  'club',
-  'autogallery',
-  'hospital',
-  'gym',
   'restaurant',
+  'hotel',
   'mall',
+  'university',
+  'tower',
   'school',
   'petrol',
   'zoo',
   'park',
   'airport',
-  'fun',
-  'pool',
+  'hospital',
 ];
 
 export interface State {

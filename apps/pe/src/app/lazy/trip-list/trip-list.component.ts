@@ -11,6 +11,9 @@ import { MapService } from '@appBase/master/map/service';
 import { LocalService } from '@appBase/storage';
 import { DrawerService } from '@appBase/drawer.service';
 import { FormControl, FormGroup } from '@angular/forms';
+import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
+import { BrowserModule } from '@angular/platform-browser';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'pe-trip-list',
@@ -18,19 +21,22 @@ import { FormControl, FormGroup } from '@angular/forms';
   styleUrls: ['./trip-list.component.scss'],
 })
 export class TripListComponent implements OnInit {
+  adminRate = [1, 2, 3, 4, 5];
   trips: any = [];
   tripUsers: any = [];
+  tripUsersFlat: any = [];
   tripUsersAsked: any = [];
   tripRequest: any = [];
   formSearchTrip = new FormGroup({
     itemToSearch: new FormControl(''),
   });
   tripToSearch: any = '';
-
+  askToJoinLoading = '';
   constructor(
     private mapService: MapService,
     private drawerService: DrawerService,
     private localStorage: LocalService,
+    public dialog: MatDialog,
     private store: Store,
     @Inject('userSession') public userSession: any
   ) {}
@@ -45,17 +51,14 @@ export class TripListComponent implements OnInit {
 
   tripSearchListener() {
     this.formSearchTrip.get('itemToSearch')?.valueChanges.subscribe((res) => {
-      if (res?.length !== 0) this.tripToSearch = res;
+      this.tripToSearch = res;
     });
   }
 
   hideMap() {
     this.drawerService.showMap.next(false);
   }
-  filterAllTrips(item: any) {
-    //console.log(this.trips);
-    // this.trips.filter(res=>res.)
-  }
+
   ngOnInit(): void {
     this.store.select(selectTripUsers).subscribe((res) => {
       this.tripUsers = res;
@@ -68,16 +71,6 @@ export class TripListComponent implements OnInit {
 
   tripZoom(tripTitle: string) {
     alert(tripTitle);
-  }
-
-  fetchTripUsers(tripTitle: string): any {
-    let tmpUser: any = [];
-    for (let i = 0; i < this.tripUsers.length; i++) {
-      if (this.tripUsers[i].tripTitle == tripTitle) {
-        tmpUser.push(this.tripUsers[i]);
-      }
-    }
-    return tmpUser;
   }
 
   fetchTrips() {
@@ -100,34 +93,93 @@ export class TripListComponent implements OnInit {
     return sumCost;
   }
   ask(tripTitle: string, uid: any) {
-    this.mapService.loadingProgress.next(false);
+    this.askToJoinLoading = tripTitle;
+    this.mapService.loadingProgress.next(true);
     const userData = JSON.parse(this.localStorage.getData('user'));
     const data = { uid: userData.id, tripTitle: tripTitle, owenerid: uid };
     this.store.dispatch(actions.getStartAskToJoin({ data: data }));
     this.store.dispatch(actions.startFetchUsersOfTrip());
+    setTimeout(() => {
+      this.askToJoinLoading = '';
+      this.mapService.loadingProgress.next(false);
+    }, 300);
   }
   includes(title: any, tripToSearch: any) {
     return title?.toUpperCase().includes(tripToSearch.toUpperCase());
   }
+
   select() {
     this.store.select(selectAllTrips).subscribe((res) => {
       this.trips = res;
+      this.flattingTrips(this.trips);
     });
     this.store.select(selectTripUsers).subscribe((res) => {
-      //console.log(res);
       this.tripRequest = res;
       this.mapService.loadingProgress.next(false);
     });
   }
+  getFromTripFlat(tripTitle: string) {
+    for (let i = 0; i < this.trips.length; i++)
+      for (let j = 0; j < this.trips[i].tripjson.length; j++) {
+        if (this.trips[i].tripjson[j].title === tripTitle) {
+          return this.trips[i];
+        }
+      }
+  }
+  flattingTrips(trips: any) {
+    for (let i = 0; i < trips.length; i++) {
+      this.tripUsersFlat.push(trips[i].tripjson);
+    }
+    this.tripUsersFlat = this.tripUsersFlat.flat();
+  }
   isAsked(tripTitle: string) {
     const user_id = JSON.parse(this.userSession)?.id;
     const tmpArray = this.tripRequest?.filter(
-      (res: any) => res.tripTitle === tripTitle
+      (res: any) => res.tripTitle === tripTitle && res.user_id === user_id
     );
-    const tmpArray_ = tmpArray[0]?.users?.filter(
-      (res: any) => res.uid === user_id
-    );
-    if (tmpArray_) return tmpArray_[0]?.uid === '1';
-    else return false;
+    return tmpArray?.length > 0;
+  }
+  differentBetweenTwoDates(startDate: any, endDate: any) {
+    const date1: any = new Date(startDate);
+    const date2: any = new Date(endDate);
+    const diffTime = Math.abs(date2 - date1);
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    return diffDays + ' days';
+  }
+  openDialog(tripTitle: string) {
+    const dialogRef = this.dialog.open(GuestsDialog, {
+      data: { tripTitle: tripTitle },
+    });
+    dialogRef.afterClosed().subscribe();
+  }
+}
+
+@Component({
+  selector: 'guests-dialog',
+  templateUrl: 'guests.html',
+  styleUrls: ['./guests.scss'],
+  standalone: true,
+  imports: [CommonModule],
+})
+export class GuestsDialog implements OnInit {
+  tripUsers: any;
+  constructor(
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private store: Store
+  ) {}
+
+  ngOnInit(): void {
+    this.store.select(selectTripUsers).subscribe((res) => {
+      this.tripUsers = res;
+    });
+  }
+  fetchTripUsers(): any {
+    const tmpUser: any = [];
+    for (let i = 0; i < this.tripUsers.length; i++) {
+      if (this.tripUsers[i].tripTitle == this.data.tripTitle) {
+        tmpUser.push(this.tripUsers[i]);
+      }
+    }
+    return tmpUser;
   }
 }

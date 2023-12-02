@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, Inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { DrawerService } from '@appBase/drawer.service';
-import { Ilocation, typeOflocations } from '@appBase/model';
+import { Ilocation, typeOflocations } from '@appBase/+state/state';
 import { EntryService } from '../entry/entry.service';
 import { map } from 'rxjs';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';

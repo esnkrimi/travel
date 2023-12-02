@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Iuser } from '@appBase/model';
+import { Iuser } from '@appBase/+state/state';
 import { BehaviorSubject } from 'rxjs';
 import { ConditionalExpr } from '@angular/compiler';
 

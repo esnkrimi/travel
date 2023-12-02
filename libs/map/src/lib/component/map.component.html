@@ -16,13 +16,13 @@
     <div class="bg-white text-center" *ngIf="createTripActivate">
       <pe-trips [currentTrip]="currentTrip"></pe-trips>
     </div>
-    <div class="w-100 text-center box d-relative">
+    <div class="w-100 text-center box">
       <div [class.invisible]="!showMap" class="absolute-50 p-1">
         <div class="shadow-lg" cdkDrag>
           <div
             *ngFor="let item of typeOflocations"
             (click)="change(item)"
-            class="relative w-100 bg-light"
+            class="w-100 bg-light"
           >
             <img
               [title]="item"
@@ -62,8 +62,16 @@
           </div>
         </div>
       </div>
+      <div class="attached-text p-1"></div>
       <div [class.invisible]="!showMap" class="map-container">
-        <div class="fixed-country m-1 shadow cursor-pointer" cdkDrag>
+        <div class="fixed-country m-1 shadow-lg cursor-pointer" cdkDrag>
+          <div
+            class="animated-fadein text-meduim text-green bg-white w-100"
+            *ngIf="distanceActivated"
+          >
+            DISTANCE MODE
+          </div>
+
           {{ draggingLocation.country }} {{ draggingLocation.city }}<br />
           <span class="text-muted text-small">
             {{ draggingLocation.suburb }}

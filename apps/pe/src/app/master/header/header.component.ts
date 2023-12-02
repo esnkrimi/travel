@@ -9,7 +9,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { DrawerService } from '@appBase/drawer.service';
 import { EntryService } from '@appBase/lazy/entry/entry.service';
-import { Iuser } from '@appBase/model';
+import { Iuser } from '@appBase/+state/state';
 import { SettingService, settings } from '@appBase/setting';
 import { LocalService } from '@appBase/storage';
 import { MapApiService } from 'libs/map/src/lib/component/map.service';

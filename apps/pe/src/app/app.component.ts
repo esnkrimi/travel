@@ -10,7 +10,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { DrawerService } from './drawer.service';
 import { MatDrawer } from '@angular/material/sidenav';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { Iuser, IuserOfSite } from './model';
+import { Iuser, IuserOfSite } from '@appBase/+state/state';
 import { EntryService } from './lazy/entry/entry.service';
 import { Store } from '@ngrx/store';
 import { MapService } from './master/map/service';

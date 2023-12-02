@@ -43,7 +43,7 @@
    @include text-bg(--COLOR-GREEN,--COLOR-CREAM)
 }
 .text-green{
-   @include text-bg(--COLOR-CREAM,--COLOR-GREEN)
+   @include text-bg(--COLOR-LIGHT,--COLOR-GREEN)
 }
 body{
    background-color: var(--COLOR-CREAM) !important;

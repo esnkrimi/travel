@@ -207,3 +207,14 @@ z-index: 600 !important;
 .leaflet-right{
     left: 40% !important;
 }
+
+.attached-text{
+    position: fixed;
+    left:0em;
+    top:10%;
+    width:20%;
+    text-align: left;
+    z-index: 500;
+    color:var(--COLOR-MAGENTA)
+
+}

@@ -1,7 +1,7 @@
 import { Inject, Injectable, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, filter, map, tap } from 'rxjs';
-import { ITrip } from '@appBase/model';
+import { ITrip } from '@appBase/+state/state';
 import { TripService } from './trip.service';
 
 @Injectable({ providedIn: 'root' })

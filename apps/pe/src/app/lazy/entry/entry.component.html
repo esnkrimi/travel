@@ -7,7 +7,10 @@
   class="w-100 mt-4 p-4 text-center"
   *ngIf="routeType === 'login'; else esignup"
 >
-  <div class="login-div w-25 d-inline-block bg-white p-4" *ngIf="!loginSuccess">
+  <div
+    class="login-div w-25 d-inline-block bg-white p-4 shadow-sm"
+    *ngIf="!loginSuccess"
+  >
     <div class="w-100 mt-4 text-center fw-bold">
       <p></p>
       <p class="m-3">Log in to Crown</p>
@@ -100,7 +103,7 @@
 </div>
 <ng-template #esignup>
   <div class="w-100 p-4 mt-4 text-center">
-    <div class="login-div w-25 p-4 d-inline-block bg-white">
+    <div class="login-div w-25 p-4 d-inline-block bg-white shadow-sm">
       <div class="w-100 text-center">
         <p class="fw-bold">Sign up</p>
       </div>

@@ -12,7 +12,7 @@ import {
 
 import { MapService } from '@appBase/master/map/service';
 import { DrawerService } from '@appBase/drawer.service';
-import { Ilocation, typeOflocations } from '@appBase/model';
+import { Ilocation, typeOflocations } from '@appBase/+state/state';
 import { MapApiService } from './map.service';
 import { LatLngExpression } from 'leaflet';
 import { map, tap } from 'rxjs';
@@ -153,7 +153,7 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
           this.distancePipe.transform(this.distanceValue, 'walk')
       )
 
-      .on('mouseover', (event) => {
+      .on('click', (event) => {
         // this.closeSnackBar();
         polyline.openPopup();
       });
@@ -359,25 +359,6 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
     });
   }
 
-  dragMap() {
-    this.map.on('mouseup', (e: any) => {
-      this.drawerService
-        .fetchLocationByLatlng(e.latlng.lat, e.latlng.lng)
-        // .pipe(tap((res) => console.log(res)))
-        .subscribe((res) => {
-          this.draggingLocation.country = res.country;
-          this.draggingLocation.street =
-            res.street && res.suburb ? ' - ' + res.street : res.street;
-          this.draggingLocation.city =
-            res.city && res.country ? ' - ' + res.city : res.city;
-          this.draggingLocation.suburb = res.suburb;
-          if (res.city !== this.city && res.city) {
-            this.fetchByCity(res.city, true);
-            this.city = res.city;
-          }
-        });
-    });
-  }
   bind(e: any) {
     // this.drawerService.open.next(true);
     this.zoomActivator.emit(true);
@@ -411,6 +392,26 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
   fetchTrip() {
     this.store.select(selectTrip).subscribe((res) => {
       this.listOfTrip = res;
+    });
+  }
+
+  dragMap() {
+    this.map.on('mouseup', (e: any) => {
+      this.drawerService
+        .fetchLocationByLatlng(e.latlng.lat, e.latlng.lng)
+        // .pipe(tap((res) => console.log(res)))
+        .subscribe((res) => {
+          this.draggingLocation.country = res.country;
+          this.draggingLocation.street =
+            res.street && res.suburb ? ' - ' + res.street : res.street;
+          this.draggingLocation.city =
+            res.city && res.country ? ' - ' + res.city : res.city;
+          this.draggingLocation.suburb = res.suburb;
+          if (res.city !== this.city && res.city) {
+            this.fetchByCity(res.city, true);
+            this.city = res.city;
+          }
+        });
     });
   }
 

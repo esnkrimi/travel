@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, map } from 'rxjs';
-import { Ilocation, location } from './model';
+import { Ilocation, location } from '@appBase/+state/state';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 @Injectable({ providedIn: 'root' })

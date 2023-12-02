@@ -7,7 +7,7 @@ import { delay } from 'rxjs';
 import { LocalService } from '@appBase/storage';
 import { Store } from '@ngrx/store';
 import { actions } from '@appBase/+state/actions';
-import { IloginInfo } from '@appBase/model';
+import { IloginInfo } from '@appBase/+state/state';
 import { selectUser } from '@appBase/+state/select';
 import { MatSnackBar, MatSnackBarRef } from '@angular/material/snack-bar';
 import { MapService } from '@appBase/master/map/service';

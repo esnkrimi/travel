@@ -10,85 +10,141 @@
     <input matInput formControlName="itemToSearch" class="" />
   </mat-form-field>
 </form>
-<div *ngFor="let item of trips" class="card m-4 w-75">
-  <ng-container class="card-body">
-    <ng-container
-      *ngFor="let trip of item.tripjson"
-      class="p-2 rounded m-1 border"
-    >
-      <div
-        *ngIf="
-          includes(trip.title, tripToSearch) ||
-          tripToSearch === '' ||
-          tripToSearch === ' '
-        "
-        class="d-flex flex-nowrap m-2 bg-light"
-      >
-        <div style="flex-basis: 85%">
-          <div class="fw-bold w-75">
-            <div class="row text-capitalize mb-2">
-              <div class="col-md-6">
-                {{ trip.title }}
-              </div>
-              <div class="col-md-6">
-                ({{ trip.trip[0].dateIncome }} to
-                {{ trip.trip[trip.trip.length - 1].dateIncome }})
+<div class="row w-100 p-1">
+  <div
+    *ngFor="let item of tripUsersFlat; let jindex = index"
+    class="col-md-3 p-2"
+  >
+    <div class="card">
+      <ng-container>
+        <div class="relative">
+          <img
+            [src]="
+              'https:burjcrown.com/drm/travel/users/' +
+              getFromTripFlat(item.title)?.uid +
+              '/profile.jpg?id=' +
+              getFromTripFlat(item.title)?.uid
+            "
+            class="w-100"
+          />
+          <div class="on-layer text-layer row w-100">
+            <div style="flex-basis: 50%">
+              <h5 class="text-capitalize p-2">
+                {{ getFromTripFlat(item.title)?.name }}
+                {{ getFromTripFlat(item.title)?.family }}
+              </h5>
+            </div>
+
+            <div style="flex-basis: 50%" class="text-right">
+              <div class="p-2">
+                <i
+                  id="item.rate"
+                  *ngFor="let rate of getFromTripFlat(item.title)?.rate"
+                  class="fa fa-2x fa-star star-layer"
+                ></i>
               </div>
             </div>
-            <div
-              class="card-title p-2 text-small text-muted fw-bold text-capitalize border-bottom"
-            >
-              Manager:
-              {{ item.name }}
-              {{ item.family }}
+          </div>
+        </div>
+        <ng-container class="card-body">
+          <div class="d-flex flex-nowrap m-2 bg-light">
+            <div class="w-100">
+              <div class="w-75">
+                <div class="text-capitalize mb-2 w-100">
+                  <div class="fw-bold">
+                    {{ item.title }}
+                  </div>
+                  <div>
+                    <span class="text-price text-green fw-bold">
+                      {{ cost(item.title) }}$
+                    </span>
+                    <span class="fw-bold text-small-text-muted">
+                      (
+                      {{
+                        differentBetweenTwoDates(
+                          item.trip[0].dateIncome,
+                          item.trip[item.trip.length - 1].dateIncome
+                        )
+                      }}
+                      )
+                    </span>
+                  </div>
+                  <div class="text-small">
+                    start date : {{ item.trip[0].dateIncome }}
+                  </div>
+                  <div class="text-small">
+                    end date
+                    {{ item.trip[item.trip.length - 1].dateIncome }}
+                  </div>
+                </div>
+                <div class="p-2">
+                  <span>
+                    <a
+                      *ngIf="!isAsked(item?.title); else elseTmpl"
+                      (click)="ask(item.title, getFromTripFlat(item.title).uid)"
+                      class="btn bg-green text-medium"
+                      >Ask to join</a
+                    >
+                    <ng-template #elseTmpl>
+                      <a
+                        (click)="ask(item.title, item.uid)"
+                        class="btn btn-warning text-medium"
+                        >Revoke</a
+                      >
+                    </ng-template>
+                  </span>
+                  <span *ngIf="askToJoinLoading === item.title"
+                    ><i
+                      [id]="getFromTripFlat(item.title).uid + item.title"
+                      class="fa fa-spinner fa-spin"
+                    ></i>
+                  </span>
+                </div>
+                <div
+                  class="card-title p-2 text-small text-muted fw-bold text-capitalize border-bottom"
+                ></div>
+              </div>
+              <div *ngFor="let location of item.trip; let index = index">
+                <p class="text-small">
+                  <span> {{ index + 1 }} ) </span>
+                  <span>
+                    <i class="fa fa-map-marker"></i>
+                  </span>
+                  <span class="fw-bold text-capitalize">
+                    {{ location?.locationTitle }}
+                  </span>
+                  <span>
+                    : {{ location.dateIncome }} at {{ location.timeIncome }} by
+                    {{ location?.vehicle }}
+                  </span>
+                </p>
+              </div>
+
+              <div>
+                <a
+                  (click)="openDialog(item.title)"
+                  class="cursor-pointer link text-decoration-none"
+                  >Guests</a
+                >
+              </div>
             </div>
           </div>
-          <div *ngFor="let location of trip.trip">
-            <p class="text-small">
-              <span>
-                <i class="fa fa-map-marker"></i>
-              </span>
-              <span class="fw-bold text-capitalize">
-                {{ location?.locationTitle }}
-              </span>
-              <span>
-                : {{ location.dateIncome }}{{ location.timeIncome }} by
-                {{ location?.vehicle }}
-              </span>
-            </p>
-          </div>
-          <div>
-            <span *ngFor="let guest of fetchTripUsers(trip.title)">
-              <img
-                [class.opacity-1]="guest.confirmed === '1'"
-                [title]="guest.name"
-                src="https://d1hb67vd7r4m10.cloudfront.net/images/easyblog_articles/89/b2ap3_large_ee72093c-3c01-433a-8d25-701cca06c975.jpg"
-                class="rounded-circle img-icon m-2"
-              />
-              <!--[alt]="guest.name" -->
-            </span>
-          </div>
-        </div>
-        <div style="flex-basis: 15%">
-          <p>
-            <span class="text-medium fw-bold"> {{ cost(trip.title) }}$ </span>
-            <span class="text-dark text-small"> per person </span>
-          </p>
-          <p>
-            <a
-              *ngIf="!isAsked(trip?.title); else elseTmpl"
-              (click)="ask(trip.title, item.uid)"
-              class="btn btn-primary"
-              >Ask to join</a
-            >
-            <ng-template #elseTmpl>
-              <a (click)="ask(trip.title, item.uid)" class="btn btn-primary"
-                >Revoke</a
-              >
-            </ng-template>
-          </p>
-        </div>
-      </div>
-    </ng-container>
-  </ng-container>
+        </ng-container>
+      </ng-container>
+    </div>
+  </div>
 </div>
+
+<!--
+
+  <div>
+    <span *ngFor="let guest of fetchTripUsers(trip.title)">
+      <img
+      [class.opacity-1]="guest.confirmed === '1'"
+      [title]="guest.name"
+      src="https://d1hb67vd7r4m10.cloudfront.net/images/easyblog_articles/89/b2ap3_large_ee72093c-3c01-433a-8d25-701cca06c975.jpg"
+      class="rounded-circle img-icon m-2"
+      />
+    </span>
+</div>
+  -->
