@@ -89,6 +89,11 @@ export class AppComponent implements OnInit {
       this.showMap = res;
     });
   }
+  fetchMyTripRequests() {
+    const uid = JSON.parse(this.userSession)?.id;
+    if (uid)
+      this.store.dispatch(actions.getStartFetchMyTripRequests({ uid: uid }));
+  }
   fetchRequests() {
     const uid = JSON.parse(this.userSession)?.id;
     if (uid)
@@ -140,6 +145,7 @@ export class AppComponent implements OnInit {
     this.fetchRequests();
     this.fetchUsersOfTrips();
     this.fetchAllTrips();
+    this.fetchMyTripRequests();
     this.fetchUserOfSite();
     this.mapApiService.bgLoader.subscribe((res) => {
       this.bgLoader = res;

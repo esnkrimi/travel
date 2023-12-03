@@ -50,9 +50,17 @@ export class TripListComponent implements OnInit {
   }
 
   tripSearchListener() {
-    this.formSearchTrip.get('itemToSearch')?.valueChanges.subscribe((res) => {
-      this.tripToSearch = res;
-    });
+    this.formSearchTrip
+      .get('itemToSearch')
+      ?.valueChanges.subscribe((res: any) => {
+        this.tripToSearch = res;
+        if (res.length > 0) {
+          this.flattingTrips(this.trips);
+          this.tripUsersFlat = this.tripUsersFlat.filter((result: any) =>
+            this.includes(result.title, res)
+          );
+        } else this.flattingTrips(this.trips);
+      });
   }
 
   hideMap() {
@@ -104,6 +112,7 @@ export class TripListComponent implements OnInit {
       this.mapService.loadingProgress.next(false);
     }, 300);
   }
+
   includes(title: any, tripToSearch: any) {
     return title?.toUpperCase().includes(tripToSearch.toUpperCase());
   }
@@ -127,11 +136,13 @@ export class TripListComponent implements OnInit {
       }
   }
   flattingTrips(trips: any) {
+    this.tripUsersFlat = [];
     for (let i = 0; i < trips.length; i++) {
       this.tripUsersFlat.push(trips[i].tripjson);
     }
     this.tripUsersFlat = this.tripUsersFlat.flat();
   }
+
   isAsked(tripTitle: string) {
     const user_id = JSON.parse(this.userSession)?.id;
     const tmpArray = this.tripRequest?.filter(

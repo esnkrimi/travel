@@ -5,7 +5,7 @@
 <br />
 <br />
 <form [formGroup]="formSearchTrip">
-  <mat-form-field class="w-100">
+  <mat-form-field class="search-input">
     <mat-label> {{ 'Search...' }}</mat-label>
     <input matInput formControlName="itemToSearch" class="" />
   </mat-form-field>
@@ -25,7 +25,7 @@
               '/profile.jpg?id=' +
               getFromTripFlat(item.title)?.uid
             "
-            class="w-100"
+            class="img-profile"
           />
           <div class="on-layer text-layer row w-100">
             <div style="flex-basis: 50%">
@@ -87,11 +87,16 @@
                     >
                     <ng-template #elseTmpl>
                       <a
-                        (click)="ask(item.title, item.uid)"
+                        (click)="
+                          ask(item.title, getFromTripFlat(item.title).uid)
+                        "
                         class="btn btn-warning text-medium"
                         >Revoke</a
                       >
                     </ng-template>
+                  </span>
+                  <span style="visibility: hidden">
+                    {{ isAsked(item?.title) }}
                   </span>
                   <span *ngIf="askToJoinLoading === item.title"
                     ><i

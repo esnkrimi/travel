@@ -1,6 +1,6 @@
 :root {
     --COLOR-WAITING: rgb(214, 110, 24);
-    --COLOR-RED: rgb(196, 20, 28);
+    --COLOR-RED: rgb(201, 191, 192);
     --COLOR-DARK: rgb(103, 105, 103);
     --COLOR-LIGHT-DARK: rgb(212, 218, 212);
     --COLOR-MUTED: rgb(102, 104, 102);
@@ -177,6 +177,16 @@ body{
    display: inline-block;
    vertical-align: middle;
 }
+
+.big-link { 
+   color: var(--COLOR-DARK);
+   font-size: calc(0.2vw + 0.2vh + 1vmin) !important;
+   font-weight: bold;
+   transition: 0.2s !important;
+  }
+  .big-link:hover{
+     color: var(--COLOR-GREEN); 
+  }
 
 .link { 
  color: var(--COLOR-MAGENTA); 

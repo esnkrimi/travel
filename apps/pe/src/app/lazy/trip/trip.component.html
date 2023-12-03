@@ -37,13 +37,17 @@
   </ng-template>
 </div>
 
-<div *ngFor="let item of trip.trip; let i = index" class="p-4 trip-frame w-75">
-  <div>
-    <div class="w-50 border-bottom m-2 p-1">
-      <span class="fw-bold">
-        Location {{ i + 1 }} . {{ item.locationTitle | uppercase }}
-      </span>
-    </div>
+<div
+  *ngFor="let item of trip.trip; let i = index"
+  class="p-4 trip-frame w-75 d-relative"
+>
+  <div class="w-50 fw-bold text-medium m-2 p-1">
+    <span class="fw-bold steps">
+      {{ i + 1 }}
+    </span>
+    <span class="border-bottom">
+      {{ item.locationTitle | uppercase }}
+    </span>
   </div>
   <div class="w-100 trips">
     <div class="d-flex">
@@ -55,7 +59,7 @@
           joyrideStep="fifthStep"
           type="date"
           matInput
-          [readonly]="!ownerPermission"
+          [disabled]="!ownerPermission"
           (change)="
             change($event, item.locationTitle, 'dateIncome', item, tripTitle)
           "
@@ -87,7 +91,7 @@
           type="time"
           matInput
           [value]="item.timeIncome"
-          [readonly]="!ownerPermission"
+          [disabled]="!ownerPermission"
         />
         <span
           *ngIf="ownerPermission"
@@ -111,7 +115,7 @@
           type="number"
           matInput
           [value]="item.persons"
-          [readonly]="!ownerPermission"
+          [disabled]="!ownerPermission"
         />
         <span
           *ngIf="ownerPermission"
@@ -135,7 +139,7 @@
           type="text"
           matInput
           [value]="item.vehicle"
-          [readOnly]="!ownerPermission"
+          [disabled]="!ownerPermission"
         />
 
         <span
@@ -160,8 +164,8 @@
           type="number"
           matInput
           [value]="item.moneyLost"
-          [readOnly]="!ownerPermission"
-        />$
+          [disabled]="!ownerPermission"
+        />
         <span
           *ngIf="ownerPermission"
           style="flex-basis: 7%"

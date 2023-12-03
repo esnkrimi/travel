@@ -69,11 +69,11 @@
           />
         </button>
       </span>
-      <button (click)="menuShow = !menuShow" mat-button>
+      <button (click)="menuShow = !menuShow" mat-button class="p-2 bg-light">
         <mat-icon>arrow_drop_down</mat-icon>
-        <span class="m-2 fw-bold">{{
-          userLoginInformation?.email | titlecase
-        }}</span>
+        <span class="m-2 fw-bold"
+          >Hi ! {{ userLoginInformation?.name | titlecase }}</span
+        >
         <span class="m-2">{{ userLoginInformation?.lname }}</span>
         <img
           src="https://d1hb67vd7r4m10.cloudfront.net/images/easyblog_articles/89/b2ap3_large_ee72093c-3c01-433a-8d25-701cca06c975.jpg"
@@ -84,13 +84,13 @@
         <div class="position-absolute">
           <p (click)="routeHome()">
             <span>
-              <i class="fa fa-cog fa-2x" aria-hidden="true"></i>
+              <i class="fa fa-home fa-2x" aria-hidden="true"></i>
             </span>
             <span>
               {{ 'home' | translate }}
             </span>
           </p>
-          <p>
+          <p (click)="menuShow = false">
             <span>
               <i class="fa fa-cog fa-2x" aria-hidden="true"></i>
             </span>
@@ -100,37 +100,45 @@
           </p>
           <p (click)="savedLocations()">
             <span>
-              <i class="fa fa-2x fa-map-marker" aria-hidden="true"></i>
+              <i class="fa fa-2x fa-gratipay" aria-hidden="true"></i>
             </span>
             <span>
               {{ 'savelocation' | translate }}
             </span>
           </p>
-          <p [routerLink]="[{ outlets: { secondRouter: 'lazy/mytrips' } }]">
-            <span>
-              <i class="fa fa-2x fa-sign-out" aria-hidden="true"></i>
-            </span>
-            <span>
+          <p
+            (click)="menuShow = false"
+            [routerLink]="[{ outlets: { secondRouter: 'lazy/mytrips' } }]"
+          >
+            <span class="big-link">
               {{ 'mytrips' | translate }}
             </span>
           </p>
-          <p [routerLink]="[{ outlets: { secondRouter: 'lazy/trips' } }]">
-            <span>
-              <i class="fa fa-2x fa-sign-out" aria-hidden="true"></i>
+          <p
+            (click)="menuShow = false"
+            [routerLink]="[{ outlets: { secondRouter: 'lazy/myrequests' } }]"
+          >
+            <span class="big-link">
+              {{ 'myrequests' | translate }}
             </span>
-            <span>
+          </p>
+          <p
+            (click)="menuShow = false"
+            [routerLink]="[{ outlets: { secondRouter: 'lazy/trips' } }]"
+          >
+            <span class="big-link">
               {{ 'trips' | translate }}
             </span>
           </p>
-          <p [routerLink]="[{ outlets: { secondRouter: 'lazy/messages' } }]">
-            <span>
-              <i class="fa fa-2x fa-sign-out" aria-hidden="true"></i>
-            </span>
-            <span>
+          <p
+            (click)="menuShow = false"
+            [routerLink]="[{ outlets: { secondRouter: 'lazy/messages' } }]"
+          >
+            <span class="big-link">
               {{ 'mymessages' | translate }}
             </span>
           </p>
-          <p (click)="logout()">
+          <p (click)="menuShow = false" (click)="logout()">
             <span>
               <i class="fa fa-2x fa-sign-out" aria-hidden="true"></i>
             </span>

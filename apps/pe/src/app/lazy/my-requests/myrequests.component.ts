@@ -1,16 +1,20 @@
 import { Component, Inject, OnInit, inject } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { actions } from '@appBase/+state/actions';
-import { selectTripRequests } from '@appBase/+state/select';
+import {
+  selectAllTrips,
+  selectMyTripRequests,
+  selectTripRequests,
+} from '@appBase/+state/select';
 import { DrawerService } from '@appBase/drawer.service';
 import { map, tap } from 'rxjs';
 
 @Component({
-  selector: 'pe-mytrips',
-  templateUrl: './mytrips.component.html',
-  styleUrls: ['./mytrips.component.scss'],
+  selector: 'pe-requests',
+  templateUrl: './myrequests.component.html',
+  styleUrls: ['./myrequests.component.scss'],
 })
-export class MytripsComponent implements OnInit {
+export class MyrequestsComponent implements OnInit {
   trips: any = [];
   constructor(
     private store: Store,
@@ -26,19 +30,20 @@ export class MytripsComponent implements OnInit {
   }
   myTrips() {
     this.store
-      .select(selectTripRequests)
+      .select(selectMyTripRequests)
       .pipe(
         map((res: any) =>
           res.filter(
-            (res: any) => res.ownerid === JSON.parse(this.userSession)?.id
+            (res: any) =>
+              res.ownerid !== JSON.parse(this.userSession)?.id &&
+              res.uid === JSON.parse(this.userSession)?.id
           )
         )
       )
       .subscribe((res) => {
-        this.trips = Array.from(new Set(res.map((res: any) => res.tripTitle)));
+        this.trips = res;
       });
   }
-  deleteTrips(tripTitle: string) {}
   confirm(event: any, ownerId: string, tripTitle: string, userId: string) {
     const action = event.checked ? 1 : 0;
     this.store.dispatch(

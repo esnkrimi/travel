@@ -11,6 +11,7 @@ export const {
   selectUsersOfSite,
   selectAllTrips,
   selectTripRequests,
+  selectMyTripRequests,
   selectTripUsers,
   selectLocationComments,
   selectAutoCompleteFind,

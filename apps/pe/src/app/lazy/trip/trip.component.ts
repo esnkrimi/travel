@@ -98,32 +98,27 @@ export class TripComponent implements OnInit {
   }
 
   change(valueOfField: any, title: any, field: any, row: any, tripTitle: any) {
-    console.log(tripTitle, valueOfField, title, field, row);
-    this.store.dispatch(
-      actions.startTripFactorsUpdate({
-        location: title,
-        field: field,
-        vals: valueOfField.target.value,
-        trip: tripTitle,
-      })
-    );
+    if (this.ownerPermission)
+      this.store.dispatch(
+        actions.startTripFactorsUpdate({
+          location: title,
+          field: field,
+          vals: valueOfField.target.value,
+          trip: tripTitle,
+        })
+      );
   }
 
   tripOwnerChecking(tripTitle: string): any {
     const uid = JSON.parse(this.userSession)?.id;
     this.store
-      .select(selectTripRequests)
+      .select(selectTrip)
       .pipe(
-        // tap((res) => console.log(res)),
-        map((res: any) => res.filter((res: any) => res.uid === uid)),
-        map((res: any) => res.filter((res: any) => res.tripTitle === tripTitle))
-        // tap((res) => console.log(res))
-        // tap((res) => console.log(res))
+        map((res) => res.filter((res) => typeof res === 'object')),
+        map((res: any) => res.filter((res: any) => res.title === tripTitle))
       )
       .subscribe((res) => {
-        // this.trips = res;
         this.ownerPermission = res.length > 0 ? true : false;
-        // return result;
       });
   }
 

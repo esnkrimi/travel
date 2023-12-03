@@ -35,12 +35,30 @@ input{
 
 
 .header{
-  background-color: var(--COLOR-MAGENTA);
+  background-color: var(--COLOR-GREEN);
   color: white;
 }
 
-@media only screen and (max-width: 1200px) {
-  .trip-frame{
+ .trip-frame{
+  background-color: var(--COLOR-LIGHT);
+  margin: 0.5em;
+ }
+
+ .steps{
+  position: absolute;
+  left: 0.2em;
+  top: 0.2em;
+  margin: 0.5em;
+ }
+
+ .d-relative{
+  position: relative;
+ }
+ @media only screen and (max-width: 1200px) {
+  .review-frame{
     width: 100% !important;
   }
  }
+ 
+
+ 

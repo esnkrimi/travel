@@ -65,6 +65,12 @@ export const reducerStates = createFeature({
       };
     }),
 
+    on(actions.fetchMyTripRequests, function (states: any, action: any) {
+      return {
+        ...states,
+        myTripRequests: action.data,
+      };
+    }),
     on(actions.fetchTripRequests, function (states: any, action: any) {
       return {
         ...states,

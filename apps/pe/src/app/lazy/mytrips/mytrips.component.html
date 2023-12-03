@@ -9,19 +9,12 @@
 <h2 class="p-2">My requests to join :</h2>
 <div class="card m-2" *ngFor="let item of trips">
   <div class="card-body">
-    <h1 class="card-titel text-capitalize">{{ item.tripTitle }}</h1>
-    <h4 class="card-subtitel text-muted">Manager : {{ item.reqUserName }}</h4>
-    <p *ngIf="item.adminConfirm === '0'; else elseTmpl">
-      <i class="fa fa-clock-o text-primary"></i>
-      <span> waiting to admin confirmation ! </span>
-    </p>
-    <ng-template #elseTmpl>
-      <p>
-        <span>
-          <i class="fa fa-check text-success fw-bold"></i>
-        </span>
-        <span class="text-success fw-bold"> Admin confirmed ! </span>
-      </p>
-    </ng-template>
+    <span class="text-large card-titel text-capitalize">{{ item }} </span>
+    <span>
+      <i
+        class="fa fa-close fa-2x cursor-pointer"
+        (click)="deleteTrips(item)"
+      ></i>
+    </span>
   </div>
 </div>

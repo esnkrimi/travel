@@ -17,8 +17,8 @@ import { MytripsService } from '@appBase/lazy/mytrips/mytrips.service';
 import { TripUserService } from '@appBase/lazy/trip-users/trip-user.service';
 import { TripListsService } from '@appBase/lazy/trip-list/trip-list.service';
 import { MessagesApiService } from '@appBase/lazy/messages/messages.service';
-import { MytripsComponent } from '@appBase/lazy/mytrips/mytrips.component';
 import { ExperiencesApiService } from 'libs/experiences/src/lib/component/experiences.service';
+import { MyTripsRequestsService } from '@appBase/lazy/my-requests/myrequests.service';
 
 @Injectable()
 export class storeEffects {
@@ -100,6 +100,17 @@ export class storeEffects {
             res.action
           )
           .pipe(map((res: any) => actions.confirmRequests({ data: res })));
+      })
+    );
+  });
+
+  startMyTripRequests: any = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(actions.getStartFetchMyTripRequests),
+      switchMap((res: any) => {
+        return this.myTripsRequestsService
+          .myTripsRequests(res.uid)
+          .pipe(map((res: any) => actions.fetchMyTripRequests({ data: res })));
       })
     );
   });
@@ -373,6 +384,7 @@ export class storeEffects {
     private service: EntryService,
     private locationService: FetchLocationService,
     private zoomService: ZoomApiService,
-    private mytripsService: MytripsService
+    private mytripsService: MytripsService,
+    private myTripsRequestsService: MyTripsRequestsService
   ) {}
 }

@@ -69,6 +69,19 @@ export interface IAutoCompleteFind {
   sym: string;
 }
 
+export interface IMyTripRequests {
+  uid: string;
+  tripTitle: string;
+  reqDate: string;
+  messages: string;
+  confirm: boolean;
+  adminConfirm: boolean;
+  ownerid: string;
+  reqUserName: string;
+  reqUserFamily: string;
+  reqUserEmail: string;
+}
+
 export interface ITripRequests {
   uid: string;
   tripTitle: string;
@@ -111,6 +124,7 @@ export interface state {
   locationComments: IlocationComments[];
   tripUsers: ITripUsers[];
   tripRequests: ITripRequests[];
+  myTripRequests: IMyTripRequests[];
   allTrips: IAllTrips[];
   trip: ITrip[];
   reviewtrip: ITrip[];
@@ -153,6 +167,7 @@ export const AppState: state = {
   allTrips: [],
   tripRequests: [],
   tripUsers: [],
+  myTripRequests: [],
   locationComments: [],
   autoCompleteFind: [],
 };

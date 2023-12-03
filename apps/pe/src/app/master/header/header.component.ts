@@ -96,6 +96,7 @@ export class HeaderComponent implements OnInit {
     });
   }
   savedLocations() {
+    this.menuShow = false;
     this.savedLocationFlag = !this.savedLocationFlag;
     this.drawerService.showMap.next(true);
     this.savedLocation.emit(this.savedLocationFlag);

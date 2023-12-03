@@ -41,6 +41,8 @@ export const actions = createActionGroup({
       tripTitle: any;
       action: any;
     }>(),
+    'fetch my trip requests': props<{ data: any }>(),
+    'get start fetch my trip requests': props<{ uid: any }>(),
     'fetch trip requests': props<{ data: any }>(),
     'get start fetch trip requests': props<{ uid: any }>(),
     'ask to join': props<{ data: any }>(),

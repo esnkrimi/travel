@@ -1,17 +1,39 @@
-<div class="d-flex w-50" *ngIf="userList.length > 0; else elseTmpl">
-  <div style="flex-basis: 95%">
-    <span *ngFor="let item of userList" (click)="remove(item)">
+<div
+  style="width: fit-content"
+  class="p-2 bg-light m-2"
+  *ngIf="userList.length > 0; else elseTmpl"
+>
+  <div class="d-flex flex-nowrap">
+    <div
+      *ngFor="let item of userList"
+      (click)="remove(item)"
+      class="d-relative m-1"
+    >
       <img
         [alt]="item.name + ' ' + item.family"
         [title]="item.name + ' ' + item.family"
-        src="https://d1hb67vd7r4m10.cloudfront.net/images/easyblog_articles/89/b2ap3_large_ee72093c-3c01-433a-8d25-701cca06c975.jpg"
-        class="img-icon rounded-circle m-1"
+        [src]="
+          'https://burjcrown.com/drm/travel/users/' +
+          item.user_id +
+          '/profile.jpg?id=1'
+        "
+        class="img-icon"
       />
-    </span>
+      <div class="on-layer text-layer row w-100">
+        <h5 class="text-capitalize name-text p-1">
+          <span>
+            {{ item.name }}
+          </span>
+          <span>
+            {{ item.family }}
+          </span>
+        </h5>
+      </div>
+    </div>
   </div>
-  <div style="flex-basis: 5%">
+  <div>
     <button *ngIf="addPermission" mat-raised-button (click)="addUser()">
-      Add user
+      Add Guest
     </button>
   </div>
 </div>
@@ -19,7 +41,7 @@
 <ng-template #elseTmpl>
   <div class="w-100">
     <button *ngIf="addPermission" mat-raised-button (click)="addUser()">
-      Add user
+      Add Guest
     </button>
   </div>
 </ng-template>
