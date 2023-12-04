@@ -59,6 +59,7 @@ export interface ITrip {
   title: string;
   trip: ILocationInTrip[];
   reviewtrip?: IReviewLocationInTrip[];
+  finish?: boolean;
 }
 export interface IloginInfo {
   email?: string | null | undefined;

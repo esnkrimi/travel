@@ -27,6 +27,12 @@
             "
             class="img-profile"
           />
+
+          <div *ngIf="item.finish" class="on-layer top-layer row w-100">
+            <div class="w-100">
+              <h5 class="text-capitalize p-2 text-center w-100">Finished !</h5>
+            </div>
+          </div>
           <div class="on-layer text-layer row w-100">
             <div style="flex-basis: 50%">
               <h5 class="text-capitalize p-2">

@@ -132,6 +132,7 @@ export class TripListComponent implements OnInit {
       this.mapService.loadingProgress.next(false);
     });
   }
+
   getFromTripFlat(tripTitle: string) {
     for (let i = 0; i < this.trips.length; i++)
       for (let j = 0; j < this.trips[i].tripjson.length; j++) {
@@ -140,12 +141,14 @@ export class TripListComponent implements OnInit {
         }
       }
   }
+
   flattingTrips(trips: any) {
     this.tripUsersFlat = [];
     for (let i = 0; i < trips.length; i++) {
       this.tripUsersFlat.push(trips[i].tripjson);
     }
     this.tripUsersFlat = this.tripUsersFlat.flat();
+    console.log(this.tripUsersFlat);
   }
 
   isAsked(tripTitle: string) {
@@ -155,6 +158,7 @@ export class TripListComponent implements OnInit {
     );
     return tmpArray?.length > 0;
   }
+
   differentBetweenTwoDates(startDate: any, endDate: any) {
     const date1: any = new Date(startDate);
     const date2: any = new Date(endDate);

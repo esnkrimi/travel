@@ -83,7 +83,6 @@ export class MapApiService {
       title +
       '&trip=' +
       encodeURIComponent(trip);
-    console.log(baseUrl);
     return this.httpClient.get(baseUrl);
   }
 }

@@ -4,6 +4,7 @@ import { actions } from '@appBase/+state/actions';
 import { selectAllTrips, selectTripRequests } from '@appBase/+state/select';
 import { DrawerService } from '@appBase/drawer.service';
 import { Store } from '@ngrx/store';
+import { map } from 'rxjs';
 
 @Component({
   selector: 'pe-messages',
@@ -53,10 +54,13 @@ export class MessagesComponent implements OnInit {
     this.drawerService.showMap.next(false);
   }
   tripRequests() {
-    this.store.select(selectTripRequests).subscribe((res) => {
-      //console.log(res);
-      this.tripRequest = res;
-    });
+    this.store
+      .select(selectTripRequests)
+      .pipe(map((res) => res.filter((res) => res.uid !== this.user_id)))
+      .subscribe((res) => {
+        console.log(res);
+        this.tripRequest = res;
+      });
   }
   fetchAllTrips() {
     this.store.select(selectAllTrips).subscribe((res) => {

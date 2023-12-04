@@ -149,6 +149,7 @@ export class FormTripLocationComponent implements OnChanges, AfterViewInit {
       ? this.title
       : this.formSubmitTitle.get('inputTitle')?.value;
     this.currentTrip.title = tripTitle;
+    this.currentTrip.finish = false;
 
     this.submitedForm.emit({
       currentTrip: this.currentTrip,
@@ -162,25 +163,28 @@ export class FormTripLocationComponent implements OnChanges, AfterViewInit {
 
   FinishSubmitTrip() {
     this.hideForm.emit(false);
-
     this.onCommitSubmitTripLocation(true);
     this.store.dispatch(
       actions.startAddTripPoint({
         trip: this.currentTrip,
         title: this.currentTrip.title,
+        finish: false,
       })
     );
     this.store.select(selectTrip).subscribe((res) => {
+      console.log(res);
       this.store.dispatch(
         actions.addTrip({
           title: this.currentTrip.title,
           trip: JSON.stringify(res),
+          finish: false,
         })
       );
     });
     this.currentTrip = {
       title: '',
       trip: [],
+      finish: false,
     };
   }
 }

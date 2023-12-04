@@ -86,11 +86,15 @@ export const actions = createActionGroup({
       formData: any;
     }>(),
     'share experience': emptyProps(),
-    'start add trip point': props<{ trip: any; title: string }>(),
+    'start add trip point': props<{
+      trip: any;
+      title: string;
+      finish: boolean;
+    }>(),
     'add trip point': emptyProps(),
     'start fetch trip': emptyProps(),
     'fetch trip': props<{ trip: any; reviewtrip: any }>(),
-    'add trip': props<{ title: string; trip: any }>(),
+    'add trip': props<{ title: string; trip: any; finish: boolean }>(),
     'start fetch review trip': emptyProps(),
     'fetch review trip': props<{ trip: any }>(),
     'start review update': props<{

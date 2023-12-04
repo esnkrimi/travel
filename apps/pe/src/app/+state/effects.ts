@@ -241,7 +241,6 @@ export class storeEffects {
     return this.actions$.pipe(
       ofType(actions.addTrip),
       switchMap((result: any) => {
-        console.log(result);
         return this.ser
           .updateTrip(result.title, JSON.stringify(result.trip))
           .pipe(map((res: any) => actions.addTripPoint()));

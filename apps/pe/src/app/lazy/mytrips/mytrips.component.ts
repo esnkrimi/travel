@@ -38,7 +38,9 @@ export class MytripsComponent implements OnInit {
         this.trips = Array.from(new Set(res.map((res: any) => res.tripTitle)));
       });
   }
-  deleteTrips(tripTitle: string) {}
+  deleteTrips(tripTitle: string) {
+    console.log(tripTitle);
+  }
   confirm(event: any, ownerId: string, tripTitle: string, userId: string) {
     const action = event.checked ? 1 : 0;
     this.store.dispatch(

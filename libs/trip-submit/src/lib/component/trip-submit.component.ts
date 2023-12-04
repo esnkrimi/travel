@@ -30,14 +30,15 @@ export class TripSubmitComponent {
       actions.startAddTripPoint({
         trip: this.currentTrip,
         title: this.currentTrip.title,
+        finish: false,
       })
     );
     this.store.select(selectTrip).subscribe((res) => {
-      //console.log(res);
       this.store.dispatch(
         actions.addTrip({
           title: this.currentTrip.title,
           trip: JSON.stringify(res),
+          finish: false,
         })
       );
     });
