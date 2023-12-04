@@ -110,4 +110,8 @@ export class HeaderComponent implements OnInit {
   routeViaSecond(path: any) {
     this.router.navigate([{ outlets: { secondRouter: [`lazy/mytrips`] } }]);
   }
+
+  hideMap() {
+    this.drawerService.showMap.next(false);
+  }
 }

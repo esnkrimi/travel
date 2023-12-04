@@ -31,6 +31,19 @@ export interface IReviewLocationInTrip {
   persons: string;
   locationTitle: string;
 }
+export interface IUsersRates {
+  id: string;
+  user_id: string;
+  user_candidate_id: string;
+  comment: string;
+  rate: string;
+  name: string;
+  lnama: string;
+  email: string;
+  password: string;
+  about?: string;
+}
+
 export interface ITripUsers {
   tripTitle: string;
   users: [
@@ -123,6 +136,7 @@ export interface state {
   autoCompleteFind: IAutoCompleteFind[];
   locationComments: IlocationComments[];
   tripUsers: ITripUsers[];
+  userRates: IUsersRates[];
   tripRequests: ITripRequests[];
   myTripRequests: IMyTripRequests[];
   allTrips: IAllTrips[];
@@ -170,6 +184,7 @@ export const AppState: state = {
   myTripRequests: [],
   locationComments: [],
   autoCompleteFind: [],
+  userRates: [],
 };
 
 export interface IuserOfSite {
@@ -185,6 +200,7 @@ export interface Iuser {
   lname: string;
   email: string;
   mobile?: string;
+  about?: string;
   password: string;
 }
 
@@ -268,6 +284,7 @@ export interface State {
     email: string;
     password: string;
     mobile: string;
+    about?: string;
   };
   dataLogin: {
     uesername: string;

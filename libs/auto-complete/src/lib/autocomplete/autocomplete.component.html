@@ -14,19 +14,48 @@
     <pe-loading-progress [mode]="'mini'"></pe-loading-progress>
   </ng-container>
   <ng-template #suggest>
-    <div *ngIf="result && result.length < 10" class="lists form">
+    <div *ngIf="result" class="lists form p-2 ng-light">
       <div
-        class="cursor-pointer bg-light p-1"
+        class="cursor-pointer bg-light"
         (click)="setView(i)"
         *ngFor="let item of result; let i = index"
       >
-        <div class="bg-light span-animated-on-hover cursor-pointer">
-          <div class="row d-flex flex-nowrap">
-            <div style="flex-basis: 50%" class="text-left">
-              {{ item.city }}
+        <div
+          *ngIf="i === 0"
+          class="border-bottom text-left fw-bold text-green mb-1"
+        >
+          cities
+        </div>
+        <div *ngIf="!item.title">
+          <div class="bg-light span-animated-on-hover cursor-pointer">
+            <div class="row d-flex flex-nowrap">
+              <div style="flex-basis: 50%" class="text-left">
+                {{ item.city }}
+              </div>
+              <div style="flex-basis: 50%" class="text-left">
+                {{ item.country || item.title }}
+              </div>
             </div>
-            <div style="flex-basis: 50%" class="text-left">
-              {{ item.country || item.title }}
+          </div>
+        </div>
+      </div>
+      <div
+        class="cursor-pointer bg-light"
+        (click)="setView(i)"
+        *ngFor="let item of result; let i = index"
+      >
+        <div *ngIf="i === 0" class="border-bottom text-left fw-bold text-green">
+          locations
+        </div>
+        <div *ngIf="item.title">
+          <div class="bg-light span-animated-on-hover cursor-pointer">
+            <div class="row d-flex flex-nowrap">
+              <div style="flex-basis: 50%" class="text-left">
+                {{ item.city }}
+              </div>
+              <div style="flex-basis: 50%" class="text-left">
+                {{ item.country || item.title }}
+              </div>
             </div>
           </div>
         </div>

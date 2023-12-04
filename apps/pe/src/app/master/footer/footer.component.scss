@@ -1,0 +1,10 @@
+.d-flex>div{
+    padding: 0.5em;
+    margin: 0.5em;
+    cursor: pointer;
+    text-transform: capitalize;
+    transition: color 0.5s;
+}
+.d-flex>div:hover{
+    color:var(--COLOR-DARK)
+}

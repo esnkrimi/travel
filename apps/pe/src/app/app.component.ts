@@ -99,6 +99,9 @@ export class AppComponent implements OnInit {
     if (uid)
       this.store.dispatch(actions.getStartFetchTripRequests({ uid: uid }));
   }
+  fetchAllUserRates() {
+    this.store.dispatch(actions.getStartFetchUserRates());
+  }
   fetchAllTrips() {
     this.store.dispatch(actions.startFetchAllTrips());
   }
@@ -145,6 +148,7 @@ export class AppComponent implements OnInit {
     this.fetchRequests();
     this.fetchUsersOfTrips();
     this.fetchAllTrips();
+    this.fetchAllUserRates();
     this.fetchMyTripRequests();
     this.fetchUserOfSite();
     this.mapApiService.bgLoader.subscribe((res) => {

@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { EntryComponent } from './entry/entry.component';
 import { MyrequestsComponent } from './my-requests/myrequests.component';
+import { UsersComponent } from './users/users.component';
 import { ZoomComponent } from './zoom/zoom.component';
 import { lazyRouterModule } from './routes';
 import { MatInputModule } from '@angular/material/input';
@@ -37,6 +38,7 @@ import { MoneyCOmparePipe } from '@appBase/pipe/money';
     EntryComponent,
     MyrequestsComponent,
     ZoomComponent,
+    UsersComponent,
     TripUserComponent,
     TripComponent,
     TripListComponent,

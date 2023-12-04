@@ -18,11 +18,12 @@ import {
 })
 export class AutocompleteComponent implements OnInit {
   locationInput = new FormControl('', []);
-  @Input() setting: any;
   result: any = [];
   locationResult: any = [];
   loading = false;
+  @Input() setting: any;
   @Output() results = new EventEmitter<any>();
+
   constructor(private mapService: MapService, private store: Store) {}
   ngOnInit(): void {
     this.listener();
@@ -31,6 +32,7 @@ export class AutocompleteComponent implements OnInit {
   listener() {
     this.store.select(selectAutoCompleteFind).subscribe((res) => {
       this.result = res;
+      console.log(res);
       this.loading = false;
     });
 

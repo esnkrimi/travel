@@ -244,7 +244,6 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
               })
             )
             .subscribe((res) => {
-              console.log(res);
               tooltipPopup = L.popup({ offset: L.point(0, -20) });
               tooltipPopup.setContent(
                 `<b>${this.capitalizeFirstLetter(res[0]?.title)} ${res[0]?.type}

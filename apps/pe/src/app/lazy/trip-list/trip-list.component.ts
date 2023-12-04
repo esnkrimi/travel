@@ -11,9 +11,14 @@ import { MapService } from '@appBase/master/map/service';
 import { LocalService } from '@appBase/storage';
 import { DrawerService } from '@appBase/drawer.service';
 import { FormControl, FormGroup } from '@angular/forms';
-import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
+import {
+  MAT_DIALOG_DATA,
+  MatDialog,
+  MatDialogModule,
+} from '@angular/material/dialog';
 import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'pe-trip-list',
@@ -170,7 +175,7 @@ export class TripListComponent implements OnInit {
   templateUrl: 'guests.html',
   styleUrls: ['./guests.scss'],
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule, MatDialogModule],
 })
 export class GuestsDialog implements OnInit {
   tripUsers: any;
