@@ -7,6 +7,14 @@ export const reducerStates = createFeature({
   name: 'store',
   reducer: createReducer(
     AppState,
+
+    on(actions.updateSetting, function (states: any, action: any) {
+      return {
+        ...states,
+        usersOfSite: action.data,
+      };
+    }),
+
     on(actions.deleteTrip, function (states: any, action: any) {
       return {
         ...states,

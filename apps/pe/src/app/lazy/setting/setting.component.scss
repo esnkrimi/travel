@@ -1,0 +1,22 @@
+.frame{
+    width: 100%;
+    background-color: var(--COLOR-LIGHT);
+}
+
+.on-layer{
+    position: absolute;
+    width: 100%;
+    z-index: 440;
+    
+}
+.top-layer{
+    left: 0;
+    bottom: 0;
+    color: var(--COLOR-LIGHT);
+    background-color: rgba(233, 20, 20, 0.4);
+    -webkit-backdrop-filter: blur(5px);
+    backdrop-filter: blur(5px); 
+}
+.row{
+    margin-left: 0 !important;
+}

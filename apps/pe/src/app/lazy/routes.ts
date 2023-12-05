@@ -9,6 +9,7 @@ import { TripListComponent } from './trip-list/trip-list.component';
 import { MessagesComponent } from './messages/messages.component';
 import { MyrequestsComponent } from './my-requests/myrequests.component';
 import { UsersComponent } from './users/users.component';
+import { SettingComponent } from './setting/setting.component';
 const routes: Routes = [
   {
     path: 'zoom',
@@ -37,6 +38,10 @@ const routes: Routes = [
   {
     path: 'messages',
     component: MessagesComponent,
+  },
+  {
+    path: 'setting',
+    component: SettingComponent,
   },
   {
     path: 'trips',

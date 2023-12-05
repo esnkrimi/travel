@@ -33,6 +33,7 @@ import { MessagesComponent } from './messages/messages.component';
 import { TimeCOmparePipe } from '@appBase/pipe/time';
 import { MoneyCOmparePipe } from '@appBase/pipe/money';
 import { TripCommentsComponent } from './trip-comments/trip-comments.component';
+import { SettingComponent } from './setting/setting.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { TripCommentsComponent } from './trip-comments/trip-comments.component';
     MyrequestsComponent,
     ZoomComponent,
     TripCommentsComponent,
+    SettingComponent,
     UsersComponent,
     TripUserComponent,
     TripComponent,

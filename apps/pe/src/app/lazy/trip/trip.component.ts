@@ -83,7 +83,6 @@ export class TripComponent implements OnInit {
     const found = this.listOfReviewTrip[0].trip.find(
       (element: any) => element.locationTitle === title
     );
-
     this.translate.get(field).subscribe((res) => {
       this.dialog.open(DialogDataExampleDialog, {
         data: {

@@ -21,9 +21,22 @@ import { ExperiencesApiService } from 'libs/experiences/src/lib/component/experi
 import { MyTripsRequestsService } from '@appBase/lazy/my-requests/myrequests.service';
 import { UsersService } from '@appBase/lazy/users/users.service';
 import { TripCommentsService } from '@appBase/lazy/trip-comments/trip-comments.service';
+import { SettingService } from '@appBase/setting';
+import { ProfileSettingService } from '@appBase/lazy/setting/setting.service';
 
 @Injectable()
 export class storeEffects {
+  startUpdateSetting: any = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(actions.getStartUpdateSetting),
+      switchMap((res: any) => {
+        return this.profileSettingService
+          .updateSetting(res.data)
+          .pipe(map((res: any) => actions.updateSetting({ data: res })));
+      })
+    );
+  });
+
   startDeleteTrip: any = createEffect(() => {
     return this.actions$.pipe(
       ofType(actions.getStartDeleteTrip),
@@ -445,6 +458,7 @@ export class storeEffects {
     private service: EntryService,
     private locationService: FetchLocationService,
     private usersService: UsersService,
+    private profileSettingService: ProfileSettingService,
     private zoomService: ZoomApiService,
     private tripCommentsService: TripCommentsService,
     private mytripsService: MytripsService,

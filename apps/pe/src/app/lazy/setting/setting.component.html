@@ -1,0 +1,82 @@
+<br />
+<br />
+<br />
+
+<div class="w-75 d-flex m-4 p-4 bg-light">
+  <div class="col-md-4 relative">
+    <img
+      class="w-100"
+      [src]="
+        'https://burjcrown.com/drm/travel/users/' + userId + '/profile.jpg?id=3'
+      "
+    />
+    <div class="on-layer top-layer row w-100">
+      <div class="w-100 text-center">
+        <button mat-stroked-button class="w-100">Upload</button>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-8 p-3">
+    <form class="form w-50" (ngSubmit)="updateInfo()" [formGroup]="formSetting">
+      <div>
+        <mat-form-field class="w-100">
+          <mat-label class="text-capitalize">{{
+            userInformation[0].name
+          }}</mat-label>
+          <input matInput formControlName="name" value="Mahya" />
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field class="w-100">
+          <mat-label class="text-capitalize">{{
+            userInformation[0].lnama
+          }}</mat-label>
+          <input matInput formControlName="lname" value="Mahya" />
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field class="w-100">
+          <mat-label class="text-capitalize">{{
+            userInformation[0].email
+          }}</mat-label>
+          <input matInput formControlName="email" value="Mahya" />
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field class="w-100">
+          <mat-label class="text-capitalize">**********</mat-label>
+          <input
+            matInput
+            type="password"
+            formControlName="pass"
+            value="Mahya"
+          />
+        </mat-form-field>
+      </div>
+      <div>
+        <button mat-raised-button type="submit">update</button>
+      </div>
+    </form>
+  </div>
+</div>
+<div class="m-4 p-1 w-75 bg-light">
+  <div class="title-bar">wallet connect</div>
+  <div class="row">
+    <div style="flex-basis: 50%" class="p-2">
+      <button (click)="openDialog()" mat-raised-button>connect</button>
+    </div>
+    <div style="flex-basis: 50%">0x10w0c1er87vf0rfe45rv54e0f54re</div>
+  </div>
+</div>
+<div class="p-2 w-75 bg-light m-4">
+  <div class="title-bar">Aboue me</div>
+  <div class="m-1 p-3">
+    A cryptocurrency, crypto-currency, or crypto is a digital currency designed
+    to work as a medium of exchange through a computer network that is not
+    reliant on any central authority, such as a government or bank, to uphold or
+    maintain it. Wikipedia A cryptocurrency, crypto-currency, or crypto is a
+    digital currency designed to work as a medium of exchange through a computer
+    network that is not reliant on any central authority, such as a government
+    or bank, to uphold or maintain it. Wikipedia
+  </div>
+</div>

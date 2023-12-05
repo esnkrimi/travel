@@ -12,6 +12,8 @@ import { createActionGroup, props, emptyProps } from '@ngrx/store';
 export const actions = createActionGroup({
   source: 'store',
   events: {
+    'update setting': props<{ data: any }>(),
+    'get start update setting': props<{ data: any }>(),
     'delete trip': props<{ data: any }>(),
     'get start delete trip': props<{ userId: any; tripTitle: any }>(),
     'fetch trip rates': props<{ data: any }>(),
