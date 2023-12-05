@@ -109,13 +109,6 @@ export class TripCommentsComponent implements OnChanges {
         ).length > 0
           ? true
           : false;
-
-      console.log(
-        this.addIdeaPermission,
-        this.userList.filter(
-          (res: any) => res.user_id === JSON.parse(this.userSession)?.id
-        )
-      );
     });
   }
 }
