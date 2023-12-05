@@ -20,9 +20,37 @@ import { MessagesApiService } from '@appBase/lazy/messages/messages.service';
 import { ExperiencesApiService } from 'libs/experiences/src/lib/component/experiences.service';
 import { MyTripsRequestsService } from '@appBase/lazy/my-requests/myrequests.service';
 import { UsersService } from '@appBase/lazy/users/users.service';
+import { TripCommentsService } from '@appBase/lazy/trip-comments/trip-comments.service';
 
 @Injectable()
 export class storeEffects {
+  startFetchTripComments: any = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(actions.getStartFetchTripRates),
+      switchMap((res: any) => {
+        return this.tripCommentsService
+          .fetchUserList(res.userId, res.tripTitle)
+          .pipe(map((res: any) => actions.fetchTripRates({ data: res })));
+      })
+    );
+  });
+
+  startWriteTripRates: any = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(actions.getStartWriteTripRates),
+      switchMap((res: any) => {
+        return this.tripCommentsService
+          .addIdeaTrip(
+            res.data.userId,
+            res.data.tripTitle,
+            res.data.rate,
+            res.data.comment
+          )
+          .pipe(map((res: any) => actions.writeTripRates({ data: res })));
+      })
+    );
+  });
+
   startWriteUserRates: any = createEffect(() => {
     return this.actions$.pipe(
       ofType(actions.getStartWriteUserRates),
@@ -407,6 +435,7 @@ export class storeEffects {
     private locationService: FetchLocationService,
     private usersService: UsersService,
     private zoomService: ZoomApiService,
+    private tripCommentsService: TripCommentsService,
     private mytripsService: MytripsService,
     private myTripsRequestsService: MyTripsRequestsService
   ) {}

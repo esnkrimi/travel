@@ -32,7 +32,6 @@ export class AutocompleteComponent implements OnInit {
   listener() {
     this.store.select(selectAutoCompleteFind).subscribe((res) => {
       this.result = res;
-      console.log(res);
       this.loading = false;
     });
 

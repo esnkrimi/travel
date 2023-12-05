@@ -19,13 +19,14 @@
       <ng-container>
         <div class="relative">
           <img
+            (click)="zoomTrip(item.title)"
             [src]="
               'https:burjcrown.com/drm/travel/users/' +
               getFromTripFlat(item.title)?.uid +
               '/profile.jpg?id=' +
               getFromTripFlat(item.title)?.uid
             "
-            class="img-profile"
+            class="img-profile cursor-pointer"
           />
 
           <div *ngIf="item.finish" class="on-layer top-layer row w-100">

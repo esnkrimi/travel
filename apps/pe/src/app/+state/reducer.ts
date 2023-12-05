@@ -8,6 +8,20 @@ export const reducerStates = createFeature({
   reducer: createReducer(
     AppState,
 
+    on(actions.writeTripRates, function (states: any, action: any) {
+      return {
+        ...states,
+        tripComments: action.data,
+      };
+    }),
+
+    on(actions.fetchTripRates, function (states: any, action: any) {
+      return {
+        ...states,
+        tripComments: action.data,
+      };
+    }),
+
     on(actions.writeUserRates, function (states: any, action: any) {
       return {
         ...states,

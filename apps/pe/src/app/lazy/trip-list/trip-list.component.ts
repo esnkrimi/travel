@@ -18,7 +18,7 @@ import {
 } from '@angular/material/dialog';
 import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'pe-trip-list',
@@ -40,6 +40,7 @@ export class TripListComponent implements OnInit {
   constructor(
     private mapService: MapService,
     private drawerService: DrawerService,
+    private router: Router,
     private localStorage: LocalService,
     public dialog: MatDialog,
     private store: Store,
@@ -85,7 +86,9 @@ export class TripListComponent implements OnInit {
   tripZoom(tripTitle: string) {
     alert(tripTitle);
   }
-
+  zoomTrip(tripTitle: string) {
+    this.router.navigateByUrl('lazy(secondRouter:lazy/trip/' + tripTitle);
+  }
   fetchTrips() {
     //    this.store.dispatch(actions.startFetchAllTrips());
     setTimeout(() => {
@@ -148,7 +151,6 @@ export class TripListComponent implements OnInit {
       this.tripUsersFlat.push(trips[i].tripjson);
     }
     this.tripUsersFlat = this.tripUsersFlat.flat();
-    console.log(this.tripUsersFlat);
   }
 
   isAsked(tripTitle: string) {

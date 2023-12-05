@@ -109,6 +109,21 @@ export interface ITripRequests {
   reqUserEmail: string;
 }
 
+export interface ITripComments {
+  admin_rate: string;
+  comment_date: string;
+  comments: string;
+  confirm: string;
+  confirm_from_admin: string;
+  email: string;
+  family: string;
+  name: string;
+  ownerid: string;
+  trip: string;
+  trip_id: string;
+  user_id: string;
+}
+
 export interface ISetview {
   country_code: string;
   country_id: string;
@@ -148,7 +163,9 @@ export interface state {
   usersOfSite: IuserOfSite[];
   loginInfo: IloginInfo;
   setview: ISetview;
+  tripComments: ITripComments[];
 }
+
 export const AppState: state = {
   trip: [],
   reviewtrip: [],
@@ -186,6 +203,7 @@ export const AppState: state = {
   locationComments: [],
   autoCompleteFind: [],
   userRates: [],
+  tripComments: [],
 };
 
 export interface IuserOfSite {

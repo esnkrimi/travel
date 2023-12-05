@@ -7,42 +7,70 @@ import {
   OnInit,
   SimpleChanges,
 } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {
+  FormControl,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import {
   MAT_DIALOG_DATA,
   MatDialog,
   MatDialogModule,
 } from '@angular/material/dialog';
 import { PublicAutocompleteModule } from '@pe/public-autocomplete';
-import { TripUserService } from './trip-user.service';
 import { filter, map, tap } from 'rxjs';
 import { json } from 'stream/consumers';
 import { Store } from '@ngrx/store';
 import { actions } from '@appBase/+state/actions';
-import { selectTripComments, selectUsersOfSite } from '@appBase/+state/select';
+import {
+  selectTripComments,
+  selectTripUsers,
+  selectUsersOfSite,
+} from '@appBase/+state/select';
 
 @Component({
-  selector: 'pe-trip-user',
-  templateUrl: './trip-user.component.html',
-  styleUrls: ['./trip-user.component.scss'],
+  selector: 'pe-trip-comments',
+  templateUrl: './trip-comments.component.html',
+  styleUrls: ['./trip-comments.component.scss'],
 })
-export class TripUserComponent implements OnChanges {
+export class TripCommentsComponent implements OnChanges {
   @Input() tripId: any;
   @Input() tripTitle: any;
   @Input() addPermission: any;
   userList: any = [];
-
+  arrayStar: any = [1, 2, 3, 4, 5];
+  formRate = new FormGroup({
+    comment: new FormControl(''),
+    rate: new FormControl(0),
+  });
+  addIdeaPermission = false;
   constructor(
     @Inject('userSession') public userSession: any,
     public dialog: MatDialog,
-    private service: TripUserService,
     private store: Store
   ) {}
 
   ngOnChanges(changes: SimpleChanges): void {
     this.fetchUserList();
   }
-
+  changeRate(rate: number) {
+    this.formRate.get('rate')?.setValue(rate);
+  }
+  submitIdea() {
+    const data = {
+      userId: JSON.parse(this.userSession)?.id,
+      tripTitle: this.tripTitle,
+      comment: this.formRate.value.comment,
+      rate: this.formRate.value.rate,
+    };
+    this.store.dispatch(actions.getStartWriteTripRates({ data: data }));
+  }
+  getArrayEnormous(length: any) {
+    let tmp: any = [0, 0, 0, 0, 0];
+    tmp = tmp.fill(1, 0, Number(length));
+    return tmp;
+  }
   remove(user: any) {
     if (this.addPermission)
       this.store.dispatch(
@@ -73,8 +101,21 @@ export class TripUserComponent implements OnChanges {
       })
     );
 
-    this.store.select(selectTripComments).subscribe((res) => {
+    this.store.select(selectTripComments).subscribe((res: any) => {
       this.userList = res;
+      this.addIdeaPermission =
+        this.userList.filter(
+          (res: any) => res.user_id === JSON.parse(this.userSession)?.id
+        ).length > 0
+          ? true
+          : false;
+
+      console.log(
+        this.addIdeaPermission,
+        this.userList.filter(
+          (res: any) => res.user_id === JSON.parse(this.userSession)?.id
+        )
+      );
     });
   }
 }

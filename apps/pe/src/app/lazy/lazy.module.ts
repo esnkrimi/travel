@@ -32,12 +32,14 @@ import { TripListComponent } from './trip-list/trip-list.component';
 import { MessagesComponent } from './messages/messages.component';
 import { TimeCOmparePipe } from '@appBase/pipe/time';
 import { MoneyCOmparePipe } from '@appBase/pipe/money';
+import { TripCommentsComponent } from './trip-comments/trip-comments.component';
 
 @NgModule({
   declarations: [
     EntryComponent,
     MyrequestsComponent,
     ZoomComponent,
+    TripCommentsComponent,
     UsersComponent,
     TripUserComponent,
     TripComponent,

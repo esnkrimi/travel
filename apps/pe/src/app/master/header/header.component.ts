@@ -64,6 +64,9 @@ export class HeaderComponent implements OnInit {
     private router: Router,
     private settingService: SettingService
   ) {}
+  zoomTrip(tripTitle: string) {
+    this.router.navigateByUrl('lazy(secondRouter:lazy/trip/' + tripTitle);
+  }
   logout() {
     this.progresService.loadingProgress.next(true);
     this.localStorage.clearData();

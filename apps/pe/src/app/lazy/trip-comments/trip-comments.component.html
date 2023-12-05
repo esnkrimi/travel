@@ -1,0 +1,46 @@
+<div class="title-bar m-4 p-2">Guest comments</div>
+<div class="p-2 w-75 m-4" *ngIf="userList.length > 0">
+  <div *ngFor="let item of userList" class="d-relative bg-light m-2">
+    <ng-container *ngIf="item.comments.length > 1">
+      <div class="row w-100 pl-2">
+        <h5 class="text-capitalize name-text pl-1">
+          <span>
+            {{ item.name }}
+          </span>
+          <span>
+            {{ item.family }}
+          </span>
+        </h5>
+      </div>
+      <div class="m-1 pl-2">
+        <ng-container *ngFor="let rate of getArrayEnormous(item.admin_rate)">
+          <i
+            *ngIf="rate === 1"
+            id="item.rate"
+            class="fa fa-2x fa-star text-warning text-small"
+          ></i>
+        </ng-container>
+      </div>
+      <div class="p-2 m-1">
+        {{ item.comments }}
+      </div>
+    </ng-container>
+  </div>
+</div>
+
+<div class="w-75 m-4 p-2" *ngIf="addIdeaPermission">
+  <form [formGroup]="formRate">
+    <div>
+      <i
+        *ngFor="let rate of arrayStar"
+        id="item.rate"
+        (click)="changeRate(rate)"
+        class="fa fa-2x fa-star text-warning"
+      ></i>
+    </div>
+    <div>
+      <textarea formControlName="comment" class="w-75 m-1 p-2"> </textarea>
+    </div>
+    <button (click)="submitIdea()">submit</button>
+  </form>
+</div>
