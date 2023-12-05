@@ -11,6 +11,11 @@ export class MytripsService {
     return this.httpClient.get(url);
   }
 
+  deleteTrips(userId: any, trip: any) {
+    const url = this.urlBase + `id=40&trip=${trip}&uid=${userId}`;
+    return this.httpClient.get(url);
+  }
+
   tripReuestConfirmation(
     ownerid: string,
     tripTitle: string,

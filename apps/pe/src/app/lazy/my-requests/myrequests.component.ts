@@ -33,11 +33,7 @@ export class MyrequestsComponent implements OnInit {
       .select(selectMyTripRequests)
       .pipe(
         map((res: any) =>
-          res.filter(
-            (res: any) =>
-              res.ownerid !== JSON.parse(this.userSession)?.id &&
-              res.uid === JSON.parse(this.userSession)?.id
-          )
+          res.filter((res: any) => res.uid === JSON.parse(this.userSession)?.id)
         )
       )
       .subscribe((res) => {

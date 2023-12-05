@@ -15,7 +15,7 @@
     *ngFor="let item of tripUsersFlat; let jindex = index"
     class="col-md-3 p-2"
   >
-    <div class="card">
+    <div *ngIf="tripIsLive(item.title)" class="card">
       <ng-container>
         <div class="relative">
           <img

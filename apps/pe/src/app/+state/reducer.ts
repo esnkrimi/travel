@@ -7,7 +7,12 @@ export const reducerStates = createFeature({
   name: 'store',
   reducer: createReducer(
     AppState,
-
+    on(actions.deleteTrip, function (states: any, action: any) {
+      return {
+        ...states,
+        tripRequests: action.data,
+      };
+    }),
     on(actions.writeTripRates, function (states: any, action: any) {
       return {
         ...states,

@@ -39,7 +39,12 @@ export class MytripsComponent implements OnInit {
       });
   }
   deleteTrips(tripTitle: string) {
-    console.log(tripTitle);
+    this.store.dispatch(
+      actions.getStartDeleteTrip({
+        userId: JSON.parse(this.userSession)?.id,
+        tripTitle: tripTitle,
+      })
+    );
   }
   confirm(event: any, ownerId: string, tripTitle: string, userId: string) {
     const action = event.checked ? 1 : 0;

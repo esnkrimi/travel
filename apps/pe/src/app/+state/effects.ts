@@ -24,6 +24,17 @@ import { TripCommentsService } from '@appBase/lazy/trip-comments/trip-comments.s
 
 @Injectable()
 export class storeEffects {
+  startDeleteTrip: any = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(actions.getStartDeleteTrip),
+      switchMap((res: any) => {
+        return this.mytripsService
+          .deleteTrips(res.userId, res.tripTitle)
+          .pipe(map((res: any) => actions.deleteTrip({ data: res })));
+      })
+    );
+  });
+
   startFetchTripComments: any = createEffect(() => {
     return this.actions$.pipe(
       ofType(actions.getStartFetchTripRates),

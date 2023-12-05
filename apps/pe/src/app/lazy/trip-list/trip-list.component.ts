@@ -135,7 +135,14 @@ export class TripListComponent implements OnInit {
       this.mapService.loadingProgress.next(false);
     });
   }
-
+  tripIsLive(tripTitle: string) {
+    if (
+      this.tripRequest.filter((res: any) => res.tripTitle === tripTitle)
+        .length > 0
+    )
+      return true;
+    return false;
+  }
   getFromTripFlat(tripTitle: string) {
     for (let i = 0; i < this.trips.length; i++)
       for (let j = 0; j < this.trips[i].tripjson.length; j++) {
