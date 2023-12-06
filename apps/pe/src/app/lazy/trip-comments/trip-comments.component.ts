@@ -36,6 +36,7 @@ import {
 })
 export class TripCommentsComponent implements OnChanges {
   @Input() tripId: any;
+  @Input() teamMemberPermission: any;
   @Input() tripTitle: any;
   @Input() addPermission: any;
   userList: any = [];
@@ -103,6 +104,7 @@ export class TripCommentsComponent implements OnChanges {
 
     this.store.select(selectTripComments).subscribe((res: any) => {
       this.userList = res;
+      //console.log(res);
       this.addIdeaPermission =
         this.userList.filter(
           (res: any) => res.user_id === JSON.parse(this.userSession)?.id

@@ -12,6 +12,8 @@ import { map, tap } from 'rxjs';
 })
 export class MytripsComponent implements OnInit {
   trips: any = [];
+  confirmDelete = false;
+  selectedItemToDelete: any;
   constructor(
     private store: Store,
     private drawerService: DrawerService,
@@ -38,6 +40,16 @@ export class MytripsComponent implements OnInit {
         this.trips = Array.from(new Set(res.map((res: any) => res.tripTitle)));
       });
   }
+  deletePrepare(item: any) {
+    this.selectedItemToDelete = item;
+    this.confirmDelete = true;
+  }
+
+  resultEvent(event: boolean) {
+    if (event) this.deleteTrips(this.selectedItemToDelete);
+    this.confirmDelete = false;
+  }
+
   deleteTrips(tripTitle: string) {
     this.store.dispatch(
       actions.getStartDeleteTrip({

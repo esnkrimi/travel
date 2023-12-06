@@ -172,7 +172,7 @@ export class FormTripLocationComponent implements OnChanges, AfterViewInit {
       })
     );
     this.store.select(selectTrip).subscribe((res) => {
-      console.log(res);
+      //console.log(res);
       this.store.dispatch(
         actions.addTrip({
           title: this.currentTrip.title,

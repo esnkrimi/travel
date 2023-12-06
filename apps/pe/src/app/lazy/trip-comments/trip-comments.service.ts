@@ -13,13 +13,12 @@ export class TripCommentsService {
 
   fetchUserList(uid: any, tripeTitle: any) {
     const url = `${this.baseUrl}id=25&uid=${uid}&tripeTitle=${tripeTitle}`;
+    //console.log(url);
     return this.httpClient.get(url);
   }
 
   addIdeaTrip(uid: any, tripTitle: any, rate: any, comment: any) {
     const url = `${this.baseUrl}id=39&uid=${uid}&trip=${tripTitle}&rate=${rate}&comment=${comment}`;
-    console.log(url);
-
     return this.httpClient.get(url);
   }
 

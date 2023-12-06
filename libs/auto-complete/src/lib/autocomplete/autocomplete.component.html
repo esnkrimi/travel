@@ -16,7 +16,7 @@
   <ng-template #suggest>
     <div *ngIf="result" class="lists form p-2 ng-light">
       <div
-        class="cursor-pointer bg-light"
+        class="cursor-pointer bg-light item-found"
         (click)="setView(i)"
         *ngFor="let item of result; let i = index"
       >
@@ -29,10 +29,10 @@
         <div *ngIf="!item.title">
           <div class="bg-light span-animated-on-hover cursor-pointer">
             <div class="row d-flex flex-nowrap">
-              <div style="flex-basis: 50%" class="text-left">
+              <div style="flex-basis: 50%" class="text-left text-capitalize">
                 {{ item.city }}
               </div>
-              <div style="flex-basis: 50%" class="text-left">
+              <div style="flex-basis: 50%" class="text-left text-capitalize">
                 {{ item.country || item.title }}
               </div>
             </div>
@@ -40,7 +40,7 @@
         </div>
       </div>
       <div
-        class="cursor-pointer bg-light"
+        class="cursor-pointer bg-light item-found"
         (click)="setView(i)"
         *ngFor="let item of result; let i = index"
       >
@@ -50,10 +50,10 @@
         <div *ngIf="item.title">
           <div class="bg-light span-animated-on-hover cursor-pointer">
             <div class="row d-flex flex-nowrap">
-              <div style="flex-basis: 50%" class="text-left">
+              <div style="flex-basis: 50%" class="text-left text-capitalize">
                 {{ item.city }}
               </div>
-              <div style="flex-basis: 50%" class="text-left">
+              <div style="flex-basis: 50%" class="text-left text-capitalize">
                 {{ item.country || item.title }}
               </div>
             </div>

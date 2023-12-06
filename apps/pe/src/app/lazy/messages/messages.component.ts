@@ -58,7 +58,7 @@ export class MessagesComponent implements OnInit {
       .select(selectTripRequests)
       .pipe(map((res) => res.filter((res) => res.uid !== this.user_id)))
       .subscribe((res) => {
-        console.log(res);
+        //console.log(res);
         this.tripRequest = res;
       });
   }

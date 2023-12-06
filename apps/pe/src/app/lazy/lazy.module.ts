@@ -11,6 +11,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { ExperiencesModule } from '@pe/experiences';
+import { ConfirmModalModule } from '@pe/confirm-modal';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { HttpClient } from '@angular/common/http';
 import { HttpLoaderFactory } from '@appBase/app.module';
@@ -61,6 +62,7 @@ import { SettingComponent } from './setting/setting.component';
     MatDialogModule,
     MatSlideToggleModule,
     MatFormFieldModule,
+    ConfirmModalModule,
     ReactiveFormsModule,
     MatExpansionModule,
     LoadingImageModule,

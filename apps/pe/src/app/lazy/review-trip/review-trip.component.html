@@ -1,7 +1,7 @@
 <div class="m-4 review-frame w-75">
   <div class="cursor-pointer title-bar">Result and comparison</div>
   <div
-    *ngFor="let item of tripReview.trip; let i = index"
+    *ngFor="let item of tripReview?.trip; let i = index"
     class="m-2 d-relative trip-frame p-2"
   >
     <span class="fw-bold steps">

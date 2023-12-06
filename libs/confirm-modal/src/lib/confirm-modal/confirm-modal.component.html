@@ -1,0 +1,30 @@
+<div class="transparent-bg center-div-vertical-horizontal">
+  <div class="inner">
+    <div class="p-2 m-1">
+      <div class="p-2">
+        {{ message }}
+      </div>
+
+      <div class="d-flex">
+        <div class="p-1">
+          <button
+            mat-stroke-button
+            (click)="resultEmitting(true)"
+            mat-stroked-button
+          >
+            Yes
+          </button>
+        </div>
+        <div class="p-1">
+          <button
+            mat-stroke-button
+            (click)="resultEmitting(false)"
+            mat-stroked-button
+          >
+            No
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

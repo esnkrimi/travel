@@ -29,8 +29,8 @@ import { MatInputModule } from '@angular/material/input';
 
 export function debug(reducer: ActionReducer<any>): ActionReducer<any> {
   return function (state: any, action: any) {
-    //  console.log('state', state);
-    //  console.log('action', action);
+    //  //console.log('state', state);
+    //  //console.log('action', action);
     return reducer(state, action);
   };
 }

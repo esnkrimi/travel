@@ -2,7 +2,12 @@
   <div class="col-md-6 position-static text-center">
     <div class="d-flex w-100 flex-nowrap">
       <div class="w-25 p-3">
-        <span class="text-brand text-large"> CROWN </span>
+        <span
+          class="text-brand text-large"
+          [routerLink]="[{ outlets: { secondRouter: 'lazy/setting' } }]"
+        >
+          CROWN
+        </span>
       </div>
       <div class="w-100 position-static">
         <pe-search (resultOutput)="resultOutput($event)"></pe-search>
@@ -141,7 +146,7 @@
               {{ 'mymessages' | translate }}
             </span>
           </p>
-          <p (click)="menuShow = false" (click)="logout()">
+          <p (click)="logout()">
             <span>
               <i class="fa fa-2x fa-sign-out" aria-hidden="true"></i>
             </span>

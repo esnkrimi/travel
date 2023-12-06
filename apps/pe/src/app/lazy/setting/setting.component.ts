@@ -47,7 +47,7 @@ export class SettingComponent implements OnInit {
     dialogRef.afterClosed().subscribe();
   }
   updateInfo() {
-    console.log(this.formSetting.value);
+    //console.log(this.formSetting.value);
   }
   selectUser() {
     const uid = String(JSON.parse(this.userSession)?.id);
@@ -56,7 +56,7 @@ export class SettingComponent implements OnInit {
       .select(selectUsersOfSite)
       .pipe(map((res) => res.filter((res) => res.id === uid)))
       .subscribe((res) => {
-        console.log(res);
+        //console.log(res);
         this.userInformation = res;
       });
   }

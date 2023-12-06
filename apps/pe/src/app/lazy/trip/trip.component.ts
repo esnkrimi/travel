@@ -26,6 +26,7 @@ import {
   selectReviewtrip,
   selectTrip,
   selectTripRequests,
+  selectTripUsers,
 } from '@appBase/+state/select';
 import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
@@ -43,6 +44,7 @@ export class TripComponent implements OnInit {
   cancelTripConfirm = false;
   panelOpenState = false;
   ownerPermission = false;
+  teamMemberPermission = false;
   trip: any;
   listOfReviewTrip: any;
   tripTitle: any;
@@ -108,13 +110,32 @@ export class TripComponent implements OnInit {
       );
   }
 
+  tripTeamMemberChecking(tripTitle: string): any {
+    const uid = JSON.parse(this.userSession)?.id;
+    this.store
+      .select(selectTripUsers)
+      .pipe(
+        map((res) =>
+          res.filter(
+            (res: any) => res.user_id === uid && res.tripTitle === tripTitle
+          )
+        )
+      )
+      .subscribe((res) => {
+        this.teamMemberPermission = res.length > 0 ? true : false;
+      });
+  }
+
   tripOwnerChecking(tripTitle: string): any {
     const uid = JSON.parse(this.userSession)?.id;
     this.store
-      .select(selectTrip)
+      .select(selectTripUsers)
       .pipe(
-        map((res) => res.filter((res) => typeof res === 'object')),
-        map((res: any) => res.filter((res: any) => res.title === tripTitle))
+        map((res) =>
+          res.filter(
+            (res: any) => res.ownerid === uid && res.tripTitle === tripTitle
+          )
+        )
       )
       .subscribe((res) => {
         this.ownerPermission = res.length > 0 ? true : false;
@@ -132,7 +153,8 @@ export class TripComponent implements OnInit {
         )
         .subscribe((res) => {
           this.trip = res[0];
-          this.tripOwnerChecking(this.trip.title);
+          this.tripOwnerChecking(this.trip?.title);
+          this.tripTeamMemberChecking(this.trip?.title);
         });
 
       this.store

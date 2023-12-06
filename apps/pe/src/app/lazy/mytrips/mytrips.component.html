@@ -13,8 +13,14 @@
     <span>
       <i
         class="fa fa-close fa-2x cursor-pointer"
-        (click)="deleteTrips(item)"
+        (click)="deletePrepare(item)"
       ></i>
     </span>
   </div>
 </div>
+
+<pe-confirm-modal
+  *ngIf="confirmDelete"
+  (resultEvent)="resultEvent($event)"
+  [message]="'Delete the trip ' + selectedItemToDelete"
+></pe-confirm-modal>

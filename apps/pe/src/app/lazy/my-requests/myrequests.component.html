@@ -10,7 +10,6 @@
 <div class="card m-2" *ngFor="let item of trips">
   <div class="card-body">
     <h1 class="card-titel text-capitalize">{{ item.tripTitle }}</h1>
-    <h4 class="card-subtitel text-muted">Manager : {{ item.reqUserName }}</h4>
     <p *ngIf="item.adminConfirm === '0'; else elseTmpl">
       <i class="fa fa-clock-o text-primary"></i>
       <span> waiting to admin confirmation ! </span>
@@ -23,5 +22,9 @@
         <span class="text-success fw-bold"> Admin confirmed ! </span>
       </p>
     </ng-template>
+
+    <div>
+      <button mat-raised-button (click)="zoomTrip(item.tripTitle)">view</button>
+    </div>
   </div>
 </div>

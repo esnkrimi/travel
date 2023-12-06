@@ -21,7 +21,7 @@ export class UsersService {
       this.urlBase +
       `id=38` +
       `&uid=${data.uid}&user_candidate_id=${data.candidate_id}&comment=${data.comment}&rate=${data.rate}`;
-    console.log(url);
+    //console.log(url);
     return this.httpClient.get(url);
   }
 }

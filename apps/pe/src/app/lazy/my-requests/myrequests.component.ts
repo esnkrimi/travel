@@ -8,6 +8,7 @@ import {
 } from '@appBase/+state/select';
 import { DrawerService } from '@appBase/drawer.service';
 import { map, tap } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'pe-requests',
@@ -19,6 +20,7 @@ export class MyrequestsComponent implements OnInit {
   constructor(
     private store: Store,
     private drawerService: DrawerService,
+    private router: Router,
     @Inject('userSession') public userSession: any
   ) {}
   ngOnInit(): void {
@@ -37,9 +39,14 @@ export class MyrequestsComponent implements OnInit {
         )
       )
       .subscribe((res) => {
+        //console.log(res);
         this.trips = res;
       });
   }
+  zoomTrip(tripTitle: string) {
+    this.router.navigateByUrl('lazy(secondRouter:lazy/trip/' + tripTitle);
+  }
+
   confirm(event: any, ownerId: string, tripTitle: string, userId: string) {
     const action = event.checked ? 1 : 0;
     this.store.dispatch(

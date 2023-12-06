@@ -31,7 +31,7 @@ export class SearchComponent implements OnInit {
       .subscribe((res) => (this.setting.placeholder = res));
   }
   results(event: any) {
-    console.log(event);
+    //console.log(event);
     this.drawerService.showMap.next(true);
     this.router.navigateByUrl('');
     const result: any = {

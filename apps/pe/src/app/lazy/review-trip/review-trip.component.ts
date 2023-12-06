@@ -44,11 +44,11 @@ export class ReviewTripComponent implements OnInit {
     return diffDays;
   }
   measuring() {
-    this.totalMoney = this.tripReview.trip.reduce((a: any, b: any) => ({
+    this.totalMoney = this.tripReview?.trip.reduce((a: any, b: any) => ({
       x: Math.floor(a.moneyLost) + Math.floor(b.moneyLost),
     }));
-    this.totalMoney = this.totalMoney.x;
-    for (let i = 0; i < this.tripReview.trip.length; i++) {
+    this.totalMoney = this.totalMoney?.x;
+    for (let i = 0; i < this.tripReview?.trip.length; i++) {
       this.savedMoney +=
         this.trip.trip[i].moneyLost - this.tripReview.trip[i].moneyLost;
 

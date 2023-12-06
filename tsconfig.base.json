@@ -19,6 +19,7 @@
       "@appBase/*": ["apps/pe/src/app/*"],
       "@pe/advanced-autocomplete": ["libs/advanced-autocomplete/src/index.ts"],
       "@pe/auto-complete": ["libs/auto-complete/src/index.ts"],
+      "@pe/confirm-modal": ["libs/confirm-modal/src/index.ts"],
       "@pe/experiences": ["libs/experiences/src/index.ts"],
       "@pe/form-trip-location": ["libs/form-trip-location/src/index.ts"],
       "@pe/help": ["libs/help/src/index.ts"],
