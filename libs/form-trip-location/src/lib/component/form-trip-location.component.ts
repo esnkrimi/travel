@@ -11,11 +11,16 @@ import {
 } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { actions } from '@appBase/+state/actions';
-import { selectTrip } from '@appBase/+state/select';
+import {
+  selectAllTrips,
+  selectTrip,
+  selectTripUsers,
+} from '@appBase/+state/select';
 import { MapService } from '@appBase/master/map/service';
 import { Store } from '@ngrx/store';
 import { HelpService } from 'libs/help/src/lib/component/help.service';
 import { MapApiService } from 'libs/map/src/lib/component/map.service';
+import { map, tap } from 'rxjs';
 
 @Component({
   selector: 'pe-form-trip-location',
@@ -79,7 +84,7 @@ export class FormTripLocationComponent implements OnChanges, AfterViewInit {
     lat: new FormControl<string>(''),
     lon: new FormControl<string>(''),
     dateIncome: new FormControl<string>('', Validators.required),
-    timeIncome: new FormControl<string>('', Validators.required),
+    timeIncome: new FormControl<string>(''),
     vehicle: new FormControl<string>('', Validators.required),
     note: new FormControl<string>(''),
     moneyLost: new FormControl<string>('', Validators.required),
@@ -88,6 +93,7 @@ export class FormTripLocationComponent implements OnChanges, AfterViewInit {
   });
   titleLocal = '';
   disabledTitleSubmit = true;
+  repeatedTripTitle = true;
   formCount = 0;
   @Input() title: any;
   @Input() currentTrip: any;
@@ -110,8 +116,17 @@ export class FormTripLocationComponent implements OnChanges, AfterViewInit {
   listener() {
     this.formSubmitTitle
       .get('inputTitle')
-      ?.valueChanges.subscribe((res: any) => {
-        this.disabledTitleSubmit = res.length > 2 ? false : true;
+      ?.valueChanges.subscribe((input: any) => {
+        this.store
+          .select(selectTripUsers)
+          .pipe(map((res) => res.filter((res) => res.tripTitle === input)))
+          .subscribe((res) => {
+            if (res.length > 0) {
+              this.repeatedTripTitle = true;
+              this.formSubmitTripLocation.invalid;
+            } else this.repeatedTripTitle = false;
+          });
+        this.disabledTitleSubmit = input.length > 2 ? false : true;
       });
   }
   selectVehicle(vehicle: string) {

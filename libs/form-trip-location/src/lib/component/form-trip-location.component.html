@@ -8,6 +8,15 @@
               {{ 'selectTitle' | translate }}
             </mat-label>
             <input matInput class="input-title" formControlName="inputTitle" />
+            <div
+              *ngIf="repeatedTripTitle; else acceptTmpl"
+              class="text-error text-warning"
+            >
+              Choose another title
+            </div>
+            <ng-template #acceptTmpl>
+              <span class="text-green"> Accepted </span>
+            </ng-template>
           </mat-form-field>
         </div>
       </form>
@@ -19,7 +28,7 @@
         (ngSubmit)="onSubmitTripLocation()"
         [formGroup]="formSubmitTripLocation"
       >
-        <div *ngFor="let item of formItemShow">
+        <div *ngFor="let item of formItemShow" class="p-2">
           <ng-container *ngIf="item.label.length > 1">
             <mat-form-field
               *ngIf="item.name"
@@ -59,18 +68,18 @@
     </div>
     <div class="row w-100">
       <div class="flex-50">
+        <button (click)="cancelTripSubmit()" class="arrow" mat-button>
+          cancel
+        </button>
+      </div>
+      <div class="flex-50">
         <button
+          [disabled]="!formSubmitTripLocation.valid || repeatedTripTitle"
           (click)="formSubmitLocation = true"
           class="arrow bg-green"
           mat-button
         >
           Submit
-        </button>
-      </div>
-
-      <div class="flex-50">
-        <button (click)="cancelTripSubmit()" class="arrow" mat-button>
-          cancel
         </button>
       </div>
     </div>

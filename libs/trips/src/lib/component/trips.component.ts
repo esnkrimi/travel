@@ -28,8 +28,8 @@ export class TripsComponent implements OnChanges {
   index = 0;
   constructor(public dialog: MatDialog) {}
   openDialog() {
-    const dialogRef = this.dialog.open(DialogContentExampleDialog);
-    dialogRef.afterClosed().subscribe((result) => {});
+    const dialogRef = this.dialog.open(DialogTripList, { disableClose: true });
+    dialogRef.afterClosed().subscribe();
   }
   ngOnChanges(changes: SimpleChanges): void {
     this.openDialog();
@@ -49,7 +49,7 @@ export class TripsComponent implements OnChanges {
     NgxPaginationModule,
   ],
 })
-export class DialogContentExampleDialog implements AfterViewInit, OnInit {
+export class DialogTripList implements AfterViewInit, OnInit {
   listOfTrip: any;
   user: any;
   page = 1;

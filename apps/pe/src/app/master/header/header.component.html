@@ -81,7 +81,11 @@
         >
         <span class="m-2">{{ userLoginInformation?.lname }}</span>
         <img
-          src="https://d1hb67vd7r4m10.cloudfront.net/images/easyblog_articles/89/b2ap3_large_ee72093c-3c01-433a-8d25-701cca06c975.jpg"
+          [src]="
+            'https://burjcrown.com/drm/travel/users/profile/' +
+            userLoginInformation?.id +
+            '/1.jpg?id=1701858594491'
+          "
           class="img-icon rounded-circle"
         />
       </button>
