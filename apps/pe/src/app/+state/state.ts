@@ -211,6 +211,7 @@ export interface IuserOfSite {
   name: string;
   lnama: string;
   email: string;
+  about?: string;
 }
 
 export interface Iuser {

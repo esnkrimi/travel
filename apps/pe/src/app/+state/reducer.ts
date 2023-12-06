@@ -8,6 +8,12 @@ export const reducerStates = createFeature({
   reducer: createReducer(
     AppState,
 
+    on(actions.updateSettingAboutMe, function (states: any, action: any) {
+      return {
+        ...states,
+        usersOfSite: action.data,
+      };
+    }),
     on(actions.updateSetting, function (states: any, action: any) {
       return {
         ...states,

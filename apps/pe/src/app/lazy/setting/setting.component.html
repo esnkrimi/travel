@@ -7,12 +7,23 @@
     <img
       class="w-100"
       [src]="
-        'https://burjcrown.com/drm/travel/users/' + userId + '/profile.jpg?id=3'
+        'https://burjcrown.com/drm/travel/users/profile/' +
+        userId +
+        '/1.jpg?id=' +
+        timeStamp()
       "
     />
     <div class="on-layer top-layer row w-100">
       <div class="w-100 text-center">
-        <button mat-stroked-button class="w-100">Upload</button>
+        <input
+          (change)="onFileChange($event)"
+          class="input-file-upload"
+          type="file"
+          id="file"
+          #id
+          name="file"
+          formControlName="file"
+        />
       </div>
     </div>
   </div>
@@ -70,13 +81,20 @@
 </div>
 <div class="p-2 w-75 bg-light m-4">
   <div class="title-bar">Aboue me</div>
-  <div class="m-1 p-3">
-    A cryptocurrency, crypto-currency, or crypto is a digital currency designed
-    to work as a medium of exchange through a computer network that is not
-    reliant on any central authority, such as a government or bank, to uphold or
-    maintain it. Wikipedia A cryptocurrency, crypto-currency, or crypto is a
-    digital currency designed to work as a medium of exchange through a computer
-    network that is not reliant on any central authority, such as a government
-    or bank, to uphold or maintain it. Wikipedia
-  </div>
+  <form [formGroup]="formAboutMe" (ngSubmit)="updateAboutme()">
+    <div class="m-1 p-3">
+      <textarea class="w-100" formControlName="aboutme">
+        A cryptocurrency, crypto-currency, or crypto is a digital currency designed
+        to work as a medium of exchange through a computer network that is not
+        reliant on any central authority, such as a government or bank, to uphold or
+        maintain it. Wikipedia A cryptocurrency, crypto-currency, or crypto is a
+        digital currency designed to work as a medium of exchange through a computer
+        network that is not reliant on any central authority, such as a government
+        or bank, to uphold or maintain it. Wikipedia
+      </textarea>
+    </div>
+    <div>
+      <button mat-raised-button type="submit">update</button>
+    </div>
+  </form>
 </div>

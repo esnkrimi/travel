@@ -1,26 +1,30 @@
-<div class="bg-light w-100 position-relative">
-  <div *ngIf="loadingProgress" class="transparent-background-loading"></div>
-  <pe-header
-    (savedLocation)="savedLocation($event)"
-    (resultOutputs)="resultOutputs($event)"
-  ></pe-header>
-  <div class="w-100 row">
-    <div class="w-100 position-relative">
-      <div class="w-100 padding-bottom">
-        <router-outlet name="secondRouter"></router-outlet>
-        <pe-map-component
-          *ngIf="showMap"
-          [savedLocation]="savedLocationFlag"
-          [showTour]="showTour"
-          [scope]="scope"
-          (zoomActivator)="zoomActivatorFunction($event)"
-        ></pe-map-component>
+<div class="w-100">
+  <div class="bg-light w-100 position-relative inner">
+    <div *ngIf="loadingProgress" class="transparent-background-loading"></div>
+    <pe-header
+      (savedLocation)="savedLocation($event)"
+      (resultOutputs)="resultOutputs($event)"
+    ></pe-header>
+    <div class="w-100 row">
+      <div class="w-100 position-relative">
+        <div class="w-100 padding-bottom">
+          <router-outlet name="secondRouter"></router-outlet>
+          <pe-map-component
+            *ngIf="showMap"
+            [savedLocation]="savedLocationFlag"
+            [showTour]="showTour"
+            [scope]="scope"
+            (zoomActivator)="zoomActivatorFunction($event)"
+          ></pe-map-component>
+        </div>
+        <pe-footer></pe-footer>
       </div>
+      <div class="transparent-bg" *ngIf="bgLoader"></div>
     </div>
-    <div class="transparent-bg" *ngIf="bgLoader"></div>
+    <div></div>
   </div>
-  <pe-footer></pe-footer>
 </div>
+
 <!--
   <div class="adv2 animated-fadein" *ngIf="skip >= 0 && skip < 2">
     <img

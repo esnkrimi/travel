@@ -26,6 +26,28 @@ import { ProfileSettingService } from '@appBase/lazy/setting/setting.service';
 
 @Injectable()
 export class storeEffects {
+  startUpdateSettingAboutMe: any = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(actions.getStartUpdateSettingAboutMe),
+      switchMap((res: any) => {
+        return this.profileSettingService
+          .updateSettingAboutMe(res.uid, res.about)
+          .pipe(map((res: any) => actions.updateSettingAboutMe({ data: res })));
+      })
+    );
+  });
+
+  getStartProfilePictureUploading: any = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(actions.startProfilePictureUploading),
+      switchMap((result: any) => {
+        return this.profileSettingService
+          .profilePictureUploading(result.uid, result.formData)
+          .pipe(map((res: any) => actions.profilePictureUploading()));
+      })
+    );
+  });
+
   startUpdateSetting: any = createEffect(() => {
     return this.actions$.pipe(
       ofType(actions.getStartUpdateSetting),

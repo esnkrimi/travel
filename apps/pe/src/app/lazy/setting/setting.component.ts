@@ -11,6 +11,7 @@ import {
   MatDialogModule,
 } from '@angular/material/dialog';
 import { FormControl, FormGroup, FormsModule } from '@angular/forms';
+import { MapService } from '@appBase/master/map/service';
 
 @Component({
   selector: 'pe-setting',
@@ -23,15 +24,28 @@ export class SettingComponent implements OnInit {
     lname: new FormControl(''),
     email: new FormControl(''),
     pass: new FormControl(''),
+    uid: new FormControl(''),
   });
+
+  formAboutMe = new FormGroup({
+    aboutme: new FormControl(''),
+    uid: new FormControl(''),
+  });
+
   usersList: any;
   userId: any;
+  timestamp = 1;
   userInformation: any = [];
+  form = new FormGroup({
+    uid: new FormControl(),
+    files: new FormControl(),
+  });
   constructor(
     private store: Store,
     private drawerService: DrawerService,
     private route: ActivatedRoute,
     public dialog: MatDialog,
+    public mapService: MapService,
     @Inject('userSession') public userSession: any
   ) {}
   ngOnInit(): void {
@@ -39,6 +53,31 @@ export class SettingComponent implements OnInit {
     this.userId = JSON.parse(this.userSession)?.id;
     this.selectUser();
   }
+
+  timeStamp() {
+    return new Date().getTime() + this.timestamp;
+  }
+
+  onFileChange(event: any) {
+    if (event.target.files.length > 0) {
+      const file = event.target.files[0];
+      this.form.patchValue({
+        files: file,
+        uid: this.userId,
+      });
+    }
+    const formData = new FormData();
+    formData.append('file', this.form.get('files')?.value);
+    this.store.dispatch(
+      actions.startProfilePictureUploading({
+        uid: this.userId,
+        formData: formData,
+      })
+    );
+
+    this.timestamp++;
+  }
+
   hideMap() {
     this.drawerService.showMap.next(false);
   }
@@ -46,8 +85,22 @@ export class SettingComponent implements OnInit {
     const dialogRef = this.dialog.open(SettingDialog, {});
     dialogRef.afterClosed().subscribe();
   }
+
+  updateAboutme() {
+    this.formAboutMe.get('uid')?.setValue(JSON.parse(this.userSession)?.id);
+    console.log(this.formAboutMe.value);
+    this.store.dispatch(
+      actions.getStartUpdateSettingAboutMe({
+        uid: JSON.parse(this.userSession)?.id,
+        about: this.formAboutMe.value.aboutme,
+      })
+    );
+  }
   updateInfo() {
-    //console.log(this.formSetting.value);
+    this.formSetting.get('uid')?.setValue(JSON.parse(this.userSession)?.id);
+    this.store.dispatch(
+      actions.getStartUpdateSetting({ data: this.formSetting.value })
+    );
   }
   selectUser() {
     const uid = String(JSON.parse(this.userSession)?.id);
@@ -56,8 +109,10 @@ export class SettingComponent implements OnInit {
       .select(selectUsersOfSite)
       .pipe(map((res) => res.filter((res) => res.id === uid)))
       .subscribe((res) => {
-        //console.log(res);
         this.userInformation = res;
+        this.formAboutMe
+          .get('aboutme')
+          ?.setValue(this.userInformation[0].about);
       });
   }
 }
