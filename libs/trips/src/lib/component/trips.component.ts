@@ -10,7 +10,7 @@ import {
 import { LocalService } from '@appBase/storage';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
-import { selectTrip } from '@appBase/+state/select';
+import { selectTrip, selectTripUsers } from '@appBase/+state/select';
 import { DrawerService } from '@appBase/drawer.service';
 import { Store } from '@ngrx/store';
 import { MapApiService } from 'libs/map/src/lib/component/map.service';
@@ -53,7 +53,7 @@ export class DialogTripList implements AfterViewInit, OnInit {
   listOfTrip: any;
   user: any;
   page = 1;
-
+  tripRequest: any;
   constructor(
     public dialog: MatDialog,
     private store: Store,
@@ -64,6 +64,7 @@ export class DialogTripList implements AfterViewInit, OnInit {
   ) {}
   ngOnInit(): void {
     this.drawerService.showMap.next(true);
+    this.select();
   }
   ngAfterViewInit(): void {
     this.fetchTrip();
@@ -82,6 +83,21 @@ export class DialogTripList implements AfterViewInit, OnInit {
         this.listOfTrip = res;
       });
   }
+  select() {
+    this.store.select(selectTripUsers).subscribe((res) => {
+      this.tripRequest = res;
+    });
+  }
+  tripIsLive(tripTitle: string) {
+    const compareResult = this.tripRequest.filter(
+      (res: any) => res.tripTitle == tripTitle
+    );
+    if (compareResult.length > 0) {
+      return true;
+    }
+    return false;
+  }
+
   zoomTrips(trip: any) {
     this.helpService.messageWrite(
       'You can manage trip,change input and insert real value after trip occured.you can compare and check if your program was gone well or no !'

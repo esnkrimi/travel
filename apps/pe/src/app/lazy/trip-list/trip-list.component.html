@@ -12,10 +12,11 @@
 </form>
 <div class="row w-100 p-1">
   <div
+    [class.hide]="!tripIsLive(item.title)"
     *ngFor="let item of tripUsersFlat; let jindex = index"
-    class="col-md-3 p-2"
+    class="col-md-3 p-2 border"
   >
-    <div *ngIf="tripIsLive(item.title)" class="card">
+    <div *ngIf="item.title && tripIsLive(item.title)" class="card">
       <ng-container>
         <div class="relative">
           <img

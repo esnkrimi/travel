@@ -26,6 +26,13 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatListModule } from '@angular/material/list';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
+import {
+  SocialLoginModule,
+  GoogleSigninButtonModule,
+  SocialAuthServiceConfig,
+  GoogleLoginProvider,
+  GoogleSigninButtonDirective,
+} from '@abacritt/angularx-social-login';
 
 export function debug(reducer: ActionReducer<any>): ActionReducer<any> {
   return function (state: any, action: any) {
@@ -52,6 +59,8 @@ export function getUserSession(localService: LocalService) {
     MatChipsModule,
     MatFormFieldModule,
     MatInputModule,
+    GoogleSigninButtonModule,
+    SocialLoginModule,
     HttpClientModule,
     MatIconModule,
     CommonModule,
@@ -80,6 +89,23 @@ export function getUserSession(localService: LocalService) {
     StoreModule.forRoot({ store: reducerStates.reducer }, { metaReducers }),
   ],
   providers: [
+    {
+      provide: 'SocialAuthServiceConfig',
+      useValue: {
+        autoLogin: false,
+        providers: [
+          {
+            id: GoogleLoginProvider.PROVIDER_ID,
+            provider: new GoogleLoginProvider(
+              '639634141754-upc7snom2kpm0mv9vm1ugtpchlh6tp36.apps.googleusercontent.com'
+            ),
+          },
+        ],
+        onError: (err: any) => {
+          console.error(err);
+        },
+      } as SocialAuthServiceConfig,
+    },
     {
       provide: LocalService,
       useClass: LocalService,

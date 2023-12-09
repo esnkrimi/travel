@@ -35,7 +35,7 @@ import { TimeCOmparePipe } from '@appBase/pipe/time';
 import { MoneyCOmparePipe } from '@appBase/pipe/money';
 import { TripCommentsComponent } from './trip-comments/trip-comments.component';
 import { SettingComponent } from './setting/setting.component';
-
+import { GoogleSigninButtonModule } from '@abacritt/angularx-social-login';
 @NgModule({
   declarations: [
     EntryComponent,
@@ -57,6 +57,7 @@ import { SettingComponent } from './setting/setting.component';
   ],
   imports: [
     CommonModule,
+    GoogleSigninButtonModule,
     lazyRouterModule,
     AdvancedAutocompleteModule,
     MatDialogModule,

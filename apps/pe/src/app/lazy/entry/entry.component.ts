@@ -11,6 +11,11 @@ import { IloginInfo } from '@appBase/+state/state';
 import { selectUser } from '@appBase/+state/select';
 import { MatSnackBar, MatSnackBarRef } from '@angular/material/snack-bar';
 import { MapService } from '@appBase/master/map/service';
+import {
+  SocialAuthService,
+  GoogleLoginProvider,
+  SocialUser,
+} from '@abacritt/angularx-social-login';
 
 @Component({
   selector: 'pe-entry',
@@ -49,18 +54,38 @@ export class EntryComponent implements OnInit {
     private drawerService: DrawerService,
     private localStorage: LocalService,
     private store: Store,
+    private socialAuthService: SocialAuthService,
     private _snackBar: MatSnackBar
   ) {}
 
+  ngOnInit(): void {
+    this.hideMap();
+    this.routeType = this.route.snapshot.url[0].path;
+    this.selectGoogleAuth();
+    this.selectUserLogined();
+  }
+
+  logOut(): void {
+    this.socialAuthService.signOut();
+  }
+  selectGoogleAuth() {
+    this.socialAuthService.authState.subscribe((user) => {
+      const loginInfo: IloginInfo = {
+        email: user.email,
+        password: 'AcxfnhjDfg6y',
+      };
+      this.store.dispatch(actions.startLoginAction({ user: loginInfo }));
+    });
+  }
   onSubmitLogin() {
     this.mapService.loadingProgress.next(true);
     const loginInfo: IloginInfo = { ...this.formLogin.value };
     this.buttonDisabled = true;
     this.store.dispatch(actions.startLoginAction({ user: loginInfo }));
-    this.selectUserLogined();
   }
   selectUserLogined() {
     this.store.select(selectUser).subscribe((res: any) => {
+      //  console.log(res);
       if (res?.length > 0) {
         this.loginSuccess = true;
         this.localStorage.saveData('user', JSON.stringify(res[0]));
@@ -110,10 +135,6 @@ export class EntryComponent implements OnInit {
   hideMap() {
     this.drawerService.showMap.next(false);
     //console.log(9);
-  }
-  ngOnInit(): void {
-    this.hideMap();
-    this.routeType = this.route.snapshot.url[0].path;
   }
 }
 

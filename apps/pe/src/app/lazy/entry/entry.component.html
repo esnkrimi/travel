@@ -49,40 +49,13 @@
       <span>Or</span>
     </div>
     <div>
-      <button class="p-2 bg-white m-2 border-none w-100 justify-center">
-        <svg
-          class="m-2"
-          xmlns="http://www.w3.org/2000/svg"
-          width="25"
-          height="24"
-          fill="none"
-        >
-          <path
-            fill="#4285F4"
-            fill-rule="evenodd"
-            d="M24.02 12.272c0-.851-.076-1.67-.218-2.455H12.5v4.642h6.458a5.52 5.52 0 0 1-2.394 3.622v3.01h3.878c2.269-2.088 3.578-5.164 3.578-8.82Z"
-            clip-rule="evenodd"
-          ></path>
-          <path
-            fill="#34A853"
-            fill-rule="evenodd"
-            d="M12.501 24c3.24 0 5.956-1.074 7.942-2.907l-3.878-3.01c-1.075.72-2.45 1.145-4.064 1.145-3.125 0-5.77-2.111-6.715-4.948H1.777v3.11A11.996 11.996 0 0 0 12.501 24Z"
-            clip-rule="evenodd"
-          ></path>
-          <path
-            fill="#FBBC05"
-            fill-rule="evenodd"
-            d="M5.785 14.28A7.213 7.213 0 0 1 5.41 12c0-.791.136-1.56.376-2.28V6.61H1.776A11.995 11.995 0 0 0 .5 12c0 1.936.464 3.768 1.276 5.389l4.01-3.11Z"
-            clip-rule="evenodd"
-          ></path>
-          <path
-            fill="#EA4335"
-            fill-rule="evenodd"
-            d="M12.501 4.773c1.762 0 3.344.605 4.587 1.794l3.442-3.442C18.452 1.19 15.735 0 12.501 0c-4.69 0-8.75 2.69-10.724 6.61l4.01 3.11C6.73 6.884 9.375 4.773 12.5 4.773Z"
-            clip-rule="evenodd"
-          ></path></svg
-        >Sign in with Google
-      </button>
+      <asl-google-signin-button
+        GoogleSigninButtonDirective
+        type="standard"
+        size="large"
+        theme="filled_blue"
+      >
+      </asl-google-signin-button>
     </div>
 
     <div class="w-100 mt-4 text-center">
@@ -138,41 +111,14 @@
       <div class="p-2 m-2">
         <span>Or</span>
       </div>
-      <div>
-        <button class="p-2 bg-white m-2 border-none w-100 justify-center">
-          <svg
-            class="m-2"
-            xmlns="http://www.w3.org/2000/svg"
-            width="25"
-            height="24"
-            fill="none"
-          >
-            <path
-              fill="#4285F4"
-              fill-rule="evenodd"
-              d="M24.02 12.272c0-.851-.076-1.67-.218-2.455H12.5v4.642h6.458a5.52 5.52 0 0 1-2.394 3.622v3.01h3.878c2.269-2.088 3.578-5.164 3.578-8.82Z"
-              clip-rule="evenodd"
-            ></path>
-            <path
-              fill="#34A853"
-              fill-rule="evenodd"
-              d="M12.501 24c3.24 0 5.956-1.074 7.942-2.907l-3.878-3.01c-1.075.72-2.45 1.145-4.064 1.145-3.125 0-5.77-2.111-6.715-4.948H1.777v3.11A11.996 11.996 0 0 0 12.501 24Z"
-              clip-rule="evenodd"
-            ></path>
-            <path
-              fill="#FBBC05"
-              fill-rule="evenodd"
-              d="M5.785 14.28A7.213 7.213 0 0 1 5.41 12c0-.791.136-1.56.376-2.28V6.61H1.776A11.995 11.995 0 0 0 .5 12c0 1.936.464 3.768 1.276 5.389l4.01-3.11Z"
-              clip-rule="evenodd"
-            ></path>
-            <path
-              fill="#EA4335"
-              fill-rule="evenodd"
-              d="M12.501 4.773c1.762 0 3.344.605 4.587 1.794l3.442-3.442C18.452 1.19 15.735 0 12.501 0c-4.69 0-8.75 2.69-10.724 6.61l4.01 3.11C6.73 6.884 9.375 4.773 12.5 4.773Z"
-              clip-rule="evenodd"
-            ></path></svg
-          >Sign up with Google
-        </button>
+      <div class="w-100 text-center border">
+        <asl-google-signin-button
+          GoogleSigninButtonDirective
+          type="standard"
+          size="large"
+          theme="filled_blue"
+        >
+        </asl-google-signin-button>
       </div>
       <div class="text-left pt-3">
         <span

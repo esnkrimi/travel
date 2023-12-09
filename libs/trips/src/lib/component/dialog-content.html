@@ -1,6 +1,10 @@
-<div *ngIf="!user;else tripPanel">You must login first !</div>
+<div *ngIf="!user;else tripPanel">
+  <p>You must login first !</p>
+  <button class="w-100" mat-raised-button mat-dialog-close>return</button>
+</div>
 <ng-template #tripPanel>
   <div
+    [class.hide]="tripIsLive( item.title )"
     class="inner w-50 cursor-pointer"
     mat-dialog-close
     *ngFor="let item of listOfTrip| paginate: { itemsPerPage: 6, currentPage: page } ; let i = index"

@@ -32,6 +32,7 @@ import { MatDialog } from '@angular/material/dialog';
 })
 export class AppComponent implements OnInit {
   showMap = true;
+  isLoggedin?: boolean;
   tips = [
     'search location by name or on map',
     'write your tript experience or read others',
@@ -58,13 +59,13 @@ export class AppComponent implements OnInit {
     password: '',
   };
   showTour = false;
+
   constructor(
     @Inject('userSession') public userSession: any,
     private translate: TranslateService,
     private draswerService: DrawerService,
     private settingService: SettingService,
     private router: Router,
-    private acRouter: ActivatedRoute,
     private entryService: EntryService,
     private store: Store,
     private mapService: MapService,

@@ -19,6 +19,7 @@ import {
 import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
+import { tap } from 'rxjs';
 
 @Component({
   selector: 'pe-trip-list',
@@ -135,14 +136,7 @@ export class TripListComponent implements OnInit {
       this.mapService.loadingProgress.next(false);
     });
   }
-  tripIsLive(tripTitle: string) {
-    if (
-      this.tripRequest.filter((res: any) => res.tripTitle === tripTitle)
-        .length > 0
-    )
-      return true;
-    return false;
-  }
+
   getFromTripFlat(tripTitle: string) {
     for (let i = 0; i < this.trips.length; i++)
       for (let j = 0; j < this.trips[i].tripjson.length; j++) {
@@ -150,6 +144,16 @@ export class TripListComponent implements OnInit {
           return this.trips[i];
         }
       }
+  }
+
+  tripIsLive(tripTitle: string) {
+    const compareResult = this.tripRequest.filter(
+      (res: any) => res.tripTitle == tripTitle
+    );
+    if (compareResult.length > 0) {
+      return true;
+    }
+    return false;
   }
 
   flattingTrips(trips: any) {

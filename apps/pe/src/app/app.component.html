@@ -17,7 +17,7 @@
             (zoomActivator)="zoomActivatorFunction($event)"
           ></pe-map-component>
         </div>
-        <pe-footer></pe-footer>
+        <pe-footer *ngIf="!showMap"></pe-footer>
       </div>
       <div class="transparent-bg" *ngIf="bgLoader"></div>
     </div>
@@ -40,5 +40,4 @@
     </div>
   </div>
 </div>
-
 -->

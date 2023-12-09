@@ -88,7 +88,7 @@ export class SettingComponent implements OnInit {
 
   updateAboutme() {
     this.formAboutMe.get('uid')?.setValue(JSON.parse(this.userSession)?.id);
-    console.log(this.formAboutMe.value);
+    //  console.log(this.formAboutMe.value);
     this.store.dispatch(
       actions.getStartUpdateSettingAboutMe({
         uid: JSON.parse(this.userSession)?.id,
