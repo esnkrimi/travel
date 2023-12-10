@@ -5,6 +5,7 @@
     --COLOR-LIGHT-DARK: rgb(212, 218, 212);
     --COLOR-MUTED: rgb(102, 104, 102);
     --COLOR-MAGENTA: rgb(98, 129, 196);
+    --COLOR-BLUEBLACK: #02445e;
     --COLOR-GREEN: #17dab8;
     --COLOR-LIGHT: #ffffff;
     --COLOR-CREAM: #eceaea;
@@ -22,6 +23,19 @@
    src: url('./assets/fonts/marson.ttf')
  }
 
+ @font-face {
+   font-family: antique;
+   src: url('./assets/fonts/antique.ttf')
+ }
+ @font-face {
+   font-family: mathilda;
+   src: url('./assets/fonts/mathilda.otf')
+ }
+ @font-face {
+   font-family: darkmagic;
+   src: url('./assets/fonts/darkmagic.otf')
+ }
+ 
  @mixin text-bg($bg,$col){
    color: var($col)  !important;
    background-color: var($bg) !important;
@@ -51,14 +65,14 @@ body{
 .text-right{
    text-align: right !important;
 }
-.text-small{
-   font-size: 0.9em !important;
-}
 .text-large{
-   font-size: 2em !important;
+   font-size: calc(0.5vw + 0.5vh + 1.3vmin) !important;
+}
+.text-small{
+   font-size: calc(0.3vw + 0.3vh + 0.4vmin) !important;
 }
 .text-meduim{
-   font-size: 1.2em !important;
+   font-size: calc(0.5vw + 0.5vh + 0.5vmin) !important;
 }
 .inner{
    display: inline-block;
@@ -70,7 +84,6 @@ body{
  .text-sign{
    font-family: bmd;
    font-weight: 600;
-   font-size: 1.5em;
  }
 
 .animated-cross{
@@ -190,7 +203,6 @@ body{
 
 .link { 
  color: var(--COLOR-MAGENTA); 
- font-size: 1em !important;
  transition: 1s !important;
 }
 .link:hover{
@@ -201,7 +213,11 @@ body{
    color: var(--COLOR-DARK);
 }
 .link-darks:hover{
-   color: var(--COLOR-GREEN); 
+   color: var(--COLOR-GREEN) !important; 
+}
+
+.link-light:hover{
+   color: var(--COLOR-GREEN) !important; 
 }
 
 .span-animated-on-hover{
@@ -226,7 +242,6 @@ body{
 .mat-raised-button{
    background-color: var(--COLOR-GREEN) !important;
    color:black !important;
-   font-size: 1.1em !important;
 }
 .mat-raised-button[disabled]{
    background-color: white !important;
@@ -243,7 +258,6 @@ body{
 
 .text-brand{
    font-family: bmd !important;
-   font-size: 3em !important;  
 }
 .text-red{
    color:var( --COLOR-RED) ;
@@ -253,9 +267,6 @@ body{
    padding: 0.4em;
    margin: 0.5em;
    border-bottom: solid 1px black;
-}
-.text-large{
-   font-size: calc(1vw + 1vh + 1vmin) !important;
 }
 
 .text-purple{
@@ -280,4 +291,30 @@ body{
 button:disabled{
    background-color: var(--COLOR-CREAM) !important;
    color: var(--COLOR-DARK) !important;
+}
+.v-align-middle{
+   vertical-align: middle !important;
+}
+.justify-right{
+   justify-content: right !important;
+}
+.flex-cell{
+   display: flex;
+   align-items: center; 
+   
+}
+
+.font-antique{
+   font-family: antique;
+}
+.font-mathilda{
+   font-family: mathilda;
+} 
+
+.font-darkmagic{
+   font-family: darkmagic;
+   font-size: calc(0.5vw + 0.5vh + 1.5vmin) !important;
+}
+.bg-blueblack{
+   background-color: var(--COLOR-BLUEBLACK);
 }

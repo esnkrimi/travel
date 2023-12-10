@@ -3,7 +3,6 @@
   }
  
   div div:nth-child(1){
-    font-size: 1.1em;
   }
 
    .mat-panel-title span{
@@ -12,7 +11,6 @@
 input{
     border-bottom: solid 1px var(--COLOR-LIGHT-DARK) !important;
     padding: 0.5em;
-    font-size: 1.5em;
     color: var(--COLOR-MUTED) !important;
     width: 95%;
     cursor: pointer;
@@ -30,7 +28,6 @@ input{
 
 .title{
   font-weight: bold;
-  font-size: 1.1em;
 }
 
 
@@ -59,6 +56,18 @@ input{
     width: 100% !important;
   }
  }
- 
+.score-line{
+  animation: animate-width-increase 1s forwards;
+} 
+
+@keyframes animate-width-increase {
+  0%{
+      width:20%
+  }
+
+  100%{
+    width:100%
+  }
+}
 
  

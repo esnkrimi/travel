@@ -98,7 +98,7 @@ export class EntryComponent implements OnInit {
         setTimeout(() => {
           this.mapService.loadingProgress.next(false);
         }, 2000);
-        this.loginError = true;
+        if (this.formLogin.get('email')?.value) this.loginError = true;
         this.buttonDisabled = false;
         //   this.mapService.loadingProgress.next(false);
       }

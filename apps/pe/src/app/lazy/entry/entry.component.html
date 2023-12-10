@@ -16,7 +16,7 @@
       <p class="m-3">Log in to Crown</p>
     </div>
     <div class="w-100"></div>
-    <form [formGroup]="formLogin" (submit)="onSubmitLogin()">
+    <form [formGroup]="formLogin" (submit)="onSubmitLogin()" class="m-2">
       <div class="w-100">
         <mat-form-field class="w-100">
           <mat-label> {{ 'email' | translate }}</mat-label>
@@ -40,15 +40,8 @@
         incorrect username or password
       </span>
     </div>
-    <div class="text-left p-1 m-2 fw-bold">
-      <span class="link text-small cursor-pointer" [routerLink]="['../login']">
-        {{ 'forgetPassword' | translate }}</span
-      >
-    </div>
-    <div class="p-2">
-      <span>Or</span>
-    </div>
-    <div>
+
+    <div class="m-2">
       <asl-google-signin-button
         GoogleSigninButtonDirective
         type="standard"
@@ -72,6 +65,11 @@
         {{ 'signup' | translate }}
       </p>
     </div>
+    <div class="text-left p-1 m-2 fw-bold">
+      <span class="text-small link cursor-pointer" [routerLink]="['../login']">
+        {{ 'forgetPassword' | translate }}</span
+      >
+    </div>
   </div>
 </div>
 <ng-template #esignup>
@@ -80,7 +78,7 @@
       <div class="w-100 text-center">
         <p class="fw-bold">Sign up</p>
       </div>
-      <form [formGroup]="formSubmit" (submit)="onSubmitSignup()">
+      <form [formGroup]="formSubmit" (submit)="onSubmitSignup()" class="m-2">
         <div class="w-100">
           <mat-form-field class="w-100">
             <mat-label> {{ 'email' | translate }}</mat-label>
@@ -108,10 +106,8 @@
       <div *ngIf="errorPasswordEqual" class="text-left">
         <span class="text-small m-2 cursor-pointer"> Password not match </span>
       </div>
-      <div class="p-2 m-2">
-        <span>Or</span>
-      </div>
-      <div class="w-100 text-center border">
+
+      <div class="w-100 text-center m-2">
         <asl-google-signin-button
           GoogleSigninButtonDirective
           type="standard"

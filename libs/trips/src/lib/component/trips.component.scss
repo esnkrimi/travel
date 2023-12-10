@@ -32,17 +32,13 @@
     .mat-raised-button{
       background-color: var(--COLOR-GREEN) !important;
       color:white !important;
-      font-size: 1em;
       margin: 0.1em;
     }
     .mat-raised-button[disabled]{
         background-color: white !important;
     }
   }
-  span{
-    font-size: 2em;
-  }
- 
+
   .fixed-full-width{
     position: fixed !important;
     left:0;

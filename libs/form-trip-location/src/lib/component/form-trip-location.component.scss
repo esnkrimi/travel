@@ -13,12 +13,10 @@
     height: 2em;
     border:none !important;
     outline: 0px;
-    font-size: 2.5em;
     outline: none !important;
     
 }
 .trip-title{
-    font-size: 2em;
     text-align: left;
 }
 
@@ -28,7 +26,6 @@
 }
 
  .arrow{
-    font-size: 1.2em !important;
     width: 30% !important;
     height: 2.5em !important;
  }
@@ -47,7 +44,6 @@
     height: 3em !important;
     border-radius: 1% !important;
     text-align: center;
-    font-size: 1.0em !important;
  }
  .chips-active{
     background-color: var(--COLOR-GREEN);
@@ -73,7 +69,6 @@
 }
 .text-select{
     text-align: left;
-    font-size: 2em;
     padding: 1%;
     text-align: left;
     color: var(--COLOR-LIGHT-DARK);

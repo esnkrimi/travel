@@ -169,26 +169,24 @@
       </p>-->
     </div>
   </div>
+  <div class="w-50">
+    <div class="m-3 d-flex">
+      <div class="col-md-2">Economic</div>
+      <div
+        class="col-md-10"
+        [style]="{ width: '10%' }"
+        class="bg-primary score-line m-2"
+      ></div>
+    </div>
 
-  <div class="m-3">
-    <h5>Economic view</h5>
+    <div class="m-3 d-flex">
+      <div class="col-md-2">Time Fit</div>
+      <div class="col-md-10" class="bg-warning score-line m-2"></div>
+    </div>
 
-    <p class="p-2 fw-bold text-muted" *ngIf="savedMoney > 0">
-      You saved {{ savedMoney }} on this trip ({{
-        (savedMoney * 100) / totalMoney | number : '0.0-0'
-      }}%)
-    </p>
-    <p *ngIf="savedMoney < 0" class="p-2 fw-bold text-muted">
-      You miss money about {{ savedMoney }} on this trip
-      {{ (savedMoney * 100) / totalMoney | number : '0.0-0' }}%
-    </p>
-
-    <h5>Time factors</h5>
-    <p *ngIf="delayTime > 0" class="p-2 fw-bold text-muted">
-      You have delay on this trip about ~{{ delayTime }} days
-    </p>
-    <p class="p-2 fw-bold text-muted" *ngIf="delayTime <= 0">
-      Great.You was on time
-    </p>
+    <div class="m-3 d-flex">
+      <div class="col-md-2">Structure</div>
+      <div class="col-md-10" class="bg-green score-line m-2"></div>
+    </div>
   </div>
 </div>

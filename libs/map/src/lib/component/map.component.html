@@ -64,7 +64,7 @@
       </div>
       <div class="attached-text p-1"></div>
       <div [class.invisible]="!showMap" class="map-container">
-        <div class="fixed-country m-1 shadow-lg cursor-pointer" cdkDrag>
+        <div class="fixed-country shadow-lg cursor-pointer" cdkDrag>
           <div
             class="animated-fadein text-meduim text-green bg-white w-100"
             *ngIf="distanceActivated"
@@ -79,7 +79,7 @@
           </span>
         </div>
 
-        <div class="map-frame">
+        <div class="map-frame w-100">
           <div id="map"></div>
         </div>
       </div>

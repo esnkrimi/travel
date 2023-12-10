@@ -1,39 +1,32 @@
-<div class="position-static">
-  <form class="form">
-    <mat-form-field class="w-100">
-      <mat-label>{{ setting.placeholder }}</mat-label>
-      <input
-        type="text"
-        matInput
-        [formControl]="locationInput"
-        placeholder="Ex. London"
-      />
-    </mat-form-field>
+<div class="parent">
+  <form class="w-100">
+    <input
+      type="text"
+      class="w-100"
+      [formControl]="locationInput"
+      placeholder="search location"
+    />
   </form>
   <ng-container *ngIf="loading; else suggest">
     <pe-loading-progress [mode]="'mini'"></pe-loading-progress>
   </ng-container>
   <ng-template #suggest>
-    <div *ngIf="result" class="lists form p-2 ng-light">
+    <div *ngIf="result.length > 0" class="lists w-100 bg-light p-3">
       <div
         class="cursor-pointer bg-light item-found"
         (click)="setView(i)"
         *ngFor="let item of result; let i = index"
       >
-        <div
-          *ngIf="i === 0"
-          class="border-bottom text-left fw-bold text-green mb-1"
-        >
-          cities
-        </div>
         <div *ngIf="!item.title">
-          <div class="bg-light span-animated-on-hover cursor-pointer">
+          <div class="cursor-pointer">
             <div class="row d-flex flex-nowrap">
-              <div style="flex-basis: 50%" class="text-left text-capitalize">
-                {{ item.city }}
-              </div>
-              <div style="flex-basis: 50%" class="text-left text-capitalize">
-                {{ item.country || item.title }}
+              <div class="text-left text-dark fw-bold text-capitalize">
+                <span>
+                  {{ item.city }}
+                </span>
+                <span class="text-muted">
+                  - {{ item.country || item.title }}
+                </span>
               </div>
             </div>
           </div>
@@ -44,17 +37,16 @@
         (click)="setView(i)"
         *ngFor="let item of result; let i = index"
       >
-        <div *ngIf="i === 0" class="border-bottom text-left fw-bold text-green">
-          locations
-        </div>
         <div *ngIf="item.title">
-          <div class="bg-light span-animated-on-hover cursor-pointer">
+          <div class="cursor-pointer">
             <div class="row d-flex flex-nowrap">
-              <div style="flex-basis: 50%" class="text-left text-capitalize">
-                {{ item.city }}
-              </div>
-              <div style="flex-basis: 50%" class="text-left text-capitalize">
-                {{ item.country || item.title }}
+              <div class="text-left text-dark fw-bold text-capitalize">
+                <span>
+                  {{ item.city }}
+                </span>
+                <span class="text-muted">
+                  - {{ item.country || item.title }}
+                </span>
               </div>
             </div>
           </div>

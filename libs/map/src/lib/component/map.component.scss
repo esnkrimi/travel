@@ -32,9 +32,7 @@
 .my-markers{
     opacity: 0.2 !important;
 }
-.parent{
-    margin-top: 5em;
-}
+
 @media (min-width:1400px) {
     .parent{
         width: 100%;
@@ -59,10 +57,6 @@ display: none !important;
     background: green !important;
 } 
 
-
-::ng-deep .leaflet-popup-content{
-    font-size: 1.15em !important;
-}
 @keyframes animated-scale {
     0%{
         transform: scale(0.2)
@@ -129,9 +123,7 @@ display: none !important;
         color: white !important;
         font-weight: bold;
     }
-    .mat-simple-snack-bar-content{
-        font-size: 1.4em !important;
-    }
+ 
 }
 .trip{
     position: absolute;

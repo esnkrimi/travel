@@ -1,80 +1,64 @@
-<div class="mobile w-100 row z-index position-absolute bg-light shadow-sm">
+<div class="w-100 header-fix row z-index bg-dark shadow-sm">
   <div class="col-md-6 position-static text-center">
     <div class="d-flex w-100 flex-nowrap">
-      <div class="w-25 p-3">
+      <div class="w-50 flex-cell">
         <span
-          class="text-brand text-large"
+          class="font-antique text-light text-large"
           [routerLink]="[{ outlets: { secondRouter: 'lazy/setting' } }]"
         >
           CROWN
         </span>
       </div>
-      <div class="w-100 position-static">
-        <pe-search (resultOutput)="resultOutput($event)"></pe-search>
+      <div class="w-100 flex-cell w-100 p-1">
+        <pe-search
+          class="w-100"
+          (resultOutput)="resultOutput($event)"
+        ></pe-search>
       </div>
     </div>
   </div>
   <div
     *ngIf="!userLoginInformation?.id; else elseLogin"
-    class="col-md-6 text-right p-3"
+    class="col-md-6 text-center flex-cell"
   >
-    <span
-      [@animate]="animationFlag ? 'st1' : 'st2'"
-      class="language p-2"
-      (click)="changeLanguage(languages[languageIndex].title)"
-    >
-      <button class="m-1" mat-button>
-        <img
-          *ngIf="languages[languageIndex - 1]?.title"
-          class="img-flag"
-          [src]="'./assets/img/' + languages[languageIndex - 1]?.title + '.png'"
-          onerror="'./assets/img/ar.png'"
-        />
-        <img
-          *ngIf="!languages[languageIndex - 1]?.title"
-          class="img-flag"
-          [src]="'./assets/img/ar.png'"
-        />
-      </button>
-    </span>
-    <span
-      class="text-small link-darks"
-      [routerLink]="[{ outlets: { secondRouter: 'lazy/login' } }]"
-    >
-      {{ 'login' | translate }}</span
-    >
-    <span class="text-small">|</span>
-    <span
-      class="text-small link-darks"
-      [routerLink]="[{ outlets: { secondRouter: 'lazy/signup' } }]"
-    >
-      {{ 'signup' | translate }}</span
-    >
+    <div class="flex-50 w-100">
+      <div class="child">
+        <span
+          class="text-meduim link-light"
+          [routerLink]="[{ outlets: { secondRouter: 'lazy/login' } }]"
+        >
+          {{ 'login' | translate }}</span
+        >
+        <span class="text-meduim text-light">|</span>
+        <span
+          class="text-meduim link-light"
+          [routerLink]="[{ outlets: { secondRouter: 'lazy/signup' } }]"
+        >
+          {{ 'signup' | translate }}</span
+        >
+      </div>
+      <div class="child">
+        <span
+          class="link-light text-meduim"
+          (click)="changeLanguage(languages[languageIndex].title)"
+        >
+          {{ 'titles' | translate }}
+        </span>
+      </div>
+    </div>
   </div>
-  <ng-template #elseLogin class="col-md-6 text-right">
+  <ng-template #elseLogin class="col-md-4 text-right">
     <div class="col-md-6 text-right animated-fadein p-2">
       <span
-        [@animate]="animationFlag ? 'st1' : 'st2'"
-        class="language p-2"
+        class="link-light font-darkmagic"
         (click)="changeLanguage(languages[languageIndex].title)"
       >
-        <button class="m-1" mat-button>
-          <img
-            *ngIf="languages[languageIndex - 1]?.title"
-            class="img-flag"
-            [src]="
-              './assets/img/' + languages[languageIndex - 1]?.title + '.png'
-            "
-            onerror="'./assets/img/ar.png'"
-          />
-          <img
-            *ngIf="!languages[languageIndex - 1]?.title"
-            class="img-flag"
-            [src]="'./assets/img/ar.png'"
-          />
-        </button>
       </span>
-      <button (click)="menuShow = !menuShow" mat-button class="p-2 bg-light">
+      <button
+        (click)="menuShow = !menuShow"
+        mat-button
+        class="p-2 bg-dark text-light"
+      >
         <mat-icon>arrow_drop_down</mat-icon>
         <span class="m-2 fw-bold"
           >Hi ! {{ userLoginInformation?.name | titlecase }}</span

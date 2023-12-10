@@ -14,10 +14,6 @@ import { SettingService, settings } from '@appBase/setting';
 import { LocalService } from '@appBase/storage';
 import { MapApiService } from 'libs/map/src/lib/component/map.service';
 import { MapService } from '../map/service';
-import {
-  GoogleLoginProvider,
-  SocialAuthService,
-} from '@abacritt/angularx-social-login';
 
 @Component({
   selector: 'pe-header',

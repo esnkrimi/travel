@@ -1,13 +1,17 @@
-<div class="w-100">
-  <div class="bg-light w-100 position-relative inner">
-    <div *ngIf="loadingProgress" class="transparent-background-loading"></div>
+<div class="w-100 border">
+  <div class="bg-light w-100 position-relative">
     <pe-header
       (savedLocation)="savedLocation($event)"
       (resultOutputs)="resultOutputs($event)"
     ></pe-header>
-    <div class="w-100 row">
+    <div class="w-100">
       <div class="w-100 position-relative">
-        <div class="w-100 padding-bottom">
+        <div class="w-100 d-relative">
+          <div
+            *ngIf="loadingProgress"
+            class="transparent-background-loading"
+          ></div>
+
           <router-outlet name="secondRouter"></router-outlet>
           <pe-map-component
             *ngIf="showMap"

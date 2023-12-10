@@ -41,12 +41,10 @@
   .mat-raised-button{
     background-color: var(--COLOR-GREEN) !important;
     color:white !important;
-    font-size: 1em;
     margin: 0.5em;
   }
 }
 .text-title{
-  font-size: 2em !important;
 }
 .loading{
   top:50%;
@@ -56,7 +54,6 @@
   width: 85% !important;
 }
 input{
-  font-size: 2em !important;
   color: #8a8888;
 }
 .modals{
@@ -66,5 +63,4 @@ input{
   cursor: pointer;
 }
 .input-file-upload{
-  font-size: 1em !important;
 }

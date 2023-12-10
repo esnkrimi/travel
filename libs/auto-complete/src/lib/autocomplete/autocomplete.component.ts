@@ -38,12 +38,14 @@ export class AutocompleteComponent implements OnInit {
     this.locationInput.valueChanges
       .pipe(
         tap((res: any) => {
+          if (res.length === 0) this.mapService.loadingProgress.next(false);
+          if (res.length > 0) this.mapService.loadingProgress.next(true);
           this.loading = res.length > 3 ? true : (this.loading = false);
           this.result = [];
         }),
         debounceTime(1000),
         tap((res: any) => {
-          if (res)
+          if (res.length > 3)
             this.store.dispatch(actions.startAutocompleteAction({ text: res }));
         })
       )

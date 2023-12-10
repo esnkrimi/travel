@@ -4,10 +4,33 @@
     width: 100%;
   }
    
-  .lists{
-    position: absolute;
-    z-index: 300 !important;
-  }
+.lists{
+  position: absolute;
+  z-index: 300 !important;
+  width: fit-content;
+}
 .item-found{
   padding: 0.05em;
+  line-height: 2.2em;
+}
+input{
+  border: none !important;
+  outline: none;
+  width: 100% !important;
+  height: 2.5em !important;
+  text-transform: capitalize;
+  text-indent: 1em;
+}
+.parent{
+  width: 100%;
+  position: relative;
+}
+.item-found:active{
+  animation: animate-fadein 2s forwards;
+}
+
+.item-found:hover{
+  background-color: var(--COLOR-CREAM) !important;
+  color: var(--COLOR-DARK) !important;
+  border: none !important;
 }
