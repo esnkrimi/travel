@@ -23,6 +23,7 @@ import { UsersService } from '@appBase/lazy/users/users.service';
 import { TripCommentsService } from '@appBase/lazy/trip-comments/trip-comments.service';
 import { SettingService } from '@appBase/setting';
 import { ProfileSettingService } from '@appBase/lazy/setting/setting.service';
+import { FormtripApiService } from 'libs/form-trip-location/src/lib/component/form-trip-location.service';
 
 @Injectable()
 export class storeEffects {
@@ -33,6 +34,17 @@ export class storeEffects {
         return this.profileSettingService
           .updateSettingAboutMe(res.uid, res.about)
           .pipe(map((res: any) => actions.updateSettingAboutMe({ data: res })));
+      })
+    );
+  });
+
+  getStartTripPictureUploading: any = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(actions.startTripPictureUploading),
+      switchMap((result: any) => {
+        return this.formtripApiService
+          .tripPictureUploading(result.uid, result.tripTitle, result.formData)
+          .pipe(map((res: any) => actions.tripPictureUploading()));
       })
     );
   });
@@ -470,6 +482,7 @@ export class storeEffects {
   userLoginInformation: any;
   constructor(
     private store: Store,
+    private formtripApiService: FormtripApiService,
     private experiencesApiService: ExperiencesApiService,
     private actions$: Actions,
     private tripService: TripUserService,

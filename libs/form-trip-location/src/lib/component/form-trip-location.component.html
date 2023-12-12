@@ -4,7 +4,7 @@
       <form class="bg-white" [formGroup]="formSubmitTitle">
         <div class="row flex-nowrap">
           <mat-form-field>
-            <mat-label class="trip-title color-dark">
+            <mat-label class="text-left text-medium color-dark">
               {{ 'selectTitle' | translate }}
             </mat-label>
             <input matInput class="input-title" formControlName="inputTitle" />
@@ -35,7 +35,7 @@
               class="form-item"
               [class.invisible]="item.name === 'vehicle'"
             >
-              <mat-label class="trip-title color-dark"
+              <mat-label class="text-left text-medium"
                 >{{ item.name | translate }}
               </mat-label>
               <input
@@ -47,7 +47,7 @@
               />
             </mat-form-field>
             <ng-container *ngIf="item.name === 'vehicle'">
-              <p class="text-left trip-title color-dark">
+              <p class="text-left text-left text-medium color-dark">
                 {{ item.name | translate }}
               </p>
               <mat-chip-list>
@@ -74,7 +74,6 @@
       </div>
       <div class="flex-50">
         <button
-          [disabled]="!formSubmitTripLocation.valid || repeatedTripTitle"
           (click)="formSubmitLocation = true"
           class="arrow bg-green"
           mat-button
@@ -89,7 +88,7 @@
 <div class="fixed-rows transparent-bg text-center" *ngIf="formSubmitLocation">
   <div class="w-50 inner bg-light">
     <div>
-      <p class="trip-title color-dark">
+      <p class="text-left text-medium color-dark">
         You can insert another place in your trip or finish the trip now !
       </p>
     </div>
@@ -110,6 +109,7 @@
     </div>
   </div>
 </div>
+
 <br />
 <br />
 <br />

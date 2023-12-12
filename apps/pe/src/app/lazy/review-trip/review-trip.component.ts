@@ -84,12 +84,12 @@ export class ReviewTripComponent implements OnInit {
           ? timelerance
           : timelerance + 1;
     }
-    console.log(priceTolerance, movementTolerance, timelerance);
+    // console.log(priceTolerance, movementTolerance, timelerance);
 
     priceTolerance = Math.abs(priceTolerance) / this.sumCost;
     movementTolerance = movementTolerance / this.trip.trip.length;
     timelerance = timelerance / this.trip.trip.length;
-    console.log(priceTolerance, movementTolerance, timelerance);
+    //  console.log(priceTolerance, movementTolerance, timelerance);
   }
 
   selectTrip() {

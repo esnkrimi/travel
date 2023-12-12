@@ -1,5 +1,10 @@
 <div *ngIf="formTripShow" class="div-location w-100 bg-primary">
   <div class="border">
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
     <pe-form-trip-location
       [currentTrip]="currentTrip"
       [latSelect]="latSelect"
@@ -12,76 +17,73 @@
   </div>
 </div>
 <div class="parent">
-  <div>
-    <div class="bg-white text-center" *ngIf="createTripActivate">
-      <pe-trips [currentTrip]="currentTrip"></pe-trips>
-    </div>
-    <div class="w-100 text-center box">
-      <div [class.invisible]="!showMap" class="absolute-50 p-1">
-        <div class="shadow-lg" cdkDrag>
-          <div
-            *ngFor="let item of typeOflocations"
-            (click)="change(item)"
-            class="w-100 bg-light"
-          >
-            <img
-              [title]="item"
-              [src]="'./assets/img/' + item + '.png'"
-              class="img-icon m-1"
-              [class.active-type]="
-                selectedType === item || (item === 'saved' && savedLocation)
-              "
-            />
-          </div>
-
-          <div
-            class="mt-2"
-            joyrideStep="secondStep"
-            text="You can measure distance between two place"
-          >
-            <span
-              [class.disabled]="!distanceActivated"
-              (click)="activeDistanceMeter()"
-              class="text-sign language text-primary p-1 m-1"
-            >
-              D
-            </span>
-          </div>
-          <div
-            class=""
-            joyrideStep="thirdStep "
-            text="You can make a trip and schedule it "
-          >
-            <span
-              [class.disabled]="!createTripActivate"
-              (click)="createTrip()"
-              class="text-sign language text-primary p-1 m-1"
-            >
-              T
-            </span>
-          </div>
+  <div class="bg-white text-center" *ngIf="createTripActivate">
+    <pe-trips [currentTrip]="currentTrip"></pe-trips>
+  </div>
+  <div class="w-100 text-center box">
+    <div [class.invisible]="!showMap" class="absolute-50">
+      <div class="w-100 bg-light" cdkDrag>
+        <div
+          *ngFor="let item of typeOflocations"
+          (click)="change(item)"
+          class="w-100"
+        >
+          <img
+            [title]="item"
+            [src]="'./assets/img/' + item + '.png'"
+            class="img-icon m-1"
+            [class.active-type]="
+              selectedType === item || (item === 'saved' && savedLocation)
+            "
+          />
         </div>
-      </div>
-      <div class="attached-text p-1"></div>
-      <div [class.invisible]="!showMap" class="map-container">
-        <div class="fixed-country shadow-lg cursor-pointer" cdkDrag>
-          <div
-            class="animated-fadein text-meduim text-green bg-white w-100"
-            *ngIf="distanceActivated"
-          >
-            DISTANCE MODE
-          </div>
 
-          {{ draggingLocation.country }} {{ draggingLocation.city }}<br />
-          <span class="text-muted text-small">
-            {{ draggingLocation.suburb }}
-            {{ draggingLocation.street }}
+        <div
+          class="mt-2"
+          joyrideStep="secondStep"
+          text="You can measure distance between two place"
+        >
+          <span
+            [class.disabled]="!distanceActivated"
+            (click)="activeDistanceMeter()"
+            class="text-sign language text-primary p-1 m-1 text-large"
+          >
+            D
           </span>
         </div>
-
-        <div class="map-frame w-100">
-          <div id="map"></div>
+        <div
+          class=""
+          joyrideStep="thirdStep "
+          text="You can make a trip and schedule it "
+        >
+          <span
+            [class.disabled]="!createTripActivate"
+            (click)="createTrip()"
+            class="text-sign language text-primary p-1 m-1 text-large"
+          >
+            T
+          </span>
         </div>
+      </div>
+    </div>
+    <div class="attached-text p-1"></div>
+    <div [class.invisible]="!showMap" class="map-container">
+      <div class="fixed-country shadow-lg cursor-pointer" cdkDrag>
+        <div
+          class="animated-fadein text-large text-green bg-white w-100"
+          *ngIf="distanceActivated"
+        >
+          DISTANCE MODE
+        </div>
+        <p>{{ draggingLocation.country }} {{ draggingLocation.city }}</p>
+        <p class="text-muted text-meduim">
+          {{ draggingLocation.suburb }}
+          {{ draggingLocation.street }}
+        </p>
+      </div>
+
+      <div class="map-frame w-100">
+        <div id="map"></div>
       </div>
     </div>
   </div>

@@ -14,7 +14,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { FormTripLocationModule } from '@pe/form-trip-location';
 import { TripsModule } from '@pe/trips';
-import { TripSubmitModule } from '@pe/trip-submit';
 import { HelpModule } from '@pe/help';
 import { RouterModule } from '@angular/router';
 
@@ -31,7 +30,6 @@ import { RouterModule } from '@angular/router';
     MatRippleModule,
     MatFormFieldModule,
     TripsModule,
-    TripSubmitModule,
     MatInputModule,
     ReactiveFormsModule,
     JoyrideModule.forRoot(),

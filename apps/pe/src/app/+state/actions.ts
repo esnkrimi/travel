@@ -12,6 +12,13 @@ import { createActionGroup, props, emptyProps } from '@ngrx/store';
 export const actions = createActionGroup({
   source: 'store',
   events: {
+    'trip picture uploading': emptyProps(),
+    'start trip picture uploading': props<{
+      uid: number;
+      tripTitle: number;
+      formData: any;
+    }>(),
+
     'profile picture uploading': emptyProps(),
     'start profile picture uploading': props<{
       uid: number;

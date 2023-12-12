@@ -2,38 +2,42 @@
   <pe-loading-progress [mode]="'animated'"></pe-loading-progress>
 </div>
 <ng-template #elseTmpl>
-  <div *ngFor="let item of result" class="m-4 p-2">
-    <div class="row flex-nowrap">
-      <div style="flex-basis: 10%">
+  <div *ngFor="let item of result" class="m-4 p-2 bg-light relative">
+    <div class="w-100">
+      <div class="w-100">
         <img
-          src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Circle-icons-profile.svg/2048px-Circle-icons-profile.svg.png"
-          class="w-100"
+          [src]="
+            'https://burjcrown.com/drm/travel/users/profile/' +
+            item.userid +
+            '/1.jpg?id=' +
+            item.userid
+          "
+          class="img-icon"
         />
       </div>
-      <div style="flex-basis: 90%">
-        <div class="text-left text-small">
-          {{ item.name | titlecase }}
-        </div>
-        <div class="text-muted text-small">
-          {{ item.date }}
-        </div>
+      <div class="text-left">
+        <span class="text-capitalize">
+          {{ userIdCommenter.userName }} {{ userIdCommenter.userFamily }}
+        </span>
       </div>
     </div>
     <div class="text-left text-medum p-2">
       {{ item.describtion }}
     </div>
+    <div class="text-muted text-small p-2">
+      {{ item.date }}
+    </div>
     <img
       (click)="openImage(img, i)"
       *ngFor="let img of item?.img; let i = index"
       [src]="img"
-      class="img-icon"
+      class="cursor-pointer m-3"
     />
-    <div *ngIf="userLoginId === item.userid">
-      <span
-        class="cursor-pointer btn btn-primary"
+    <div class="top-right-absolute" *ngIf="userLoginId === item.userid">
+      <i
         (click)="remove(userLoginId, item.locationid)"
-        >Remove</span
-      >
+        class="fa fa-trash cursor-pointer hover-attention"
+      ></i>
     </div>
   </div>
 </ng-template>

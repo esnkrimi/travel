@@ -24,6 +24,8 @@
             [src]="
               'https:burjcrown.com/drm/travel/users/profile/' +
               getFromTripFlat(item.title)?.uid +
+              '/trip/' +
+              item.title +
               '/1.jpg'
             "
             class="img-profile cursor-pointer"
@@ -31,15 +33,15 @@
 
           <div *ngIf="item.finish" class="on-layer top-layer row w-100">
             <div class="w-100">
-              <h5 class="text-capitalize p-2 text-center w-100">Finished !</h5>
+              <p class="text-capitalize p-2 text-center w-100">Finished !</p>
             </div>
           </div>
-          <div class="on-layer text-layer row w-100">
+          <div class="on-layer text-layer row w-100 flex-cell">
             <div style="flex-basis: 50%">
-              <h5 class="text-capitalize p-2">
+              <p class="text-capitalize flex-cell text-large">
                 {{ getFromTripFlat(item.title)?.name }}
                 {{ getFromTripFlat(item.title)?.family }}
-              </h5>
+              </p>
             </div>
 
             <div style="flex-basis: 50%" class="text-right">
@@ -58,14 +60,14 @@
             <div class="w-100">
               <div class="w-75">
                 <div class="text-capitalize mb-2 w-100">
-                  <div class="fw-bold">
+                  <div class="fw-bold text-large">
                     {{ item.title }}
                   </div>
                   <div>
-                    <span class="text-price text-green fw-bold">
+                    <span class="text-price text-green fw-bold text-large">
                       {{ cost(item.title) }}$
                     </span>
-                    <span class="fw-bold text-small-text-muted">
+                    <span class="fw-bold text-medium text-muted p-1">
                       (
                       {{
                         differentBetweenTwoDates(
@@ -76,10 +78,10 @@
                       )
                     </span>
                   </div>
-                  <div class="text-small">
+                  <div class="text-medium p-1">
                     start date : {{ item.trip[0].dateIncome }}
                   </div>
-                  <div class="text-small">
+                  <div class="text-medium p-1">
                     end date
                     {{ item.trip[item.trip.length - 1].dateIncome }}
                   </div>
@@ -117,8 +119,8 @@
                 ></div>
               </div>
               <div *ngFor="let location of item.trip; let index = index">
-                <p class="text-small">
-                  <span> {{ index + 1 }} ) </span>
+                <p>
+                  <span class="fw-bold"> {{ index + 1 }} . </span>
                   <span>
                     <i class="fa fa-map-marker"></i>
                   </span>
@@ -135,7 +137,7 @@
               <div>
                 <a
                   (click)="openDialog(item.title)"
-                  class="cursor-pointer link text-decoration-none"
+                  class="cursor-pointer link text-decoration-none text-medium"
                   >Guests</a
                 >
               </div>

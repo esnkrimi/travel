@@ -2,12 +2,7 @@
   <div class="col-md-6 position-static text-center">
     <div class="d-flex w-100 flex-nowrap">
       <div class="w-50 flex-cell">
-        <span
-          class="font-antique text-light text-large"
-          [routerLink]="[{ outlets: { secondRouter: 'lazy/setting' } }]"
-        >
-          CROWN
-        </span>
+        <span class="font-antique text-light text-large"> CROWN </span>
       </div>
       <div class="w-100 flex-cell w-100 p-1">
         <pe-search
@@ -57,21 +52,13 @@
       <button
         (click)="menuShow = !menuShow"
         mat-button
-        class="p-2 bg-dark text-light"
+        class="bg-dark text-light"
       >
         <mat-icon>arrow_drop_down</mat-icon>
-        <span class="m-2 fw-bold"
+        <span class="m-2 fw-bold text-meduim"
           >Hi ! {{ userLoginInformation?.name | titlecase }}</span
         >
         <span class="m-2">{{ userLoginInformation?.lname }}</span>
-        <img
-          [src]="
-            'https://burjcrown.com/drm/travel/users/profile/' +
-            userLoginInformation?.id +
-            '/1.jpg?id=1701858594491'
-          "
-          class="img-icon rounded-circle"
-        />
       </button>
       <div class="position-relative d-inline-block menu" *ngIf="menuShow">
         <div class="position-absolute">
@@ -106,7 +93,7 @@
             (click)="menuShow = false"
             [routerLink]="[{ outlets: { secondRouter: 'lazy/mytrips' } }]"
           >
-            <span class="big-link">
+            <span>
               {{ 'mytrips' | translate }}
             </span>
           </p>
@@ -114,7 +101,7 @@
             (click)="menuShow = false"
             [routerLink]="[{ outlets: { secondRouter: 'lazy/myrequests' } }]"
           >
-            <span class="big-link">
+            <span>
               {{ 'myrequests' | translate }}
             </span>
           </p>
@@ -122,7 +109,7 @@
             (click)="menuShow = false"
             [routerLink]="[{ outlets: { secondRouter: 'lazy/trips' } }]"
           >
-            <span class="big-link">
+            <span>
               {{ 'trips' | translate }}
             </span>
           </p>
@@ -130,7 +117,7 @@
             (click)="menuShow = false"
             [routerLink]="[{ outlets: { secondRouter: 'lazy/messages' } }]"
           >
-            <span class="big-link">
+            <span>
               {{ 'mymessages' | translate }}
             </span>
           </p>

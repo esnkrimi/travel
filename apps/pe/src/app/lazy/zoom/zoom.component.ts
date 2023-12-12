@@ -45,21 +45,21 @@ export class ZoomComponent implements AfterViewInit {
   };
 
   form = new FormGroup({
-    country: new FormControl('', {}),
-    city: new FormControl('', {}),
-    district: new FormControl('', {}),
-    county: new FormControl('', {}),
-    street: new FormControl('', {}),
-    email: new FormControl('', Validators.email),
-    phone: new FormControl('', {}),
-    web: new FormControl('', {}),
-    type: new FormControl('', {}),
-    describe: new FormControl('', {}),
-    title: new FormControl('', {}),
-    score: new FormControl(0, {}),
-    lat: new FormControl('0', {}),
-    lon: new FormControl('0', {}),
-    file: new FormControl<any>('', [Validators.required]),
+    country: new FormControl('', Validators.required),
+    city: new FormControl('', Validators.required),
+    district: new FormControl('', Validators.required),
+    county: new FormControl('', Validators.required),
+    street: new FormControl('', Validators.required),
+    email: new FormControl(''),
+    phone: new FormControl(''),
+    web: new FormControl(''),
+    type: new FormControl('', Validators.required),
+    describe: new FormControl(''),
+    title: new FormControl('', Validators.required),
+    score: new FormControl(0),
+    lat: new FormControl('0', Validators.required),
+    lon: new FormControl('0', Validators.required),
+    file: new FormControl<any>('', {}),
   });
 
   constructor(

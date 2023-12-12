@@ -29,10 +29,7 @@ span{
     vertical-align: middle;
     padding: 0.4em;
 }
-.img-icon{
-    width:60px;
-    height: 45px;
-}
+
 .img-flag{
     width:1.8em;
     height:1.2em;
@@ -98,4 +95,6 @@ span{
 .flex-50{
     display: flex;
 }
-
+.position-absolute{
+    font-size: 1.6vh !important;
+}

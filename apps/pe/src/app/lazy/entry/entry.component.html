@@ -13,7 +13,7 @@
   >
     <div class="w-100 mt-4 text-center fw-bold">
       <p></p>
-      <p class="m-3">Log in to Crown</p>
+      <p class="m-3 text-meduim">Log in to Crown</p>
     </div>
     <div class="w-100"></div>
     <form [formGroup]="formLogin" (submit)="onSubmitLogin()" class="m-2">
@@ -52,9 +52,7 @@
     </div>
 
     <div class="w-100 mt-4 text-center">
-      <p></p>
-      <p class="fw-bold mt-4"></p>
-      <p class="mb-4">
+      <p class="mb-4 text-meduim">
         {{ 'createnew' | translate }}
       </p>
     </div>
@@ -66,7 +64,7 @@
       </p>
     </div>
     <div class="text-left p-1 m-2 fw-bold">
-      <span class="text-small link cursor-pointer" [routerLink]="['../login']">
+      <span class="text-meduim link cursor-pointer" [routerLink]="['../login']">
         {{ 'forgetPassword' | translate }}</span
       >
     </div>
@@ -118,7 +116,7 @@
       </div>
       <div class="text-left pt-3">
         <span
-          class="text-small link cursor-pointer"
+          class="text-meduim link cursor-pointer"
           [routerLink]="['../login']"
         >
           Already a member?

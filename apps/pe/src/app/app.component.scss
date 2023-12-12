@@ -1,12 +1,13 @@
-@media (max-width:1000px) {
+@media (max-width:1200px) {
   .adv2{
     width: 100%;
     left: 0%;
     top:0px;
   }
+ 
   .d-fixed{
-    width: 90% !important;
     left: 5% !important;
+    width: 90% !important;
   }
 }
 @media (min-width:1200px) {
@@ -124,7 +125,8 @@ text-light{
   position: fixed;
   left: 15%;
   width: 70%;
-  height: 90%;
+  height: 95%;
+  background-color: var(--COLOR-LIGHT);
   overflow: scroll !important;
   top:10%;
   z-index: 500 !important;

@@ -10,6 +10,7 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { actions } from '@appBase/+state/actions';
 import {
   selectAllTrips,
@@ -73,6 +74,7 @@ export class FormTripLocationComponent implements OnChanges, AfterViewInit {
   constructor(
     private mapService: MapService,
     private store: Store,
+    public dialog: MatDialog,
     private mapApiService: MapApiService,
     private helpService: HelpService
   ) {}
@@ -176,6 +178,15 @@ export class FormTripLocationComponent implements OnChanges, AfterViewInit {
     this.indexFormItemShow = 9;
   }
 
+  openDialog() {
+    const dialogRef = this.dialog.open(ImageDialogue, {
+      data: {
+        title: this.formSubmitTitle.get('inputTitle')?.value,
+      },
+    });
+    dialogRef.afterClosed().subscribe();
+  }
+
   FinishSubmitTrip() {
     this.hideForm.emit(false);
     this.onCommitSubmitTripLocation(true);
@@ -201,5 +212,46 @@ export class FormTripLocationComponent implements OnChanges, AfterViewInit {
       trip: [],
       finish: false,
     };
+    this.openDialog();
+  }
+}
+
+@Component({
+  selector: 'image-dialogue',
+  templateUrl: 'image-dialogue.html',
+  styleUrls: ['./image-dialogue.scss'],
+  standalone: true,
+  imports: [],
+})
+export class ImageDialogue {
+  form = new FormGroup({
+    uid: new FormControl(),
+    title: new FormControl(),
+    files: new FormControl(),
+  });
+
+  constructor(
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    @Inject('userSession') public userSession: any,
+    private store: Store
+  ) {}
+
+  onFileChange(event: any) {
+    if (event.target.files.length > 0) {
+      const file = event.target.files[0];
+      this.form.patchValue({
+        files: file,
+        uid: JSON.parse(this.userSession)?.id,
+        title: this.data.title,
+      });
+    }
+    const formData = new FormData();
+    formData.append('file', this.form.get('files')?.value);
+    const data = {
+      tripTitle: this.data.title,
+      uid: JSON.parse(this.userSession)?.id,
+      formData: formData,
+    };
+    this.store.dispatch(actions.startTripPictureUploading(data));
   }
 }

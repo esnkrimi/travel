@@ -1,7 +1,8 @@
 <ng-container *ngIf="localInformation?.country; else loading">
-  <div class="bg-white panel-exists">
+  <div class="bg-light panel-exists border w-100">
     <div class="p-2" *ngIf="!existLocation; else ExistsLocation">
       <form
+        class="m-4"
         [formGroup]="form"
         (submit)="onSubmit('file_1')"
         enctype="multipart/form-data"
@@ -74,7 +75,11 @@
               <mat-form-field>
                 <mat-label> {{ 'placetype' | translate }}</mat-label>
                 <mat-select formControlName="type">
-                  <mat-option *ngFor="let place of placeType" [value]="place">
+                  <mat-option
+                    class="text-capitalize"
+                    *ngFor="let place of placeType"
+                    [value]="place"
+                  >
                     {{ place }}
                   </mat-option>
                 </mat-select>
@@ -124,23 +129,20 @@
         </div>
 
         <div class="w-100 text-center">
-          <button mat-raised-button type="submit">
+          <button mat-raised-button type="submit" [disabled]="!form.valid">
             {{ 'submit' | translate }}
-          </button>
-          <button mat-raised-button color="primary" disabled="true">
-            {{ 'logintosubmit' | translate }}
           </button>
         </div>
       </form>
     </div>
 
     <ng-template #ExistsLocation>
-      <div *ngIf="existLocation">
+      <div>
         <br />
-        <span class="fw-bold text-title">
+        <span class="fw-bold text-title text-large">
           {{ fetchFormInputValue('title') | titlecase }}
         </span>
-        <span class="fw-bold text-title">
+        <span class="fw-bold text-title text-large">
           {{ fetchFormInputValue('type') | titlecase }}
         </span>
         <span>
@@ -190,7 +192,7 @@
         </span>
       </p>
       <span
-        class="cursor-pointer p-2 text-green text-small"
+        class="cursor-pointer p-2 text-green text-medium"
         mat-raised-button
         (click)="showFormSubmit = !showFormSubmit"
       >
@@ -254,16 +256,13 @@
               <button mat-raised-button type="submit">
                 {{ 'submit' | translate }}
               </button>
-              <button mat-raised-button color="primary" disabled="true">
-                {{ 'logintosubmit' | translate }}
-              </button>
             </div>
           </div>
         </form>
       </div>
     </ng-template>
 
-    <div class="mt-4">
+    <div class="mt-4 w-100 bg-light bg-primary" *ngIf="existLocation">
       <div class="div-header">
         People interrested in
         {{ fetchFormInputValue('title') | titlecase }}

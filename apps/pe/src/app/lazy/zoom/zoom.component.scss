@@ -55,6 +55,7 @@
 }
 input{
   color: #8a8888;
+  width: 50% !important;
 }
 .modals{
 
@@ -64,3 +65,16 @@ input{
 }
 .input-file-upload{
 }
+@media (max-width:1200px) {
+  form{
+    width: 100%;
+  }
+
+}
+@media (min-width:1200px) {
+  form{
+    width: 50%;
+  }
+
+}
+

@@ -13,7 +13,7 @@
   <ng-template #suggest>
     <div *ngIf="result.length > 0" class="lists w-100 bg-light p-3">
       <div
-        class="cursor-pointer bg-light item-found"
+        class="cursor-pointer bg-light item-found text-meduim"
         (click)="setView(i)"
         *ngFor="let item of result; let i = index"
       >
@@ -33,7 +33,7 @@
         </div>
       </div>
       <div
-        class="cursor-pointer bg-light item-found"
+        class="cursor-pointer bg-light item-found text-meduim"
         (click)="setView(i)"
         *ngFor="let item of result; let i = index"
       >
