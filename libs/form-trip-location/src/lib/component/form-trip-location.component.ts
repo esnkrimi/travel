@@ -10,7 +10,13 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
+import {
+  MAT_DIALOG_DATA,
+  MatDialog,
+  MatDialogModule,
+} from '@angular/material/dialog';
+import { RouterModule } from '@angular/router';
 import { actions } from '@appBase/+state/actions';
 import {
   selectAllTrips,
@@ -21,7 +27,8 @@ import { MapService } from '@appBase/master/map/service';
 import { Store } from '@ngrx/store';
 import { HelpService } from 'libs/help/src/lib/component/help.service';
 import { MapApiService } from 'libs/map/src/lib/component/map.service';
-import { map, tap } from 'rxjs';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { interval, map, tap } from 'rxjs';
 
 @Component({
   selector: 'pe-form-trip-location',
@@ -181,7 +188,7 @@ export class FormTripLocationComponent implements OnChanges, AfterViewInit {
   openDialog() {
     const dialogRef = this.dialog.open(ImageDialogue, {
       data: {
-        title: this.formSubmitTitle.get('inputTitle')?.value,
+        title: this.formSubmitTitle.get('inputTitle')?.value || this.title,
       },
     });
     dialogRef.afterClosed().subscribe();
@@ -221,9 +228,16 @@ export class FormTripLocationComponent implements OnChanges, AfterViewInit {
   templateUrl: 'image-dialogue.html',
   styleUrls: ['./image-dialogue.scss'],
   standalone: true,
-  imports: [],
+  imports: [
+    MatDialogModule,
+    RouterModule,
+    MatButtonModule,
+    NgxPaginationModule,
+  ],
 })
 export class ImageDialogue {
+  uid: any;
+  timestampValue: any;
   form = new FormGroup({
     uid: new FormControl(),
     title: new FormControl(),
@@ -236,7 +250,15 @@ export class ImageDialogue {
     private store: Store
   ) {}
 
+  timeStamp() {
+    return new Date().getTime();
+  }
+
   onFileChange(event: any) {
+    interval(1000).subscribe((res) => {
+      this.timestampValue = this.timeStamp();
+      this.uid = JSON.parse(this.userSession)?.id;
+    });
     if (event.target.files.length > 0) {
       const file = event.target.files[0];
       this.form.patchValue({

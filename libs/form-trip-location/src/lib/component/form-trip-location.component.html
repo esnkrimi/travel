@@ -74,6 +74,9 @@
       </div>
       <div class="flex-50">
         <button
+          [disabled]="
+            (!formSubmitTripLocation.valid || repeatedTripTitle) && !title
+          "
           (click)="formSubmitLocation = true"
           class="arrow bg-green"
           mat-button

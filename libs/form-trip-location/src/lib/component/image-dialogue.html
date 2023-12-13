@@ -1,10 +1,23 @@
-<h4>You can select a header picture for this trip</h4>
-<input
-  (change)="onFileChange($event)"
-  class="input-file-upload"
-  type="file"
-  id="file"
-  #id
-  name="file"
-  formControlName="file"
-/>
+<div class="w-100 text-center">
+  <div class="inner w-50">
+    <h4>You can select a header picture for this trip</h4>
+    <div [class.bg-loading]="uid" class="w-100 border">
+      <img
+        [src]="'https://burjcrown.com/drm/travel/users/profile/'+uid+'/trip/'+data.title+'/1.jpg?id='+timestampValue"
+        class="w-100"
+      />
+    </div>
+    <input
+      (change)="onFileChange($event)"
+      class="input-file-upload"
+      type="file"
+      id="file"
+      #id
+      name="file"
+      formControlName="file"
+    />
+  </div>
+  <div class="w-100 text-center m-3 p-2">
+    <button mat-raised-button mat-dialog-close>return</button>
+  </div>
+</div>

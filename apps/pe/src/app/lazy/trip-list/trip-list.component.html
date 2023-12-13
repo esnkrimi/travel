@@ -14,7 +14,7 @@
   <div
     [class.hide]="!tripIsLive(item.title)"
     *ngFor="let item of tripUsersFlat; let jindex = index"
-    class="col-md-3 p-2 border"
+    class="col-md-4 p-2 border"
   >
     <div *ngIf="item.title && tripIsLive(item.title)" class="card">
       <ng-container>
@@ -28,7 +28,7 @@
               item.title +
               '/1.jpg'
             "
-            class="img-profile cursor-pointer"
+            class="img-trip cursor-pointer"
           />
 
           <div *ngIf="item.finish" class="on-layer top-layer row w-100">
@@ -36,24 +36,30 @@
               <p class="text-capitalize p-2 text-center w-100">Finished !</p>
             </div>
           </div>
-          <div class="on-layer text-layer row w-100 flex-cell">
-            <div style="flex-basis: 50%">
-              <p class="text-capitalize flex-cell text-large">
+          <div class="on-layer text-layer row w-100">
+            <div class="manager-trip-frame flex-cell">
+              <span class="pr-4">
+                <img
+                  class="img-icon opacity-1 rounded-rectangle"
+                  [src]="
+                    'https:burjcrown.com/drm/travel/users/profile/' +
+                    getFromTripFlat(item.title)?.uid +
+                    '/1.jpg'
+                  "
+                />
+              </span>
+              <span class="text-capitalize text-large m-2">
                 {{ getFromTripFlat(item.title)?.name }}
                 {{ getFromTripFlat(item.title)?.family }}
-              </p>
-            </div>
-
-            <div style="flex-basis: 50%" class="text-right">
-              <div class="p-2">
-                <i
-                  id="item.rate"
-                  *ngFor="let rate of getFromTripFlat(item.title)?.rate"
-                  class="fa fa-2x fa-star star-layer"
-                ></i>
-              </div>
+              </span>
             </div>
           </div>
+
+          <i
+            id="item.rate"
+            *ngFor="let rate of getFromTripFlat(item.title)?.rate"
+            class="fa fa-2x fa-star star-layer on-layer"
+          ></i>
         </div>
         <ng-container class="card-body">
           <div class="d-flex flex-nowrap m-2 bg-light">
@@ -118,21 +124,6 @@
                   class="card-title p-2 text-small text-muted fw-bold text-capitalize border-bottom"
                 ></div>
               </div>
-              <div *ngFor="let location of item.trip; let index = index">
-                <p>
-                  <span class="fw-bold"> {{ index + 1 }} . </span>
-                  <span>
-                    <i class="fa fa-map-marker"></i>
-                  </span>
-                  <span class="fw-bold text-capitalize">
-                    {{ location?.locationTitle }}
-                  </span>
-                  <span>
-                    : {{ location.dateIncome }} at {{ location.timeIncome }} by
-                    {{ location?.vehicle }}
-                  </span>
-                </p>
-              </div>
 
               <div>
                 <a
@@ -145,6 +136,31 @@
           </div>
         </ng-container>
       </ng-container>
+      <div class="on-layer details-button-layer">
+        <span
+          alt="Hold Mouse"
+          title="Hold Mouse"
+          class="link-dark btn btn-light cursor-pointer"
+          >Details</span
+        >
+      </div>
+      <div class="on-layer bg-light details-layer text-dark">
+        <div class="m-3" *ngFor="let location of item.trip; let index = index">
+          <p>
+            <span class="fw-bold"> {{ index + 1 }} . </span>
+            <span>
+              <i class="fa fa-map-marker"></i>
+            </span>
+            <span class="fw-bold text-capitalize">
+              {{ location?.locationTitle }}
+            </span>
+            <span>
+              : {{ location.dateIncome }} at {{ location.timeIncome }} by
+              {{ location?.vehicle }}
+            </span>
+          </p>
+        </div>
+      </div>
     </div>
   </div>
 </div>

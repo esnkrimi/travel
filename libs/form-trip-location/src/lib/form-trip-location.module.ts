@@ -36,6 +36,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     MatFormFieldModule,
     MatListModule,
     MatInputModule,
+    LoadingProgressModule,
     ReactiveFormsModule,
     TranslateModule.forRoot({
       defaultLanguage: 'en',

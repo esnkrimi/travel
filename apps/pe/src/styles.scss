@@ -303,7 +303,7 @@ button:disabled{
    align-items: center; 
    
 }
-
+ 
 .font-antique{
    font-family: antique;
 }
@@ -329,4 +329,13 @@ h2 {
 }
 .hover-attention:hover{
    color:var(--COLOR-RED) !important
+}
+.rounded-rectangle{
+   border-radius: 0.3em
+}
+.bg-loading{
+   background-image:  url('./assets/img/loading.png');
+   background-size: 20% 20%;
+   background-repeat: no-repeat;
+   background-position: center;
 }
