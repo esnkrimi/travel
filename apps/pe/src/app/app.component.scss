@@ -134,3 +134,10 @@ text-light{
 .bg-light{
   background-color: var( --COLOR-CREAM) !important ;
 }
+.footer{
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  padding-top: 20em;
+  width: 100%;
+}

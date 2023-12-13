@@ -73,7 +73,9 @@ span{
     }
 }
 
-
+.hide{
+    display: none;
+}
 
 .menu{
     z-index: 9000 !important;
@@ -97,4 +99,8 @@ span{
 }
 .position-absolute{
     font-size: 1.6vh !important;
+}
+.light-div{
+    background-color: var(--COLOR-BLUEBLACK);
+    font-size: 0.9em !important;
 }

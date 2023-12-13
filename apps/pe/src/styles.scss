@@ -113,7 +113,6 @@ body{
       top:0px;
    }
 }
-
 .animated-fadein{
    animation: animate-fadein 2s forwards;
 }
@@ -121,13 +120,34 @@ body{
    0%{
        opacity: 0;
    }
-
    100%{
       opacity: 1;
    }
 }
-
-
+.animated-display {
+   animation: animate-display  0.6s forwards;
+}
+@keyframes animate-display {
+   0%{
+      opacity: 1;
+  }
+  100%{
+     opacity: 0;
+     height: 0px !important;
+     visibility: hidden;
+  }
+}
+.animated-height-zero-to-complete {
+   animation: animate-height-zero-to-complete  2s forwards;
+}
+@keyframes animate-height-zero-to-complete {
+   0%{
+      height: 5px;   
+   }
+   100%{
+      height: 0;
+   }
+}
 .animated-rotate{
    animation: animated-rotate 0.5s forwards;
 }
@@ -140,7 +160,7 @@ body{
        transform: rotate(720deg);
    }
 }
-.animated-scale{
+.animatedscale{
    animation: animated-scale 0.5s forwards;
 }
 @keyframes animated-scale {
@@ -179,7 +199,7 @@ body{
    backdrop-filter: blur(5px);
    position: fixed;
 }
-.d-fixed{
+.d-fixed{ 
    position: fixed;
    left: 0;
    top:5%;
@@ -196,11 +216,20 @@ body{
    font-size: calc(0.2vw + 0.2vh + 1vmin) !important;
    font-weight: bold;
    transition: 0.2s !important;
+}
+.big-link:hover{
+   color: var(--COLOR-GREEN); 
+}
+.joyride-button{
+   background-color: var(--COLOR-MAGENTA) !important; 
+   color: --var(--COLOR-LIGHT) !important;
+  
   }
-  .big-link:hover{
-     color: var(--COLOR-GREEN); 
-  }
+.joyride-button:HOVER{
+ color: var(--COLOR-MAGENTA) !important; 
+ background-color: var(--COLOR-LIGHT) !important;
 
+}
 .link { 
  color: var(--COLOR-MAGENTA); 
  transition: 1s !important;

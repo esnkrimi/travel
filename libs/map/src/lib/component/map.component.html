@@ -37,7 +37,6 @@
             "
           />
         </div>
-
         <div
           class="mt-2"
           joyrideStep="secondStep"
@@ -53,7 +52,7 @@
         </div>
         <div
           class=""
-          joyrideStep="thirdStep "
+          joyrideStep="firstStep"
           text="You can make a trip and schedule it "
         >
           <span
@@ -73,13 +72,19 @@
           class="animated-fadein text-large text-green bg-white w-100"
           *ngIf="distanceActivated"
         >
-          DISTANCE MODE
+          <span> DISTANCE MODE </span>
         </div>
-        <p>{{ draggingLocation.country }} {{ draggingLocation.city }}</p>
-        <p class="text-muted text-meduim">
-          {{ draggingLocation.suburb }}
-          {{ draggingLocation.street }}
-        </p>
+        <div>
+          <span
+            >{{ draggingLocation.country }} {{ draggingLocation.city }}</span
+          >
+        </div>
+        <div class="text-muted text-meduim">
+          <span>
+            {{ draggingLocation.suburb }}
+            {{ draggingLocation.street }}
+          </span>
+        </div>
       </div>
 
       <div class="map-frame w-100">

@@ -20,28 +20,32 @@
             [scope]="scope"
             (zoomActivator)="zoomActivatorFunction($event)"
           ></pe-map-component>
+
+          <!--
+          <div class="footer pt-high">
+             <pe-footer *ngIf="!showMap"></pe-footer>
+            </div>
+          -->
         </div>
-        <pe-footer *ngIf="!showMap"></pe-footer>
       </div>
       <div class="transparent-bg" *ngIf="bgLoader"></div>
     </div>
     <div></div>
   </div>
 </div>
-
-<!--
-  <div class="adv2 animated-fadein" *ngIf="skip >= 0 && skip < 2">
-    <img
+<div class="adv2 animated-fadein" *ngIf="skip >= 0 && skip < 2">
+  <img
     src="https://static.vecteezy.com/system/resources/previews/014/531/407/original/travel-guide-and-tour-with-showing-interesting-places-to-group-of-tourist-for-planning-vacation-in-flat-cartoon-hand-drawn-templates-illustration-vector.jpg"
     class="w-100"
   />
   <div class="row w-100 bg-light tour">
     <div style="flex-basis: 50%">
-      <p class="rounded-circle" (click)="skipNext()">Skip</p>
+      <p class="rounded-circle cursor-pointer" (click)="skipNext()">Skip</p>
     </div>
     <div style="flex-basis: 50%">
-      <p class="rounded-circle" (click)="showTours()">Start Tour</p>
+      <p class="rounded-circle cursor-pointer" (click)="showTours()">
+        Start Tour
+      </p>
     </div>
   </div>
 </div>
--->

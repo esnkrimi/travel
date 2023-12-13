@@ -1,5 +1,4 @@
 import {
-  AfterViewInit,
   Component,
   Inject,
   OnInit,
@@ -9,7 +8,7 @@ import {
 import { TranslateService } from '@ngx-translate/core';
 import { DrawerService } from './drawer.service';
 import { MatDrawer } from '@angular/material/sidenav';
-import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { Iuser, IuserOfSite } from '@appBase/+state/state';
 import { EntryService } from './lazy/entry/entry.service';
 import { Store } from '@ngrx/store';
@@ -17,11 +16,7 @@ import { MapService } from './master/map/service';
 import { SettingService } from './setting';
 import { actions } from './+state/actions';
 import { MapApiService } from 'libs/map/src/lib/component/map.service';
-import {
-  selectAllTrips,
-  selectTripRequests,
-  selectTripUsers,
-} from './+state/select';
+import { selectAllTrips, selectTripRequests } from './+state/select';
 import { MatDialog } from '@angular/material/dialog';
 
 @Component({

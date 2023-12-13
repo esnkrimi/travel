@@ -5,7 +5,13 @@ import {
   transition,
   trigger,
 } from '@angular/animations';
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  HostListener,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { Router } from '@angular/router';
 import { DrawerService } from '@appBase/drawer.service';
 import { EntryService } from '@appBase/lazy/entry/entry.service';
@@ -22,14 +28,13 @@ import { MapService } from '../map/service';
   animations: [
     trigger('animate', [
       state(
-        'st1',
+        'true',
         style({
-          transform: 'rotate(90) !important',
-          opacity: 0.8,
+          opacity: 1,
         })
       ),
       state(
-        'st2',
+        'false',
         style({
           opacity: 1,
         })
@@ -39,9 +44,10 @@ import { MapService } from '../map/service';
   ],
 })
 export class HeaderComponent implements OnInit {
+  scrollDown = true;
   languages = settings.languages;
   languageIndex = 1;
-  animationFlag = false;
+  animationFlag = 'false';
   @Output() resultOutputs = new EventEmitter<any>();
   @Output() savedLocation = new EventEmitter<any>();
   savedLocationFlag = false;
@@ -64,6 +70,11 @@ export class HeaderComponent implements OnInit {
     private router: Router,
     private settingService: SettingService
   ) {}
+  @HostListener('window:scroll', ['$event'])
+  doSomething(event: any) {
+    this.scrollDown = window.pageYOffset > 58 ? true : false;
+    console.log('Scroll Event', window.pageYOffset);
+  }
   zoomTrip(tripTitle: string) {
     this.router.navigateByUrl('lazy(secondRouter:lazy/mytrips/');
   }
@@ -84,12 +95,12 @@ export class HeaderComponent implements OnInit {
     window.location.reload();
   }
   changeLanguage(language: string) {
+    this.animationFlag = this.animationFlag === 'true' ? 'false' : 'true';
     this.mapServicePrivate.loadingProgress.next(true);
     setTimeout(() => {
       this.mapServicePrivate.loadingProgress.next(false);
       this.settingService.language.next(language.toLowerCase());
       this.languageIndex = this.languageIndex >= 4 ? 0 : this.languageIndex + 1;
-      this.animationFlag = !this.animationFlag;
     }, 1000);
   }
   resultOutput(event: any) {

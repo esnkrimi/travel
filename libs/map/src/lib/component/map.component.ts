@@ -447,7 +447,7 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
 
   showTours() {
     this.joyrideService.startTour(
-      { steps: ['firstStep', 'secondStep', 'thirdStep'] } // Your steps order
+      { steps: ['firstStep', 'secondStep'] } // Your steps order
     );
   }
   searchBox() {
