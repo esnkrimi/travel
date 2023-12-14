@@ -2,9 +2,8 @@
   .adv2{
     width: 100%;
     left: 0%;
-    top:0px;
+    bottom:0px;
   }
- 
   .d-fixed{
     left: 5% !important;
     width: 90% !important;
@@ -14,7 +13,7 @@
   .adv2{
     width: 50%;
     left: 25%;
-    top: 10%;
+    top: 25%;
   }
 
 }
@@ -30,7 +29,6 @@
   left: 0px;
   z-index: 1202;
   animation: cross 1s forwards;
-
 }
 @keyframes cross {
   0%{
@@ -41,13 +39,12 @@
   }
 
 }
-
 .adv2{
   position: fixed;
   text-align: center; 
-  height: 300px;
+  height: 50vh;
   background-color: white;
-  z-index: 1205;
+  z-index: 5505;
 }
 .skip1{
   animation: skip 1s forwards;

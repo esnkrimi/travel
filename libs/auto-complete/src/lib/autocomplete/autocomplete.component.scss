@@ -33,3 +33,18 @@ input{
   color: var(--COLOR-DARK) !important;
   border: none !important;
 }
+
+.item-found:hover .flag{
+  display: inline !important;
+}
+.flag{
+  display: none;
+}
+.text-muted{
+  font-weight: normal !important;
+}
+.img-icon{
+  width: 1vw !important;
+  height: 1vh !important;
+  opacity: 1 !important;
+}

@@ -1,9 +1,11 @@
 @media only screen and (max-width: 1200px) {
+    .navbar{
+        display: none !important;
+    }
     .flex-cell{
         justify-content: left;
     }
     .flex-50>div{
-        flex-basis: 50%;
 
     }
     .child:first-child{

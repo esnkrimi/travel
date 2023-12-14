@@ -71,10 +71,6 @@ export class HeaderComponent implements OnInit {
     private settingService: SettingService
   ) {}
   @HostListener('window:scroll', ['$event'])
-  doSomething(event: any) {
-    this.scrollDown = window.pageYOffset > 58 ? true : false;
-    console.log('Scroll Event', window.pageYOffset);
-  }
   zoomTrip(tripTitle: string) {
     this.router.navigateByUrl('lazy(secondRouter:lazy/mytrips/');
   }

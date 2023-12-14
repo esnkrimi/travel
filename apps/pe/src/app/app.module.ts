@@ -33,6 +33,7 @@ import {
   GoogleLoginProvider,
   GoogleSigninButtonDirective,
 } from '@abacritt/angularx-social-login';
+import { HelpModule } from '@pe/help';
 
 export function debug(reducer: ActionReducer<any>): ActionReducer<any> {
   return function (state: any, action: any) {
@@ -59,6 +60,7 @@ export function getUserSession(localService: LocalService) {
     MatChipsModule,
     MatFormFieldModule,
     MatInputModule,
+    HelpModule,
     GoogleSigninButtonModule,
     SocialLoginModule,
     HttpClientModule,

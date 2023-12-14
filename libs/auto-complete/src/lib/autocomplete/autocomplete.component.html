@@ -17,40 +17,55 @@
         (click)="setView(i)"
         *ngFor="let item of result; let i = index"
       >
-        <div *ngIf="!item.title">
-          <div class="cursor-pointer">
-            <div class="row d-flex flex-nowrap">
-              <div class="text-left text-dark fw-bold text-capitalize">
-                <span>
-                  {{ item.city }}
-                </span>
-                <span class="text-muted">
-                  - {{ item.country || item.title }}
-                </span>
+        <ng-container *ngIf="item">
+          <div *ngIf="!item.title && item.city.length > 1">
+            <div class="cursor-pointer">
+              <div class="row d-flex flex-nowrap">
+                <div class="text-left text-dark fw-bold text-capitalize">
+                  <span> {{ item.city }}</span>
+                  <span class="text-muted">
+                    - {{ item.country || item.title }}
+                  </span>
+                  <span class="flag">
+                    <img
+                      class="img-icon"
+                      [src]="
+                        'https://cdn.countryflags.com/thumbs/' +
+                        toLower(item.country) +
+                        '/flag-square-250.png'
+                      "
+                    />
+                  </span>
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        </ng-container>
+      </div>
+      <div class="w-100 text-left">
+        <span class="text-muted"> Private Locations </span>
       </div>
       <div
         class="cursor-pointer bg-light item-found text-meduim"
-        (click)="setView(i)"
-        *ngFor="let item of result; let i = index"
+        (click)="setView(j)"
+        *ngFor="let item of result; let j = index"
       >
-        <div *ngIf="item.title">
-          <div class="cursor-pointer">
-            <div class="row d-flex flex-nowrap">
-              <div class="text-left text-dark fw-bold text-capitalize">
-                <span>
-                  {{ item.city }}
-                </span>
-                <span class="text-muted">
-                  - {{ item.country || item.title }}
-                </span>
+        <ng-container *ngIf="j < 10">
+          <div *ngIf="item.title">
+            <div class="cursor-pointer">
+              <div class="row d-flex flex-nowrap">
+                <div class="text-left text-dark fw-bold text-capitalize">
+                  <span>
+                    {{ item.city }}
+                  </span>
+                  <span class="text-muted">
+                    - {{ item.country || item.title }}
+                  </span>
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        </ng-container>
       </div>
     </div>
   </ng-template>

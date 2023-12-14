@@ -10,6 +10,7 @@ import { MessagesComponent } from './messages/messages.component';
 import { MyrequestsComponent } from './my-requests/myrequests.component';
 import { UsersComponent } from './users/users.component';
 import { SettingComponent } from './setting/setting.component';
+import { CanActivateGuard } from './guard';
 const routes: Routes = [
   {
     path: 'zoom',
@@ -26,6 +27,7 @@ const routes: Routes = [
   {
     path: 'mytrips',
     component: MytripsComponent,
+    canActivate: [CanActivateGuard],
   },
   {
     path: 'users/:user',
@@ -34,14 +36,17 @@ const routes: Routes = [
   {
     path: 'myrequests',
     component: MyrequestsComponent,
+    canActivate: [CanActivateGuard],
   },
   {
     path: 'messages',
     component: MessagesComponent,
+    canActivate: [CanActivateGuard],
   },
   {
     path: 'setting',
     component: SettingComponent,
+    canActivate: [CanActivateGuard],
   },
   {
     path: 'trips',
@@ -64,5 +69,6 @@ const routes: Routes = [
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
+  providers: [CanActivateGuard],
 })
 export class lazyRouterModule {}

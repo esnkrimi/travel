@@ -28,7 +28,9 @@ export class AutocompleteComponent implements OnInit {
   ngOnInit(): void {
     this.listener();
   }
-
+  toLower(str: string) {
+    return str.toLocaleLowerCase();
+  }
   listener() {
     this.store.select(selectAutoCompleteFind).subscribe((res) => {
       this.result = res;

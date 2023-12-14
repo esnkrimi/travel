@@ -16,6 +16,7 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { RouterModule, Routes } from '@angular/router';
 import { masterRouterModule } from './routes';
 import { HelpModule } from '@pe/help';
+import { NavbarMenuModule } from '@pe/navbar-menu';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { HelpModule } from '@pe/help';
     AutoCompleteModule,
     masterRouterModule,
     HelpModule,
+    NavbarMenuModule,
     RouterModule,
     MatButtonModule,
     MatIconModule,
