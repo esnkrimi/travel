@@ -11,6 +11,7 @@ import { MyrequestsComponent } from './my-requests/myrequests.component';
 import { UsersComponent } from './users/users.component';
 import { SettingComponent } from './setting/setting.component';
 import { CanActivateGuard } from './guard';
+import { LocationListComponent } from './location-list/location-list.component';
 const routes: Routes = [
   {
     path: 'zoom',
@@ -23,6 +24,10 @@ const routes: Routes = [
   {
     path: 'login',
     component: EntryComponent,
+  },
+  {
+    path: 'locations',
+    component: LocationListComponent,
   },
   {
     path: 'mytrips',

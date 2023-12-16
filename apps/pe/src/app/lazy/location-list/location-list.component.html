@@ -1,0 +1,69 @@
+<form [formGroup]="formSearchTrip">
+  <mat-form-field class="search-input">
+    <mat-label> {{ 'Search...' }}</mat-label>
+    <input matInput formControlName="itemToSearch" class="" />
+  </mat-form-field>
+</form>
+
+<div class="w-100">
+  <div class="inner">
+    <div
+      *ngFor="
+        let l of locatinListFiltered
+          | paginate : { itemsPerPage: 6, currentPage: page }
+      "
+      class="m-2 p-3 bg-light"
+    >
+      <div class="row">
+        <div class="col-md-6">
+          <div class="border-bottom">
+            <span class="fw-bold text-capitalize">
+              {{ l.title }}
+            </span>
+          </div>
+        </div>
+        <div class="col-md-6 text-right">
+          <ng-container *ngFor="let rate of starRates(l.score)">
+            <i class="fa fa-star" *ngIf="rate === '1'"></i>
+          </ng-container>
+        </div>
+      </div>
+
+      <div class="p-4">
+        <div>
+          <span class="text-capitalize">Type : {{ l.type }}</span>
+        </div>
+
+        <div>
+          <span>Address : </span>
+          <span class="fw-bold text-capitalize">
+            {{ l.country }} {{ l.city }}
+          </span>
+          <span>
+            {{ l.county }}
+            {{ l.district }}
+            {{ l.street }}
+          </span>
+        </div>
+        <div *ngIf="l.email">
+          <span class="text-capitalize">Email : {{ l.email }}</span>
+        </div>
+
+        <div *ngIf="l.phone">
+          <span>Email : {{ l.phone }}</span>
+        </div>
+      </div>
+      <div>
+        <button mat-raised-button>View on map</button>
+      </div>
+    </div>
+
+    <pagination-controls
+      [autoHide]="true"
+      [responsive]="true"
+      previousLabel=""
+      nextLabel=""
+      (pageChange)="page = $event"
+    ></pagination-controls>
+  </div>
+</div>

@@ -16,7 +16,7 @@ import { MatRippleModule } from '@angular/material/core';
 import { ActionReducer, MetaReducer, StoreModule } from '@ngrx/store';
 import { reducerStates } from './+state/reducer';
 import { EffectsModule } from '@ngrx/effects';
-import { NgxPaginationModule } from 'ngx-pagination'; // <-- import the module
+import { NgxPaginationModule } from 'ngx-pagination';
 import { storeEffects } from './+state/effects';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatIconModule } from '@angular/material/icon';

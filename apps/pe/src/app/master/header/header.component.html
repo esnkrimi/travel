@@ -114,6 +114,15 @@
                   {{ 'myrequests' | translate }}
                 </span>
               </p>
+
+              <p
+                (click)="menuShow = false"
+                [routerLink]="[{ outlets: { secondRouter: 'lazy/locations' } }]"
+              >
+                <span>
+                  {{ 'locationList' | translate }}
+                </span>
+              </p>
               <p
                 (click)="menuShow = false"
                 [routerLink]="[{ outlets: { secondRouter: 'lazy/trips' } }]"

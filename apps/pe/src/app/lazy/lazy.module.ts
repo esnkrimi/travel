@@ -35,10 +35,13 @@ import { TimeCOmparePipe } from '@appBase/pipe/time';
 import { MoneyCOmparePipe } from '@appBase/pipe/money';
 import { TripCommentsComponent } from './trip-comments/trip-comments.component';
 import { SettingComponent } from './setting/setting.component';
+import { NgxPaginationModule } from 'ngx-pagination'; // <-- import the module
 import { GoogleSigninButtonModule } from '@abacritt/angularx-social-login';
+import { LocationListComponent } from './location-list/location-list.component';
 @NgModule({
   declarations: [
     EntryComponent,
+    LocationListComponent,
     MyrequestsComponent,
     ZoomComponent,
     TripCommentsComponent,
@@ -66,6 +69,7 @@ import { GoogleSigninButtonModule } from '@abacritt/angularx-social-login';
     ConfirmModalModule,
     ReactiveFormsModule,
     MatExpansionModule,
+    NgxPaginationModule,
     LoadingImageModule,
     MatButtonModule,
     MatInputModule,

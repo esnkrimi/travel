@@ -1,0 +1,35 @@
+<div class="parent-div">
+  <span *ngFor="let guest of fetchTripUsers();let index=index">
+    <div>
+      <h3
+        mat-dialog-close
+        matDialogClose
+        class="text-capitalize cursor-pointer"
+        [routerLink]="[{ outlets: { secondRouter: 'lazy/users/'+guest.user_id } }]"
+      >
+        {{index+1}} . {{guest.name}} {{guest.lnama}}
+        <span
+          class="text-green fw-bold"
+          *ngIf="guest.confirmed==='1';else notConfirmed"
+        >
+          confirmed !
+        </span>
+      </h3>
+
+      <ng-template #notConfirmed>
+        <span class="text-small text-muted"> waiting </span>
+      </ng-template>
+    </div>
+    <div class="p-2">
+      <span> {{guest.email}} </span>
+    </div>
+    <!--
+      <img
+      [class.opacity-1]="guest.confirmed === '1'"
+      [title]="guest.name"
+      src="https://d1hb67vd7r4m10.cloudfront.net/images/easyblog_articles/89/b2ap3_large_ee72093c-3c01-433a-8d25-701cca06c975.jpg"
+      class="rounded-circle img-icon m-2"
+      />
+      -->
+  </span>
+</div>

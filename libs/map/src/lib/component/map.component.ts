@@ -411,6 +411,7 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
           else this.bind(e);
         })
         .on('mouseover', (e) => {
+          console.log(e.target.getLatLng());
           this.store
             .select(selectLocation)
             .pipe(
@@ -439,8 +440,20 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
       this.turnOffProgress(1);
     }
   }
-
+  highlightLocation(position: any) {
+    const position_ = {
+      lat: Number(position[0]),
+      lng: Number(position[1]),
+    };
+    this.addMarker(position, 'location', [60, 60]);
+    const tooltipPopup = L.popup({ offset: L.point(0, -20) });
+    tooltipPopup.setContent(`HELLLLLLO`);
+    tooltipPopup.setLatLng(position_);
+    tooltipPopup.openOn(this.map);
+  }
   ngOnChanges(changes: SimpleChanges): void {
+    this.addMarker(this.center, 'airport', [120, 120]);
+    //this.highlightLocation(this.center);
     this.draggingLocation.city = this.city;
     this.draggingLocation.country = this.country;
     this.draggingLocation = {
@@ -450,7 +463,6 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
       suburb: '',
     };
     this.savedLocationActive();
-    this.addMarker(this.center, 'location', [80, 80]);
     this.mapApiService.savedLocation.subscribe((res) => {
       this.changeCenter();
 

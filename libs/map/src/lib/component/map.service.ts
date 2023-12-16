@@ -48,6 +48,7 @@ export class MapApiService {
   fetchAllByCountry(country: string) {
     this.baseUrl =
       'https://www.burjcrown.com/drm/travel/index.php?id=6&country=' + country;
+    console.log(this.baseUrl);
     return this.httpClient.get(this.baseUrl);
   }
 
