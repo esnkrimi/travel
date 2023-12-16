@@ -1,13 +1,8 @@
 .frame{
     left:0px;
-    top:100px;
+    top:0;
     z-index: 99000 !important;
-    width: 12em;
-    margin: 2em;
-    position: fixed;
+    width: fit-content;
+    position: absolute;
 }
-.border-radius{
-    border-radius: 30%;
-}
-
  

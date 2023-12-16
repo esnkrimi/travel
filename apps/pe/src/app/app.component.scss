@@ -70,9 +70,7 @@
     left: 0px;
     top: 0px;
   }
-  .d-relative{
-    position:relative
-  }
+  
   @media (min-width:1400px) {
     .sidenav{
       width: 50%;
@@ -89,9 +87,7 @@
     position:static !important;
   }
 }
-  .relative{
-    position: relative !important;
-  }
+
  
 .tour>div>p:hover{
   color: orange;

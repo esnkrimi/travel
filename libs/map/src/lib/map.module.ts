@@ -16,6 +16,7 @@ import { FormTripLocationModule } from '@pe/form-trip-location';
 import { TripsModule } from '@pe/trips';
 import { HelpModule } from '@pe/help';
 import { RouterModule } from '@angular/router';
+import { AdvancedAutocompleteModule } from '@pe/advanced-autocomplete';
 
 @NgModule({
   declarations: [MapBoardComponent, DistancePipe],
@@ -27,6 +28,7 @@ import { RouterModule } from '@angular/router';
     FormsModule,
     RouterModule,
     HelpModule,
+    AdvancedAutocompleteModule,
     MatRippleModule,
     MatFormFieldModule,
     TripsModule,

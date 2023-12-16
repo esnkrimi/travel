@@ -1,10 +1,5 @@
 <div *ngIf="formTripShow" class="div-location w-100 bg-primary">
   <div class="border">
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
     <pe-form-trip-location
       [currentTrip]="currentTrip"
       [latSelect]="latSelect"
@@ -17,10 +12,15 @@
   </div>
 </div>
 <div class="parent">
-  <div class="bg-white text-center" *ngIf="createTripActivate">
+  <div class="text-center" *ngIf="createTripActivate">
     <pe-trips [currentTrip]="currentTrip"></pe-trips>
   </div>
   <div class="w-100 text-center box">
+    <div class="location-input">
+      <pe-advanced-autocomplete
+        (results)="change($event)"
+      ></pe-advanced-autocomplete>
+    </div>
     <div [class.invisible]="!showMap" class="absolute-50">
       <div class="w-100 bg-light" cdkDrag>
         <div

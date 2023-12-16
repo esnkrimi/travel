@@ -74,16 +74,42 @@
             <div>
               <mat-form-field>
                 <mat-label> {{ 'placetype' | translate }}</mat-label>
-                <mat-select formControlName="type">
-                  <mat-option
-                    class="text-capitalize"
-                    *ngFor="let place of placeType"
-                    [value]="place"
-                  >
-                    {{ place }}
-                  </mat-option>
-                </mat-select>
+                <input
+                  matInput
+                  [readonly]="existLocation"
+                  formControlName="type"
+                  placeholder="Ex . google company"
+                />
               </mat-form-field>
+
+              <div
+                *ngIf="
+                  locationTypeAutocompleteDataFiltered !== null &&
+                  locationTypeAutocompleteDataFiltered.length < 10
+                "
+                class="lists form"
+              >
+                <div
+                  class="cursor-pointer w-100 bg-light p-1"
+                  *ngFor="
+                    let item of locationTypeAutocompleteDataFiltered;
+                    let i = index
+                  "
+                >
+                  <div class="bg-light span-animated-on-hover cursor-pointer">
+                    <div class="row d-flex flex-nowrap">
+                      <div
+                        style="flex-basis: 45%"
+                        class="text-left"
+                        (click)="changeLocatioType(item.type)"
+                        *ngIf="item.type !== 'null'"
+                      >
+                        {{ item.type }}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
 
             <div>

@@ -9,6 +9,9 @@ export const vehicle = new Set([
   'walk',
 ]);
 
+export interface ILocationTypes {
+  type: string;
+}
 export interface ILocationInTrip {
   lat: string;
   lon: string;
@@ -164,9 +167,11 @@ export interface state {
   loginInfo: IloginInfo;
   setview: ISetview;
   tripComments: ITripComments[];
+  iLocationTypes: ILocationTypes[];
 }
 
 export const AppState: state = {
+  iLocationTypes: [],
   trip: [],
   reviewtrip: [],
   location: [],

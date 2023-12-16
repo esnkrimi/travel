@@ -109,8 +109,6 @@ export class FormTripLocationComponent implements OnChanges, AfterViewInit {
   selectLocationActivated = false;
 
   ngOnChanges(changes: SimpleChanges): void {
-    //console.log(this.title);
-
     this.mapApiService.bgLoader.next(true);
     if (this.title.length > 1) this.indexFormItemShow = 2;
     this.formSubmitTripLocation.get('lat')?.setValue(this.latSelect[0]);

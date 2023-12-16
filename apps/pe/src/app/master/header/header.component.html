@@ -1,5 +1,5 @@
 <div class="w-100 header-fix z-index bg-dark shadow-sm">
-  <div class="light-div d-flex flex-nowrap w-100" [class.hide]="scrollDown">
+  <div class="light-div d-flex flex-nowrap w-100">
     <div class="text-left text-light w-50">
       <span> Crown Travel Management </span>
     </div>
@@ -15,7 +15,10 @@
     </div>
   </div>
   <div class="row">
-    <div class="col-md-6 position-static text-center">
+    <div
+      class="col-md-6 position-static text-center bg-dark"
+      [class.fix-position]="scrollDown"
+    >
       <div class="d-flex w-100 flex-nowrap">
         <div class="w-50 flex-cell">
           <span class="font-antique text-light text-large"> CROWN </span>

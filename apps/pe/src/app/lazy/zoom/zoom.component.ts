@@ -8,7 +8,7 @@ import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { MapService } from '@appBase/master/map/service';
 import { Store } from '@ngrx/store';
 import { actions } from '@appBase/+state/actions';
-import { selectLocation } from '@appBase/+state/select';
+import { selectILocationTypes, selectLocation } from '@appBase/+state/select';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { SettingService } from '@appBase/setting';
 
@@ -61,7 +61,8 @@ export class ZoomComponent implements AfterViewInit {
     lon: new FormControl('0', Validators.required),
     file: new FormControl<any>('', {}),
   });
-
+  locationTypeAutocompleteDataFiltered: any = [];
+  locationTypeAutocompleteDataFilteredPre: any = [];
   constructor(
     private drawerService: DrawerService,
     private entryService: EntryService,
@@ -72,6 +73,8 @@ export class ZoomComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
     this.listener();
+    this.selectLocationTypes();
+    this.inputListener();
   }
 
   rate(rate: number) {
@@ -96,6 +99,27 @@ export class ZoomComponent implements AfterViewInit {
         updateSaved: [this.result?.id, this.userLogined],
       })
     );
+  }
+  inputListener() {
+    this.form.get('type')?.valueChanges.subscribe((res) => {
+      this.locationTypeAutocompleteDataFiltered =
+        this.locationTypeAutocompleteDataFilteredPre.filter((result: any) =>
+          result.type.includes(res)
+        );
+    });
+  }
+  changeLocatioType(type: string) {
+    this.locationTypeAutocompleteDataFiltered = [];
+    this.form.get('type')?.setValue(type);
+  }
+  selectLocationTypes() {
+    this.store.select(selectILocationTypes).subscribe((res) => {
+      this.locationTypeAutocompleteDataFilteredPre = res;
+    });
+  }
+  lower(str: any) {
+    if (str[0] === ' ') str = str.slice(1, str.length);
+    return str.replaceAll(' ', '-').replaceAll('%20', '-').toLowerCase();
   }
   openDialog() {
     const dialogRef = this.dialog.open(DialogContent);

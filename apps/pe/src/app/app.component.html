@@ -1,55 +1,56 @@
 <div class="w-100 border">
-  <div class="bg-light w-100 position-relative">
+  <div class="bg-light w-100">
     <pe-header
       (savedLocation)="savedLocation($event)"
       (resultOutputs)="resultOutputs($event)"
     ></pe-header>
     <div class="w-100">
-      <div class="w-100 position-relative">
-        <div class="w-100 d-relative">
-          <div
-            *ngIf="loadingProgress"
-            class="transparent-background-loading"
-          ></div>
+      <div class="w-100 relative">
+        <div
+          *ngIf="loadingProgress"
+          class="transparent-background-loading"
+        ></div>
 
-          <router-outlet name="secondRouter"></router-outlet>
-          <pe-map-component
-            *ngIf="showMap"
-            [savedLocation]="savedLocationFlag"
-            [showTour]="showTour"
-            [scope]="scope"
-            (zoomActivator)="zoomActivatorFunction($event)"
-          ></pe-map-component>
+        <router-outlet name="secondRouter"></router-outlet>
+        <pe-map-component
+          *ngIf="showMap"
+          [savedLocation]="savedLocationFlag"
+          [showTour]="showTour"
+          [scope]="scope"
+          (zoomActivator)="zoomActivatorFunction($event)"
+        ></pe-map-component>
 
-          <!--
+        <!--
           <div class="footer pt-high">
              <pe-footer *ngIf="!showMap"></pe-footer>
             </div>
           -->
-          <pe-help></pe-help>
-        </div>
       </div>
       <div class="transparent-bg" *ngIf="bgLoader"></div>
     </div>
     <div></div>
   </div>
 </div>
-<div class="adv2 animated-fadein bg-danger" *ngIf="skip >= 0 && skip < 2">
-  <img src="../assets//img/tour.png" class="w-50" />
+<!-- 
+
+  <div class="adv2 animated-fadein bg-danger" *ngIf="skip >= 0 && skip < 2">
+    <img src="../assets//img/tour.png" class="w-50" />
   <div class="bg-danger w-100">
     <span
       class="btn btn-outline-light text-light cursor-pointer"
       (click)="skipNext()"
     >
-      Skip
-    </span>
-  </div>
-  <div class="bg-danger w-100">
-    <span
-      class="btn bg-green text-dark p-2 m-2 cursor-pointer"
-      (click)="showTours()"
-    >
-      Start Tour
+    Skip
+  </span>
+</div>
+<div class="bg-danger w-100">
+  <span
+  class="btn bg-green text-dark p-2 m-2 cursor-pointer"
+  (click)="showTours()"
+  >
+  Start Tour
     </span>
   </div>
 </div>
+
+-->

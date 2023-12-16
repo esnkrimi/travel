@@ -139,7 +139,11 @@ export class AppComponent implements OnInit {
       });
     });
   }
+  fetchLocationTypes() {
+    this.store.dispatch(actions.startFetchLocationType());
+  }
   ngOnInit(): void {
+    this.fetchLocationTypes();
     this.getRoute();
     this.fetchRequests();
     this.fetchUsersOfTrips();

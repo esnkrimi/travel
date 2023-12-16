@@ -44,7 +44,7 @@ import { MapService } from '../map/service';
   ],
 })
 export class HeaderComponent implements OnInit {
-  scrollDown = true;
+  scrollDown = false;
   languages = settings.languages;
   languageIndex = 1;
   animationFlag = 'false';
@@ -70,7 +70,12 @@ export class HeaderComponent implements OnInit {
     private router: Router,
     private settingService: SettingService
   ) {}
-  @HostListener('window:scroll', ['$event'])
+  @HostListener('window:scroll', ['$event']) onWindowScroll(e: any) {
+    this.scrollDown =
+      e.target['scrollingElement'].scrollTop > 300 ? true : false;
+
+    // Your Code Here
+  }
   zoomTrip(tripTitle: string) {
     this.router.navigateByUrl('lazy(secondRouter:lazy/mytrips/');
   }

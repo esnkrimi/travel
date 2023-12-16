@@ -14,6 +14,7 @@ import { Store } from '@ngrx/store';
 import { actions } from '@appBase/+state/actions';
 import {
   selectAllTrips,
+  selectILocationTypes,
   selectLocation,
   selectSetview,
 } from '@appBase/+state/select';
@@ -25,79 +26,34 @@ import { AdvancedAutoCompleteService } from './service';
   styleUrls: ['./auto-complete-advanced.component.scss'],
 })
 export class AdvancedAutocompleteComponent implements OnInit {
-  locationInput = new FormControl('', []);
-  responseData: any = [];
-  result: any = [];
-  trips: any = [];
-  locationResult: any = [];
-  loading = false;
   @Output() results = new EventEmitter<any>();
+  data: any;
+  autocompleteDataFiltered: any;
+  locationInput = new FormControl('', []);
+  loading = false;
   constructor(private mapService: MapService, private store: Store) {}
 
   ngOnInit(): void {
-    this.listener();
+    this.selectLocationTypes();
+    this.inputListener();
   }
-
-  select() {
-    this.store.select(selectAllTrips).subscribe((res) => {
-      this.trips = res;
+  inputListener() {
+    this.locationInput.valueChanges.subscribe((res) => {
+      this.autocompleteDataFiltered = this.data.filter((result: any) =>
+        result.type.includes(res)
+      );
     });
   }
-  tripSearch(itemToSearch: any) {
-    for (let i = 0; i < this.trips.length; i++)
-      for (let j = 0; j < this.trips[i].tripjson.length; j++)
-        if (this.trips[i].tripjson[j].title === itemToSearch) {
-          return true;
-        }
-    return false;
+  selectLocationTypes() {
+    this.store.select(selectILocationTypes).subscribe((res) => {
+      this.data = res;
+    });
   }
-
-  search(itemToSearch: any) {
-    let k = 0;
-    for (let i = 0; i < this.trips.length; i++)
-      for (let j = 0; j < this.trips[i].tripjson.length; j++) {
-        if (this.trips[i].tripjson[j].title === itemToSearch) {
-          this.responseData[k] = this.trips[i].tripjson[j];
-          k++;
-        }
-      }
-    this.results.emit(this.responseData);
-  }
-
-  listener() {
-    this.select();
-    this.locationInput.valueChanges
-      .pipe(
-        tap((res: any) => {
-          this.mapService.loadingProgress.next(true);
-          this.responseData = [];
-          this.search(res);
-        }),
-        debounceTime(1000)
-      )
-      .subscribe();
-  }
-
   lower(str: any) {
     if (str[0] === ' ') str = str.slice(1, str.length);
     return str.replaceAll(' ', '-').replaceAll('%20', '-').toLowerCase();
   }
-  setView(i: number) {
-    const t = this.result[i];
-    this.result = [];
-    this.locationInput.setValue('');
-    this.mapService.loadingProgress.next(true);
-    this.store.dispatch(
-      actions.startSetviewAction({
-        location: {
-          city: t?.city,
-          country: t?.country,
-          geo: t?.geo,
-        },
-      })
-    );
-    this.store.select(selectSetview).subscribe((res: any) => {
-      if (res.length > 0) this.results.emit(res[0]);
-    });
+  setLocationType(type: any) {
+    this.results.emit(type);
   }
 }

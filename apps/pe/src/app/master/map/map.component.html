@@ -1,10 +1,13 @@
-<pe-map
-  [center]="center"
-  [savedLocation]="savedLocation"
-  [showTour]="showTour"
-  [city]="city"
-  [country]="country"
-  (zoomActivator)="zoomActivatorFunction($event)"
-  [formTripShow]="formTripShow"
-  (formTripShowAction)="formTripShowAction($event)"
-></pe-map>
+<div class="relative">
+  <pe-map
+    [center]="center"
+    [savedLocation]="savedLocation"
+    [showTour]="showTour"
+    [city]="city"
+    [country]="country"
+    (zoomActivator)="zoomActivatorFunction($event)"
+    [formTripShow]="formTripShow"
+    (formTripShowAction)="formTripShowAction($event)"
+  ></pe-map>
+  <pe-help></pe-help>
+</div>

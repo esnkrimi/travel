@@ -83,7 +83,7 @@ span{
     z-index: 9000 !important;
 }
 .header-fix{
-    position: fixed;
+    position: relative;
     left: 0;
     top:0;
     z-index: 6000 !important;
@@ -105,4 +105,22 @@ span{
 .light-div{
     background-color: var(--COLOR-BLUEBLACK);
     font-size: 0.9em !important;
+}
+.fix-position{
+    position: fixed !important;
+    width: 100%;
+    left:0;
+    animation:appear-from-top .85s forwards;
+}
+
+@keyframes appear-from-top {
+        0%{
+            top:-200px;
+        }
+        100%{
+            top:0px;
+        }
+}
+.navbar{
+    background-color:var(--COLOR-DARKER) !important;
 }

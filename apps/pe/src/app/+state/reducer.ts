@@ -7,7 +7,12 @@ export const reducerStates = createFeature({
   name: 'store',
   reducer: createReducer(
     AppState,
-
+    on(actions.fetchLocationType, function (states: any, action: any) {
+      return {
+        ...states,
+        iLocationTypes: action.data,
+      };
+    }),
     on(actions.updateSettingAboutMe, function (states: any, action: any) {
       return {
         ...states,

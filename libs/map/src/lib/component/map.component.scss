@@ -108,10 +108,20 @@ display: none !important;
     }
 }
  
-.absolute-50{
-    position: fixed;
+.location-input{
+    position: absolute;
     left:1%;
-    top:20%;
+    top:5%;
+    width: fit-content;
+    z-index: 1001;
+    animation: animated-scale 0.2s forwards;
+}
+
+
+.absolute-50{
+    position: absolute;
+    left:1%;
+    top:10%;
     width: fit-content;
     z-index: 1000;
     animation: animated-scale 0.2s forwards;

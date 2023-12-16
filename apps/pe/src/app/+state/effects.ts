@@ -24,9 +24,20 @@ import { TripCommentsService } from '@appBase/lazy/trip-comments/trip-comments.s
 import { SettingService } from '@appBase/setting';
 import { ProfileSettingService } from '@appBase/lazy/setting/setting.service';
 import { FormtripApiService } from 'libs/form-trip-location/src/lib/component/form-trip-location.service';
+import { AdvancedAutoCompleteService } from 'libs/advanced-autocomplete/src/lib/auto-complete-advanced/service';
 
 @Injectable()
 export class storeEffects {
+  startFetchLocationTypes: any = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(actions.startFetchLocationType),
+      switchMap((res: any) => {
+        return this.advancedAutoCompleteService
+          .fetchLocationTypes()
+          .pipe(map((res: any) => actions.fetchLocationType({ data: res })));
+      })
+    );
+  });
   startUpdateSettingAboutMe: any = createEffect(() => {
     return this.actions$.pipe(
       ofType(actions.getStartUpdateSettingAboutMe),
@@ -491,6 +502,7 @@ export class storeEffects {
     private tripListsService: TripListsService,
     private messagesApiService: MessagesApiService,
     private service: EntryService,
+    private advancedAutoCompleteService: AdvancedAutoCompleteService,
     private locationService: FetchLocationService,
     private usersService: UsersService,
     private profileSettingService: ProfileSettingService,

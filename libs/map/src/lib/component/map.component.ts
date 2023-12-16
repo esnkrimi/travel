@@ -197,7 +197,7 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
     });
   }
   activeDistanceMeter() {
-    this.helpService.messageWrite('select location on map');
+    this.helpService.messageWrite('select start point on map');
     this.createTripActivate = false;
     this.distanceActivated = !this.distanceActivated;
     //  if (this.distanceActivated) this.openSnackBar('select location on map');
@@ -205,62 +205,6 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
   tripFinished(e: any) {
     this.distanceActivated = false;
     this.createTripActivate = true;
-  }
-  addMarker(
-    position: LatLngExpression,
-    icona: string,
-    sizes: any,
-    num?: number
-  ) {
-    if (position) {
-      let tooltipPopup: any;
-      let icon: any;
-      if (num) {
-        icon = new L.Icon({
-          iconUrl: `https://raw.githubusercontent.com/sheiun/leaflet-color-number-markers/main/dist/img/red/marker-icon-2x-red-${num}.png`,
-          iconSize: [50, 88],
-        });
-      } else {
-        icon = new L.Icon({
-          iconUrl: `assets/img/${icona}.png`,
-          iconSize: sizes,
-        });
-      }
-      const mrkr = L?.marker(position, { icon: icon })
-        ?.addTo(this.map)
-        .on('click', (e) => {
-          if (this.distanceActivated) this.distanceActive(e);
-          else if (this.createTripActivate) this.startCreateTrip(e);
-          else this.bind(e);
-        })
-        .on('mouseover', (e) => {
-          this.store
-            .select(selectLocation)
-            .pipe(
-              map((res) => {
-                return res.filter(
-                  (res: any) => res.lat == e.target.getLatLng().lat
-                );
-              })
-            )
-            .subscribe((res) => {
-              tooltipPopup = L.popup({ offset: L.point(0, -20) });
-              tooltipPopup.setContent(
-                `<b>${this.capitalizeFirstLetter(res[0]?.title)} ${res[0]?.type}
-              </b> <br>
-              ${this.capitalizeFirstLetter(res[0]?.district)} ${res[0]?.street}
-              <br><b>
-              ${res[0]?.phone}</b>`
-              );
-              tooltipPopup.setLatLng(e.target.getLatLng());
-              tooltipPopup.openOn(this.map);
-            });
-        })
-        .on('mouseout', (e) => {
-          tooltipPopup.remove();
-        });
-      this.turnOffProgress(1);
-    }
   }
 
   turnOffProgress(time: number) {
@@ -423,6 +367,77 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
     this.clickOnMap(); //CLICK ON MAP
     this.dragMap(); //CLICK ON MAP
     this.changeCenter();
+  }
+  imageexists(url: any) {
+    const image = new Image();
+    image.src = url;
+    if (image.width == 0) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+  addMarker(
+    position: LatLngExpression,
+    icona: string,
+    sizes: any,
+    num?: number
+  ) {
+    if (position) {
+      let tooltipPopup: any;
+      let icon: any;
+      if (num) {
+        icon = new L.Icon({
+          iconUrl: `https://raw.githubusercontent.com/sheiun/leaflet-color-number-markers/main/dist/img/red/marker-icon-2x-red-${num}.png`,
+          iconSize: [50, 88],
+        });
+      } else {
+        if (this.imageexists(`assets/img/${icona}.png`))
+          icon = new L.Icon({
+            iconUrl: `assets/img/${icona}.png`,
+            iconSize: sizes,
+          });
+        else
+          icon = new L.Icon({
+            iconUrl: `assets/img/location.png`,
+            iconSize: sizes,
+          });
+      }
+      const mrkr = L?.marker(position, { icon: icon })
+        ?.addTo(this.map)
+        .on('click', (e) => {
+          if (this.distanceActivated) this.distanceActive(e);
+          else if (this.createTripActivate) this.startCreateTrip(e);
+          else this.bind(e);
+        })
+        .on('mouseover', (e) => {
+          this.store
+            .select(selectLocation)
+            .pipe(
+              map((res) => {
+                return res.filter(
+                  (res: any) => res.lat == e.target.getLatLng().lat
+                );
+              })
+            )
+            .subscribe((res) => {
+              tooltipPopup = L.popup({ offset: L.point(0, -20) });
+              tooltipPopup.setContent(
+                `<b>${this.capitalizeFirstLetter(res[0]?.title)} ${res[0]?.type}
+              </b> <br>
+              ${this.capitalizeFirstLetter(res[0]?.district)} ${res[0]?.street}
+              <br><b>
+              ${res[0]?.phone}</b>`
+              );
+              tooltipPopup.setLatLng(e.target.getLatLng());
+              tooltipPopup.openOn(this.map);
+            });
+        })
+        .on('mouseout', (e) => {
+          tooltipPopup.remove();
+        });
+      this.turnOffProgress(1);
+    }
   }
 
   ngOnChanges(changes: SimpleChanges): void {

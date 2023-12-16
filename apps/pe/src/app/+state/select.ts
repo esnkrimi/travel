@@ -17,4 +17,5 @@ export const {
   selectAutoCompleteFind,
   selectUserRates,
   selectTripComments,
+  selectILocationTypes,
 } = reducerStates;
