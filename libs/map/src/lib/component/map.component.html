@@ -16,7 +16,7 @@
     <pe-trips [currentTrip]="currentTrip"></pe-trips>
   </div>
   <div class="w-100 text-center box">
-    <div class="location-input">
+    <div class="location-input" cdkDrag>
       <pe-advanced-autocomplete
         (results)="change($event)"
       ></pe-advanced-autocomplete>

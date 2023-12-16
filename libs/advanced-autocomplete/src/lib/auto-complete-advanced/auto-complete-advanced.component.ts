@@ -54,6 +54,8 @@ export class AdvancedAutocompleteComponent implements OnInit {
     return str.replaceAll(' ', '-').replaceAll('%20', '-').toLowerCase();
   }
   setLocationType(type: any) {
+    this.locationInput.setValue(type);
+    this.autocompleteDataFiltered = [];
     this.results.emit(type);
   }
 }
