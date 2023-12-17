@@ -373,6 +373,7 @@ h2 {
    background-color: var(--COLOR-RED);
    font-size: 12px;
    border :solid 4px var(--COLOR-RED) !important;
+   color: var(--COLOR-LIGHT) !important;
    border-radius: 50% !important;
    line-height: 24px;
  }
@@ -383,7 +384,7 @@ h2 {
    border :solid 4px var(--COLOR-BLUEBLACK);
    border-radius: 5% !important;
    font-size: 12px;
-   color: var(--COLOR-LIGHT) !important;
+   color: var(--COLOR-BLUEBLACK);
    line-height: 24px;
    border-radius: 0px;
  }
