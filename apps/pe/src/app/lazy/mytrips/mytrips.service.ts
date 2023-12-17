@@ -23,7 +23,7 @@ export class MytripsService {
     confirm: boolean
   ) {
     this.urlBase = `https://www.burjcrown.com/drm/travel/index.php?id=30&uid=${user_id}&ownerid=${ownerid}&tripTitle=${tripTitle}&action=${confirm}`;
-    //console.log(this.urlBase);
+    this.urlBase;
     return this.httpClient.get(this.urlBase);
   }
 }

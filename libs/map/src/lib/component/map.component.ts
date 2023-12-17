@@ -1,6 +1,5 @@
 import {
   AfterViewInit,
-  ChangeDetectionStrategy,
   Component,
   EventEmitter,
   Input,
@@ -20,8 +19,7 @@ import { Store } from '@ngrx/store';
 import { actions } from '@appBase/+state/actions';
 import { selectLocation, selectTrip } from '@appBase/+state/select';
 import { JoyrideService } from 'ngx-joyride';
-import { MatSnackBar, MatSnackBarRef } from '@angular/material/snack-bar';
-
+import { MatSnackBar } from '@angular/material/snack-bar';
 import * as L from 'leaflet';
 import 'leaflet-control-geocoder/dist/Control.Geocoder.js';
 import { DistancePipe } from './pipe';
@@ -115,6 +113,7 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
     private readonly joyrideService: JoyrideService,
     private _snackBar: MatSnackBar
   ) {}
+
   cancelTripSubmitVar(event: any) {
     this.selectLocationActivated = !event;
     this.mapApiService.bgLoader.next(false);
@@ -312,7 +311,7 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   async changeCenter() {
-    //console.log(this.center);
+    this.center;
     this.positionView = await this.map?.setView(this.center, 15);
   }
 
@@ -321,7 +320,7 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   private loadMap(): void {
-    this.map = L.map('map', { zoomControl: false });
+    if (!this.map) this.map = L.map('map', { zoomControl: false });
 
     L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
       attribution: '© OpenStreetMap contributors',
@@ -342,7 +341,6 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
     this.map.on('mouseup', (e: any) => {
       this.drawerService
         .fetchLocationByLatlng(e.latlng.lat, e.latlng.lng)
-        // .pipe(tap((res) => console.log(res)))
         .subscribe((res) => {
           this.draggingLocation.country = res.country;
           this.draggingLocation.street =
@@ -356,6 +354,24 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
           }
         });
     });
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    this.loadMap();
+    this.draggingLocation.city = this.city;
+    this.draggingLocation.country = this.country;
+    this.draggingLocation = {
+      country: this.country,
+      city: this.city,
+      street: '',
+      suburb: '',
+    };
+    this.savedLocationActive();
+    this.mapApiService.savedLocation.subscribe((res) => {
+      this.changeCenter();
+      if (this.showTour) this.showTours();
+    });
+    this.highlightLocation();
   }
 
   ngOnInit(): void {
@@ -411,7 +427,6 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
           else this.bind(e);
         })
         .on('mouseover', (e) => {
-          console.log(e.target.getLatLng());
           this.store
             .select(selectLocation)
             .pipe(
@@ -422,13 +437,15 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
               })
             )
             .subscribe((res) => {
-              tooltipPopup = L.popup({ offset: L.point(0, -20) });
+              tooltipPopup = L.popup({
+                offset: L.point(0, -20),
+              });
               tooltipPopup.setContent(
                 `<b>${this.capitalizeFirstLetter(res[0]?.title)} ${res[0]?.type}
               </b> <br>
               ${this.capitalizeFirstLetter(res[0]?.district)} ${res[0]?.street}
               <br><b>
-              ${res[0]?.phone}</b>`
+              ${res[0]?.phone}</b> `
               );
               tooltipPopup.setLatLng(e.target.getLatLng());
               tooltipPopup.openOn(this.map);
@@ -440,50 +457,28 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
       this.turnOffProgress(1);
     }
   }
-  highlightLocation(position: any) {
-    const position_ = {
-      lat: Number(position[0]),
-      lng: Number(position[1]),
-    };
-    this.addMarker(position, 'location', [60, 60]);
-    const tooltipPopup = L.popup({ offset: L.point(0, -20) });
-    tooltipPopup.setContent(`HELLLLLLO`);
-    tooltipPopup.setLatLng(position_);
-    tooltipPopup.openOn(this.map);
-  }
-  ngOnChanges(changes: SimpleChanges): void {
-    this.addMarker(this.center, 'airport', [120, 120]);
-    //this.highlightLocation(this.center);
-    this.draggingLocation.city = this.city;
-    this.draggingLocation.country = this.country;
-    this.draggingLocation = {
-      country: this.country,
-      city: this.city,
-      street: '',
-      suburb: '',
-    };
-    this.savedLocationActive();
-    this.mapApiService.savedLocation.subscribe((res) => {
-      this.changeCenter();
-
-      if (this.showTour) this.showTours();
-    });
-
-    //
+  // 40.76854517976061, lng: -73.99931430816652}
+  highlightLocation() {
+    L.popup({
+      autoClose: false,
+      className: 'selected-popup',
+      closeButton: false,
+    })
+      .setLatLng(this.center)
+      .setContent(`<br><br><br>`)
+      .openOn(this.map);
   }
 
   showTours() {
-    this.joyrideService.startTour(
-      {
-        steps: ['firstStep', 'secondStep'],
-        themeColor: 'green',
-        showCounter: false,
-        customTexts: {
-          prev: 'prev',
-          next: 'next',
-        },
-      } // Your steps order
-    );
+    this.joyrideService.startTour({
+      steps: ['firstStep', 'secondStep'],
+      themeColor: 'green',
+      showCounter: false,
+      customTexts: {
+        prev: 'prev',
+        next: 'next',
+      },
+    });
   }
   searchBox() {
     (L.Control as any)

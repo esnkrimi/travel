@@ -161,7 +161,7 @@ export class ZoomComponent implements AfterViewInit {
   onFileChange(event: any) {
     if (event.target.files.length > 0) {
       const file = event.target.files[0];
-      //console.log(file);
+      file;
       this.form.patchValue({
         file: file,
       });

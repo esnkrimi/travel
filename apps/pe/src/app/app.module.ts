@@ -37,8 +37,8 @@ import { HelpModule } from '@pe/help';
 
 export function debug(reducer: ActionReducer<any>): ActionReducer<any> {
   return function (state: any, action: any) {
-    //  //console.log('state', state);
-    //  //console.log('action', action);
+    //  ('state', state);
+    //  ('action', action);
     return reducer(state, action);
   };
 }

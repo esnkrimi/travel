@@ -85,7 +85,6 @@ export class EntryComponent implements OnInit {
   }
   selectUserLogined() {
     this.store.select(selectUser).subscribe((res: any) => {
-      //  console.log(res);
       if (res?.length > 0) {
         this.loginSuccess = true;
         this.localStorage.saveData('user', JSON.stringify(res[0]));
@@ -134,7 +133,7 @@ export class EntryComponent implements OnInit {
   }
   hideMap() {
     this.drawerService.showMap.next(false);
-    //console.log(9);
+    9;
   }
 }
 

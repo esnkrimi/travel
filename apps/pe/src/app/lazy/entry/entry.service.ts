@@ -20,7 +20,6 @@ export class EntryService {
   login(values: any) {
     const url =
       this.urlLogin + `id=1&email=${values.email}&pass=${values.password}`;
-    //  console.log(url);
     return this.httpClient.get(url);
   }
 

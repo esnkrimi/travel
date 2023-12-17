@@ -3,6 +3,7 @@ import { Store } from '@ngrx/store';
 import { actions } from '@appBase/+state/actions';
 import {
   selectAllTrips,
+  selectILocationTypes,
   selectLocation,
   selectTripRequests,
   selectTripUsers,
@@ -27,11 +28,14 @@ import { Router, RouterModule } from '@angular/router';
 })
 export class LocationListComponent implements OnInit {
   locatinListFiltered: any;
-  page = 0;
   locatinList: any;
+  locatinTypeList: any;
+  selectedType = '';
+  page = 0;
   rates = ['0', '0', '0', '0', '0'];
   formSearchTrip = new FormGroup({
     itemToSearch: new FormControl(''),
+    typeSearch: new FormControl(''),
   });
   constructor(
     private mapService: MapService,
@@ -49,13 +53,19 @@ export class LocationListComponent implements OnInit {
       .get('itemToSearch')
       ?.valueChanges.subscribe((res: any) => {
         this.page = 0;
-        if (res.length === 0) this.locatinListFiltered = this.locatinList;
+        if (res.length === 0) this.changeLocationTypes(this.selectedType);
         else {
-          this.locatinListFiltered = this.locatinList.filter((result: any) =>
-            result.title.toLowerCase().includes(res.toLowerCase())
+          this.locatinListFiltered = this.locatinList.filter(
+            (result: any) =>
+              result.title.toLowerCase().includes(res.toLowerCase()) &&
+              (result.type === this.selectedType || this.selectedType === '')
           );
         }
       });
+  }
+  setView(item: any) {
+    //    this.showMap();
+    this.router.navigateByUrl('zoom/');
   }
   starRates(rate: any) {
     this.rates = this.rates.fill('1', 0, rate);
@@ -64,10 +74,25 @@ export class LocationListComponent implements OnInit {
   hideMap() {
     this.drawerService.showMap.next(false);
   }
+  showMap() {
+    this.drawerService.showMap.next(true);
+  }
   fetchLocations() {
+    this.selectedType = '';
     this.store.select(selectLocation).subscribe((res) => {
       this.locatinList = res;
       this.locatinListFiltered = res;
+    });
+  }
+  changeLocationTypes(type: string) {
+    this.selectedType = type;
+    this.locatinListFiltered = this.locatinList.filter(
+      (res: any) => res.type === type
+    );
+  }
+  fetchLocationTypes() {
+    this.store.select(selectILocationTypes).subscribe((res) => {
+      this.locatinTypeList = res;
     });
   }
   ngOnInit(): void {

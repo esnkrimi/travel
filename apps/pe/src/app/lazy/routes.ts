@@ -12,6 +12,8 @@ import { UsersComponent } from './users/users.component';
 import { SettingComponent } from './setting/setting.component';
 import { CanActivateGuard } from './guard';
 import { LocationListComponent } from './location-list/location-list.component';
+import { AppComponent } from '@appBase/app.component';
+import { MapComponent } from '@appBase/master/map/map.component';
 const routes: Routes = [
   {
     path: 'zoom',
@@ -33,6 +35,10 @@ const routes: Routes = [
     path: 'mytrips',
     component: MytripsComponent,
     canActivate: [CanActivateGuard],
+  },
+  {
+    path: ':lat/:lon',
+    component: MapComponent,
   },
   {
     path: 'users/:user',

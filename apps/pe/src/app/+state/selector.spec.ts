@@ -30,6 +30,6 @@ describe('CalendarComponent', () => {
 
   it('should return', () => {
     const result = selectCurrency.projector(sampleInitialState);
-    //console.log(result);
+    result;
   });
 });

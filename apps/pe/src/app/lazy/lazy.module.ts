@@ -38,6 +38,7 @@ import { SettingComponent } from './setting/setting.component';
 import { NgxPaginationModule } from 'ngx-pagination'; // <-- import the module
 import { GoogleSigninButtonModule } from '@abacritt/angularx-social-login';
 import { LocationListComponent } from './location-list/location-list.component';
+import { MatChipsModule } from '@angular/material/chips';
 @NgModule({
   declarations: [
     EntryComponent,
@@ -62,6 +63,7 @@ import { LocationListComponent } from './location-list/location-list.component';
     CommonModule,
     GoogleSigninButtonModule,
     lazyRouterModule,
+    MatChipsModule,
     AdvancedAutocompleteModule,
     MatDialogModule,
     MatSlideToggleModule,

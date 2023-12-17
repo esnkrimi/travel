@@ -75,7 +75,7 @@ export class TripUserComponent implements OnChanges {
 
     this.store.select(selectTripComments).subscribe((res) => {
       this.userList = res;
-      //console.log(res);
+      res;
     });
   }
 }

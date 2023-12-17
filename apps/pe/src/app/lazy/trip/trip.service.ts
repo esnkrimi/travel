@@ -24,7 +24,7 @@ export class TripService {
 
   cancelTrip(trip: string) {
     const url = this.urlLogin + `id=20&trip=${trip}&uid=1`;
-    //console.log(url);
+    url;
     return this.httpClient.get(url);
   }
 

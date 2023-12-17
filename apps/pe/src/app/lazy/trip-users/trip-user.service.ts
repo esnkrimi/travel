@@ -23,7 +23,7 @@ export class TripUserService {
 
   removeUserFromTrip(uid: any, tripTitle: any, ownerid: any) {
     const url = `${this.baseUrl}id=33&uid=${uid}&trip=${tripTitle}&ownerid=${ownerid}`;
-    //console.log(url);
+    url;
     return this.httpClient.get(url);
   }
 }

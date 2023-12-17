@@ -39,7 +39,7 @@ export class MyrequestsComponent implements OnInit {
         )
       )
       .subscribe((res) => {
-        //console.log(res);
+        res;
         this.trips = res;
       });
   }

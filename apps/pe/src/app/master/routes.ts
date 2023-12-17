@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AppComponent } from '@appBase/app.component';
+import { UsersComponent } from '@appBase/lazy/users/users.component';
 const routes: Routes = [
   {
     path: 'lazy',

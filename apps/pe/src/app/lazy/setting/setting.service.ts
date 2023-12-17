@@ -10,7 +10,6 @@ export class ProfileSettingService {
     const url =
       this.urlBase +
       `id=41&uid=${data.uid}&name=${data.name}&lname=${data.lname}&email=${data.email}&password=${data.pass}`;
-    //  console.log(url);
     return this.httpClient.get(url);
   }
   updateSettingAboutMe(uid: any, about: any) {

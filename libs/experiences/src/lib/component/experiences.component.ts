@@ -57,7 +57,7 @@ export class ExperiencesComponent implements OnInit {
           .subscribe((res: any) => {
             this.userIdCommenter.userName = res[0].name;
             this.userIdCommenter.userFamily = res[0].lnama;
-            //console.log(res[0]);
+            res[0];
           });
       });
     }, 10);

@@ -104,7 +104,7 @@ export class TripCommentsComponent implements OnChanges {
 
     this.store.select(selectTripComments).subscribe((res: any) => {
       this.userList = res;
-      //console.log(res);
+      res;
       this.addIdeaPermission =
         this.userList.filter(
           (res: any) => res.user_id === JSON.parse(this.userSession)?.id

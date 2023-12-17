@@ -60,7 +60,7 @@ export const reducerStates = createFeature({
     }),
 
     on(actions.fetchUsersOfTrip, function (states: any, action: any) {
-      //console.log(action);
+      action;
       return {
         ...states,
         tripUsers: action.userOfTrip,
@@ -110,7 +110,7 @@ export const reducerStates = createFeature({
     }),
 
     on(actions.confirmRequests, function (states: any, action: any) {
-      //console.log(action.data);
+      action.data;
       return {
         ...states,
         tripRequests: action.data,
@@ -155,7 +155,6 @@ export const reducerStates = createFeature({
       country: action.country,
     })),
     on(actions.fetchAction, function (states: any, action: any) {
-      // console.log(action.location);
       return {
         ...states,
         location: Object.values(action.location),

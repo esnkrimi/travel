@@ -8,7 +8,7 @@ import {
 import { TranslateService } from '@ngx-translate/core';
 import { DrawerService } from './drawer.service';
 import { MatDrawer } from '@angular/material/sidenav';
-import { Router, RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { Iuser, IuserOfSite } from '@appBase/+state/state';
 import { EntryService } from './lazy/entry/entry.service';
 import { Store } from '@ngrx/store';
@@ -103,7 +103,6 @@ export class AppComponent implements OnInit {
   }
   fetchUserOfTrip() {
     this.store.dispatch(actions.startFetchUsersOfTrip());
-    // this.store.select(selectTripUsers).subscribe((res) => console.log(res));
   }
   fetchUsersOfTrips() {
     const requestsAll: any = [

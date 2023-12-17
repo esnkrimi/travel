@@ -18,7 +18,6 @@ export class DistancePipe implements PipeTransform {
     const result = (type =
       '<i class="' + vehicle + '" aria-hidden="true"></i> ' + t);
 
-    //console.log(t, result);
     return result;
   }
 }

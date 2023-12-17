@@ -157,7 +157,7 @@ export class storeEffects {
     return this.actions$.pipe(
       ofType(actions.startFetchUsersOfTrip),
       switchMap((res: any) => {
-        //console.log(99);
+        99;
         return this.tripListsService
           .userOfTrip()
           .pipe(
@@ -296,7 +296,7 @@ export class storeEffects {
     return this.actions$.pipe(
       ofType(actions.addUserToTripPreparing),
       switchMap((res: any) => {
-        //console.log(res);
+        res;
         return this.tripService
           .addUserToTrip(res.guestId, res.tripTitle, res.ownerId)
           .pipe(map((res: any) => actions.addUserToTrip()));
@@ -482,7 +482,7 @@ export class storeEffects {
         return this.service.signup(signupInfo.user).pipe(
           tap((res: any) => {
             this.localStorage.saveData('user', JSON.stringify(res[0]));
-            //console.log(res);
+            res;
           }),
           map((res: any) => actions.signupAction({ user: res }))
         );
