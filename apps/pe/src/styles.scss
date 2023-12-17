@@ -369,22 +369,26 @@ h2 {
    background-repeat: no-repeat;
    background-position: center;
 }
-
-
 .selected-popup .leaflet-popup-content-wrapper {
-   border :solid 4px rgb(221, 121, 121);
-   color: #eee;
-   background-color: #fdb42a;
-   border-radius: 22% !important;
+   background-color: var(--COLOR-RED);
    font-size: 12px;
+   border :solid 4px var(--COLOR-RED) !important;
+   border-radius: 50% !important;
+   line-height: 24px;
+ }
+ .selected-popup .leaflet-popup-tip {
+   background-color: var(--COLOR-RED);
+ }
+ .leaflet-popup  .leaflet-popup-content-wrapper {
+   border :solid 4px var(--COLOR-BLUEBLACK);
+   border-radius: 5% !important;
+   font-size: 12px;
+   color: var(--COLOR-LIGHT) !important;
    line-height: 24px;
    border-radius: 0px;
  }
-
-
- .selected-popup .leaflet-popup-tip {
-   background-color: rgb(255, 94, 0) ;
+ .leaflet-popup {
    border: none;
    box-shadow: none;
  }
- 
+

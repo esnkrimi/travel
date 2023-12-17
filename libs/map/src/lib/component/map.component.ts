@@ -320,7 +320,7 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   private loadMap(): void {
-    if (!this.map) this.map = L.map('map', { zoomControl: false });
+    this.map = L.map('map', { zoomControl: false });
 
     L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
       attribution: '© OpenStreetMap contributors',
@@ -357,7 +357,7 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.loadMap();
+    if (!this.map) this.loadMap();
     this.draggingLocation.city = this.city;
     this.draggingLocation.country = this.country;
     this.draggingLocation = {
@@ -379,7 +379,7 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
     this.getRoute();
     this.fetchTrip();
     this.fetchByCity('New York', true);
-    this.loadMap(); //map_creation
+    if (!this.map) this.loadMap(); //map_creation
     this.clickOnMap(); //CLICK ON MAP
     this.dragMap(); //CLICK ON MAP
     this.changeCenter();
@@ -419,54 +419,78 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
             iconSize: sizes,
           });
       }
-      const mrkr = L?.marker(position, { icon: icon })
-        ?.addTo(this.map)
-        .on('click', (e) => {
-          if (this.distanceActivated) this.distanceActive(e);
-          else if (this.createTripActivate) this.startCreateTrip(e);
-          else this.bind(e);
-        })
-        .on('mouseover', (e) => {
-          this.store
-            .select(selectLocation)
-            .pipe(
-              map((res) => {
-                return res.filter(
-                  (res: any) => res.lat == e.target.getLatLng().lat
-                );
-              })
-            )
-            .subscribe((res) => {
-              tooltipPopup = L.popup({
-                offset: L.point(0, -20),
-              });
-              tooltipPopup.setContent(
-                `<b>${this.capitalizeFirstLetter(res[0]?.title)} ${res[0]?.type}
-              </b> <br>
+      if (this.map)
+        L?.marker(position, { icon: icon })
+          ?.addTo(this.map)
+          .on('click', (e) => {
+            if (this.distanceActivated) this.distanceActive(e);
+            else if (this.createTripActivate) this.startCreateTrip(e);
+            else this.bind(e);
+          })
+          .on('mouseover', (e) => {
+            this.store
+              .select(selectLocation)
+              .pipe(
+                map((res) => {
+                  return res.filter(
+                    (res: any) => res.lat == e.target.getLatLng().lat
+                  );
+                })
+              )
+              .subscribe((res) => {
+                tooltipPopup = L.popup({
+                  offset: L.point(0, -20),
+                  closeButton: false,
+                  className: 'leaflet-popup',
+                });
+                tooltipPopup.setContent(
+                  `<span class='border-bottom m-1'><b>${this.capitalizeFirstLetter(
+                    res[0]?.title
+                  )} ${res[0]?.type}
+              </span></b> <br><span class=text-medium m-2 p-2>
               ${this.capitalizeFirstLetter(res[0]?.district)} ${res[0]?.street}
-              <br><b>
+              </span><br><b>
               ${res[0]?.phone}</b> `
-              );
-              tooltipPopup.setLatLng(e.target.getLatLng());
-              tooltipPopup.openOn(this.map);
-            });
-        })
-        .on('mouseout', (e) => {
-          tooltipPopup.remove();
-        });
+                );
+                tooltipPopup.setLatLng(e.target.getLatLng());
+                tooltipPopup.openOn(this.map);
+              });
+          })
+          .on('mouseout', (e) => {
+            tooltipPopup.remove();
+          });
       this.turnOffProgress(1);
     }
   }
   // 40.76854517976061, lng: -73.99931430816652}
   highlightLocation() {
-    L.popup({
-      autoClose: false,
-      className: 'selected-popup',
-      closeButton: false,
-    })
-      .setLatLng(this.center)
-      .setContent(`<br><br><br>`)
-      .openOn(this.map);
+    this.store
+      .select(selectLocation)
+      .pipe(
+        map((res) =>
+          res.filter((res: any) => Number(res.lat) === Number(this.center[0]))
+        )
+      )
+      .subscribe((res) => {
+        if (res[0]?.title) {
+          L.popup({
+            autoClose: false,
+            className: 'selected-popup',
+            closeButton: false,
+          })
+            .setLatLng(this.center)
+            .setContent(
+              `<span class='border-bottom m-1'><b>${this.capitalizeFirstLetter(
+                res[0]?.title
+              )} ${res[0]?.type}
+            </span></b> <br><span class=text-medium m-2 p-2>
+            ${this.capitalizeFirstLetter(res[0]?.district)} ${res[0]?.street}
+            </span><br><b>
+            ${res[0]?.phone}</b> `
+            )
+            .openOn(this.map);
+        }
+      });
   }
 
   showTours() {
