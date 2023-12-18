@@ -134,16 +134,16 @@
         }}</span>
       </div>
       <div class="m-2 p-2">
-        <button
-          mat-raised-button
+        <a
+          class="link-darks border p-2"
           (click)="bindExistsLocation(locationForModal[0])"
         >
-          More
-        </button>
-        <button mat-button (click)="openModalLocationFlag = false">
-          Close
-        </button>
+          details
+        </a>
       </div>
+    </div>
+    <div class="close-div">
+      <i class="fa fa-close fa-2x" (click)="openModalLocationFlag = false"></i>
     </div>
   </div>
 </div>

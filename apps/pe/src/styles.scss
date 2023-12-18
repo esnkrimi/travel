@@ -249,6 +249,8 @@ body{
 }
 
 .link-darks{
+   cursor: pointer;
+   text-decoration: none;
    color: var(--COLOR-DARK);
 }
 .link-darks:hover{
