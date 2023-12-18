@@ -31,7 +31,6 @@ import {
   GoogleSigninButtonModule,
   SocialAuthServiceConfig,
   GoogleLoginProvider,
-  GoogleSigninButtonDirective,
 } from '@abacritt/angularx-social-login';
 import { HelpModule } from '@pe/help';
 
@@ -50,6 +49,10 @@ export function HttpLoaderFactory(http: HttpClient) {
 
 export function getUserSession(localService: LocalService) {
   return localService.getData('user');
+}
+
+export function detectDevice(localService: LocalService) {
+  return window.innerWidth > 1200;
 }
 
 @NgModule({
@@ -116,6 +119,10 @@ export function getUserSession(localService: LocalService) {
       provide: 'userSession',
       useFactory: getUserSession,
       deps: [LocalService],
+    },
+    {
+      provide: 'deviceIsWide',
+      useFactory: detectDevice,
     },
   ],
   bootstrap: [AppComponent],

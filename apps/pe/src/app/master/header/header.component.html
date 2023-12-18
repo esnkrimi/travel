@@ -115,10 +115,7 @@
                 </span>
               </p>
 
-              <p
-                (click)="menuShow = false"
-                [routerLink]="[{ outlets: { secondRouter: 'lazy/locations' } }]"
-              >
+              <p (click)="showLocationsOnMapComponent()">
                 <span>
                   {{ 'locationList' | translate }}
                 </span>

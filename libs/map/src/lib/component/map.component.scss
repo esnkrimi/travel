@@ -162,6 +162,11 @@ display: none !important;
         height: 100% !important;
         width: 90% !important;
     }
+
+    .modal-absolute>div{
+        width: 90% !important;
+        text-align: left;
+     }
 }
 
 .frame{
@@ -178,7 +183,7 @@ display: none !important;
 
 ::ng-deep{
     .leaflet-marker-icon {
-        border: solid 1px var(--COLOR-MAGENTA) !important;
+        border: solid 5px var(--COLOR-BLUEBLACK) !important;
         border-radius: 50% !important;
     }
 }
@@ -235,10 +240,7 @@ z-index: 600 !important;
     animation: animate-fadein 0.3s forwards;
     overflow-y: scroll !important;
 }
- .modal-absolute>div{
-    width: 90% !important;
-    text-align: left;
- }
+
  .close-div{
     z-index: 50005 !important;
  }

@@ -9,7 +9,6 @@ import {
   Output,
   SimpleChanges,
 } from '@angular/core';
-import { LazyModule } from '@appBase/lazy/lazy.module';
 import { MapService } from '@appBase/master/map/service';
 import { DrawerService } from '@appBase/drawer.service';
 import { Ilocation, typeOflocations } from '@appBase/+state/state';
@@ -20,17 +19,11 @@ import { Store } from '@ngrx/store';
 import { actions } from '@appBase/+state/actions';
 import { selectLocation, selectTrip } from '@appBase/+state/select';
 import { JoyrideService } from 'ngx-joyride';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import * as L from 'leaflet';
 import 'leaflet-control-geocoder/dist/Control.Geocoder.js';
 import { DistancePipe } from './pipe';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { HelpService } from 'libs/help/src/lib/component/help.service';
-import {
-  MAT_DIALOG_DATA,
-  MatDialog,
-  MatDialogRef,
-} from '@angular/material/dialog';
 @Component({
   selector: 'pe-map',
   templateUrl: './map.component.html',
@@ -42,7 +35,8 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
   @Input() formTripShow: any;
   @Output() formTripShowAction = new EventEmitter<any>();
   openModalLocationListFlag = false;
-
+  openModalLocationFlag = false;
+  locationForModal: any;
   @Input() country: any;
   @Input() city: any;
   @Input() center: any;
@@ -112,17 +106,16 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
   title = '';
   constructor(
     private router: Router,
-    private route: ActivatedRoute,
-    private matDialog: MatDialog,
     private helpService: HelpService,
     private mapService: MapService,
     private drawerService: DrawerService,
     private distancePipe: DistancePipe,
     private mapApiService: MapApiService,
     private store: Store,
-    private readonly joyrideService: JoyrideService,
-    private _snackBar: MatSnackBar
+    @Inject('deviceIsWide') public deviceIsWide: boolean,
+    private readonly joyrideService: JoyrideService
   ) {}
+
   getShowLocationState() {
     this.drawerService.showLocations.subscribe((res: any) => {
       this.openModalLocationListFlag = res;
@@ -235,7 +228,7 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
         lat: location.trip[0].lat,
         lng: location.trip[0].lon,
       },
-      14
+      25
     );
     this.router.navigateByUrl('lazy/zoom');
     for (let i = 0; i < location.trip.length; i++) {
@@ -316,15 +309,22 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   bind(e: any) {
-    // this.drawerService.open.next(true);
     this.zoomActivator.emit(true);
     this.locationSelected.lon = e.latlng.lng;
     this.locationSelected.lat = e.latlng.lat;
     this.drawerService.localInformation.next(this.locationSelected);
   }
 
+  bindExistsLocation(location: any) {
+    this.openModalLocationFlag = false;
+    this.zoomActivator.emit(true);
+    this.locationSelected.lon = location.lon;
+    this.locationSelected.lat = location.lat;
+    this.drawerService.localInformation.next(this.locationSelected);
+  }
+
   async changeCenter() {
-    this.positionView = await this.map?.setView(this.center, 15);
+    this.positionView = await this.map?.setView(this.center, 25);
   }
 
   listener(changedCity: boolean) {
@@ -333,7 +333,6 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
 
   private loadMap(): void {
     this.map = L.map('map', { zoomControl: false });
-
     L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
       attribution: '© OpenStreetMap contributors',
     }).addTo(this.map);
@@ -387,7 +386,6 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
 
   ngOnInit(): void {
     this.loadMap();
-
     this.mapService.loadingProgress.next(true);
     this.getRoute();
     this.getShowLocationState();
@@ -425,6 +423,7 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
           icon = new L.Icon({
             iconUrl: `assets/img/${icona}.png`,
             iconSize: sizes,
+            className: 'custom-marker',
           });
         else
           icon = new L.Icon({
@@ -438,43 +437,65 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
           .on('click', (e) => {
             if (this.distanceActivated) this.distanceActive(e);
             else if (this.createTripActivate) this.startCreateTrip(e);
-            else this.bind(e);
+            else {
+              this.popInformationOfLocation(e);
+            }
+            //this.bind(e);
           })
           .on('mouseover', (e) => {
-            this.store
-              .select(selectLocation)
-              .pipe(
-                map((res) => {
-                  return res.filter(
-                    (res: any) => res.lat == e.target.getLatLng().lat
-                  );
-                })
-              )
-              .subscribe((res) => {
-                tooltipPopup = L.popup({
-                  offset: L.point(0, -20),
-                  closeButton: false,
-                  className: 'leaflet-popup',
-                });
-                tooltipPopup.setContent(
-                  `<span class='border-bottom m-1'><b>${this.capitalizeFirstLetter(
-                    res[0]?.title
-                  )} ${res[0]?.type}
-              </span></b> <br><span class=text-medium m-2 p-2>
-              ${this.capitalizeFirstLetter(res[0]?.district)} ${res[0]?.street}
-              </span><br><b>
-              ${res[0]?.phone}</b> `
-                );
-                tooltipPopup.setLatLng(e.target.getLatLng());
-                tooltipPopup.openOn(this.map);
-              });
+            if (this.deviceIsWide) {
+              this.popUpMouseOver(e);
+            }
           })
           .on('mouseout', (e) => {
-            tooltipPopup.remove();
+            //  tooltipPopup.remove();
           });
       this.turnOffProgress(1);
     }
   }
+  popUpMouseOver(e: any) {
+    let tooltipPopup: any;
+    this.store
+      .select(selectLocation)
+      .pipe(
+        map((res) => {
+          return res.filter((res: any) => res.lat == e.target.getLatLng().lat);
+        })
+      )
+      .subscribe((res) => {
+        tooltipPopup = L.popup({
+          offset: L.point(0, -20),
+          closeButton: false,
+          className: 'leaflet-popup',
+        });
+        tooltipPopup.setContent(
+          `<span class='border-bottom m-1'><b>${this.capitalizeFirstLetter(
+            res[0]?.title
+          )} ${res[0]?.type}
+      </span></b> <br><span class=text-medium m-2 p-2>
+      ${this.capitalizeFirstLetter(res[0]?.district)} ${res[0]?.street}
+      </span><br><b>
+      ${res[0]?.phone}</b> `
+        );
+        tooltipPopup.setLatLng(e.target.getLatLng());
+        tooltipPopup.openOn(this.map);
+      });
+  }
+
+  popInformationOfLocation(e: any) {
+    this.openModalLocationFlag = true;
+    this.store
+      .select(selectLocation)
+      .pipe(
+        map((res) => {
+          return res.filter((res: any) => res.lat == e.target.getLatLng().lat);
+        })
+      )
+      .subscribe((res) => {
+        this.locationForModal = res;
+      });
+  }
+
   highlightLocation() {
     this.store
       .select(selectLocation)

@@ -123,12 +123,16 @@ export class HeaderComponent implements OnInit {
   route(path: any) {
     this.drawerService.drawerType.next(`/${path}`);
   }
-  // [routerLink]="[{ outlets: { secondRouter: ['lazy'] } }]
   routeViaSecond(path: any) {
     this.router.navigate([{ outlets: { secondRouter: [`lazy/mytrips`] } }]);
   }
-
-  hideMap() {
-    this.drawerService.showMap.next(false);
+  showLocationsOnMapComponent() {
+    this.menuShow = false;
+    this.drawerService.showLocations.next(true);
+    this.showMap(true);
+    this.router.navigateByUrl('');
+  }
+  showMap(toggle: boolean) {
+    this.drawerService.showMap.next(toggle);
   }
 }

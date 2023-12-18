@@ -113,3 +113,37 @@
     </div>
   </div>
 </div>
+
+<div *ngIf="openModalLocationFlag" class="modal-absolute text-center">
+  <div class="inner bg-light w-25 m-3">
+    <div class="d-relative m-2 p-2 rounded-0 text-dark text-left">
+      <div>
+        <span class="fw-bold text-capitalize m-2 p-2">{{
+          locationForModal[0].title
+        }}</span>
+        <span class="fw-bold text-capitalize m-2 p-2">{{
+          locationForModal[0].type
+        }}</span>
+      </div>
+      <div>
+        <span class="text-capitalize m-2 p-2">{{
+          locationForModal[0].district
+        }}</span
+        ><span class="text-capitalize m-2 p-2">{{
+          locationForModal[0].phone
+        }}</span>
+      </div>
+      <div class="m-2 p-2">
+        <button
+          mat-raised-button
+          (click)="bindExistsLocation(locationForModal[0])"
+        >
+          More
+        </button>
+        <button mat-button (click)="openModalLocationFlag = false">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
