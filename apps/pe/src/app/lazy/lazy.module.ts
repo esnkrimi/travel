@@ -89,5 +89,6 @@ import { MatChipsModule } from '@angular/material/chips';
       },
     }),
   ],
+  exports: [LocationListComponent],
 })
 export class LazyModule {}

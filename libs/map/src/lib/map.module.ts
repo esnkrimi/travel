@@ -17,6 +17,7 @@ import { TripsModule } from '@pe/trips';
 import { HelpModule } from '@pe/help';
 import { RouterModule } from '@angular/router';
 import { AdvancedAutocompleteModule } from '@pe/advanced-autocomplete';
+import { LazyModule } from '@appBase/lazy/lazy.module';
 
 @NgModule({
   declarations: [MapBoardComponent, DistancePipe],
@@ -28,6 +29,7 @@ import { AdvancedAutocompleteModule } from '@pe/advanced-autocomplete';
     FormsModule,
     RouterModule,
     HelpModule,
+    LazyModule,
     AdvancedAutocompleteModule,
     MatRippleModule,
     MatFormFieldModule,

@@ -6,8 +6,8 @@
           class="nav-link"
           href="#"
           [routerLink]="[{ outlets: { secondRouter: 'lazy/mytrips' } }]"
-          >I am leader <span class="sr-only">(current)</span></a
-        >
+          >I am leader
+        </a>
       </li>
 
       <li class="nav-item active">
@@ -15,8 +15,8 @@
           class="nav-link"
           href="#"
           [routerLink]="[{ outlets: { secondRouter: 'lazy/myrequests' } }]"
-          >I am Guests <span class="sr-only">(current)</span></a
-        >
+          >I am Guests
+        </a>
       </li>
 
       <li class="nav-item active">
@@ -24,8 +24,8 @@
           class="nav-link"
           href="#"
           [routerLink]="[{ outlets: { secondRouter: 'lazy/messages' } }]"
-          >Requests <span class="sr-only">(current)</span></a
-        >
+          >Requests
+        </a>
       </li>
 
       <li class="nav-item active">
@@ -33,17 +33,16 @@
           class="nav-link"
           href="#"
           [routerLink]="[{ outlets: { secondRouter: 'lazy/trips' } }]"
-          >Trips list <span class="sr-only">(current)</span></a
-        >
+          >Trips list
+        </a>
       </li>
 
       <li class="nav-item active">
         <a
-          class="nav-link"
-          href="#"
-          [routerLink]="[{ outlets: { secondRouter: 'lazy/locations' } }]"
-          >Locatin list <span class="sr-only">(current)</span></a
-        >
+          class="nav-link cursor-pointer"
+          (click)="showLocationsOnMapComponent()"
+          >Locatin list
+        </a>
       </li>
     </ul>
   </div>

@@ -30,6 +30,13 @@
 
   <div class="w-100">
     <div class="inner">
+      <pagination-controls
+        [autoHide]="true"
+        [responsive]="true"
+        previousLabel=""
+        nextLabel=""
+        (pageChange)="page = $event"
+      ></pagination-controls>
       <div
         *ngFor="
           let l of locatinListFiltered
@@ -77,11 +84,7 @@
           </div>
         </div>
         <div>
-          <button
-            mat-raised-button
-            (click)="showMap()"
-            [routerLink]="['../' + l.lat + '/' + l.lon]"
-          >
+          <button mat-raised-button (click)="selectLocation(l.lat, l.lon)">
             View on map
           </button>
         </div>

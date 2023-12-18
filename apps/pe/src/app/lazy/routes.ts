@@ -28,8 +28,8 @@ const routes: Routes = [
     component: EntryComponent,
   },
   {
-    path: 'locations',
-    component: LocationListComponent,
+    path: 'locations/:id',
+    component: MapComponent,
   },
   {
     path: 'mytrips',

@@ -2,13 +2,14 @@ import {
   AfterViewInit,
   Component,
   EventEmitter,
+  Inject,
   Input,
   OnChanges,
   OnInit,
   Output,
   SimpleChanges,
 } from '@angular/core';
-
+import { LazyModule } from '@appBase/lazy/lazy.module';
 import { MapService } from '@appBase/master/map/service';
 import { DrawerService } from '@appBase/drawer.service';
 import { Ilocation, typeOflocations } from '@appBase/+state/state';
@@ -23,8 +24,13 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import * as L from 'leaflet';
 import 'leaflet-control-geocoder/dist/Control.Geocoder.js';
 import { DistancePipe } from './pipe';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { HelpService } from 'libs/help/src/lib/component/help.service';
+import {
+  MAT_DIALOG_DATA,
+  MatDialog,
+  MatDialogRef,
+} from '@angular/material/dialog';
 @Component({
   selector: 'pe-map',
   templateUrl: './map.component.html',
@@ -35,13 +41,15 @@ import { HelpService } from 'libs/help/src/lib/component/help.service';
 export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
   @Input() formTripShow: any;
   @Output() formTripShowAction = new EventEmitter<any>();
+  openModalLocationListFlag = false;
 
+  @Input() country: any;
   @Input() city: any;
   @Input() center: any;
+
   @Input() showTour: any;
   @Input() tripLocations: any;
   @Input() savedLocation = false;
-  @Input() country: any;
 
   @Output() zoomActivator = new EventEmitter<any>();
   draggingLocation = {
@@ -104,6 +112,8 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
   title = '';
   constructor(
     private router: Router,
+    private route: ActivatedRoute,
+    private matDialog: MatDialog,
     private helpService: HelpService,
     private mapService: MapService,
     private drawerService: DrawerService,
@@ -113,7 +123,11 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
     private readonly joyrideService: JoyrideService,
     private _snackBar: MatSnackBar
   ) {}
-
+  getShowLocationState() {
+    this.drawerService.showLocations.subscribe((res: any) => {
+      this.openModalLocationListFlag = res;
+    });
+  }
   cancelTripSubmitVar(event: any) {
     this.selectLocationActivated = !event;
     this.mapApiService.bgLoader.next(false);
@@ -304,14 +318,12 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
   bind(e: any) {
     // this.drawerService.open.next(true);
     this.zoomActivator.emit(true);
-    this.drawerService.drawerType.next('/zoom');
     this.locationSelected.lon = e.latlng.lng;
     this.locationSelected.lat = e.latlng.lat;
     this.drawerService.localInformation.next(this.locationSelected);
   }
 
   async changeCenter() {
-    this.center;
     this.positionView = await this.map?.setView(this.center, 15);
   }
 
@@ -357,7 +369,6 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (!this.map) this.loadMap();
     this.draggingLocation.city = this.city;
     this.draggingLocation.country = this.country;
     this.draggingLocation = {
@@ -375,11 +386,13 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   ngOnInit(): void {
+    this.loadMap();
+
     this.mapService.loadingProgress.next(true);
     this.getRoute();
+    this.getShowLocationState();
     this.fetchTrip();
     this.fetchByCity('New York', true);
-    if (!this.map) this.loadMap(); //map_creation
     this.clickOnMap(); //CLICK ON MAP
     this.dragMap(); //CLICK ON MAP
     this.changeCenter();
@@ -462,7 +475,6 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
       this.turnOffProgress(1);
     }
   }
-  // 40.76854517976061, lng: -73.99931430816652}
   highlightLocation() {
     this.store
       .select(selectLocation)
@@ -548,10 +560,13 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
     });
   }
 
-  openSnackBar(msg: string) {
-    this._snackBar.open(msg);
+  selectedLocation(event: any) {
+    this.openModalLocationListFlag = false;
+    this.center = [Number(event.lat), Number(event.lon)];
+    this.changeCenter();
+    this.highlightLocation();
   }
-  closeSnackBar() {
-    this._snackBar.dismiss();
+  openModalLocationList(toggle: boolean) {
+    this.drawerService.showLocations.next(toggle);
   }
 }

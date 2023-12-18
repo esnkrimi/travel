@@ -190,7 +190,16 @@ body{
        transform: rotateY(180deg);
    } 
 }
- 
+ .close-div{
+   position: absolute;
+   right: 1%;
+   top:0;
+   cursor: pointer;
+   z-index: 500 !important;
+ }
+ .close-div:hover{
+   color:var(--COLOR-RED) !important
+ }
 .transparent-bg{
    width: 100%;
    height: 100%;

@@ -45,7 +45,7 @@ export class ExperiencesComponent implements OnInit {
     setTimeout(() => {
       this.store.select(selectLocationComments).subscribe((res) => {
         this.result = res;
-        this.userIdCommenter.userId = res[0].userid;
+        this.userIdCommenter.userId = res[0]?.userid;
 
         this.store
           .select(selectUsersOfSite)
@@ -55,9 +55,8 @@ export class ExperiencesComponent implements OnInit {
             )
           )
           .subscribe((res: any) => {
-            this.userIdCommenter.userName = res[0].name;
-            this.userIdCommenter.userFamily = res[0].lnama;
-            res[0];
+            this.userIdCommenter.userName = res[0]?.name;
+            this.userIdCommenter.userFamily = res[0]?.lnama;
           });
       });
     }, 10);

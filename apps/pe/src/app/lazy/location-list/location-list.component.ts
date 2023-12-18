@@ -1,4 +1,11 @@
-import { Component, Inject, OnInit, inject } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Inject,
+  OnInit,
+  Output,
+  inject,
+} from '@angular/core';
 import { Store } from '@ngrx/store';
 import { actions } from '@appBase/+state/actions';
 import {
@@ -27,6 +34,8 @@ import { Router, RouterModule } from '@angular/router';
   styleUrls: ['./location-list.component.scss'],
 })
 export class LocationListComponent implements OnInit {
+  @Output() selectedLocation = new EventEmitter<any>();
+
   locatinListFiltered: any;
   locatinList: any;
   locatinTypeList: any;
@@ -95,8 +104,13 @@ export class LocationListComponent implements OnInit {
       this.locatinTypeList = res;
     });
   }
+  selectLocation(lat: any, lon: any) {
+    this.selectedLocation.emit({
+      lat: lat,
+      lon: lon,
+    });
+  }
   ngOnInit(): void {
-    this.hideMap();
     this.inputListener();
     this.fetchLocations();
   }

@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { DrawerService } from '@appBase/drawer.service';
 
 @Component({
   selector: 'pe-navbar-menu',
@@ -10,6 +11,9 @@ export class NavbarMenuComponent implements OnInit {
   arrayOfText = [];
   arrayToShow = [];
   i = 0;
-  constructor() {}
+  constructor(private drawerService: DrawerService) {}
   ngOnInit(): void {}
+  showLocationsOnMapComponent() {
+    this.drawerService.showLocations.next(true);
+  }
 }

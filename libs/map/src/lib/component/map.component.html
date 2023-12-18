@@ -89,7 +89,7 @@
         </div>
       </div>
 
-      <div class="map-frame w-100">
+      <div #mapContainer class="map-frame w-100">
         <div id="map"></div>
       </div>
     </div>
@@ -100,3 +100,16 @@
     Done !
   </button>
 </ng-template>
+
+<div *ngIf="openModalLocationListFlag" class="modal-absolute text-center">
+  <div class="inner">
+    <div class="d-relative">
+      <pe-location-list
+        (selectedLocation)="selectedLocation($event)"
+      ></pe-location-list>
+      <div class="close-div">
+        <i class="fa fa-close fa-2x" (click)="openModalLocationList(false)"></i>
+      </div>
+    </div>
+  </div>
+</div>
