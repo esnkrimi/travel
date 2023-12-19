@@ -7,7 +7,7 @@ import { ZoomComponent } from './zoom/zoom.component';
 import { lazyRouterModule } from './routes';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { ExperiencesModule } from '@pe/experiences';
@@ -39,6 +39,7 @@ import { NgxPaginationModule } from 'ngx-pagination'; // <-- import the module
 import { GoogleSigninButtonModule } from '@abacritt/angularx-social-login';
 import { LocationListComponent } from './location-list/location-list.component';
 import { MatChipsModule } from '@angular/material/chips';
+import { LoadingProgressModule } from '@pe/loading-progress';
 @NgModule({
   declarations: [
     EntryComponent,
@@ -70,10 +71,12 @@ import { MatChipsModule } from '@angular/material/chips';
     MatFormFieldModule,
     ConfirmModalModule,
     ReactiveFormsModule,
+    FormsModule,
     MatExpansionModule,
     NgxPaginationModule,
     LoadingImageModule,
     MatButtonModule,
+    LoadingProgressModule,
     MatInputModule,
     MatSelectModule,
     JoyrideModule.forRoot(),

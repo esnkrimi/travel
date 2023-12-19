@@ -16,7 +16,7 @@ export class FetchLocationService {
     );
   }
 
-  getGeographic(city: string, country: string, geo: any) {
+  getGeographic(city: string, country: string, geo: any, sym: any) {
     if (geo?.length > 1) {
       const t = [
         {
@@ -24,6 +24,8 @@ export class FetchLocationService {
           latitude: geo[0],
           longitude: geo[1],
           name: city,
+          state_name: sym,
+          city: sym,
         },
       ];
       return of(t);
@@ -58,7 +60,7 @@ export class FetchLocationService {
             tmp.geo = [res[i][1].lat, res[i][1].lon];
             tmp.type = res[i][1].type;
             tmp.sym = res[i][1].title.replace(' ', '-');
-            tmp.city = res[i][1].title + ' ' + res[i][1].type;
+            tmp.city = res[i][1].city;
             tmp.title = res[i][1].title.replace(' ', '-');
             tmp.city && results.push(tmp);
           }

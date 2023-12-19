@@ -9,10 +9,14 @@
   }
   @media only screen and (min-width: 1200px) {
     .inner{
-        width: 50% !important;
+        width: 100% !important;
     }
   }
   
   input{
     height: 2em !important;
+  }
+  select{
+    justify-content: right !important;
+    justify-items: right !important;
   }

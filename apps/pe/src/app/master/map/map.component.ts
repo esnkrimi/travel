@@ -16,7 +16,8 @@ import { ActivatedRoute } from '@angular/router';
 export class MapComponent implements OnChanges, OnInit {
   center = [40.750929, -73.984326];
   country = 'United States';
-  city = ' - New York';
+  city = 'New York';
+  state = 'New York';
   formTripShow = false;
   @Input() scope: any; //from autocomplete search
   @Input() showTour: any;
@@ -45,6 +46,7 @@ export class MapComponent implements OnChanges, OnInit {
       this.center = [this.scope.center[0], this.scope.center[1]];
       this.city = this.scope.city;
       this.country = this.scope.country;
+      this.state = this.scope.state;
     }
   }
 

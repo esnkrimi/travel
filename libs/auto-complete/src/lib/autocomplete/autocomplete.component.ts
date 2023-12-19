@@ -63,17 +63,21 @@ export class AutocompleteComponent implements OnInit {
     this.result = [];
     this.locationInput.setValue('');
     this.mapService.loadingProgress.next(true);
+
     this.store.dispatch(
       actions.startSetviewAction({
         location: {
           city: t?.city,
           country: t?.country,
           geo: t?.geo,
+          sym: t?.city,
         },
       })
     );
     this.store.select(selectSetview).subscribe((res: any) => {
-      if (res.length > 0) this.results.emit(res[0]);
+      if (res[0].latitude.length > 0) {
+        this.results.emit(res[0]);
+      }
     });
   }
 }

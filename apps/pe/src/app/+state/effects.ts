@@ -421,7 +421,7 @@ export class storeEffects {
       switchMap((str: any) => {
         str = str.location;
         return this.locationService
-          .getGeographic(str.city, str.country, str.geo)
+          .getGeographic(str.city, str.country, str.geo, str.sym)
           .pipe(map((res: any) => actions.setviewAction({ setview: res })));
       })
     );

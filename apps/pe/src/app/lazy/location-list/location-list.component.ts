@@ -2,6 +2,7 @@ import {
   Component,
   EventEmitter,
   Inject,
+  Input,
   OnInit,
   Output,
   inject,
@@ -27,6 +28,7 @@ import {
 import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
+import { map, tap } from 'rxjs';
 
 @Component({
   selector: 'pe-location-list',
@@ -35,7 +37,11 @@ import { Router, RouterModule } from '@angular/router';
 })
 export class LocationListComponent implements OnInit {
   @Output() selectedLocation = new EventEmitter<any>();
-
+  @Input() city: any;
+  @Input() country: any;
+  @Input() state: any;
+  rateFilter = 'all rates';
+  rateFilterNumber = 0;
   locatinListFiltered: any;
   locatinList: any;
   locatinTypeList: any;
@@ -76,9 +82,17 @@ export class LocationListComponent implements OnInit {
     //    this.showMap();
     this.router.navigateByUrl('zoom/');
   }
-  starRates(rate: any) {
-    this.rates = this.rates.fill('1', 0, rate);
-    return this.rates;
+  changeRates(rate: any) {
+    this.page = 1;
+    this.rateFilterNumber =
+      this.rateFilter === 'all rates' || this.rateFilter === ''
+        ? 0
+        : this.rateFilter === 'low'
+        ? 2
+        : this.rateFilter === 'midle'
+        ? 3
+        : 5;
+    this.fetchLocations();
   }
   hideMap() {
     this.drawerService.showMap.next(false);
@@ -88,15 +102,25 @@ export class LocationListComponent implements OnInit {
   }
   fetchLocations() {
     this.selectedType = '';
-    this.store.select(selectLocation).subscribe((res) => {
-      this.locatinList = res;
-      this.locatinListFiltered = res;
-    });
+    this.store
+      .select(selectLocation)
+      .pipe(
+        map((res) =>
+          res.filter(
+            (res: any) => Number(res.score) >= Number(this.rateFilterNumber)
+          )
+        )
+      )
+      .subscribe((res) => {
+        this.locatinList = res;
+        this.locatinListFiltered = res;
+      });
   }
   changeLocationTypes(type: string) {
     this.selectedType = type;
+    this.page = 1;
     this.locatinListFiltered = this.locatinList.filter(
-      (res: any) => res.type === type
+      (res: any) => type === '' || res.type === type
     );
   }
   fetchLocationTypes() {

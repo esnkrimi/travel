@@ -40,6 +40,7 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
   @Input() country: any;
   @Input() city: any;
   @Input() center: any;
+  @Input() state: any;
 
   @Input() showTour: any;
   @Input() tripLocations: any;
@@ -48,7 +49,7 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
   @Output() zoomActivator = new EventEmitter<any>();
   draggingLocation = {
     country: 'United States',
-    city: ' - New York',
+    city: 'New York',
     street: '',
     suburb: ' ',
   };
@@ -251,6 +252,7 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
   fetchByCity(city: string, changedCity: boolean) {
     city = city.toLowerCase();
     let data: any;
+    // console.log('----------', city);
     if (changedCity)
       this.store.dispatch(
         actions.startFetchCountryLocationAction({
@@ -328,7 +330,8 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   listener(changedCity: boolean) {
-    this.fetchByCity(this.city, changedCity);
+    const fetchByLocation = this.state ? this.state : this.city;
+    this.fetchByCity(fetchByLocation, changedCity);
   }
 
   private loadMap(): void {
@@ -497,6 +500,7 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   highlightLocation() {
+    //popup after location-list component
     this.store
       .select(selectLocation)
       .pipe(
@@ -582,10 +586,11 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   selectedLocation(event: any) {
+    //select location in location-list
     this.openModalLocationListFlag = false;
     this.center = [Number(event.lat), Number(event.lon)];
-    this.changeCenter();
-    this.highlightLocation();
+    this.changeCenter(); //center focus
+    this.highlightLocation(); //popup
   }
   openModalLocationList(toggle: boolean) {
     this.drawerService.showLocations.next(toggle);

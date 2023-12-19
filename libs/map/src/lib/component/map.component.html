@@ -105,6 +105,9 @@
   <div class="inner w-75 text-left">
     <div class="d-relative">
       <pe-location-list
+        [city]="city"
+        [state]="state"
+        [country]="country"
         (selectedLocation)="selectedLocation($event)"
       ></pe-location-list>
       <div class="close-div">
