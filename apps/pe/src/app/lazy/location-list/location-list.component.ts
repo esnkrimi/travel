@@ -136,6 +136,8 @@ export class LocationListComponent implements OnInit {
   }
   ngOnInit(): void {
     this.inputListener();
-    this.fetchLocations();
+    setTimeout(() => {
+      this.fetchLocations();
+    }, 1000);
   }
 }

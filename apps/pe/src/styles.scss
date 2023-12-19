@@ -1,7 +1,7 @@
 :root {
     --COLOR-WAITING: rgb(214, 110, 24);
     --COLOR-RED: rgb(223, 43, 61);
-    --COLOR-DARK: rgb(103, 105, 103);
+    --COLOR-DARK: rgb(56, 58, 56);
     --COLOR-DARKER: rgb(18, 19, 18)
     --COLOR-LIGHT-DARK: rgb(212, 218, 212);
     --COLOR-MUTED: rgb(102, 104, 102);
@@ -403,4 +403,7 @@ h2 {
    border: none;
    box-shadow: none;
  }
+.w-90{
+   width: 90% !important;
+}
 

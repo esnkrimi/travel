@@ -40,8 +40,12 @@ import { GoogleSigninButtonModule } from '@abacritt/angularx-social-login';
 import { LocationListComponent } from './location-list/location-list.component';
 import { MatChipsModule } from '@angular/material/chips';
 import { LoadingProgressModule } from '@pe/loading-progress';
+import { ScorePipe } from '@appBase/pipe/score';
+import { ScoreDirective } from '@appBase/directive/score.directive';
 @NgModule({
   declarations: [
+    ScorePipe,
+    ScoreDirective,
     EntryComponent,
     LocationListComponent,
     MyrequestsComponent,

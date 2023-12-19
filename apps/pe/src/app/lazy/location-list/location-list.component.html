@@ -1,140 +1,131 @@
-<ng-container *ngIf="!locatinListFiltered; else dataLoaded">
-  <div class="bg-light w-100">
-    <pe-loading-progress [mode]="'mini'"></pe-loading-progress>
-  </div>
-</ng-container>
-<ng-template #dataLoaded>
-  <div class="bg-light w-100 p-2">
-    <div class="row w-100">
-      <div class="col-md-6">
-        <form [formGroup]="formSearchTrip">
-          <mat-form-field class="search-input w-75">
-            <mat-label> {{ 'Search Location' }}</mat-label>
-            <input matInput formControlName="itemToSearch" class="w-100" />
-          </mat-form-field>
-        </form>
-      </div>
-      <div class="col-md-6">
-        <div class="d-flex">
-          <div class="w-100">
-            <pe-advanced-autocomplete
-              (results)="changeLocationTypes($event)"
-            ></pe-advanced-autocomplete>
-          </div>
-          <div style="flex-basis: 10%" class="flex-cell">
-            <mat-chip *ngIf="selectedType.length > 0">
-              {{ selectedType }}
-              <i
-                class="fa fa-close cursor-pointer"
-                (click)="fetchLocations()"
-              ></i>
-            </mat-chip>
-          </div>
+<div class="bg-light w-100" *ngIf="locatinListFiltered.length === 0">
+  <pe-loading-progress [mode]="'mini'"></pe-loading-progress>
+</div>
+<div class="bg-light w-100 p-2 animated-fadein">
+  <div class="row w-100">
+    <div class="col-md-6">
+      <form [formGroup]="formSearchTrip">
+        <mat-form-field class="search-input w-75">
+          <mat-label> {{ 'Search Location' }}</mat-label>
+          <input matInput formControlName="itemToSearch" class="w-100" />
+        </mat-form-field>
+      </form>
+    </div>
+    <div class="col-md-6">
+      <div class="d-flex">
+        <div class="w-100">
+          <pe-advanced-autocomplete
+            (results)="changeLocationTypes($event)"
+          ></pe-advanced-autocomplete>
+        </div>
+        <div style="flex-basis: 10%" class="flex-cell">
+          <mat-chip *ngIf="selectedType.length > 0">
+            {{ selectedType }}
+            <i
+              class="fa fa-close cursor-pointer"
+              (click)="fetchLocations()"
+            ></i>
+          </mat-chip>
         </div>
       </div>
     </div>
-    <div class="w-100">
-      <div class="inner">
-        <pagination-controls
-          [autoHide]="true"
-          [responsive]="true"
-          previousLabel=""
-          nextLabel=""
-          (pageChange)="page = $event"
-        ></pagination-controls>
+  </div>
+  <div class="w-100">
+    <div class="inner">
+      <pagination-controls
+        [autoHide]="true"
+        [responsive]="true"
+        previousLabel=""
+        nextLabel=""
+        (pageChange)="page = $event"
+      ></pagination-controls>
+      <div class="row">
+        <div class="col-md-6">
+          <p class="title-bar w-100">
+            <span class="fw-bolder">
+              {{ state }}
+            </span>
+            <span class="fw-light"> ({{ country }}) </span>
+            <span class="fw-bold"> Location List </span>
+          </p>
+        </div>
+        <div class="col-md-6 flex-cell text-right">
+          <select
+            class="form-select w-50"
+            [(ngModel)]="rateFilter"
+            (ngModelChange)="changeRates($event)"
+          >
+            <option selected="selected" [value]="'all rates'">All Rates</option>
+            <option value="top">Top Rates</option>
+            <option value="midle">Midle</option>
+          </select>
+        </div>
+      </div>
+
+      <div
+        *ngFor="
+          let l of locatinListFiltered
+            | paginate : { itemsPerPage: 6, currentPage: page }
+        "
+        class="m-2 p-3 bg-light w-90 border"
+      >
         <div class="row">
           <div class="col-md-6">
-            <p class="title-bar w-100">
-              <span class="fw-bolder">
-                {{ state }}
-              </span>
-              <span class="fw-light"> ({{ country }}) </span>
-              <span class="fw-bold"> Location List </span>
-            </p>
-          </div>
-          <div class="col-md-6 flex-cell text-right">
-            <select
-              class="form-select w-50"
-              [(ngModel)]="rateFilter"
-              (ngModelChange)="changeRates($event)"
-            >
-              <option selected="selected" [value]="'all rates'">
-                all rates
-              </option>
-              <option value="top">top rates</option>
-              <option value="midle">midle</option>
-            </select>
-          </div>
-        </div>
-
-        <div
-          *ngFor="
-            let l of locatinListFiltered
-              | paginate : { itemsPerPage: 6, currentPage: page }
-          "
-          class="m-2 p-3 bg-light w-100 border"
-        >
-          <div class="row">
-            <div class="col-md-6">
-              <div class="border-bottom">
-                <span class="fw-bold text-capitalize">
-                  {{ l.title }}
-                </span>
-              </div>
-            </div>
-            <div class="col-md-6 text-right">score : {{ l.score }}</div>
-          </div>
-
-          <div class="p-4">
-            <div>
-              <span class="text-capitalize">Type : {{ l.type }}</span>
-            </div>
-
-            <div>
-              <span>Address : </span>
+            <div class="border-bottom">
               <span class="fw-bold text-capitalize">
-                {{ l.country }} {{ l.city }}
+                {{ l.title }}
               </span>
-              <span>
-                {{ l.county }}
-                {{ l.district }}
-                {{ l.street }}
-              </span>
-            </div>
-            <div *ngIf="l.email">
-              <span class="text-capitalize">Email : {{ l.email }}</span>
-            </div>
-
-            <div *ngIf="l.phone">
-              <span>Phone : {{ l.phone }}</span>
             </div>
           </div>
-          <div>
-            <a
-              (click)="selectLocation(l.lat, l.lon)"
-              class="link-darks border p-2"
-            >
-              View on map
-            </a>
+          <div class="col-md-6 text-right">
+            <span scoreDirective [value]="l.score">
+              {{ l.score | scorePipe }}
+            </span>
           </div>
         </div>
 
-        <pagination-controls
-          [autoHide]="true"
-          [responsive]="true"
-          previousLabel=""
-          nextLabel=""
-          (pageChange)="page = $event"
-        ></pagination-controls>
+        <div class="p-4">
+          <div>
+            <span class="text-capitalize">Type :</span>
+            <span class="text-capitalize fw-bold"> {{ l.type }}</span>
+          </div>
+
+          <div>
+            <span>Address : </span>
+            <span class="fw-bold text-capitalize">
+              {{ l.country }} {{ l.city }}
+            </span>
+            <span>
+              {{ l.county }}
+              {{ l.district }}
+              {{ l.street }}
+            </span>
+          </div>
+          <div *ngIf="l.email">
+            <span class="text-capitalize">Email : {{ l.email }}</span>
+          </div>
+
+          <div *ngIf="l.phone">
+            <span>Phone : {{ l.phone }}</span>
+          </div>
+        </div>
+        <div>
+          <a
+            (click)="selectLocation(l.lat, l.lon)"
+            class="link-darks fw-bold border border-green p-2"
+          >
+            View on map
+          </a>
+        </div>
       </div>
+
+      <pagination-controls
+        [autoHide]="true"
+        [responsive]="true"
+        previousLabel=""
+        nextLabel=""
+        (pageChange)="page = $event"
+      ></pagination-controls>
     </div>
   </div>
-</ng-template>
-
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
+</div>
