@@ -27,6 +27,7 @@ import { MatDialog } from '@angular/material/dialog';
 })
 export class AppComponent implements OnInit {
   showMap = true;
+  SelectedLanguage = '';
   isLoggedin?: boolean;
   tips = [
     'search location by name or on map',
@@ -156,6 +157,7 @@ export class AppComponent implements OnInit {
 
     this.fetchTrip();
     this.settingService.language.subscribe((res) => {
+      this.SelectedLanguage = res;
       this.translate.setDefaultLang(res);
       this.translate.use(res);
     });

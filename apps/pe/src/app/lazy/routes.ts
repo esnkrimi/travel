@@ -20,6 +20,10 @@ const routes: Routes = [
     component: ZoomComponent,
   },
   {
+    path: 'zoom/:stsruct',
+    component: ZoomComponent,
+  },
+  {
     path: '',
     component: ZoomComponent,
   },

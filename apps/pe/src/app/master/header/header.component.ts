@@ -50,7 +50,6 @@ export class HeaderComponent implements OnInit {
   animationFlag = 'false';
   @Output() resultOutputs = new EventEmitter<any>();
   @Output() savedLocation = new EventEmitter<any>();
-  savedLocationFlag = false;
   menuShow = false;
   userLoginInformation: Iuser = {
     id: '',
@@ -90,7 +89,12 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
     this.fetchUser();
   }
-
+  getShowLocationState() {
+    this.drawerService.showLocations.next({
+      show: true,
+      type: 'saved',
+    });
+  }
   routeHome() {
     this.drawerService.showMap.next(true);
     window.location.reload();
@@ -99,9 +103,9 @@ export class HeaderComponent implements OnInit {
     this.animationFlag = this.animationFlag === 'true' ? 'false' : 'true';
     this.mapServicePrivate.loadingProgress.next(true);
     setTimeout(() => {
-      this.mapServicePrivate.loadingProgress.next(false);
       this.settingService.language.next(language.toLowerCase());
       this.languageIndex = this.languageIndex >= 4 ? 0 : this.languageIndex + 1;
+      this.mapServicePrivate.loadingProgress.next(false);
     }, 1000);
   }
   resultOutput(event: any) {
@@ -113,11 +117,10 @@ export class HeaderComponent implements OnInit {
     });
   }
   savedLocations() {
+    this.getShowLocationState();
     this.menuShow = false;
-    this.savedLocationFlag = !this.savedLocationFlag;
-    this.drawerService.showMap.next(true);
-    this.savedLocation.emit(this.savedLocationFlag);
-    this.router.navigateByUrl('lazy/zoom');
+    this.showMap(true);
+    this.router.navigateByUrl('');
   }
 
   route(path: any) {
@@ -128,7 +131,10 @@ export class HeaderComponent implements OnInit {
   }
   showLocationsOnMapComponent() {
     this.menuShow = false;
-    this.drawerService.showLocations.next(true);
+    this.drawerService.showLocations.next({
+      show: true,
+      type: '',
+    });
     this.showMap(true);
     this.router.navigateByUrl('');
   }

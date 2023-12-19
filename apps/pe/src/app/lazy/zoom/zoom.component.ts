@@ -11,6 +11,7 @@ import { actions } from '@appBase/+state/actions';
 import { selectILocationTypes, selectLocation } from '@appBase/+state/select';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { SettingService } from '@appBase/setting';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'pe-zoom',
@@ -68,7 +69,8 @@ export class ZoomComponent implements AfterViewInit {
     private entryService: EntryService,
     public dialog: MatDialog,
     private mapService: MapService,
-    private store: Store
+    private store: Store,
+    private route: ActivatedRoute
   ) {}
 
   ngAfterViewInit(): void {

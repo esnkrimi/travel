@@ -10,7 +10,10 @@ import { DrawerService } from '@appBase/drawer.service';
 export class NavbarMenuComponent {
   constructor(private router: Router, private drawerService: DrawerService) {}
   showLocationsOnMapComponent() {
-    this.drawerService.showLocations.next(true);
+    this.drawerService.showLocations.next({
+      show: true,
+      type: '',
+    });
     this.showMap(true);
     this.router.navigateByUrl('');
   }

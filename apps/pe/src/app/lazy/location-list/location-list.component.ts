@@ -3,8 +3,10 @@ import {
   EventEmitter,
   Inject,
   Input,
+  OnChanges,
   OnInit,
   Output,
+  SimpleChanges,
   inject,
 } from '@angular/core';
 import { Store } from '@ngrx/store';
@@ -40,6 +42,8 @@ export class LocationListComponent implements OnInit {
   @Input() city: any;
   @Input() country: any;
   @Input() state: any;
+  @Input() type: any;
+
   rateFilter = 'all rates';
   rateFilterNumber = 0;
   locatinListFiltered: any;
@@ -61,6 +65,7 @@ export class LocationListComponent implements OnInit {
     private store: Store,
     @Inject('userSession') public userSession: any
   ) {}
+
   //John F Kennedy Intl
   inputListener() {
     this.locatinListFiltered = [];
@@ -101,6 +106,10 @@ export class LocationListComponent implements OnInit {
     this.drawerService.showMap.next(true);
   }
   fetchLocations() {
+    this.fetchAllLocations();
+  }
+
+  fetchAllLocations() {
     this.selectedType = '';
     this.store
       .select(selectLocation)
@@ -109,6 +118,9 @@ export class LocationListComponent implements OnInit {
           res.filter(
             (res: any) => Number(res.score) >= Number(this.rateFilterNumber)
           )
+        ),
+        map((res) =>
+          res.filter((res: any) => this.type !== 'saved' || res.saved === true)
         )
       )
       .subscribe((res) => {

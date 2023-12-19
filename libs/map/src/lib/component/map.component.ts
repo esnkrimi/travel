@@ -22,7 +22,7 @@ import { JoyrideService } from 'ngx-joyride';
 import * as L from 'leaflet';
 import 'leaflet-control-geocoder/dist/Control.Geocoder.js';
 import { DistancePipe } from './pipe';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { HelpService } from 'libs/help/src/lib/component/help.service';
 @Component({
   selector: 'pe-map',
@@ -41,12 +41,11 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
   @Input() city: any;
   @Input() center: any;
   @Input() state: any;
-
   @Input() showTour: any;
   @Input() tripLocations: any;
   @Input() savedLocation = false;
-
   @Output() zoomActivator = new EventEmitter<any>();
+  savedLocationFlag = false;
   draggingLocation = {
     country: 'United States',
     city: 'New York',
@@ -107,6 +106,7 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
   title = '';
   constructor(
     private router: Router,
+    private route: ActivatedRoute,
     private helpService: HelpService,
     private mapService: MapService,
     private drawerService: DrawerService,
@@ -119,7 +119,8 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
 
   getShowLocationState() {
     this.drawerService.showLocations.subscribe((res: any) => {
-      this.openModalLocationListFlag = res;
+      this.openModalLocationListFlag = res.show;
+      this.savedLocationFlag = res.type;
     });
   }
   cancelTripSubmitVar(event: any) {
@@ -198,6 +199,7 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
     this.latSelect = [e.latlng.lat, e.latlng.lng];
     //this.store.dispatch(actions.startAddTripPoin({ trip: trip }));
   }
+
   getRoute() {
     this.drawerService.showMap.subscribe((res) => {
       this.showMap = res;
@@ -252,7 +254,6 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
   fetchByCity(city: string, changedCity: boolean) {
     city = city.toLowerCase();
     let data: any;
-    // console.log('----------', city);
     if (changedCity)
       this.store.dispatch(
         actions.startFetchCountryLocationAction({
@@ -472,13 +473,13 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
           className: 'leaflet-popup',
         });
         tooltipPopup.setContent(
-          `<span class='border-bottom m-1'><b>${this.capitalizeFirstLetter(
+          `<span class='border-bottom '><b>${this.capitalizeFirstLetter(
             res[0]?.title
           )} ${res[0]?.type}
-      </span></b> <br><span class=text-medium m-2 p-2>
+      </span></b> <br><span class='text-medium m-1 p-2'>
       ${this.capitalizeFirstLetter(res[0]?.district)} ${res[0]?.street}
-      </span><br><b>
-      ${res[0]?.phone}</b> `
+      </span><br><span class='text-medium m-1 p-2'><b>
+      ${res[0]?.phone}</b></span> `
         );
         tooltipPopup.setLatLng(e.target.getLatLng());
         tooltipPopup.openOn(this.map);
@@ -517,13 +518,10 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
           })
             .setLatLng(this.center)
             .setContent(
-              `<span class='border-bottom m-1'><b>${this.capitalizeFirstLetter(
-                res[0]?.title
-              )} ${res[0]?.type}
-            </span></b> <br><span class=text-medium m-2 p-2>
-            ${this.capitalizeFirstLetter(res[0]?.district)} ${res[0]?.street}
-            </span><br><b>
-            ${res[0]?.phone}</b> `
+              `<span><b>${this.capitalizeFirstLetter(res[0]?.title)} ${
+                res[0]?.type
+              }
+          </span></b>  `
             )
             .openOn(this.map);
         }
@@ -593,6 +591,9 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
     this.highlightLocation(); //popup
   }
   openModalLocationList(toggle: boolean) {
-    this.drawerService.showLocations.next(toggle);
+    this.drawerService.showLocations.next({
+      show: toggle,
+      type: '',
+    });
   }
 }
