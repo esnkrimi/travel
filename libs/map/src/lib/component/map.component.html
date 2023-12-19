@@ -16,16 +16,9 @@
     <pe-trips [currentTrip]="currentTrip"></pe-trips>
   </div>
   <div class="w-100 text-center box">
-    <div class="location-input" cdkDrag>
-      <!--
-
-     <pe-advanced-autocomplete
-     (results)="change($event)"
-     ></pe-advanced-autocomplete>
-    --></div>
     <div [class.invisible]="!showMap" class="absolute-50">
       <div class="w-100 bg-light" cdkDrag>
-        <div
+        <!--   <div
           *ngFor="let item of typeOflocations"
           (click)="change(item)"
           class="w-100"
@@ -39,6 +32,9 @@
             "
           />
         </div>
+
+
+      -->
         <div
           class="mt-2"
           joyrideStep="secondStep"
@@ -67,7 +63,7 @@
         </div>
       </div>
     </div>
-    <div class="attached-text p-1"></div>
+
     <div [class.invisible]="!showMap" class="map-container">
       <div class="fixed-country shadow-lg cursor-pointer" cdkDrag>
         <div
@@ -87,6 +83,12 @@
             {{ draggingLocation.street }}
           </span>
         </div>
+      </div>
+
+      <div class="location-input" cdkDrag>
+        <pe-advanced-autocomplete
+          (results)="change($event)"
+        ></pe-advanced-autocomplete>
       </div>
 
       <div #mapContainer class="map-frame w-100">

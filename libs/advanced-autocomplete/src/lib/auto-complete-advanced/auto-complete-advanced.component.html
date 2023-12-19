@@ -1,28 +1,22 @@
 <div class="position-static">
-  <form class="form">
-    <mat-form-field class="w-100">
-      <input
-        type="text"
-        matInput
-        class="bg-light"
-        [formControl]="locationInput"
-        placeholder="Search Types"
-      />
-    </mat-form-field>
-  </form>
-
+  <input
+    type="text"
+    matInput
+    class="bg-light p-2 text-capitalize"
+    [formControl]="locationInput"
+    placeholder="Search Types"
+  />
   <div
     *ngIf="autocompleteDataFiltered && autocompleteDataFiltered.length < 10"
     class="lists form"
   >
     <div
-      class="cursor-pointer w-100 bg-light p-1"
       (click)="setLocationType(item.type)"
       *ngFor="let item of autocompleteDataFiltered; let i = index"
     >
-      <div class="bg-light span-animated-on-hover cursor-pointer">
+      <div class="bg-light cursor-pointer">
         <div class="d-flex flex-nowrap">
-          <div class="text-left">
+          <div class="text-left link-darks fw-bold text-capitalize p-1">
             {{ item.type }}
           </div>
         </div>
