@@ -113,7 +113,7 @@ display: none !important;
     left:1%;
     top:1%;
     width: fit-content;
-    z-index: 1001;
+    z-index: 500;
     animation: animated-scale 0.2s forwards;
 }
 
@@ -254,4 +254,9 @@ z-index: 600 !important;
  }
  .pl-3{
     padding-left: 1em !important;
+ }
+ .searched-type{
+    position: absolute;
+    left: 0;
+    top:0;
  }

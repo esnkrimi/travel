@@ -57,5 +57,6 @@ export class AdvancedAutocompleteComponent implements OnInit {
     this.locationInput.setValue(type);
     this.autocompleteDataFiltered = [];
     this.results.emit(type);
+    this.locationInput.setValue('');
   }
 }
