@@ -201,7 +201,7 @@ export class AppComponent implements OnInit {
     this.scope = e;
   }
   openDialog() {
-    const dialogRef = this.dialog.open(DialogContent);
+    this.dialog.open(DialogContent);
   }
 
   listener() {
@@ -211,11 +211,9 @@ export class AppComponent implements OnInit {
     this.draswerService.drawerType.subscribe((res: any) => {
       this.drawerTypeTmp = res;
       this.router.navigateByUrl('lazy' + res);
-
       setTimeout(() => {
         this.draswerService.showMap.next(true);
       }, 2000);
-      //router.navigate([{outlets: {primary: 'path' ,sidebar: 'path'}}]);
     });
   }
 }

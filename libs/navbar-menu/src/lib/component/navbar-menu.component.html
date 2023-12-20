@@ -2,48 +2,131 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav">
       <li class="nav-item active">
-        <a
-          class="nav-link"
-          href="#"
-          [routerLink]="[{ outlets: { secondRouter: 'lazy/mytrips' } }]"
-          >I am leader
-        </a>
+        <button mat-stroked-button class="link m-1" href="index.html">
+          Home
+        </button>
       </li>
-
+    </ul>
+    <ul class="navbar-nav">
       <li class="nav-item active">
-        <a
-          class="nav-link"
-          href="#"
-          [routerLink]="[{ outlets: { secondRouter: 'lazy/myrequests' } }]"
-          >I am Guests
-        </a>
-      </li>
-
-      <li class="nav-item active">
-        <a
-          class="nav-link"
-          href="#"
-          [routerLink]="[{ outlets: { secondRouter: 'lazy/messages' } }]"
-          >Requests
-        </a>
-      </li>
-
-      <li class="nav-item active">
-        <a
-          class="nav-link"
-          href="#"
-          [routerLink]="[{ outlets: { secondRouter: 'lazy/trips' } }]"
-          >Trips list
-        </a>
-      </li>
-
-      <li class="nav-item active">
-        <a
-          class="nav-link cursor-pointer"
+        <button
+          mat-stroked-button
+          class="link m-1"
           (click)="showLocationsOnMapComponent()"
-          >Locatin list
-        </a>
+        >
+          Location list
+        </button>
+      </li>
+    </ul>
+    <ul class="navbar-nav">
+      <li class="nav-item active">
+        <button mat-stroked-button class="link m-1" (click)="board('contact')">
+          Contact us
+        </button>
+      </li>
+    </ul>
+
+    <ul class="navbar-nav">
+      <li class="nav-item active">
+        <button mat-stroked-button class="link m-1" (click)="board('about')">
+          About us
+        </button>
       </li>
     </ul>
   </div>
 </nav>
+
+<div
+  *ngIf="boardShow === 'about'"
+  class="transparent-bg animated-fadein text-center"
+>
+  <div class="inner w-50 bg-light m-4 p-4 relative">
+    <i
+      class="fa fa-close icon-close cursor-pointer m-1 link"
+      (click)="boardShow = ''"
+    ></i>
+    <h4 class="fw-bold text-left">what is crown</h4>
+    <p class="text-left">
+      A crown is a traditional form of head adornment, or hat, worn by monarchs
+      as a symbol of their power and dignity. A crown is often, by extension, a
+      symbol of the monarch's government or items endorsed by it. A crown is a
+      traditional form of head adornment, or hat, worn by monarchs as a symbol
+      of their power and dignity. A crown is often, by extension, a symbol of
+      the monarch's government or items endorsed by it. A crown is a traditional
+      form of head adornment, or hat, worn by monarchs as a symbol of their
+      power and dignity. A crown is often, by extension, a symbol of the
+      monarch's government or items endorsed by it. A crown is a traditional
+      form of head adornment, or hat, worn by monarchs as a symbol of their
+      power and dignity. A crown is often, by extension, a symbol of the
+      monarch's government or items endorsed by it.
+    </p>
+
+    <h4 class="fw-bold text-left">what is crown</h4>
+    <p class="text-left">
+      A crown is a traditional form of head adornment, or hat, worn by monarchs
+      as a symbol of their power and dignity. A crown is often, by extension, a
+      symbol of the monarch's government or items endorsed by it. A crown is a
+      traditional form of head adornment, or hat, worn by monarchs as a symbol
+      of their power and dignity. A crown is often, by extension, a symbol of
+      the monarch's government or items endorsed by it. A crown is a traditional
+      form of head adornment, or hat, worn by monarchs as a symbol of their
+      power and dignity. A crown is often, by extension, a symbol of the
+      monarch's government or items endorsed by it. A crown is a traditional
+      form of head adornment, or hat, worn by monarchs as a symbol of their
+      power and dignity. A crown is often, by extension, a symbol of the
+      monarch's government or items endorsed by it.
+    </p>
+
+    <h4 class="fw-bold text-left">where are crown's team ?</h4>
+    <p class="text-left">
+      A crown is a traditional form of head adornment, or hat, worn by monarchs
+      as a symbol of their power and dignity. A crown is often, by extension, a
+      symbol of the monarch's government or items endorsed by it. A crown is a
+      traditional form of head adornment, or hat, worn by monarchs as a symbol
+      of their power and dignity. A crown is often, by extension, a symbol of
+      the monarch's government or items endorsed by it. A crown is a traditional
+      form of head adornment, or hat, worn by monarchs as a symbol of their
+      power and dignity. A crown is often, by extension, a symbol of the
+      monarch's government or items endorsed by it. A crown is a traditional
+      form of head adornment, or hat, worn by monarchs as a symbol of their
+      power and dignity. A crown is often, by extension, a symbol of the
+      monarch's government or items endorsed by it.
+    </p>
+  </div>
+</div>
+<div
+  *ngIf="boardShow === 'contact'"
+  class="transparent-bg animated-fadein text-center"
+>
+  <div class="inner w-50 bg-light m-4 p-4 relative text-left">
+    <i
+      class="fa fa-close icon-close cursor-pointer m-1 link"
+      (click)="boardShow = ''"
+    ></i>
+    <p><span>Email :</span><span class="fw-bold"> info@burjcrown.com</span></p>
+    <p><span>Phone :</span><span class="fw-bold"> +989188108019</span></p>
+    <p><span>Email :</span><span class="fw-bold"> info@burjcrown.com</span></p>
+
+    <div class="bg-light text-left inner w-100 p-2">
+      <form [formGroup]="contactForm">
+        <div class="w-100">
+          <mat-form-field>
+            <mat-label> Email</mat-label>
+            <input placeholder="Email" formControlName="email" />
+          </mat-form-field>
+        </div>
+        <div class="w-100">
+          <mat-form-field class="w-100">
+            <mat-label> </mat-label>
+            <textarea formControlName="comment"></textarea>
+          </mat-form-field>
+        </div>
+        <div class="w-100">
+          <button (click)="submit()" mat-stroked-button class="link">
+            send
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

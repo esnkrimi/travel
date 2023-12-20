@@ -44,6 +44,7 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
   @Input() showTour: any;
   @Input() tripLocations: any;
   @Input() savedLocation = false;
+  toolsShow = false;
   @Output() zoomActivator = new EventEmitter<any>();
   savedLocationFlag = false;
   draggingLocation = {
@@ -186,6 +187,7 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   createTrip() {
+    this.toolsShow = false;
     this.distanceActivated = false;
     this.createTripActivate = !this.createTripActivate;
   }
@@ -206,6 +208,7 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
     });
   }
   activeDistanceMeter() {
+    this.toolsShow = false;
     this.helpService.messageWrite('select start point on map');
     this.createTripActivate = false;
     this.distanceActivated = !this.distanceActivated;
@@ -215,7 +218,10 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
     this.distanceActivated = false;
     this.createTripActivate = true;
   }
-
+  cancelTools() {
+    this.distanceActivated = false;
+    this.helpService.messageWrite('');
+  }
   turnOffProgress(time: number) {
     setTimeout(() => {
       this.mapService.loadingProgress.next(false);
@@ -336,7 +342,10 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   private loadMap(): void {
-    this.map = L.map('map', { zoomControl: false });
+    this.map = L.map('map', {
+      crs: L.CRS.EPSG900913,
+      zoomControl: false,
+    });
     L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
       attribution: '© OpenStreetMap contributors',
     }).addTo(this.map);

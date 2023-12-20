@@ -116,7 +116,7 @@ body{
    }
 }
 .animated-fadein{
-   animation: animate-fadein 2s forwards;
+   animation: animate-fadein 1s forwards;
 }
 @keyframes animate-fadein {
    0%{
@@ -204,7 +204,7 @@ body{
 .transparent-bg{
    width: 100%;
    height: 100%;
-   z-index:1000;
+   z-index:100000;
    background-color: rgba(14, 7, 78, 0.4);
    -webkit-backdrop-filter: blur(5px);
    backdrop-filter: blur(5px);

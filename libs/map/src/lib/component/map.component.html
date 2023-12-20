@@ -16,9 +16,9 @@
     <pe-trips [currentTrip]="currentTrip"></pe-trips>
   </div>
   <div class="w-100 text-center box">
-    <div [class.invisible]="!showMap" class="absolute-50">
+    <!--  <div [class.invisible]="!showMap" class="absolute-50">
       <div class="w-100 bg-light" cdkDrag>
-        <!--   <div
+        <div
           *ngFor="let item of typeOflocations"
           (click)="change(item)"
           class="w-100"
@@ -34,35 +34,21 @@
         </div>
 
 
-      -->
         <div
-          class="mt-2"
-          joyrideStep="secondStep"
-          text="You can measure distance between two place"
+        class="mt-2"
+        
         >
-          <span
-            [class.disabled]="!distanceActivated"
-            (click)="activeDistanceMeter()"
-            class="text-sign language text-primary p-1 m-1 text-large"
-          >
-            D
-          </span>
-        </div>
-        <div
-          class=""
-          joyrideStep="firstStep"
-          text="You can make a trip and schedule it "
-        >
-          <span
-            [class.disabled]="!createTripActivate"
-            (click)="createTrip()"
-            class="text-sign language text-primary p-1 m-1 text-large"
-          >
-            T
-          </span>
-        </div>
+        
       </div>
+      <div
+      class=""
+      
+      >
+      
     </div>
+  </div>
+</div>
+-->
 
     <div [class.invisible]="!showMap" class="map-container">
       <div class="fixed-country shadow-lg cursor-pointer" cdkDrag>
@@ -86,13 +72,75 @@
       </div>
 
       <div class="location-input" cdkDrag>
-        <pe-advanced-autocomplete
-          (results)="change($event)"
-        ></pe-advanced-autocomplete>
+        <div *ngIf="selectedType !== 'all'" class="w-100 text-left">
+          <button
+            mat-stroked-button
+            class="bg-light m-2 shadow-lg fw-bold"
+            (click)="change('all')"
+          >
+            {{ selectedType }}
+            <i class="fa fa-close"></i>
+          </button>
+        </div>
+        <div class="d-flex flex-nowrap">
+          <div class="relative">
+            <pe-advanced-autocomplete
+              (results)="change($event)"
+            ></pe-advanced-autocomplete>
+          </div>
+
+          <div class="flex-cell pl-3">
+            <span *ngIf="!distanceActivated" (click)="toolsShow = true">
+              <button mat-stroked-button class="fw-bold bg-light">tools</button>
+            </span>
+            <span
+              *ngIf="distanceActivated"
+              (click)="cancelTools()"
+              class="pl-3"
+            >
+              <button mat-stroked-button class="bg-light">
+                Distance
+                <i class="fa fa-close"></i>
+              </button>
+            </span>
+          </div>
+        </div>
       </div>
 
-      <div #mapContainer class="map-frame w-100">
+      <div #mapContainer class="map-frame w-100 d-relative">
         <div id="map"></div>
+        <div class="d-fixed bg-light animated-fadein" *ngIf="toolsShow">
+          <div class="text-left p- m-1 link-darks">
+            <div class="p-3">
+              <span
+                joyrideStep="secondStep"
+                text="You can measure distance between two place"
+                [class.disabled]="!distanceActivated"
+                (click)="activeDistanceMeter()"
+                class="text-large m-2 link-darks"
+              >
+                Distance Meter
+              </span>
+            </div>
+
+            <div class="p-3">
+              <span
+                joyrideStep="firstStep"
+                text="You can make a trip and schedule it "
+                [class.disabled]="!createTripActivate"
+                (click)="createTrip()"
+                class="text-large m-2 link-darks"
+              >
+                Trip Creator
+              </span>
+            </div>
+          </div>
+          <div class="text-left p-2 m-2">
+            <button mat-stroked-button (click)="toolsShow = false">
+              cancel
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -113,9 +161,7 @@
         [country]="country"
         (selectedLocation)="selectedLocation($event)"
       ></pe-location-list>
-      <div class="close-div">
-        <i class="fa fa-close fa-2x" (click)="openModalLocationList(false)"></i>
-      </div>
+      <i class="fa fa-close fa-2x" (click)="openModalLocationList(false)"></i>
     </div>
   </div>
 </div>
@@ -140,16 +186,23 @@
         }}</span>
       </div>
       <div class="m-2 p-2">
-        <a
-          class="link-darks border p-2"
-          (click)="bindExistsLocation(locationForModal[0])"
-        >
-          details
-        </a>
+        <span>
+          <a
+            class="link-darks border p-2 m-2 fw-bold"
+            (click)="bindExistsLocation(locationForModal[0])"
+          >
+            details
+          </a>
+        </span>
+        <span>
+          <a
+            class="link-darks border p-2 m-2"
+            (click)="openModalLocationFlag = false"
+          >
+            cancel
+          </a>
+        </span>
       </div>
-    </div>
-    <div class="close-div">
-      <i class="fa fa-close fa-2x" (click)="openModalLocationFlag = false"></i>
     </div>
   </div>
 </div>

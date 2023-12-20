@@ -1,13 +1,12 @@
 <div
-  class="frame m-2 p-2"
+  class="p-2 frame rounded-1 border border-orange text-large flex-cell"
   (click)="text = ''"
   *ngIf="text.length > 0"
-  cdkDragLockAxis="x"
   cdkDrag
 >
-  <div class="text-light bg-danger p-1 w-100">
+  <div class="text-light bg-danger w-100 p-2">
     <span
-      class="text-orange animated-height-zero-to-complete fw-bold text-meduim animated-size"
+      class="text-orange fw-bold m-1 text-large"
       *ngFor="let item of arrayOfText"
     >
       {{ item }}

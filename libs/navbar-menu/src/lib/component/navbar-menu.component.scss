@@ -4,3 +4,25 @@ a{
 .bg-dark{
     background-color:var(--COLOR-DARKER) !important;
 }
+.navbar{
+    z-index: 500 !important;
+}
+.icon-close{
+    position: absolute;
+    right: 1px;
+    top:1px;
+}
+.transparent-bg {
+    position: fixed !important;
+    left:0;
+    top:0;
+}
+textarea{
+    width: 100%;
+    height: 15em;
+}
+input{
+    background-color: white !important;
+    border: solid 1px black;
+    height: 2.5em;
+}

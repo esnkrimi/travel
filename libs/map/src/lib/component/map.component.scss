@@ -111,7 +111,7 @@ display: none !important;
 .location-input{
     position: absolute;
     left:1%;
-    top:5%;
+    top:1%;
     width: fit-content;
     z-index: 1001;
     animation: animated-scale 0.2s forwards;
@@ -121,7 +121,7 @@ display: none !important;
 .absolute-50{
     position: absolute;
     left:1%;
-    top:10%;
+    top:3%;
     width: fit-content;
     z-index: 1000;
     animation: animated-scale 0.2s forwards;
@@ -168,6 +168,7 @@ display: none !important;
         text-align: left;
      }
 }
+
 
 .frame{
     left:0px;
@@ -243,4 +244,14 @@ z-index: 600 !important;
 
  .close-div{
     z-index: 50005 !important;
+ }
+ .d-fixed{ 
+    position: fixed !important;
+    margin: 25%;
+    top:0%;
+    width: 50%;
+    z-index: 99999 !important;
+ }
+ .pl-3{
+    padding-left: 1em !important;
  }

@@ -44,12 +44,12 @@ import { MapService } from '../map/service';
   ],
 })
 export class HeaderComponent implements OnInit {
+  @Output() resultOutputs = new EventEmitter<any>();
+  @Output() savedLocation = new EventEmitter<any>();
   scrollDown = false;
   languages = settings.languages;
   languageIndex = 1;
   animationFlag = 'false';
-  @Output() resultOutputs = new EventEmitter<any>();
-  @Output() savedLocation = new EventEmitter<any>();
   menuShow = false;
   userLoginInformation: Iuser = {
     id: '',

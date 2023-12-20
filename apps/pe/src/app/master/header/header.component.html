@@ -68,7 +68,22 @@
             <span class="m-2">{{ userLoginInformation?.lname }}</span>
           </button>
           <div class="position-relative d-inline-block menu" *ngIf="menuShow">
-            <div class="position-absolute">
+            <div class="position-absolute rounded-1">
+              <div class="w-100 relative">
+                <img
+                  class="profile-icon"
+                  [src]="
+                    'https://burjcrown.com/drm/travel/users/profile/' +
+                    userLoginInformation?.id +
+                    '/1.jpg?id=1703049139640'
+                  "
+                />
+                <div class="text-left fw-semibold on-layer top-layer p-2">
+                  {{ userLoginInformation?.email | titlecase }}
+                </div>
+                <hr />
+              </div>
+
               <p (click)="routeHome()">
                 <span>
                   <i class="fa fa-home fa-2x" aria-hidden="true"></i>
@@ -96,46 +111,13 @@
                   {{ 'savelocation' | translate }}
                 </span>
               </p>
-              <p
-                (click)="menuShow = false"
-                [routerLink]="[{ outlets: { secondRouter: 'lazy/mytrips' } }]"
-              >
-                <span>
-                  {{ 'mytrips' | translate }}
-                </span>
-              </p>
-              <p
-                (click)="menuShow = false"
-                [routerLink]="[
-                  { outlets: { secondRouter: 'lazy/myrequests' } }
-                ]"
-              >
-                <span>
-                  {{ 'myrequests' | translate }}
-                </span>
-              </p>
 
-              <p (click)="showLocationsOnMapComponent()">
+              <p class="location-list" (click)="showLocationsOnMapComponent()">
                 <span>
                   {{ 'locationList' | translate }}
                 </span>
               </p>
-              <p
-                (click)="menuShow = false"
-                [routerLink]="[{ outlets: { secondRouter: 'lazy/trips' } }]"
-              >
-                <span>
-                  {{ 'trips' | translate }}
-                </span>
-              </p>
-              <p
-                (click)="menuShow = false"
-                [routerLink]="[{ outlets: { secondRouter: 'lazy/messages' } }]"
-              >
-                <span>
-                  {{ 'mymessages' | translate }}
-                </span>
-              </p>
+
               <p (click)="logout()">
                 <span>
                   <i class="fa fa-2x fa-sign-out" aria-hidden="true"></i>

@@ -18,6 +18,9 @@
   
 }
 @media only screen and (min-width: 1200px) {
+    .location-list{
+        display: none;
+    }
     .flex-50{
         justify-content: right;
     }
@@ -38,10 +41,10 @@ span{
 }
 .position-absolute{
     background-color: white;
-    width:200px;
+    width:17em;
     right:0;
     top:10;
-    z-index: 809;
+    z-index: 999999 !important;
 }
  .position-fixed{
     top: 0;
@@ -99,9 +102,7 @@ span{
 .flex-50{
     display: flex;
 }
-.position-absolute{
-    font-size: 1.6vh !important;
-}
+
 .light-div{
     background-color: var(--COLOR-BLUEBLACK);
     font-size: 0.9em !important;
@@ -123,4 +124,26 @@ span{
 }
 .navbar{
     background-color:var(--COLOR-DARKER) !important;
+}
+.profile-icon{
+    opacity: 1 !important;
+    border-radius: 3px;
+    width: 100%;
+}
+.on-layer{
+    position: absolute;
+    width: 100%;
+    z-index: 440;
+    
+}
+.top-layer{
+    left: 0;
+    bottom: 0;
+    color: var(--COLOR-LIGHT);
+    background-color: rgba(22, 22, 22, 0.4);
+    -webkit-backdrop-filter: blur(5px);
+    backdrop-filter: blur(5px); 
+}
+.rounded-1{
+    border-radius: 15px !important;
 }
