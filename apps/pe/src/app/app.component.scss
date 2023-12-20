@@ -15,6 +15,9 @@
     left: 25%;
     top: 25%;
   }
+  .inner{
+    width: 60% !important;
+  }
 
 }
 .adv{
@@ -110,8 +113,6 @@ text-light{
   animation: animate-fadein 0.07s forwards;
   position: absolute;
 }
-
-
 .d-fixed{
   position: fixed;
   left: 15%;
@@ -120,6 +121,7 @@ text-light{
   background-color: var(--COLOR-LIGHT);
   overflow: scroll !important;
   top:10%;
+  text-align: left !important;
   z-index: 99999   !important;
 }
 .bg-light{
@@ -131,4 +133,26 @@ text-light{
   left: 0;
   padding-top: 20em;
   width: 100%;
+}
+
+.modal-absolute{ 
+  position: absolute;
+  left: 0;
+  top:0;
+  z-index: 9999999 !important;
+  width: 100%;
+  height: 100%;
+  z-index:1000;
+  background-color: rgba(14, 7, 78, 0.4);
+  -webkit-backdrop-filter: blur(5px);
+  backdrop-filter: blur(5px);
+  animation: animate-fadein 0.3s forwards;
+  overflow-y: scroll !important;
+}
+
+.icon-close{
+  position: absolute;
+  right: 2%;
+  top:2%;
+  z-index: 9999999 !important;
 }

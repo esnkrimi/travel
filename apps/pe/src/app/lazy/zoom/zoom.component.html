@@ -1,6 +1,6 @@
 <ng-container *ngIf="localInformation?.country; else loading">
-  <div class="text-center border w-100">
-    <div class="bg-light inner border w-100">
+  <div class="text-left p-3 w-100">
+    <div class="bg-light inner w-100">
       <div class="p-2" *ngIf="!existLocation; else ExistsLocation">
         <form
           class="m-4"
@@ -164,143 +164,146 @@
       </div>
 
       <ng-template #ExistsLocation>
-        <div>
-          <br />
-          <span class="fw-bold text-title text-large">
-            {{ fetchFormInputValue('title') | titlecase }}
-          </span>
-          <span class="fw-bold text-title text-large">
-            {{ fetchFormInputValue('type') | titlecase }}
-          </span>
-          <span>
-            <mat-icon (click)="saved()" [class.selected]="result.saved">
-              {{ 'favorite' | translate }}
-            </mat-icon>
-          </span>
-        </div>
-        <hr />
-        <br />
-
-        <p *ngIf="fetchFormInputValue('city')">
-          <span class="fw-bold">
-            {{ fetchFormInputValue('title') | titlecase }}
-          </span>
-          is a
-          {{ fetchFormInputValue('type') }}
-          placed in
-          {{ fetchFormInputValue('city') }} a city in
-          {{ fetchFormInputValue('country') }}.
-        </p>
-        <p>
-          It's located in
-          {{ fetchFormInputValue('district') }}
-        </p>
-        <p *ngIf="fetchFormInputValue('street')">
-          <span> You can visit here at </span>
-          <span class="fw-bold">
-            {{ fetchFormInputValue('street') }}
-          </span>
-        </p>
-        <p *ngIf="fetchFormInputValue('phone')">
-          Also they have contact number :
-          <span class="fw-bold">
-            {{ fetchFormInputValue('phone') }}
-          </span>
-        </p>
-        <p *ngIf="fetchFormInputValue('email')">
-          They are in access via email :
-          {{ fetchFormInputValue('email') }}
-        </p>
-        <p *ngIf="fetchFormInputValue('web')">
-          Also they have a website that can see more details about their featues
-          :
-          <br />
-          <span class="fst-italic">
-            {{ fetchFormInputValue('web') }}
-          </span>
-        </p>
-        <span
-          class="cursor-pointer p-2 text-green text-medium"
-          mat-raised-button
-          (click)="showFormSubmit = !showFormSubmit"
-        >
-          + share your experience
-        </span>
-        <div class="modals" *ngIf="showFormSubmit">
-          <div *ngIf="existLocation" class="w-100 text-left p-2">
-            <span
-              class="fa fa-star cursor-pointer fa-2x checked"
-              [class.selected-rate]="result.score >= 1"
-              (click)="rate(1)"
-            ></span>
-            <span
-              class="fa fa-star cursor-pointer fa-2x checked"
-              [class.selected-rate]="result.score >= 2"
-              (click)="rate(2)"
-            ></span>
-            <span
-              class="fa fa-star cursor-pointer fa-2x checked"
-              [class.selected-rate]="result.score >= 3"
-              (click)="rate(3)"
-            ></span>
-            <span
-              class="fa fa-star cursor-pointer fa-2x"
-              [class.selected-rate]="result.score >= 4"
-              (click)="rate(4)"
-            ></span>
-            <span
-              class="fa fa-star cursor-pointer fa-2x"
-              [class.selected-rate]="result.score === 5"
-              (click)="rate(5)"
-            ></span>
-            <span *ngIf="loadingSmall">
-              <img src="../../../assets/img/loading.png" class="icon-small" />
+        <div class="p-3">
+          <div>
+            <br />
+            <span class="fw-bold text-title text-large">
+              {{ fetchFormInputValue('title') | titlecase }}
+            </span>
+            <span class="fw-bold text-title text-large">
+              {{ fetchFormInputValue('type') | titlecase }}
+            </span>
+            <span>
+              <mat-icon
+                (click)="saved()"
+                class="cursor-pointer"
+                [class.selected]="result.saved"
+              >
+                {{ 'favorite' | translate }}
+              </mat-icon>
             </span>
           </div>
-          <form
-            [formGroup]="form"
-            (submit)="onSubmit('file')"
-            enctype="multipart/form-data"
-          >
-            <div class="w-100 text-left">
-              <div class="w-100">
-                <mat-form-field class="w-100">
-                  <mat-label> {{ 'shareexperience' | translate }} </mat-label>
-                  <textarea matInput formControlName="describe"></textarea>
-                </mat-form-field>
-              </div>
-              <div class="w-100 text-left" *ngIf="result?.id > 0">
-                <input
-                  (change)="onFileChange($event)"
-                  class="input-file-upload"
-                  type="file"
-                  id="file"
-                  #id
-                  name="file"
-                  formControlName="file"
-                />
-              </div>
-              <div class="w-100 text-left mt-2">
-                <button mat-raised-button type="submit">
-                  {{ 'submit' | translate }}
-                </button>
+          <hr />
+          <br />
+
+          <p *ngIf="fetchFormInputValue('city')">
+            <span class="fw-bold">
+              {{ fetchFormInputValue('title') | titlecase }}
+            </span>
+            is a
+            {{ fetchFormInputValue('type') }}
+            placed in
+            {{ fetchFormInputValue('city') }} a city in
+            {{ fetchFormInputValue('country') }}.
+          </p>
+          <p>
+            It's located in
+            {{ fetchFormInputValue('district') }}
+          </p>
+          <p *ngIf="fetchFormInputValue('street')">
+            <span> You can visit here at </span>
+            <span class="fw-bold">
+              {{ fetchFormInputValue('street') }}
+            </span>
+          </p>
+          <p *ngIf="fetchFormInputValue('phone')">
+            Also they have contact number :
+            <span class="fw-bold">
+              {{ fetchFormInputValue('phone') }}
+            </span>
+          </p>
+          <p *ngIf="fetchFormInputValue('email')">
+            They are in access via email :
+            {{ fetchFormInputValue('email') }}
+          </p>
+          <p *ngIf="fetchFormInputValue('web')">
+            Also they have a website that can see more details about their
+            featues :
+            <br />
+            <span class="fst-italic">
+              {{ fetchFormInputValue('web') }}
+            </span>
+          </p>
+
+          <div class="modals" *ngIf="showFormSubmit">
+            <div>
+              <div class="mt-4 w-100 bg-light bg-primary" *ngIf="existLocation">
+                <div class="div-header">
+                  People interrested in
+                  {{ fetchFormInputValue('title') | titlecase }}
+                  {{ fetchFormInputValue('type') | titlecase }}
+                </div>
+                <pe-experiences
+                  *ngIf="result?.id > 0"
+                  [locationId]="result.id"
+                ></pe-experiences>
               </div>
             </div>
-          </form>
+
+            <div *ngIf="existLocation" class="w-100 text-left p-2">
+              <span
+                class="fa fa-star cursor-pointer fa-2x checked"
+                [class.selected-rate]="result.score >= 1"
+                (click)="rate(1)"
+              ></span>
+              <span
+                class="fa fa-star cursor-pointer fa-2x checked"
+                [class.selected-rate]="result.score >= 2"
+                (click)="rate(2)"
+              ></span>
+              <span
+                class="fa fa-star cursor-pointer fa-2x checked"
+                [class.selected-rate]="result.score >= 3"
+                (click)="rate(3)"
+              ></span>
+              <span
+                class="fa fa-star cursor-pointer fa-2x"
+                [class.selected-rate]="result.score >= 4"
+                (click)="rate(4)"
+              ></span>
+              <span
+                class="fa fa-star cursor-pointer fa-2x"
+                [class.selected-rate]="result.score === 5"
+                (click)="rate(5)"
+              ></span>
+              <span *ngIf="loadingSmall">
+                <img src="../../../assets/img/loading.png" class="icon-small" />
+              </span>
+            </div>
+
+            <form
+              [formGroup]="form"
+              (submit)="onSubmit('file')"
+              enctype="multipart/form-data"
+            >
+              <div class="w-100 text-left">
+                <div class="w-100">
+                  <mat-form-field class="w-100">
+                    <mat-label> {{ 'shareexperience' | translate }} </mat-label>
+                    <textarea matInput formControlName="describe"></textarea>
+                  </mat-form-field>
+                </div>
+                <div class="w-100 text-left" *ngIf="result?.id > 0">
+                  <input
+                    (change)="onFileChange($event)"
+                    class="input-file-upload"
+                    type="file"
+                    id="file"
+                    #id
+                    name="file"
+                    formControlName="file"
+                  />
+                </div>
+                <div class="w-100 text-left mt-2">
+                  <button mat-raised-button type="submit">
+                    {{ 'submit' | translate }}
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
         </div>
       </ng-template>
-
-      <div class="mt-4 w-100 bg-light bg-primary" *ngIf="existLocation">
-        <div class="div-header">
-          People interrested in
-          {{ fetchFormInputValue('title') | titlecase }}
-          {{ fetchFormInputValue('type') | titlecase }}
-        </div>
-        <pe-experiences
-          *ngIf="result?.id > 0"
-          [locationId]="result.id"
-        ></pe-experiences>
-      </div>
     </div>
   </div>
 </ng-container>

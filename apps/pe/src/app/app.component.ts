@@ -28,6 +28,7 @@ import { MatDialog } from '@angular/material/dialog';
 export class AppComponent implements OnInit {
   showMap = true;
   SelectedLanguage = '';
+  openModalLocationRoute = false;
   isLoggedin?: boolean;
   tips = [
     'search location by name or on map',
@@ -194,14 +195,13 @@ export class AppComponent implements OnInit {
     this.translate.use('fa');
   }
   fetchUserOfSite() {
-    let tmpUser: IuserOfSite[];
     this.store.dispatch(actions.startFetchUsersOfSites());
   }
   resultOutputs(e: any) {
     this.scope = e;
   }
   openDialog() {
-    this.dialog.open(DialogContent);
+    this.openModalLocationRoute = true;
   }
 
   listener() {
@@ -216,18 +216,4 @@ export class AppComponent implements OnInit {
       }, 2000);
     });
   }
-}
-
-@Component({
-  selector: 'dialog-content',
-  template: `<div class="d-fixed">
-    <router-outlet></router-outlet>
-  </div> `,
-  styleUrls: ['./app.component.scss'],
-  standalone: true,
-  imports: [RouterModule],
-})
-export class DialogContent implements OnInit {
-  constructor() {}
-  ngOnInit(): void {}
 }

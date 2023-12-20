@@ -1,4 +1,4 @@
-<div class="w-100 border">
+<div class="w-100 relative">
   <div class="bg-light w-100">
     <pe-header
       (savedLocation)="savedLocation($event)"
@@ -30,7 +30,20 @@
     </div>
     <div></div>
   </div>
+
+  <div *ngIf="openModalLocationRoute" class="modal-absolute w-100 text-center">
+    <div class="inner w-100 text-left">
+      <div class="relative">
+        <router-outlet></router-outlet>
+        <i
+          class="fa fa-close icon-close cursor-pointer m-1 link"
+          (click)="openModalLocationRoute = false"
+        ></i>
+      </div>
+    </div>
+  </div>
 </div>
+
 <!-- 
 
   <div class="adv2 animated-fadein bg-danger" *ngIf="skip >= 0 && skip < 2">

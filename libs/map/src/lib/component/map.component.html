@@ -73,7 +73,7 @@
 
       <div class="location-input" cdkDrag>
         <div class="d-flex flex-nowrap">
-          <div class="relative">
+          <div class="relative flex-cell shadow-lg">
             <pe-advanced-autocomplete
               (results)="change($event)"
             ></pe-advanced-autocomplete>
@@ -82,6 +82,7 @@
               class="w-100 text-left searched-type"
             >
               <button
+                style="height: 2.7em !important"
                 mat-stroked-button
                 class="bg-light shadow-lg fw-bold"
                 (click)="change('all')"
@@ -94,14 +95,24 @@
 
           <div class="flex-cell pl-3">
             <span *ngIf="!distanceActivated" (click)="toolsShow = true">
-              <button mat-stroked-button class="fw-bold bg-light">tools</button>
+              <button
+                mat-stroked-button
+                style="height: 2.7em !important"
+                class="fw-bold bg-light"
+              >
+                T
+              </button>
             </span>
             <span
               *ngIf="distanceActivated"
               (click)="cancelTools()"
               class="pl-3"
             >
-              <button mat-stroked-button class="bg-light">
+              <button
+                mat-stroked-button
+                class="bg-light"
+                style="height: 2.7em !important"
+              >
                 Distance
                 <i class="fa fa-close"></i>
               </button>
