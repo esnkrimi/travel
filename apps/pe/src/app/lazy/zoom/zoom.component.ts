@@ -21,7 +21,6 @@ import {
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { SettingService } from '@appBase/setting';
 import { ActivatedRoute, RouterModule } from '@angular/router';
-import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'pe-zoom',
