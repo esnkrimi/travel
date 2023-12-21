@@ -1,26 +1,17 @@
-import { AfterViewInit, Component, Inject, OnInit } from '@angular/core';
+import { AfterViewInit, Component, Inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { DrawerService } from '@appBase/drawer.service';
 import { Ilocation, typeOflocations } from '@appBase/+state/state';
 import { EntryService } from '../entry/entry.service';
-import { map, tap } from 'rxjs';
-import {
-  MAT_DIALOG_DATA,
-  MatDialog,
-  MatDialogModule,
-} from '@angular/material/dialog';
+import { map } from 'rxjs';
+import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { MapService } from '@appBase/master/map/service';
 import { Store } from '@ngrx/store';
 import { actions } from '@appBase/+state/actions';
-import {
-  selectILocationTypes,
-  selectLocation,
-  selectTripUsers,
-  selectUsersOfSite,
-} from '@appBase/+state/select';
+import { selectILocationTypes, selectLocation } from '@appBase/+state/select';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { SettingService } from '@appBase/setting';
-import { ActivatedRoute, RouterModule } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'pe-zoom',

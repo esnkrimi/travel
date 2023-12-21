@@ -1,9 +1,8 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Route, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { EntryService } from './entry.service';
 import { DrawerService } from '@appBase/drawer.service';
-import { delay } from 'rxjs';
 import { LocalService } from '@appBase/storage';
 import { Store } from '@ngrx/store';
 import { actions } from '@appBase/+state/actions';
@@ -11,11 +10,7 @@ import { IloginInfo } from '@appBase/+state/state';
 import { selectUser } from '@appBase/+state/select';
 import { MatSnackBar, MatSnackBarRef } from '@angular/material/snack-bar';
 import { MapService } from '@appBase/master/map/service';
-import {
-  SocialAuthService,
-  GoogleLoginProvider,
-  SocialUser,
-} from '@abacritt/angularx-social-login';
+import { SocialAuthService } from '@abacritt/angularx-social-login';
 
 @Component({
   selector: 'pe-entry',

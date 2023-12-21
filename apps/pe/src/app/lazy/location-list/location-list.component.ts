@@ -3,34 +3,18 @@ import {
   EventEmitter,
   Inject,
   Input,
-  OnChanges,
   OnInit,
   Output,
-  SimpleChanges,
-  inject,
 } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { actions } from '@appBase/+state/actions';
-import {
-  selectAllTrips,
-  selectILocationTypes,
-  selectLocation,
-  selectTripRequests,
-  selectTripUsers,
-} from '@appBase/+state/select';
+import { selectILocationTypes, selectLocation } from '@appBase/+state/select';
 import { MapService } from '@appBase/master/map/service';
 import { LocalService } from '@appBase/storage';
 import { DrawerService } from '@appBase/drawer.service';
 import { FormControl, FormGroup } from '@angular/forms';
-import {
-  MAT_DIALOG_DATA,
-  MatDialog,
-  MatDialogModule,
-} from '@angular/material/dialog';
-import { BrowserModule } from '@angular/platform-browser';
-import { CommonModule } from '@angular/common';
-import { Router, RouterModule } from '@angular/router';
-import { map, tap } from 'rxjs';
+import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
+import { map } from 'rxjs';
 
 @Component({
   selector: 'pe-location-list',

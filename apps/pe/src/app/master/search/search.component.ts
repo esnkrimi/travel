@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 import { DrawerService } from '@appBase/drawer.service';
 import { SettingService } from '@appBase/setting';
 import { TranslateService } from '@ngx-translate/core';
-import { MapService } from '../map/service';
 
 @Component({
   selector: 'pe-search',
@@ -20,7 +19,6 @@ export class SearchComponent implements OnInit {
     private translate: TranslateService,
     private settingService: SettingService,
     private router: Router,
-    private mapService: MapService,
     private drawerService: DrawerService
   ) {}
   ngOnInit(): void {

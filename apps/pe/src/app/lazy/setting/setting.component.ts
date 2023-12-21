@@ -1,16 +1,12 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { actions } from '@appBase/+state/actions';
-import { selectUserRates, selectUsersOfSite } from '@appBase/+state/select';
+import { selectUsersOfSite } from '@appBase/+state/select';
 import { DrawerService } from '@appBase/drawer.service';
-import { map, tap } from 'rxjs';
+import { map } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
-import {
-  MAT_DIALOG_DATA,
-  MatDialog,
-  MatDialogModule,
-} from '@angular/material/dialog';
-import { FormControl, FormGroup, FormsModule } from '@angular/forms';
+import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
+import { FormControl, FormGroup } from '@angular/forms';
 import { MapService } from '@appBase/master/map/service';
 
 @Component({
