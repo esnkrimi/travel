@@ -13,18 +13,13 @@ import { ZoomApiService } from '@appBase/lazy/zoom/api.service';
 import { RootService } from '@appBase/service';
 import { selectReviewtrip, selectTrip } from './select';
 import { LocalService } from '@appBase/storage';
-import { MytripsService } from '@appBase/lazy/mytrips/mytrips.service';
-import { TripUserService } from '@appBase/lazy/trip-users/trip-user.service';
-import { TripListsService } from '@appBase/lazy/trip-list/trip-list.service';
-import { MessagesApiService } from '@appBase/lazy/messages/messages.service';
 import { ExperiencesApiService } from 'libs/experiences/src/lib/component/experiences.service';
-import { MyTripsRequestsService } from '@appBase/lazy/my-requests/myrequests.service';
 import { UsersService } from '@appBase/lazy/users/users.service';
-import { TripCommentsService } from '@appBase/lazy/trip-comments/trip-comments.service';
 import { SettingService } from '@appBase/setting';
 import { ProfileSettingService } from '@appBase/lazy/setting/setting.service';
 import { FormtripApiService } from 'libs/form-trip-location/src/lib/component/form-trip-location.service';
 import { AdvancedAutoCompleteService } from 'libs/advanced-autocomplete/src/lib/auto-complete-advanced/service';
+import { TripUserService } from '@appBase/lazy/users/trip-user.service';
 
 @Injectable()
 export class storeEffects {
@@ -82,44 +77,6 @@ export class storeEffects {
     );
   });
 
-  startDeleteTrip: any = createEffect(() => {
-    return this.actions$.pipe(
-      ofType(actions.getStartDeleteTrip),
-      switchMap((res: any) => {
-        return this.mytripsService
-          .deleteTrips(res.userId, res.tripTitle)
-          .pipe(map((res: any) => actions.deleteTrip({ data: res })));
-      })
-    );
-  });
-
-  startFetchTripComments: any = createEffect(() => {
-    return this.actions$.pipe(
-      ofType(actions.getStartFetchTripRates),
-      switchMap((res: any) => {
-        return this.tripCommentsService
-          .fetchUserList(res.userId, res.tripTitle)
-          .pipe(map((res: any) => actions.fetchTripRates({ data: res })));
-      })
-    );
-  });
-
-  startWriteTripRates: any = createEffect(() => {
-    return this.actions$.pipe(
-      ofType(actions.getStartWriteTripRates),
-      switchMap((res: any) => {
-        return this.tripCommentsService
-          .addIdeaTrip(
-            res.data.userId,
-            res.data.tripTitle,
-            res.data.rate,
-            res.data.comment
-          )
-          .pipe(map((res: any) => actions.writeTripRates({ data: res })));
-      })
-    );
-  });
-
   startWriteUserRates: any = createEffect(() => {
     return this.actions$.pipe(
       ofType(actions.getStartWriteUserRates),
@@ -142,30 +99,6 @@ export class storeEffects {
     );
   });
 
-  startRemoveUserFromTrip: any = createEffect(() => {
-    return this.actions$.pipe(
-      ofType(actions.getStartRemoveUserFromTrip),
-      switchMap((res: any) => {
-        return this.tripService
-          .removeUserFromTrip(res.userId, res.tripTitle, res.ownerId)
-          .pipe(map((res: any) => actions.removeUserFromTrip()));
-      })
-    );
-  });
-
-  startFetchUserOfTrip: any = createEffect(() => {
-    return this.actions$.pipe(
-      ofType(actions.startFetchUsersOfTrip),
-      switchMap((res: any) => {
-        99;
-        return this.tripListsService
-          .userOfTrip()
-          .pipe(
-            map((res: any) => actions.fetchUsersOfTrip({ userOfTrip: res }))
-          );
-      })
-    );
-  });
   startDeleteLocationComment: any = createEffect(() => {
     return this.actions$.pipe(
       ofType(actions.getStartDeleteLocationComments),
@@ -188,118 +121,6 @@ export class storeEffects {
           .pipe(
             map((res: any) => actions.fetchLocationComments({ data: res }))
           );
-      })
-    );
-  });
-
-  startConfirmTripInvite: any = createEffect(() => {
-    return this.actions$.pipe(
-      ofType(actions.getStartConfirmInvite),
-      switchMap((res: any) => {
-        return this.mytripsService
-          .tripReuestConfirmation(
-            res.ownerId,
-            res.tripTitle,
-            res.uid,
-            res.action
-          )
-          .pipe(map((res: any) => actions.confirmInvite({ data: res })));
-      })
-    );
-  });
-
-  startConfirmTripRequests: any = createEffect(() => {
-    return this.actions$.pipe(
-      ofType(actions.getStartConfirmRequests),
-      switchMap((res: any) => {
-        return this.messagesApiService
-          .tripReuestConfirmation(
-            res.ownerId,
-            res.tripTitle,
-            res.uid,
-            res.action
-          )
-          .pipe(map((res: any) => actions.confirmRequests({ data: res })));
-      })
-    );
-  });
-
-  startMyTripRequests: any = createEffect(() => {
-    return this.actions$.pipe(
-      ofType(actions.getStartFetchMyTripRequests),
-      switchMap((res: any) => {
-        return this.myTripsRequestsService
-          .myTripsRequests(res.uid)
-          .pipe(map((res: any) => actions.fetchMyTripRequests({ data: res })));
-      })
-    );
-  });
-
-  startTripRequests: any = createEffect(() => {
-    return this.actions$.pipe(
-      ofType(actions.getStartFetchTripRequests),
-      switchMap((res: any) => {
-        return this.messagesApiService
-          .fetch(res.uid)
-          .pipe(map((res: any) => actions.fetchTripRequests({ data: res })));
-      })
-    );
-  });
-
-  askToJoin: any = createEffect(() => {
-    return this.actions$.pipe(
-      ofType(actions.getStartAskToJoin),
-      switchMap((res: any) => {
-        return this.tripListsService
-          .askToJoin(res.data.uid, res.data.tripTitle, res.data.owenerid)
-          .pipe(map((res1: any) => actions.askToJoin({ data: res })));
-      })
-    );
-  });
-
-  getStartFtechAllTrips: any = createEffect(() => {
-    return this.actions$.pipe(
-      ofType(actions.startFetchAllTrips),
-      switchMap(() => {
-        return this.tripListsService
-          .fetchTrips()
-          .pipe(
-            map(function (res: any) {
-              for (let i = 0; i < res.length; i++) {
-                res[i].tripjson = JSON.parse(
-                  res[i].tripjson.slice(1, res[i].tripjson.length - 1)
-                );
-              }
-              return res;
-            })
-          )
-          .pipe(map((res: any) => actions.fetchAllTrips({ trips: res })));
-      })
-    );
-  });
-  getStartFtechUsersOfSite: any = createEffect(() => {
-    let t: any;
-    return this.actions$.pipe(
-      ofType(actions.startFetchUsersOfSites),
-      switchMap(() => {
-        return this.tripService
-          .getUserList()
-          .pipe(
-            map((res: any) => actions.fetchUsersOfSite({ userOfSite: res }))
-          );
-      })
-    );
-  });
-
-  getStartAddUserToTrip: any = createEffect(() => {
-    let t: any;
-    return this.actions$.pipe(
-      ofType(actions.addUserToTripPreparing),
-      switchMap((res: any) => {
-        res;
-        return this.tripService
-          .addUserToTrip(res.guestId, res.tripTitle, res.ownerId)
-          .pipe(map((res: any) => actions.addUserToTrip()));
       })
     );
   });
@@ -475,6 +296,20 @@ export class storeEffects {
     );
   });
 
+  getStartFtechUsersOfSite: any = createEffect(() => {
+    let t: any;
+    return this.actions$.pipe(
+      ofType(actions.startFetchUsersOfSites),
+      switchMap(() => {
+        return this.tripUserService
+          .getUserList()
+          .pipe(
+            map((res: any) => actions.fetchUsersOfSite({ userOfSite: res }))
+          );
+      })
+    );
+  });
+
   signup: any = createEffect(() => {
     return this.actions$.pipe(
       ofType(actions.startSignupAction),
@@ -493,22 +328,17 @@ export class storeEffects {
   userLoginInformation: any;
   constructor(
     private store: Store,
+    private tripUserService: TripUserService,
     private formtripApiService: FormtripApiService,
     private experiencesApiService: ExperiencesApiService,
     private actions$: Actions,
-    private tripService: TripUserService,
     private ser: MapApiService,
     private localStorage: LocalService,
-    private tripListsService: TripListsService,
-    private messagesApiService: MessagesApiService,
     private service: EntryService,
     private advancedAutoCompleteService: AdvancedAutoCompleteService,
     private locationService: FetchLocationService,
     private usersService: UsersService,
     private profileSettingService: ProfileSettingService,
-    private zoomService: ZoomApiService,
-    private tripCommentsService: TripCommentsService,
-    private mytripsService: MytripsService,
-    private myTripsRequestsService: MyTripsRequestsService
+    private zoomService: ZoomApiService
   ) {}
 }

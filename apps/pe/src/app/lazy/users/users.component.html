@@ -1,39 +1,18 @@
-<div *ngFor="let item of usersList" class="frame m-1">
-  <div class="d-flex p-2">
-    <div class="col-md-2">
-      <img
-        [src]="
-          'https://burjcrown.com/drm/travel/users/profile/' + userId + '/1.jpg'
-        "
-        class="w-100 rounded"
-      />
+<div class="parent-div p-2 bg-light">
+  <pe-autocomplete-public
+    (resultSelected)="resultSelected($event)"
+    [data]="users"
+  ></pe-autocomplete-public>
+  sss
+  <span *ngFor="let guest of users; let index = index">
+    <div>
+      <h3
+        mat-dialog-close
+        matDialogClose
+        class="text-capitalize text-dark cursor-pointer"
+      >
+        {{ guest.name || guest.email }} {{ guest.lnama }}
+      </h3>
     </div>
-    <div class="col-md-10 p-2">
-      <h5 class="p-1 text-capitalize">{{ item.name }} {{ item.lnama }}</h5>
-
-      <p>
-        <span class="p-1">{{ item.email }}</span>
-      </p>
-      <p>
-        <span *ngFor="let i of userAvgRate; let index = index">
-          <i
-            [class.text-green]="i === 1"
-            class="fa fa-2x fa-star cursor-pointer"
-            (click)="openCommentModal(index + 1)"
-          ></i>
-        </span>
-      </p>
-    </div>
-  </div>
-  <div class="w-100 border-bottom">
-    <p>About me</p>
-  </div>
-
-  <div class="w-100 border-bottom">
-    <p class="fw-bold">Comments</p>
-  </div>
-  <div *ngFor="let rate of usersRateList" class="m-2 p-1">
-    <p class="fw-bold">{{ rate.name }} {{ rate.lnama }}</p>
-    <p>{{ rate.comment }}</p>
-  </div>
+  </span>
 </div>

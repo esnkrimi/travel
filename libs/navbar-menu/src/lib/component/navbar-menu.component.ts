@@ -32,7 +32,5 @@ export class NavbarMenuComponent implements OnDestroy {
   board(type: string) {
     this.boardShow = type;
   }
-  submit() {
-    console.log(this.contactForm.value);
-  }
+  submit() {}
 }

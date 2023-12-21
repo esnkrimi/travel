@@ -508,7 +508,10 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
         this.locationForModal = res;
       });
   }
-
+  numberToArray(i: number) {
+    const arr = ['0', '0', '0', '0', '0'];
+    return arr.fill('1', 0, i);
+  }
   highlightLocation() {
     //popup after location-list component
     this.store

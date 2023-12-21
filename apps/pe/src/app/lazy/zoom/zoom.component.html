@@ -156,7 +156,12 @@
           </div>
 
           <div class="w-100 text-center">
-            <button mat-raised-button type="submit" [disabled]="!form.valid">
+            <button
+              class="bg-white border"
+              mat-stroked-button
+              type="submit"
+              [disabled]="!form.valid"
+            >
               {{ 'submit' | translate }}
             </button>
           </div>
@@ -165,70 +170,82 @@
 
       <ng-template #ExistsLocation>
         <div class="p-3">
-          <div>
-            <br />
-            <span class="fw-bold text-title text-large">
-              {{ fetchFormInputValue('title') | titlecase }}
-            </span>
-            <span class="fw-bold text-title text-large">
-              {{ fetchFormInputValue('type') | titlecase }}
-            </span>
-            <span>
-              <mat-icon
-                (click)="saved()"
-                class="cursor-pointer"
-                [class.selected]="result.saved"
-              >
-                {{ 'favorite' | translate }}
-              </mat-icon>
-            </span>
+          <div class="title-bar">
+            <div>
+              <span class="fw-bold text-title text-large">
+                {{ fetchFormInputValue('title') | titlecase }}&nbsp;
+              </span>
+              <span class="fw-bold text-title text-large">
+                {{ fetchFormInputValue('type') | titlecase }}
+              </span>
+            </div>
+            <div>
+              <span class="sign" *ngFor="let i of numberToArray(result.score)">
+                <i class="fa fa-star bg-light text-gold" *ngIf="i === '1'"></i>
+              </span>
+            </div>
+            <div class="flex-cell">
+              <span class="p-1">
+                <mat-icon
+                  (click)="saved()"
+                  class="cursor-pointer"
+                  [class.selected]="result.saved"
+                >
+                  {{ 'favorite' | translate }}
+                </mat-icon>
+              </span>
+              <span class="sign p-1">
+                <i
+                  class="cursor-pointer fa fa-2x fa-share-alt"
+                  (click)="userListShow = true"
+                >
+                </i>
+              </span>
+            </div>
           </div>
-          <hr />
-          <br />
+          <div class="bg-white p-4">
+            <p *ngIf="fetchFormInputValue('city')">
+              <span class="fw-bold text-blueblack">
+                {{ fetchFormInputValue('country') }} -
+              </span>
+              <span class="fw-bold text-blueblack">
+                {{ fetchFormInputValue('city') }}
+              </span>
+            </p>
+            <p>
+              <span>
+                {{ fetchFormInputValue('district') }}
+              </span>
+              <span>
+                {{ fetchFormInputValue('street') }}
+              </span>
+            </p>
 
-          <p *ngIf="fetchFormInputValue('city')">
-            <span class="fw-bold">
-              {{ fetchFormInputValue('title') | titlecase }}
-            </span>
-            is a
-            {{ fetchFormInputValue('type') }}
-            placed in
-            {{ fetchFormInputValue('city') }} a city in
-            {{ fetchFormInputValue('country') }}.
-          </p>
-          <p>
-            It's located in
-            {{ fetchFormInputValue('district') }}
-          </p>
-          <p *ngIf="fetchFormInputValue('street')">
-            <span> You can visit here at </span>
-            <span class="fw-bold">
-              {{ fetchFormInputValue('street') }}
-            </span>
-          </p>
-          <p *ngIf="fetchFormInputValue('phone')">
-            Also they have contact number :
-            <span class="fw-bold">
-              {{ fetchFormInputValue('phone') }}
-            </span>
-          </p>
-          <p *ngIf="fetchFormInputValue('email')">
-            They are in access via email :
-            {{ fetchFormInputValue('email') }}
-          </p>
-          <p *ngIf="fetchFormInputValue('web')">
-            Also they have a website that can see more details about their
-            featues :
-            <br />
-            <span class="fst-italic">
-              {{ fetchFormInputValue('web') }}
-            </span>
-          </p>
+            <p *ngIf="fetchFormInputValue('phone').length > 4">
+              <span class="fw-bold">
+                {{ fetchFormInputValue('phone') }}
+              </span>
+            </p>
+            <p *ngIf="fetchFormInputValue('email').length > 4">
+              {{ fetchFormInputValue('email') }}
+            </p>
+            <p *ngIf="fetchFormInputValue('web').length > 4">
+              <span class="fst-italic">
+                {{ fetchFormInputValue('web') }}
+              </span>
+            </p>
+            <p>
+              <span class="fst-italic text-muted">
+                GEO [{{ fetchFormInputValue('lat') }},
+                {{ fetchFormInputValue('lat') }}]
+              </span>
+            </p>
+          </div>
 
-          <div class="modals" *ngIf="showFormSubmit">
+          <div class="modals w-100" *ngIf="showFormSubmit">
             <div>
               <div class="mt-4 w-100 bg-light bg-primary" *ngIf="existLocation">
-                <div class="div-header">
+                <div class="title-bar">
                   People interrested in
                   {{ fetchFormInputValue('title') | titlecase }}
                   {{ fetchFormInputValue('type') | titlecase }}
@@ -240,39 +257,9 @@
               </div>
             </div>
 
-            <div *ngIf="existLocation" class="w-100 text-left p-2">
-              <span
-                class="fa fa-star cursor-pointer fa-2x checked"
-                [class.selected-rate]="result.score >= 1"
-                (click)="rate(1)"
-              ></span>
-              <span
-                class="fa fa-star cursor-pointer fa-2x checked"
-                [class.selected-rate]="result.score >= 2"
-                (click)="rate(2)"
-              ></span>
-              <span
-                class="fa fa-star cursor-pointer fa-2x checked"
-                [class.selected-rate]="result.score >= 3"
-                (click)="rate(3)"
-              ></span>
-              <span
-                class="fa fa-star cursor-pointer fa-2x"
-                [class.selected-rate]="result.score >= 4"
-                (click)="rate(4)"
-              ></span>
-              <span
-                class="fa fa-star cursor-pointer fa-2x"
-                [class.selected-rate]="result.score === 5"
-                (click)="rate(5)"
-              ></span>
-              <span *ngIf="loadingSmall">
-                <img src="../../../assets/img/loading.png" class="icon-small" />
-              </span>
-            </div>
-
             <form
               [formGroup]="form"
+              class="w-100 m-2 p-4"
               (submit)="onSubmit('file')"
               enctype="multipart/form-data"
             >
@@ -280,8 +267,41 @@
                 <div class="w-100">
                   <mat-form-field class="w-100">
                     <mat-label> {{ 'shareexperience' | translate }} </mat-label>
-                    <textarea matInput formControlName="describe"></textarea>
+                    <textarea formControlName="describe"></textarea>
                   </mat-form-field>
+                </div>
+                <div *ngIf="existLocation" class="w-100 text-left p-2">
+                  <span
+                    class="fa fa-star cursor-pointer fa-2x checked"
+                    [class.selected-rate]="result.score >= 1"
+                    (click)="rate(1)"
+                  ></span>
+                  <span
+                    class="fa fa-star cursor-pointer fa-2x checked"
+                    [class.selected-rate]="result.score >= 2"
+                    (click)="rate(2)"
+                  ></span>
+                  <span
+                    class="fa fa-star cursor-pointer fa-2x checked"
+                    [class.selected-rate]="result.score >= 3"
+                    (click)="rate(3)"
+                  ></span>
+                  <span
+                    class="fa fa-star cursor-pointer fa-2x"
+                    [class.selected-rate]="result.score >= 4"
+                    (click)="rate(4)"
+                  ></span>
+                  <span
+                    class="fa fa-star cursor-pointer fa-2x"
+                    [class.selected-rate]="result.score === 5"
+                    (click)="rate(5)"
+                  ></span>
+                  <span *ngIf="loadingSmall">
+                    <img
+                      src="../../../assets/img/loading.png"
+                      class="icon-small"
+                    />
+                  </span>
                 </div>
                 <div class="w-100 text-left" *ngIf="result?.id > 0">
                   <input
@@ -295,7 +315,10 @@
                   />
                 </div>
                 <div class="w-100 text-left mt-2">
-                  <button mat-raised-button type="submit">
+                  <button
+                    class="link-darks border p-2 m-2 fw-bold bg-light"
+                    type="submit"
+                  >
                     {{ 'submit' | translate }}
                   </button>
                 </div>
@@ -315,3 +338,9 @@
     </div>
   </div>
 </ng-template>
+
+<div *ngIf="userListShow" class="d-fixed w-100 text-center">
+  <div class="inner w-50 text-left border">
+    <pe-users></pe-users>
+  </div>
+</div>

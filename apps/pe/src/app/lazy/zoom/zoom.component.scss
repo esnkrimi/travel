@@ -66,8 +66,8 @@ input{
 .input-file-upload{
 }
 @media (max-width:1200px) {
-  form{
-    width: 100%;
+  form,.inner{
+    width: 100% !important;
   }
 
 }
@@ -83,4 +83,11 @@ input{
 
 .transparent-bg{
   z-index: 9999999 !important;
+}
+i,mat-icon{
+  font-size: 1.5em !important;
+}
+.d-fixed{
+  z-index: 99999999 !important;
+  width: 100% !important;
 }

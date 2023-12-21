@@ -1,17 +1,27 @@
-import { AfterViewInit, Component, Inject } from '@angular/core';
+import { AfterViewInit, Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { DrawerService } from '@appBase/drawer.service';
 import { Ilocation, typeOflocations } from '@appBase/+state/state';
 import { EntryService } from '../entry/entry.service';
-import { map } from 'rxjs';
-import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
+import { map, tap } from 'rxjs';
+import {
+  MAT_DIALOG_DATA,
+  MatDialog,
+  MatDialogModule,
+} from '@angular/material/dialog';
 import { MapService } from '@appBase/master/map/service';
 import { Store } from '@ngrx/store';
 import { actions } from '@appBase/+state/actions';
-import { selectILocationTypes, selectLocation } from '@appBase/+state/select';
+import {
+  selectILocationTypes,
+  selectLocation,
+  selectTripUsers,
+  selectUsersOfSite,
+} from '@appBase/+state/select';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { SettingService } from '@appBase/setting';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'pe-zoom',
@@ -19,6 +29,7 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./zoom.component.scss'],
 })
 export class ZoomComponent implements AfterViewInit {
+  userListShow = false;
   existLocation = false;
   showFormSubmit = true;
   placeType = typeOflocations;
@@ -65,9 +76,9 @@ export class ZoomComponent implements AfterViewInit {
   locationTypeAutocompleteDataFiltered: any = [];
   locationTypeAutocompleteDataFilteredPre: any = [];
   constructor(
+    private dialog: MatDialog,
     private drawerService: DrawerService,
     private entryService: EntryService,
-    public dialog: MatDialog,
     private mapService: MapService,
     private store: Store,
     private route: ActivatedRoute
@@ -169,6 +180,10 @@ export class ZoomComponent implements AfterViewInit {
       });
     }
   }
+  numberToArray(i: number) {
+    const arr = ['0', '0', '0', '0', '0'];
+    return arr.fill('1', 0, i);
+  }
   listener() {
     this.entryService.userLoginInformation.subscribe((res: any) => {
       this.userLogined = res.id;
@@ -247,7 +262,6 @@ export class ZoomComponent implements AfterViewInit {
     const dialogRef = this.dialog.open(DoneSubmitClass, {
       data: { result: this.form.value },
     });
-
     dialogRef.afterClosed().subscribe((result) => {});
     this.mapService.loadingProgress.next(false);
   }

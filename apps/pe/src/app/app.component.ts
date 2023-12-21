@@ -70,7 +70,9 @@ export class AppComponent implements OnInit {
     private drawerService: DrawerService,
     public dialog: MatDialog
   ) {}
-
+  users() {
+    this.store.dispatch(actions.startFetchUsersOfSites());
+  }
   zoomActivatorFunction(event: any) {
     this.openDialog();
   }
@@ -146,6 +148,7 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     this.fetchLocationTypes();
     this.getRoute();
+    this.users();
     this.fetchRequests();
     this.fetchUsersOfTrips();
     this.fetchAllTrips();

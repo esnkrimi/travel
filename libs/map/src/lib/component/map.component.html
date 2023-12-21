@@ -182,20 +182,28 @@
 
 <div *ngIf="openModalLocationFlag" class="modal-absolute text-center">
   <div class="inner w-25 bg-light m-3">
-    <div class="d-relative m-2 p-2 rounded-0 text-dark text-left">
-      <div>
-        <span class="fw-bold text-capitalize m-2 p-2">{{
+    <div class="d-relative ml-2 pl-2 rounded-0 text-dark text-left">
+      <div class="ml-2 pl-2">
+        <span class="fw-bold text-capitalize">{{
           locationForModal[0].title
-        }}</span>
-        <span class="fw-bold text-capitalize m-2 p-2">{{
+        }}</span
+        >&nbsp;
+        <span class="fw-bold text-capitalize">{{
           locationForModal[0].type
         }}</span>
+      </div>
+      <div class="ml-2 pl-2 border-bottom w-90">
+        <span *ngFor="let i of numberToArray(4)">
+          <i class="fa fa-star bg-white text-gold" *ngIf="i === '1'"></i>
+        </span>
       </div>
       <div>
         <span class="text-capitalize m-2 p-2">{{
           locationForModal[0].district
-        }}</span
-        ><span class="text-capitalize m-2 p-2">{{
+        }}</span>
+      </div>
+      <div>
+        <span class="text-capitalize m-2 p-2">{{
           locationForModal[0].phone
         }}</span>
       </div>
@@ -205,7 +213,7 @@
             class="link-darks border p-2 m-2 fw-bold"
             (click)="bindExistsLocation(locationForModal[0])"
           >
-            details
+            view
           </a>
         </span>
         <span>

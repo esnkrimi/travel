@@ -10,6 +10,7 @@
     --COLOR-GREEN: #17dab8;
     --COLOR-LIGHT: #ffffff;
     --COLOR-CREAM: #eceaea;
+    --COLOR-GOLD: #ffcf77;
     --COLOR-ORANGE: #fdb42a;
     --BG-LOGIN:'https://topedu.vercel.app/assets/images/login1.png';
     --BG-SUCCESS:'https://cdn.dribbble.com/users/571236/screenshots/2888472/happystate.gif';
@@ -309,6 +310,7 @@ body{
    padding: 0.4em;
    margin: 0.5em;
    border-bottom: solid 1px black;
+   color: var(--COLOR-BLUEBLACK) !important;
 }
 
 .text-purple{
@@ -407,4 +409,21 @@ h2 {
 .w-90{
    width: 90% !important;
 }
+.text-blueblack{
+   color: var(--COLOR-BLUEBLACK);
+}
+textarea{
+   width: 100%;
+   height: 15em;
+}
+.ml-2{
+   margin-left: 2% !important;
+}
+.pl-2{
+   padding-left: 2% !important;
+}
 
+.text-gold{
+   color: var(--COLOR-GOLD);
+
+}

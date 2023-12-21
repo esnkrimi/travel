@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { EntryComponent } from './entry/entry.component';
-import { MyrequestsComponent } from './my-requests/myrequests.component';
 import { UsersComponent } from './users/users.component';
 import { ZoomComponent } from './zoom/zoom.component';
 import { lazyRouterModule } from './routes';
@@ -17,23 +16,16 @@ import { HttpClient } from '@angular/common/http';
 import { HttpLoaderFactory } from '@appBase/app.module';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { LoadingImageModule } from '@pe/loading-image';
-import { TripComponent } from './trip/trip.component';
 import { MatExpansionModule } from '@angular/material/expansion';
-import { ReviewTripComponent } from './review-trip/review-trip.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { VehicleCOmparePipe } from '@appBase/pipe/vehicle.pipe';
 import { VehicleDirective } from '@appBase/directive/vehicle.directive';
 import { AdvancedAutocompleteModule } from '@pe/advanced-autocomplete';
 import { JoyrideModule } from 'ngx-joyride';
 import { MatSelectModule } from '@angular/material/select';
-import { TripUserComponent } from './trip-users/trip-user.component';
-import { MytripsComponent } from './mytrips/mytrips.component';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { TripListComponent } from './trip-list/trip-list.component';
-import { MessagesComponent } from './messages/messages.component';
 import { TimeCOmparePipe } from '@appBase/pipe/time';
 import { MoneyCOmparePipe } from '@appBase/pipe/money';
-import { TripCommentsComponent } from './trip-comments/trip-comments.component';
 import { SettingComponent } from './setting/setting.component';
 import { NgxPaginationModule } from 'ngx-pagination'; // <-- import the module
 import { GoogleSigninButtonModule } from '@abacritt/angularx-social-login';
@@ -42,27 +34,20 @@ import { MatChipsModule } from '@angular/material/chips';
 import { LoadingProgressModule } from '@pe/loading-progress';
 import { ScorePipe } from '@appBase/pipe/score';
 import { ScoreDirective } from '@appBase/directive/score.directive';
+import { PublicAutocompleteModule } from '@pe/public-autocomplete';
 @NgModule({
   declarations: [
     ScorePipe,
     ScoreDirective,
     EntryComponent,
     LocationListComponent,
-    MyrequestsComponent,
     ZoomComponent,
-    TripCommentsComponent,
     SettingComponent,
     UsersComponent,
-    TripUserComponent,
-    TripComponent,
-    TripListComponent,
     VehicleDirective,
-    ReviewTripComponent,
-    MessagesComponent,
     VehicleCOmparePipe,
     TimeCOmparePipe,
     MoneyCOmparePipe,
-    MytripsComponent,
   ],
   imports: [
     CommonModule,
@@ -73,6 +58,7 @@ import { ScoreDirective } from '@appBase/directive/score.directive';
     MatDialogModule,
     MatSlideToggleModule,
     MatFormFieldModule,
+    PublicAutocompleteModule,
     ConfirmModalModule,
     ReactiveFormsModule,
     FormsModule,

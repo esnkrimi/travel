@@ -2,7 +2,7 @@
   <pe-loading-progress [mode]="'mini'"></pe-loading-progress>
 </div>
 <div class="bg-light w-100 p-2 animated-fadein">
-  <div class="row w-100">
+  <div class="row w-100 d-relative">
     <div class="col-md-6">
       <form [formGroup]="formSearchTrip">
         <mat-form-field class="search-input w-75">
@@ -18,13 +18,9 @@
             (results)="changeLocationTypes($event)"
           ></pe-advanced-autocomplete>
         </div>
-        <div style="flex-basis: 10%" class="flex-cell">
+        <div class="flex-cell">
           <mat-chip *ngIf="selectedType.length > 0">
             {{ selectedType }}
-            <i
-              class="fa fa-close cursor-pointer"
-              (click)="fetchLocations()"
-            ></i>
           </mat-chip>
         </div>
       </div>
