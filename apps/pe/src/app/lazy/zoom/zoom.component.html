@@ -1,7 +1,7 @@
 <ng-container *ngIf="localInformation?.country; else loading">
   <div class="text-left p-3 w-100">
     <div class="bg-light inner w-100">
-      <div class="p-2" *ngIf="!existLocation; else ExistsLocation">
+      <div class="p-2" *ngIf="!setting.existLocation; else ExistsLocation">
         <form
           class="m-4"
           [formGroup]="form"
@@ -34,7 +34,7 @@
                   </mat-label>
                   <input
                     matInput
-                    [readonly]="existLocation"
+                    [readonly]="setting.existLocation"
                     formControlName="county"
                   />
                 </mat-form-field>
@@ -45,7 +45,7 @@
                   <mat-label> {{ 'district' | translate }} </mat-label>
                   <input
                     matInput
-                    [readonly]="existLocation"
+                    [readonly]="setting.existLocation"
                     formControlName="district"
                   />
                 </mat-form-field>
@@ -55,7 +55,7 @@
                   <mat-label> {{ 'street' | translate }}</mat-label>
                   <input
                     matInput
-                    [readonly]="existLocation"
+                    [readonly]="setting.existLocation"
                     formControlName="street"
                   />
                 </mat-form-field>
@@ -66,7 +66,7 @@
                   <mat-label> {{ 'placename' | translate }} </mat-label>
                   <input
                     matInput
-                    [readonly]="existLocation"
+                    [readonly]="setting.existLocation"
                     formControlName="title"
                     placeholder="Ex . google company"
                   />
@@ -77,7 +77,7 @@
                   <mat-label> {{ 'placetype' | translate }}</mat-label>
                   <input
                     matInput
-                    [readonly]="existLocation"
+                    [readonly]="setting.existLocation"
                     formControlName="type"
                     placeholder="Ex . google company"
                   />
@@ -118,7 +118,7 @@
                   <mat-label> {{ 'email' | translate }}</mat-label>
                   <input
                     matInput
-                    [readonly]="existLocation"
+                    [readonly]="setting.existLocation"
                     formControlName="email"
                   />
                 </mat-form-field>
@@ -129,7 +129,7 @@
                   <mat-label> {{ 'tell' | translate }}</mat-label>
                   <input
                     matInput
-                    [readonly]="existLocation"
+                    [readonly]="setting.existLocation"
                     formControlName="phone"
                   />
                 </mat-form-field>
@@ -140,7 +140,7 @@
                   <mat-label> {{ 'website' | translate }}</mat-label>
                   <input
                     matInput
-                    [readonly]="existLocation"
+                    [readonly]="setting.existLocation"
                     formControlName="web"
                   />
                 </mat-form-field>
@@ -197,7 +197,7 @@
               <span class="sign p-1">
                 <i
                   class="cursor-pointer fa fa-2x fa-share-alt"
-                  (click)="userListShow = true"
+                  (click)="setting.userListShow = true"
                 >
                 </i>
               </span>
@@ -242,9 +242,12 @@
             </p>
           </div>
 
-          <div class="modals w-100" *ngIf="showFormSubmit">
+          <div class="modals w-100" *ngIf="setting.showFormSubmit">
             <div>
-              <div class="mt-4 w-100 bg-light bg-primary" *ngIf="existLocation">
+              <div
+                class="mt-4 w-100 bg-light bg-primary"
+                *ngIf="setting.existLocation"
+              >
                 <div class="title-bar">
                   People interrested in
                   {{ fetchFormInputValue('title') | titlecase }}
@@ -270,7 +273,7 @@
                     <textarea formControlName="describe"></textarea>
                   </mat-form-field>
                 </div>
-                <div *ngIf="existLocation" class="w-100 text-left p-2">
+                <div *ngIf="setting.existLocation" class="w-100 text-left p-2">
                   <span
                     class="fa fa-star cursor-pointer fa-2x checked"
                     [class.selected-rate]="result.score >= 1"
@@ -296,7 +299,7 @@
                     [class.selected-rate]="result.score === 5"
                     (click)="rate(5)"
                   ></span>
-                  <span *ngIf="loadingSmall">
+                  <span *ngIf="setting.loadingSmall">
                     <img
                       src="../../../assets/img/loading.png"
                       class="icon-small"
@@ -338,9 +341,3 @@
     </div>
   </div>
 </ng-template>
-
-<div *ngIf="userListShow" class="d-fixed w-100 text-center">
-  <div class="inner w-50 text-left border">
-    <pe-users></pe-users>
-  </div>
-</div>

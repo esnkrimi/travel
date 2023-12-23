@@ -5,16 +5,6 @@ import { filter, map, of, tap } from 'rxjs';
 @Injectable({ providedIn: 'root' })
 export class FetchLocationService {
   constructor(private httpClient: HttpClient) {}
-  getCountry(item: string) {
-    return this.httpClient.get('./assets/datas/locations.json').pipe(
-      map((d: any) => Object.keys(d)),
-      map((res) =>
-        res.filter((r: any) =>
-          r.toLocaleLowerCase().includes(item.toLocaleLowerCase())
-        )
-      )
-    );
-  }
 
   getGeographic(city: string, country: string, geo: any, sym: any) {
     if (geo?.length > 1) {

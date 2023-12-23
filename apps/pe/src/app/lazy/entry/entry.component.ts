@@ -11,6 +11,7 @@ import { selectUser } from '@appBase/+state/select';
 import { MatSnackBar, MatSnackBarRef } from '@angular/material/snack-bar';
 import { MapService } from '@appBase/master/map/service';
 import { SocialAuthService } from '@abacritt/angularx-social-login';
+import { LoginSetting } from '@appBase/setting';
 
 @Component({
   selector: 'pe-entry',
@@ -18,11 +19,13 @@ import { SocialAuthService } from '@abacritt/angularx-social-login';
   styleUrls: ['./entry.component.scss'],
 })
 export class EntryComponent implements OnInit {
-  routeType = 'login';
-  buttonDisabled = false;
-  loginError = false;
-  loginSuccess = false;
-  errorPasswordEqual = false;
+  loginSetting: LoginSetting = {
+    routeType: 'login',
+    buttonDisabled: false,
+    loginError: false,
+    loginSuccess: false,
+    errorPasswordEqual: false,
+  };
   formLogin = new FormGroup({
     email: new FormControl<any>('', [Validators.email, Validators.required]),
     password: new FormControl<any>('', [
@@ -55,7 +58,7 @@ export class EntryComponent implements OnInit {
 
   ngOnInit(): void {
     this.hideMap();
-    this.routeType = this.route.snapshot.url[0].path;
+    this.loginSetting.routeType = this.route.snapshot.url[0].path;
     this.selectGoogleAuth();
     this.selectUserLogined();
   }
@@ -75,13 +78,13 @@ export class EntryComponent implements OnInit {
   onSubmitLogin() {
     this.mapService.loadingProgress.next(true);
     const loginInfo: IloginInfo = { ...this.formLogin.value };
-    this.buttonDisabled = true;
+    this.loginSetting.buttonDisabled = true;
     this.store.dispatch(actions.startLoginAction({ user: loginInfo }));
   }
   selectUserLogined() {
     this.store.select(selectUser).subscribe((res: any) => {
       if (res?.length > 0) {
-        this.loginSuccess = true;
+        this.loginSetting.loginSuccess = true;
         this.localStorage.saveData('user', JSON.stringify(res[0]));
         setTimeout(() => {
           this.service.userLoginInformation.next(res);
@@ -92,8 +95,9 @@ export class EntryComponent implements OnInit {
         setTimeout(() => {
           this.mapService.loadingProgress.next(false);
         }, 2000);
-        if (this.formLogin.get('email')?.value) this.loginError = true;
-        this.buttonDisabled = false;
+        if (this.formLogin.get('email')?.value)
+          this.loginSetting.loginError = true;
+        this.loginSetting.buttonDisabled = false;
         //   this.mapService.loadingProgress.next(false);
       }
     });
@@ -109,7 +113,7 @@ export class EntryComponent implements OnInit {
   }
 
   onSubmitSignup() {
-    this.errorPasswordEqual = false;
+    this.loginSetting.errorPasswordEqual = false;
     this.mapService.loadingProgress.next(true);
     const passEqual =
       this.formSubmit.get('password')?.value ===

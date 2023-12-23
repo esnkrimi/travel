@@ -4,7 +4,6 @@ import {
   Input,
   OnChanges,
   Renderer2,
-  SimpleChanges,
 } from '@angular/core';
 
 @Directive({ selector: '[vehicleDirective]' })

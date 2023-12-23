@@ -31,3 +31,68 @@ export const settings = {
     },
   ],
 };
+
+export interface LoginSetting {
+  routeType: string;
+  buttonDisabled: boolean;
+  loginError: boolean;
+  loginSuccess: boolean;
+  errorPasswordEqual: boolean;
+}
+
+export interface LocationSetting {
+  rateFilter: string;
+  rateFilterNumber: number;
+  locatinListFiltered: any;
+  locatinList: [];
+  locatinTypeList: [];
+  selectedType: string;
+  page: number;
+}
+
+export interface APPSetting {
+  showMap: boolean;
+  open: boolean;
+  SelectedLanguage: string;
+  openModalLocationRoute: boolean;
+  isLoggedin?: boolean;
+  loadingProgress: boolean;
+  savedLocationFlag: boolean;
+  bgLoader: boolean;
+  showTour: boolean;
+}
+
+export interface ZoomSetting {
+  showFormSubmit: boolean;
+  userListShow: boolean;
+  existLocation: boolean;
+  userLogined: number;
+  loadingSmall: boolean;
+}
+
+export interface HeaderSetting {
+  animationFlag: string;
+  menuShow: boolean;
+  scrollDown: boolean;
+}
+export interface MapSetting {
+  center: any;
+  country: string;
+  city: string;
+  state: string;
+  formTripShow: boolean;
+  showMap: boolean;
+}
+export interface MapDetailsSetting {
+  openModalLocationListFlag: boolean;
+  openModalLocationFlag: boolean;
+  toolsShow: boolean;
+  savedLocationFlag: boolean;
+  showMap: boolean;
+  createTripActivate: boolean;
+  tripSelectIndex: number;
+  distanceValue: number;
+  distanceActivated: boolean;
+  selectLocationActivated: boolean;
+  loadingProgress: boolean;
+}

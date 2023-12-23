@@ -16,7 +16,7 @@ import { Router } from '@angular/router';
 import { DrawerService } from '@appBase/drawer.service';
 import { EntryService } from '@appBase/lazy/entry/entry.service';
 import { Iuser } from '@appBase/+state/state';
-import { SettingService, settings } from '@appBase/setting';
+import { HeaderSetting, SettingService, settings } from '@appBase/setting';
 import { LocalService } from '@appBase/storage';
 import { MapApiService } from 'libs/map/src/lib/component/map.service';
 import { MapService } from '../map/service';
@@ -46,11 +46,13 @@ import { MapService } from '../map/service';
 export class HeaderComponent implements OnInit {
   @Output() resultOutputs = new EventEmitter<any>();
   @Output() savedLocation = new EventEmitter<any>();
-  scrollDown = false;
   languages = settings.languages;
   languageIndex = 1;
-  animationFlag = 'false';
-  menuShow = false;
+  setting: HeaderSetting = {
+    animationFlag: 'false',
+    menuShow: false,
+    scrollDown: false,
+  };
   userLoginInformation: Iuser = {
     id: '',
     name: '',
@@ -70,7 +72,7 @@ export class HeaderComponent implements OnInit {
     private settingService: SettingService
   ) {}
   @HostListener('window:scroll', ['$event']) onWindowScroll(e: any) {
-    this.scrollDown =
+    this.setting.scrollDown =
       e.target['scrollingElement'].scrollTop > 300 ? true : false;
 
     // Your Code Here
@@ -79,7 +81,7 @@ export class HeaderComponent implements OnInit {
     this.router.navigateByUrl('lazy(secondRouter:lazy/mytrips/');
   }
   logout() {
-    this.menuShow = false;
+    this.setting.menuShow = false;
     this.progresService.loadingProgress.next(true);
     this.localStorage.clearData();
     setTimeout(() => {
@@ -100,7 +102,8 @@ export class HeaderComponent implements OnInit {
     window.location.reload();
   }
   changeLanguage(language: string) {
-    this.animationFlag = this.animationFlag === 'true' ? 'false' : 'true';
+    this.setting.animationFlag =
+      this.setting.animationFlag === 'true' ? 'false' : 'true';
     this.mapServicePrivate.loadingProgress.next(true);
     setTimeout(() => {
       this.settingService.language.next(language.toLowerCase());
@@ -118,7 +121,7 @@ export class HeaderComponent implements OnInit {
   }
   savedLocations() {
     this.getShowLocationState();
-    this.menuShow = false;
+    this.setting.menuShow = false;
     this.showMap(true);
     this.router.navigateByUrl('');
   }
@@ -130,7 +133,7 @@ export class HeaderComponent implements OnInit {
     this.router.navigate([{ outlets: { secondRouter: [`lazy/mytrips`] } }]);
   }
   showLocationsOnMapComponent() {
-    this.menuShow = false;
+    this.setting.menuShow = false;
     this.drawerService.showLocations.next({
       show: true,
       type: '',

@@ -8,10 +8,13 @@ import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { MapService } from '@appBase/master/map/service';
 import { Store } from '@ngrx/store';
 import { actions } from '@appBase/+state/actions';
-import { selectILocationTypes, selectLocation } from '@appBase/+state/select';
+import {
+  selectILocationTypes,
+  selectLocation,
+  selectUsersOfSite,
+} from '@appBase/+state/select';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { SettingService } from '@appBase/setting';
-import { ActivatedRoute } from '@angular/router';
+import { SettingService, ZoomSetting } from '@appBase/setting';
 
 @Component({
   selector: 'pe-zoom',
@@ -19,14 +22,20 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./zoom.component.scss'],
 })
 export class ZoomComponent implements AfterViewInit {
-  userListShow = false;
-  existLocation = false;
-  showFormSubmit = true;
-  placeType = typeOflocations;
-  userLogined: any;
-  loginSUggest = false;
+  locationTypeAutocompleteDataFiltered: any = [];
+  locationTypeAutocompleteDataFilteredPre: any = [];
+  usersList: any;
   result: any;
-  loadingSmall = false;
+  placeType = typeOflocations;
+
+  setting: ZoomSetting = {
+    showFormSubmit: true,
+    userListShow: false,
+    existLocation: false,
+    userLogined: 0,
+    loadingSmall: false,
+  };
+
   localInformation: Ilocation = {
     id: 0,
     country: '',
@@ -63,30 +72,33 @@ export class ZoomComponent implements AfterViewInit {
     lon: new FormControl('0', Validators.required),
     file: new FormControl<any>('', {}),
   });
-  locationTypeAutocompleteDataFiltered: any = [];
-  locationTypeAutocompleteDataFilteredPre: any = [];
+
   constructor(
     private dialog: MatDialog,
     private drawerService: DrawerService,
     private entryService: EntryService,
     private mapService: MapService,
-    private store: Store,
-    private route: ActivatedRoute
+    private store: Store
   ) {}
-
   ngAfterViewInit(): void {
     this.listener();
+    this.getUserList();
     this.selectLocationTypes();
     this.inputListener();
   }
+  getUserList() {
+    this.store.select(selectUsersOfSite).subscribe((res) => {
+      this.usersList = res;
+    });
+  }
 
   rate(rate: number) {
-    if (this.userLogined) {
-      this.loadingSmall = true;
+    if (this.setting.userLogined) {
+      this.setting.loadingSmall = true;
       this.form.get('score')?.setValue(rate);
       this.store.dispatch(
         actions.startRateAction({
-          updateSaved: [this.userLogined, this.result?.id, rate],
+          updateSaved: [this.setting.userLogined, this.result?.id, rate],
         })
       );
     } else {
@@ -99,7 +111,7 @@ export class ZoomComponent implements AfterViewInit {
   saved() {
     this.store.dispatch(
       actions.startSaveAction({
-        updateSaved: [this.result?.id, this.userLogined],
+        updateSaved: [this.result?.id, this.setting.userLogined],
       })
     );
   }
@@ -129,14 +141,14 @@ export class ZoomComponent implements AfterViewInit {
     dialogRef.afterClosed().subscribe();
   }
   onSubmit(fileId: string) {
-    if (this.userLogined) {
+    if (this.setting.userLogined) {
       this.mapService.loadingProgress.next(true);
       const formData = new FormData();
       formData.append('file', this.form.get(fileId)?.value);
       if (this.result?.id) {
         this.store.dispatch(
           actions.startShareExperience({
-            uid: this.userLogined,
+            uid: this.setting.userLogined,
             id: this.result?.id,
             describtion: this.form.get('describe')?.value,
             formData: formData,
@@ -146,7 +158,7 @@ export class ZoomComponent implements AfterViewInit {
         this.store.dispatch(
           actions.startSubmitLocation({
             form: this.form?.value,
-            uid: this.userLogined,
+            uid: this.setting.userLogined,
           })
         );
       }
@@ -176,11 +188,11 @@ export class ZoomComponent implements AfterViewInit {
   }
   listener() {
     this.entryService.userLoginInformation.subscribe((res: any) => {
-      this.userLogined = res.id;
+      this.setting.userLogined = res.id;
     });
     this.drawerService.localInformation.subscribe((res) => {
       this.localInformation = res;
-      this.existLocation = false;
+      this.setting.existLocation = false;
       this.drawerService
         .fetchLocationByLatlng(
           this.localInformation.lat,
@@ -225,7 +237,7 @@ export class ZoomComponent implements AfterViewInit {
               )
             )
             .subscribe((res: any) => {
-              if (res.length) this.existLocation = true;
+              if (res.length) this.setting.existLocation = true;
               this.result = res[0];
               if (this.result) {
                 this.form.get('email')?.setValue(this.result.email || '');
@@ -242,7 +254,7 @@ export class ZoomComponent implements AfterViewInit {
                 this.form.get('district')?.setValue(this.result?.district);
                 this.form.get('county')?.setValue(this.result?.county);
               }
-              this.loadingSmall = false;
+              this.setting.loadingSmall = false;
             });
         });
     });

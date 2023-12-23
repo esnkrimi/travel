@@ -13,7 +13,7 @@ import { Iuser } from '@appBase/+state/state';
 import { EntryService } from './lazy/entry/entry.service';
 import { Store } from '@ngrx/store';
 import { MapService } from './master/map/service';
-import { SettingService } from './setting';
+import { APPSetting, SettingService } from './setting';
 import { actions } from './+state/actions';
 import { MapApiService } from 'libs/map/src/lib/component/map.service';
 import { selectAllTrips, selectTripRequests } from './+state/select';
@@ -26,10 +26,19 @@ import { MatDialog } from '@angular/material/dialog';
   encapsulation: ViewEncapsulation.Emulated,
 })
 export class AppComponent implements OnInit {
+  @ViewChild('drawer')
   showMap = true;
-  SelectedLanguage = '';
-  openModalLocationRoute = false;
-  isLoggedin?: boolean;
+  setting: APPSetting = {
+    showMap: true,
+    open: true,
+    SelectedLanguage: '',
+    openModalLocationRoute: false,
+    loadingProgress: false,
+    savedLocationFlag: false,
+    bgLoader: false,
+    showTour: false,
+  };
+
   tips = [
     'search location by name or on map',
     'write your tript experience or read others',
@@ -37,16 +46,11 @@ export class AppComponent implements OnInit {
     'schedule your trip and your trip budget',
     'see how your trip is going on',
   ];
-  loadingProgress = false;
+
   skip = -1;
   scope: any;
-  bgLoader = false;
-  showFiller = false;
-  open = true;
   drawerTypeTmp = '';
-  @ViewChild('drawer')
   drawer!: MatDrawer;
-  savedLocationFlag = false;
   tmpUser: Iuser = {
     id: '',
     name: '',
@@ -55,7 +59,6 @@ export class AppComponent implements OnInit {
     mobile: '',
     password: '',
   };
-  showTour = false;
 
   constructor(
     @Inject('userSession') public userSession: any,
@@ -82,10 +85,10 @@ export class AppComponent implements OnInit {
       this.store.dispatch(actions.startFetchTrip());
   }
   savedLocation(e: any) {
-    this.savedLocationFlag = e;
+    this.setting.savedLocationFlag = e;
   }
   getRoute() {
-    this.drawerService.showMap.subscribe((res) => {
+    this.drawerService.showMap.subscribe((res: boolean) => {
       this.showMap = res;
     });
   }
@@ -156,12 +159,12 @@ export class AppComponent implements OnInit {
     this.fetchMyTripRequests();
     this.fetchUserOfSite();
     this.mapApiService.bgLoader.subscribe((res) => {
-      this.bgLoader = res;
+      this.setting.bgLoader = res;
     });
 
     this.fetchTrip();
     this.settingService.language.subscribe((res) => {
-      this.SelectedLanguage = res;
+      this.setting.SelectedLanguage = res;
       this.translate.setDefaultLang(res);
       this.translate.use(res);
     });
@@ -186,7 +189,7 @@ export class AppComponent implements OnInit {
   }
 
   showTours() {
-    this.showTour = true;
+    this.setting.showTour = true;
     this.skip = 2;
   }
 
@@ -204,12 +207,12 @@ export class AppComponent implements OnInit {
     this.scope = e;
   }
   openDialog() {
-    this.openModalLocationRoute = true;
+    this.setting.openModalLocationRoute = true;
   }
 
   listener() {
     this.mapService.loadingProgress.subscribe((res) => {
-      this.loadingProgress = res;
+      this.setting.loadingProgress = res;
     });
     this.draswerService.drawerType.subscribe((res: any) => {
       this.drawerTypeTmp = res;

@@ -3,26 +3,36 @@ import { Actions, ofType, createEffect } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { map, switchMap, tap } from 'rxjs/operators';
 import { actions } from './actions';
-import { Router } from '@angular/router';
-// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
 import { MapApiService } from 'libs/map/src/lib/component/map.service';
 import { EntryService } from '@appBase/lazy/entry/entry.service';
 import { FetchLocationService } from 'libs/auto-complete/src/lib/autocomplete/service';
-import { merge, pipe, zip } from 'rxjs';
+import { zip } from 'rxjs';
 import { ZoomApiService } from '@appBase/lazy/zoom/api.service';
-import { RootService } from '@appBase/service';
 import { selectReviewtrip, selectTrip } from './select';
 import { LocalService } from '@appBase/storage';
 import { ExperiencesApiService } from 'libs/experiences/src/lib/component/experiences.service';
 import { UsersService } from '@appBase/lazy/users/users.service';
-import { SettingService } from '@appBase/setting';
 import { ProfileSettingService } from '@appBase/lazy/setting/setting.service';
-import { FormtripApiService } from 'libs/form-trip-location/src/lib/component/form-trip-location.service';
 import { AdvancedAutoCompleteService } from 'libs/advanced-autocomplete/src/lib/auto-complete-advanced/service';
 import { TripUserService } from '@appBase/lazy/users/trip-user.service';
 
 @Injectable()
 export class storeEffects {
+  constructor(
+    private store: Store,
+    private tripUserService: TripUserService,
+    private experiencesApiService: ExperiencesApiService,
+    private actions$: Actions,
+    private ser: MapApiService,
+    private localStorage: LocalService,
+    private service: EntryService,
+    private advancedAutoCompleteService: AdvancedAutoCompleteService,
+    private locationService: FetchLocationService,
+    private usersService: UsersService,
+    private profileSettingService: ProfileSettingService,
+    private zoomService: ZoomApiService
+  ) {}
+
   startFetchLocationTypes: any = createEffect(() => {
     return this.actions$.pipe(
       ofType(actions.startFetchLocationType),
@@ -40,17 +50,6 @@ export class storeEffects {
         return this.profileSettingService
           .updateSettingAboutMe(res.uid, res.about)
           .pipe(map((res: any) => actions.updateSettingAboutMe({ data: res })));
-      })
-    );
-  });
-
-  getStartTripPictureUploading: any = createEffect(() => {
-    return this.actions$.pipe(
-      ofType(actions.startTripPictureUploading),
-      switchMap((result: any) => {
-        return this.formtripApiService
-          .tripPictureUploading(result.uid, result.tripTitle, result.formData)
-          .pipe(map((res: any) => actions.tripPictureUploading()));
       })
     );
   });
@@ -324,21 +323,4 @@ export class storeEffects {
       })
     );
   });
-
-  userLoginInformation: any;
-  constructor(
-    private store: Store,
-    private tripUserService: TripUserService,
-    private formtripApiService: FormtripApiService,
-    private experiencesApiService: ExperiencesApiService,
-    private actions$: Actions,
-    private ser: MapApiService,
-    private localStorage: LocalService,
-    private service: EntryService,
-    private advancedAutoCompleteService: AdvancedAutoCompleteService,
-    private locationService: FetchLocationService,
-    private usersService: UsersService,
-    private profileSettingService: ProfileSettingService,
-    private zoomService: ZoomApiService
-  ) {}
 }

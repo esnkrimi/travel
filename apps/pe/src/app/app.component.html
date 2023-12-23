@@ -6,16 +6,11 @@
     ></pe-header>
     <div class="w-100">
       <div class="w-100 relative">
-        <div
-          *ngIf="loadingProgress"
-          class="transparent-background-loading"
-        ></div>
-
         <router-outlet name="secondRouter"></router-outlet>
         <pe-map-component
           *ngIf="showMap"
-          [savedLocation]="savedLocationFlag"
-          [showTour]="showTour"
+          [savedLocation]="setting.savedLocationFlag"
+          [showTour]="setting.showTour"
           [scope]="scope"
           (zoomActivator)="zoomActivatorFunction($event)"
         ></pe-map-component>
@@ -26,18 +21,20 @@
             </div>
           -->
       </div>
-      <div class="transparent-bg" *ngIf="bgLoader"></div>
     </div>
     <div></div>
   </div>
 
-  <div *ngIf="openModalLocationRoute" class="modal-absolute w-100 text-center">
+  <div
+    *ngIf="setting && setting.openModalLocationRoute"
+    class="modal-absolute w-100 text-center"
+  >
     <div class="inner w-100 text-left">
       <div class="relative" cdkDrag>
         <router-outlet></router-outlet>
         <i
           class="fa fa-close icon-close cursor-pointer m-1 link"
-          (click)="openModalLocationRoute = false"
+          (click)="setting.openModalLocationRoute = false"
         ></i>
       </div>
     </div>

@@ -15,6 +15,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { map } from 'rxjs';
+import { LocationSetting } from '@appBase/setting';
 
 @Component({
   selector: 'pe-location-list',
@@ -23,46 +24,47 @@ import { map } from 'rxjs';
 })
 export class LocationListComponent implements OnInit {
   @Output() selectedLocation = new EventEmitter<any>();
-  @Input() city: any;
-  @Input() country: any;
-  @Input() state: any;
+  @Input() city: string;
+  @Input() country: string;
+  @Input() state: string;
   @Input() type: any;
-
-  rateFilter = 'all rates';
-  rateFilterNumber = 0;
-  locatinListFiltered: any;
-  locatinList: any;
-  locatinTypeList: any;
-  selectedType = '';
-  page = 0;
+  setting: LocationSetting = {
+    rateFilter: 'all rates',
+    rateFilterNumber: 0,
+    locatinListFiltered: [],
+    locatinList: [],
+    locatinTypeList: [],
+    selectedType: '',
+    page: 0,
+  };
   rates = ['0', '0', '0', '0', '0'];
   formSearchTrip = new FormGroup({
     itemToSearch: new FormControl(''),
     typeSearch: new FormControl(''),
   });
+
   constructor(
-    private mapService: MapService,
     private drawerService: DrawerService,
     private router: Router,
-    private localStorage: LocalService,
     public dialog: MatDialog,
-    private store: Store,
-    @Inject('userSession') public userSession: any
+    private store: Store
   ) {}
 
   //John F Kennedy Intl
   inputListener() {
-    this.locatinListFiltered = [];
+    this.setting.locatinListFiltered = [];
     this.formSearchTrip
       .get('itemToSearch')
       ?.valueChanges.subscribe((res: any) => {
-        this.page = 0;
-        if (res.length === 0) this.changeLocationTypes(this.selectedType);
+        this.setting.page = 0;
+        if (res.length === 0)
+          this.changeLocationTypes(this.setting.selectedType);
         else {
-          this.locatinListFiltered = this.locatinList.filter(
+          this.setting.locatinListFiltered = this.setting.locatinList.filter(
             (result: any) =>
               result.title.toLowerCase().includes(res.toLowerCase()) &&
-              (result.type === this.selectedType || this.selectedType === '')
+              (result.type === this.setting.selectedType ||
+                this.setting.selectedType === '')
           );
         }
       });
@@ -72,13 +74,13 @@ export class LocationListComponent implements OnInit {
     this.router.navigateByUrl('zoom/');
   }
   changeRates(rate: any) {
-    this.page = 1;
-    this.rateFilterNumber =
-      this.rateFilter === 'all rates' || this.rateFilter === ''
+    this.setting.page = 1;
+    this.setting.rateFilterNumber =
+      this.setting.rateFilter === 'all rates' || this.setting.rateFilter === ''
         ? 0
-        : this.rateFilter === 'low'
+        : this.setting.rateFilter === 'low'
         ? 2
-        : this.rateFilter === 'midle'
+        : this.setting.rateFilter === 'midle'
         ? 3
         : 5;
     this.fetchLocations();
@@ -94,34 +96,35 @@ export class LocationListComponent implements OnInit {
   }
 
   fetchAllLocations() {
-    this.selectedType = '';
+    this.setting.selectedType = '';
     this.store
       .select(selectLocation)
       .pipe(
         map((res) =>
           res.filter(
-            (res: any) => Number(res.score) >= Number(this.rateFilterNumber)
+            (res: any) =>
+              Number(res.score) >= Number(this.setting.rateFilterNumber)
           )
         ),
         map((res) =>
           res.filter((res: any) => this.type !== 'saved' || res.saved === true)
         )
       )
-      .subscribe((res) => {
-        this.locatinList = res;
-        this.locatinListFiltered = res;
+      .subscribe((res: any) => {
+        this.setting.locatinList = res;
+        this.setting.locatinListFiltered = res;
       });
   }
   changeLocationTypes(type: string) {
-    this.selectedType = type;
-    this.page = 1;
-    this.locatinListFiltered = this.locatinList.filter(
+    this.setting.selectedType = type;
+    this.setting.page = 1;
+    this.setting.locatinListFiltered = this.setting.locatinList.filter(
       (res: any) => type === '' || res.type === type
     );
   }
   fetchLocationTypes() {
-    this.store.select(selectILocationTypes).subscribe((res) => {
-      this.locatinTypeList = res;
+    this.store.select(selectILocationTypes).subscribe((res: any) => {
+      this.setting.locatinTypeList = res;
     });
   }
   selectLocation(lat: any, lon: any) {

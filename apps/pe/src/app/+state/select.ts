@@ -1,5 +1,3 @@
-import { createFeatureSelector } from '@ngrx/store';
-import { createSelector } from '@ngrx/store';
 import { reducerStates } from './reducer';
 
 export const {

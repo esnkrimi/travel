@@ -1,20 +1,4 @@
-<div *ngIf="formTripShow" class="div-location w-100 bg-primary">
-  <div class="border">
-    <pe-form-trip-location
-      [currentTrip]="currentTrip"
-      [latSelect]="latSelect"
-      [title]="title"
-      (tripFinished)="tripFinished($event)"
-      (submitedForm)="submitedForm($event)"
-      (hideForm)="hideForm($event)"
-      (cancelTripSubmitVar)="cancelTripSubmitVar($event)"
-    ></pe-form-trip-location>
-  </div>
-</div>
 <div class="parent">
-  <div class="text-center" *ngIf="createTripActivate">
-    <pe-trips [currentTrip]="currentTrip"></pe-trips>
-  </div>
   <div class="w-100 text-center box">
     <!--  <div [class.invisible]="!showMap" class="absolute-50">
       <div class="w-100 bg-light" cdkDrag>
@@ -50,11 +34,11 @@
 </div>
 -->
 
-    <div [class.invisible]="!showMap" class="map-container">
+    <div [class.invisible]="!setting.showMap" class="map-container">
       <div class="fixed-country shadow-lg cursor-pointer" cdkDrag>
         <div
           class="animated-fadein text-large text-green bg-white w-100"
-          *ngIf="distanceActivated"
+          *ngIf="setting.distanceActivated"
         >
           <span> DISTANCE MODE </span>
         </div>
@@ -94,7 +78,10 @@
           </div>
 
           <div class="flex-cell pl-3">
-            <span *ngIf="!distanceActivated" (click)="toolsShow = true">
+            <span
+              *ngIf="!setting.distanceActivated"
+              (click)="setting.toolsShow = true"
+            >
               <button
                 mat-stroked-button
                 style="height: 2.7em !important"
@@ -104,7 +91,7 @@
               </button>
             </span>
             <span
-              *ngIf="distanceActivated"
+              *ngIf="setting.distanceActivated"
               (click)="cancelTools()"
               class="pl-3"
             >
@@ -123,13 +110,13 @@
 
       <div #mapContainer class="map-frame w-100 d-relative">
         <div id="map"></div>
-        <div class="d-fixed bg-light animated-fadein" *ngIf="toolsShow">
+        <div class="d-fixed bg-light animated-fadein" *ngIf="setting.toolsShow">
           <div class="text-left p- m-1 link-darks">
             <div class="p-3">
               <span
                 joyrideStep="secondStep"
                 text="You can measure distance between two place"
-                [class.disabled]="!distanceActivated"
+                [class.disabled]="!setting.distanceActivated"
                 (click)="activeDistanceMeter()"
                 class="text-large m-2 link-darks"
               >
@@ -141,7 +128,7 @@
               <span
                 joyrideStep="firstStep"
                 text="You can make a trip and schedule it "
-                [class.disabled]="!createTripActivate"
+                [class.disabled]="!setting.createTripActivate"
                 (click)="createTrip()"
                 class="text-large m-2 link-darks"
               >
@@ -150,7 +137,7 @@
             </div>
           </div>
           <div class="text-left p-2 m-2">
-            <button mat-stroked-button (click)="toolsShow = false">
+            <button mat-stroked-button (click)="setting.toolsShow = false">
               cancel
             </button>
           </div>
@@ -165,11 +152,14 @@
   </button>
 </ng-template>
 
-<div *ngIf="openModalLocationListFlag" class="modal-absolute w-100 text-center">
+<div
+  *ngIf="setting.openModalLocationListFlag"
+  class="modal-absolute w-100 text-center"
+>
   <div class="inner w-75 text-left">
     <div class="d-relative">
       <pe-location-list
-        [type]="savedLocationFlag"
+        [type]="setting.savedLocationFlag"
         [city]="city"
         [state]="state"
         [country]="country"
@@ -180,7 +170,7 @@
   </div>
 </div>
 
-<div *ngIf="openModalLocationFlag" class="modal-absolute text-center">
+<div *ngIf="setting.openModalLocationFlag" class="modal-absolute text-center">
   <div class="inner w-25 bg-light m-3">
     <div class="d-relative ml-2 pl-2 rounded-0 text-dark text-left">
       <div class="ml-2 pl-2">
@@ -219,7 +209,7 @@
         <span>
           <a
             class="link-darks border p-2 m-2"
-            (click)="openModalLocationFlag = false"
+            (click)="setting.openModalLocationFlag = false"
           >
             cancel
           </a>

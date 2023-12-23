@@ -1,7 +1,6 @@
 import { createFeature, createReducer, on } from '@ngrx/store';
 import { actions } from './actions';
 import { AppState } from '@appBase/+state/state';
-import { act } from '@ngrx/effects';
 
 export const reducerStates = createFeature({
   name: 'store',

@@ -43,7 +43,7 @@ export class ExperiencesComponent implements OnInit {
   }
   selectSource() {
     setTimeout(() => {
-      this.store.select(selectLocationComments).subscribe((res) => {
+      this.store.select(selectLocationComments).subscribe((res: any) => {
         this.result = res;
         this.userIdCommenter.userId = res[0]?.userid;
 

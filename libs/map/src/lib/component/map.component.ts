@@ -22,8 +22,9 @@ import { JoyrideService } from 'ngx-joyride';
 import * as L from 'leaflet';
 import 'leaflet-control-geocoder/dist/Control.Geocoder.js';
 import { DistancePipe } from './pipe';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { HelpService } from 'libs/help/src/lib/component/help.service';
+import { MapDetailsSetting } from '@appBase/setting';
 @Component({
   selector: 'pe-map',
   templateUrl: './map.component.html',
@@ -32,11 +33,22 @@ import { HelpService } from 'libs/help/src/lib/component/help.service';
   providers: [DistancePipe],
 })
 export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
+  setting: MapDetailsSetting = {
+    openModalLocationListFlag: false,
+    openModalLocationFlag: false,
+    toolsShow: false,
+    savedLocationFlag: false,
+    showMap: true,
+    createTripActivate: false,
+    tripSelectIndex: 1,
+    distanceValue: 0,
+    distanceActivated: false,
+    selectLocationActivated: false,
+    loadingProgress: true,
+  };
+
   @Input() formTripShow: any;
   @Output() formTripShowAction = new EventEmitter<any>();
-  openModalLocationListFlag = false;
-  openModalLocationFlag = false;
-  locationForModal: any;
   @Input() country: any;
   @Input() city: any;
   @Input() center: any;
@@ -44,47 +56,36 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
   @Input() showTour: any;
   @Input() tripLocations: any;
   @Input() savedLocation = false;
-  toolsShow = false;
   @Output() zoomActivator = new EventEmitter<any>();
-  savedLocationFlag = false;
+  private map: any;
+  locationForModal: any;
   draggingLocation = {
     country: 'United States',
     city: 'New York',
     street: '',
     suburb: ' ',
   };
-  showMap = true;
-  createTripActivate = false;
-
+  listOfTrip: any;
+  distanceFrom: any;
+  distanceTo: any;
   currentTrip: any = {
     title: '',
     trip: [],
   };
-  tripSelectIndex = 1;
-  distanceValue = 0;
-  distanceActivated = false;
-  selectLocationActivated = false;
-  listOfTrip: any;
-  fromOrTo = 'from';
-  distanceFrom: any;
-  distanceTo: any;
-  mapConfig = {
-    center: [40.750929, -73.984326],
-    countryScope: 'United States',
-    typeOfLocation: 'all',
-  };
-  typeOflocations = typeOflocations;
   positionView: any;
   selectedType = 'all';
-  private map: any;
   previous: any = null;
   distance = 0;
-  loadingProgress = true;
+  fromOrTo = 'from';
+
+  typeOflocations = typeOflocations;
+
   icon: any = new L.Icon({
     className: 'my-markers',
     iconUrl: 'assets/img/mall.png',
     iconSize: [30, 30],
   });
+  title = '';
   latSelect: any = [];
   locationSelected: Ilocation = {
     id: 0,
@@ -104,10 +105,9 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
     district: '',
     score: 0,
   };
-  title = '';
+
   constructor(
     private router: Router,
-    private route: ActivatedRoute,
     private helpService: HelpService,
     private mapService: MapService,
     private drawerService: DrawerService,
@@ -120,17 +120,17 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
 
   getShowLocationState() {
     this.drawerService.showLocations.subscribe((res: any) => {
-      this.openModalLocationListFlag = res.show;
-      this.savedLocationFlag = res.type;
+      this.setting.openModalLocationListFlag = res.show;
+      this.setting.savedLocationFlag = res.type;
     });
   }
   cancelTripSubmitVar(event: any) {
-    this.selectLocationActivated = !event;
+    this.setting.selectLocationActivated = !event;
     this.mapApiService.bgLoader.next(false);
     this.formTripShowAction.emit(false);
   }
   submitedForm(e: any) {
-    this.selectLocationActivated = e.selectLocationActivated;
+    this.setting.selectLocationActivated = e.selectLocationActivated;
     this.currentTrip = e.currentTrip;
     this.title = e.title;
   }
@@ -140,7 +140,7 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
   }
   distanceDrawer(from: any, to: any) {
     let lineLng: any;
-    this.distanceValue = from.distanceTo(to);
+    this.setting.distanceValue = from.distanceTo(to);
     lineLng = [from, to];
     const polyline = L.polyline(lineLng, {
       smoothFactor: 50,
@@ -155,11 +155,11 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
       })
       .bindPopup(
         '<strong>' +
-          Math.round(this.distanceValue) / 1000 +
+          Math.round(this.setting.distanceValue) / 1000 +
           'km </strong><hr>' +
-          this.distancePipe.transform(this.distanceValue, 'car') +
+          this.distancePipe.transform(this.setting.distanceValue, 'car') +
           '<br>' +
-          this.distancePipe.transform(this.distanceValue, 'walk')
+          this.distancePipe.transform(this.setting.distanceValue, 'walk')
       )
 
       .on('click', (event) => {
@@ -176,7 +176,7 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
     if (this.fromOrTo === 'from') {
       this.distanceFrom = e.latlng;
       this.fromOrTo = 'to';
-      this.distanceValue = 0;
+      this.setting.distanceValue = 0;
       this.helpService.messageWrite('select destination on map');
     } else {
       this.helpService.messageWrite('click on purple line');
@@ -187,39 +187,38 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   createTrip() {
-    this.toolsShow = false;
-    this.distanceActivated = false;
-    this.createTripActivate = !this.createTripActivate;
+    this.setting.toolsShow = false;
+    this.setting.distanceActivated = false;
+    this.setting.createTripActivate = !this.setting.createTripActivate;
   }
 
   startCreateTrip(e: any) {
     this.formTripShowAction.emit(true);
     this.helpService.messageWrite('');
     this.addMarker(e.latlng, 'location', [35, 35]);
-    this.tripSelectIndex++;
-    this.selectLocationActivated = true;
+    this.setting.tripSelectIndex++;
+    this.setting.selectLocationActivated = true;
     this.latSelect = [e.latlng.lat, e.latlng.lng];
     //this.store.dispatch(actions.startAddTripPoin({ trip: trip }));
   }
 
   getRoute() {
     this.drawerService.showMap.subscribe((res) => {
-      this.showMap = res;
+      this.setting.showMap = res;
     });
   }
   activeDistanceMeter() {
-    this.toolsShow = false;
+    this.setting.toolsShow = false;
     this.helpService.messageWrite('select start point on map');
-    this.createTripActivate = false;
-    this.distanceActivated = !this.distanceActivated;
-    //  if (this.distanceActivated) this.openSnackBar('select location on map');
+    this.setting.createTripActivate = false;
+    this.setting.distanceActivated = !this.setting.distanceActivated;
   }
   tripFinished(e: any) {
-    this.distanceActivated = false;
-    this.createTripActivate = true;
+    this.setting.distanceActivated = false;
+    this.setting.createTripActivate = true;
   }
   cancelTools() {
-    this.distanceActivated = false;
+    this.setting.distanceActivated = false;
     this.helpService.messageWrite('');
   }
   turnOffProgress(time: number) {
@@ -311,8 +310,8 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
   //CLICK ON MAP
   clickOnMap() {
     this.map.on('click', (e: any) => {
-      if (this.distanceActivated) this.distanceActive(e);
-      else if (this.createTripActivate) this.startCreateTrip(e);
+      if (this.setting.distanceActivated) this.distanceActive(e);
+      else if (this.setting.createTripActivate) this.startCreateTrip(e);
       else this.bind(e);
     });
   }
@@ -325,7 +324,7 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   bindExistsLocation(location: any) {
-    this.openModalLocationFlag = false;
+    this.setting.openModalLocationFlag = false;
     this.zoomActivator.emit(true);
     this.locationSelected.lon = location.lon;
     this.locationSelected.lat = location.lat;
@@ -448,8 +447,8 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
         L?.marker(position, { icon: icon })
           ?.addTo(this.map)
           .on('click', (e) => {
-            if (this.distanceActivated) this.distanceActive(e);
-            else if (this.createTripActivate) this.startCreateTrip(e);
+            if (this.setting.distanceActivated) this.distanceActive(e);
+            else if (this.setting.createTripActivate) this.startCreateTrip(e);
             else {
               this.popInformationOfLocation(e);
             }
@@ -496,7 +495,7 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   popInformationOfLocation(e: any) {
-    this.openModalLocationFlag = true;
+    this.setting.openModalLocationFlag = true;
     this.store
       .select(selectLocation)
       .pipe(
@@ -597,7 +596,7 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
 
   selectedLocation(event: any) {
     //select location in location-list
-    this.openModalLocationListFlag = false;
+    this.setting.openModalLocationListFlag = false;
     this.center = [Number(event.lat), Number(event.lon)];
     this.changeCenter(); //center focus
     this.highlightLocation(); //popup

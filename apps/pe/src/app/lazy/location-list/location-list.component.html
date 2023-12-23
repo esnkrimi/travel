@@ -1,4 +1,4 @@
-<div class="bg-light w-100" *ngIf="locatinListFiltered.length === 0">
+<div class="bg-light w-100" *ngIf="setting.locatinListFiltered.length === 0">
   <pe-loading-progress [mode]="'mini'"></pe-loading-progress>
 </div>
 <div class="bg-light w-100 p-2 animated-fadein">
@@ -19,8 +19,8 @@
           ></pe-advanced-autocomplete>
         </div>
         <div class="flex-cell">
-          <mat-chip *ngIf="selectedType.length > 0">
-            {{ selectedType }}
+          <mat-chip *ngIf="setting.selectedType.length > 0">
+            {{ setting.selectedType }}
           </mat-chip>
         </div>
       </div>
@@ -33,7 +33,7 @@
         [responsive]="true"
         previousLabel=""
         nextLabel=""
-        (pageChange)="page = $event"
+        (pageChange)="setting.page = $event"
       ></pagination-controls>
       <div class="row">
         <div class="col-md-6">
@@ -48,7 +48,7 @@
         <div class="col-md-6 flex-cell text-right">
           <select
             class="form-select w-50"
-            [(ngModel)]="rateFilter"
+            [(ngModel)]="setting.rateFilter"
             (ngModelChange)="changeRates($event)"
           >
             <option selected="selected" [value]="'all rates'">All Rates</option>
@@ -60,8 +60,8 @@
 
       <div
         *ngFor="
-          let l of locatinListFiltered
-            | paginate : { itemsPerPage: 6, currentPage: page }
+          let l of setting.locatinListFiltered
+            | paginate : { itemsPerPage: 6, currentPage: setting.page }
         "
         class="m-2 p-3 bg-light w-90 border"
       >
@@ -120,7 +120,7 @@
         [responsive]="true"
         previousLabel=""
         nextLabel=""
-        (pageChange)="page = $event"
+        (pageChange)="setting.page = $event"
       ></pagination-controls>
     </div>
   </div>

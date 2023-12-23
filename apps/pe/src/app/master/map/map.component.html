@@ -1,13 +1,13 @@
 <div class="relative">
   <pe-map
     (zoomActivator)="zoomActivatorFunction($event)"
-    [center]="center"
+    [center]="setting.center"
     [savedLocation]="savedLocation"
     [showTour]="showTour"
-    [city]="city"
-    [state]="state"
-    [country]="country"
-    [formTripShow]="formTripShow"
+    [city]="setting.city"
+    [state]="setting.state"
+    [country]="setting.country"
+    [formTripShow]="setting.formTripShow"
     (formTripShowAction)="formTripShowAction($event)"
   ></pe-map>
   <pe-help></pe-help>

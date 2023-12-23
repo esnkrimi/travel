@@ -1,21 +1,27 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import {
+  Component,
+  Inject,
+  Input,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
+} from '@angular/core';
 import { Store } from '@ngrx/store';
 import { selectUsersOfSite } from '@appBase/+state/select';
 
 @Component({
-  selector: 'pe-users',
+  selector: 'pe-users-list',
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.scss'],
 })
-export class UsersComponent implements OnInit {
-  users: any;
+export class UsersComponent implements OnChanges {
+  @Input() users: any;
   constructor(private store: Store) {}
-
-  ngOnInit(): void {
-    this.store.select(selectUsersOfSite).subscribe((res) => {
-      this.users = res;
-      console.log(res);
-    });
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log(this.users);
   }
-  resultSelected(event: any) {}
+
+  resultSelected(event: any) {
+    console.log(event);
+  }
 }

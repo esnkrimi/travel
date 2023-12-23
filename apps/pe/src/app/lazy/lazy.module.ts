@@ -18,23 +18,24 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { LoadingImageModule } from '@pe/loading-image';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatDialogModule } from '@angular/material/dialog';
-import { VehicleCOmparePipe } from '@appBase/pipe/vehicle.pipe';
 import { VehicleDirective } from '@appBase/directive/vehicle.directive';
 import { AdvancedAutocompleteModule } from '@pe/advanced-autocomplete';
 import { JoyrideModule } from 'ngx-joyride';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { TimeCOmparePipe } from '@appBase/pipe/time';
-import { MoneyCOmparePipe } from '@appBase/pipe/money';
 import { SettingComponent } from './setting/setting.component';
 import { NgxPaginationModule } from 'ngx-pagination'; // <-- import the module
 import { GoogleSigninButtonModule } from '@abacritt/angularx-social-login';
 import { LocationListComponent } from './location-list/location-list.component';
 import { MatChipsModule } from '@angular/material/chips';
 import { LoadingProgressModule } from '@pe/loading-progress';
-import { ScorePipe } from '@appBase/pipe/score';
 import { ScoreDirective } from '@appBase/directive/score.directive';
 import { PublicAutocompleteModule } from '@pe/public-autocomplete';
+
+import { VehicleCOmparePipe } from '@appBase/pipe/vehicle.pipe';
+import { TimeCOmparePipe } from '@appBase/pipe/time.pipe';
+import { MoneyCOmparePipe } from '@appBase/pipe/money.pipe';
+import { ScorePipe } from '@appBase/pipe/score.pipe';
 @NgModule({
   declarations: [
     ScorePipe,

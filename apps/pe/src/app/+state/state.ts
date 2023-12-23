@@ -1,14 +1,3 @@
-export const vehicle = new Set([
-  'car',
-  'ship',
-  'boat',
-  'airplane',
-  'bycycle',
-  'motorcycle',
-  'train',
-  'walk',
-]);
-
 export interface ILocationTypes {
   type: string;
 }
@@ -287,19 +276,7 @@ export abstract class location implements Ilocation {
   type = '';
 }
 
-export const typeOflocations = [
-  'restaurant',
-  'hotel',
-  'mall',
-  'university',
-  'tower',
-  'school',
-  'petrol',
-  'zoo',
-  'park',
-  'airport',
-  'hospital',
-];
+export const typeOflocations = [];
 
 export interface State {
   currency: any;
@@ -352,3 +329,13 @@ export const initialState: State = {
     },
   },
 };
+export const vehicle = new Set([
+  'car',
+  'ship',
+  'boat',
+  'airplane',
+  'bycycle',
+  'motorcycle',
+  'train',
+  'walk',
+]);

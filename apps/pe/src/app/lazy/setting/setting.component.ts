@@ -4,7 +4,6 @@ import { actions } from '@appBase/+state/actions';
 import { selectUsersOfSite } from '@appBase/+state/select';
 import { DrawerService } from '@appBase/drawer.service';
 import { map } from 'rxjs';
-import { ActivatedRoute } from '@angular/router';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MapService } from '@appBase/master/map/service';
@@ -36,10 +35,10 @@ export class SettingComponent implements OnInit {
     uid: new FormControl(),
     files: new FormControl(),
   });
+
   constructor(
     private store: Store,
     private drawerService: DrawerService,
-    private route: ActivatedRoute,
     public dialog: MatDialog,
     public mapService: MapService,
     @Inject('userSession') public userSession: any

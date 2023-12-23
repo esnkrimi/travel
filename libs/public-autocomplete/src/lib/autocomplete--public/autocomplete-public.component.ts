@@ -25,6 +25,7 @@ export class AutocompletePoublicComponent implements OnInit {
     });
   }
   resultSelect(e: any) {
+    console.log(e);
     this.resultSelected.emit(e);
 
     const tmp = this.result.filter((res: any) => res.email !== e.email);

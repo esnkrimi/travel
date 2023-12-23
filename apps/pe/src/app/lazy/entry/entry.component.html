@@ -5,11 +5,11 @@
 <br />
 <div
   class="w-100 mt-4 p-4 text-center"
-  *ngIf="routeType === 'login'; else esignup"
+  *ngIf="loginSetting.routeType === 'login'; else esignup"
 >
   <div
     class="login-div w-25 d-inline-block bg-white p-4 shadow-sm"
-    *ngIf="!loginSuccess"
+    *ngIf="!loginSetting.loginSuccess"
   >
     <div class="w-100 mt-4 text-center fw-bold">
       <p></p>
@@ -35,7 +35,7 @@
         {{ 'login' | translate }}
       </button>
     </form>
-    <div *ngIf="loginError">
+    <div *ngIf="loginSetting.loginError">
       <span class="text-warning text-left">
         incorrect username or password
       </span>
@@ -99,7 +99,7 @@
           {{ 'signup' | translate }}
         </button>
       </form>
-      <div *ngIf="errorPasswordEqual" class="text-left">
+      <div *ngIf="loginSetting.errorPasswordEqual" class="text-left">
         <span class="text-small m-2 cursor-pointer"> Password not match </span>
       </div>
 

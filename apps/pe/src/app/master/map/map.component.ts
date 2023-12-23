@@ -7,6 +7,7 @@ import {
   Output,
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { MapSetting } from '@appBase/setting';
 
 @Component({
   selector: 'pe-map-component',
@@ -14,28 +15,29 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./map.component.scss'],
 })
 export class MapComponent implements OnChanges, OnInit {
-  center = [40.750929, -73.984326];
-  country = 'United States';
-  city = 'New York';
-  state = 'New York';
-  formTripShow = false;
-  @Input() scope: any; //from autocomplete search
+  @Input() scope: any;
   @Input() showTour: any;
   @Input() savedLocation: any;
   @Output() zoomActivator = new EventEmitter<any>();
-
-  showMap = true;
+  setting: MapSetting = {
+    center: [40.750929, -73.984326],
+    country: 'United States',
+    city: 'New York',
+    state: 'New York',
+    formTripShow: false,
+    showMap: true,
+  };
 
   constructor(private route: ActivatedRoute) {}
   ngOnInit(): void {
     this.getRoutePath();
   }
   formTripShowAction(e: any) {
-    this.formTripShow = e;
+    this.setting.formTripShow = e;
   }
   getRoutePath() {
     if (Number(this.route.snapshot.paramMap.get('lat')) !== 0)
-      this.center = [
+      this.setting.center = [
         Number(this.route.snapshot.paramMap.get('lat')),
         Number(this.route.snapshot.paramMap.get('lon')),
       ];
@@ -43,10 +45,10 @@ export class MapComponent implements OnChanges, OnInit {
   ngOnChanges(): void {
     this.getRoutePath();
     if (this.scope) {
-      this.center = [this.scope.center[0], this.scope.center[1]];
-      this.city = this.scope.city;
-      this.country = this.scope.country;
-      this.state = this.scope.state;
+      this.setting.center = [this.scope.center[0], this.scope.center[1]];
+      this.setting.city = this.scope.city;
+      this.setting.country = this.scope.country;
+      this.setting.state = this.scope.state;
     }
   }
 
