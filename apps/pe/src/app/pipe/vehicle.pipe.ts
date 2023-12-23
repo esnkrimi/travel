@@ -4,7 +4,7 @@ import { Pipe, PipeTransform } from '@angular/core';
   name: 'vehicleCompare',
 })
 export class VehicleCOmparePipe implements PipeTransform {
-  transform(value: any, ...args: any[]): any {
+  transform(value: any): any {
     const result = value
       ? '<i class="fa fa-check">'
       : '<i class="fa fa-close">';

@@ -10,7 +10,7 @@ import { Store } from '@ngrx/store';
 import { selectILocationTypes, selectLocation } from '@appBase/+state/select';
 import { MapService } from '@appBase/master/map/service';
 import { LocalService } from '@appBase/storage';
-import { DrawerService } from '@appBase/drawer.service';
+import { LocationGeoService } from '@appBase/drawer.service';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
@@ -44,7 +44,7 @@ export class LocationListComponent implements OnInit {
   });
 
   constructor(
-    private drawerService: DrawerService,
+    private drawerService: LocationGeoService,
     private router: Router,
     public dialog: MatDialog,
     private store: Store

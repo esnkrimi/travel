@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, Inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { DrawerService } from '@appBase/drawer.service';
+import { LocationGeoService } from '@appBase/drawer.service';
 import { Ilocation, typeOflocations } from '@appBase/+state/state';
 import { EntryService } from '../entry/entry.service';
 import { map } from 'rxjs';
@@ -75,7 +75,7 @@ export class ZoomComponent implements AfterViewInit {
 
   constructor(
     private dialog: MatDialog,
-    private drawerService: DrawerService,
+    private drawerService: LocationGeoService,
     private entryService: EntryService,
     private mapService: MapService,
     private store: Store

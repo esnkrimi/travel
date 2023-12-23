@@ -13,7 +13,7 @@ import {
   Output,
 } from '@angular/core';
 import { Router } from '@angular/router';
-import { DrawerService } from '@appBase/drawer.service';
+import { LocationGeoService } from '@appBase/drawer.service';
 import { EntryService } from '@appBase/lazy/entry/entry.service';
 import { Iuser } from '@appBase/+state/state';
 import { HeaderSetting, SettingService, settings } from '@appBase/setting';
@@ -62,7 +62,7 @@ export class HeaderComponent implements OnInit {
     password: '',
   };
   constructor(
-    private drawerService: DrawerService,
+    private drawerService: LocationGeoService,
     private entryService: EntryService,
     private mapService: MapApiService,
     private progresService: MapService,

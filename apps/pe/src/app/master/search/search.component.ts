@@ -1,6 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
-import { DrawerService } from '@appBase/drawer.service';
+import { LocationGeoService } from '@appBase/drawer.service';
 import { SettingService } from '@appBase/setting';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -19,7 +19,7 @@ export class SearchComponent implements OnInit {
     private translate: TranslateService,
     private settingService: SettingService,
     private router: Router,
-    private drawerService: DrawerService
+    private drawerService: LocationGeoService
   ) {}
   ngOnInit(): void {
     this.settingService.language.subscribe(() => {

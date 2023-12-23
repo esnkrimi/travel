@@ -6,8 +6,7 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { DrawerService } from './drawer.service';
-import { MatDrawer } from '@angular/material/sidenav';
+import { LocationGeoService } from './drawer.service';
 import { Router } from '@angular/router';
 import { Iuser } from '@appBase/+state/state';
 import { EntryService } from './lazy/entry/entry.service';
@@ -39,18 +38,9 @@ export class AppComponent implements OnInit {
     showTour: false,
   };
 
-  tips = [
-    'search location by name or on map',
-    'write your tript experience or read others',
-    'measure distance time for your trip',
-    'schedule your trip and your trip budget',
-    'see how your trip is going on',
-  ];
-
   skip = -1;
   scope: any;
   drawerTypeTmp = '';
-  drawer!: MatDrawer;
   tmpUser: Iuser = {
     id: '',
     name: '',
@@ -63,14 +53,14 @@ export class AppComponent implements OnInit {
   constructor(
     @Inject('userSession') public userSession: any,
     private translate: TranslateService,
-    private draswerService: DrawerService,
+    private draswerService: LocationGeoService,
     private settingService: SettingService,
     private router: Router,
     private entryService: EntryService,
     private store: Store,
     private mapService: MapService,
     private mapApiService: MapApiService,
-    private drawerService: DrawerService,
+    private drawerService: LocationGeoService,
     public dialog: MatDialog
   ) {}
   users() {
@@ -118,8 +108,6 @@ export class AppComponent implements OnInit {
         users: [],
       },
     ];
-    let requests: any = [];
-
     this.store.select(selectAllTrips).subscribe((res) => {
       for (let i = 0; i < res.length; i++) {
         for (let j = 0; j < res[i].tripjson.length; j++) {
@@ -130,7 +118,6 @@ export class AppComponent implements OnInit {
         }
       }
       this.store.select(selectTripRequests).subscribe((res) => {
-        requests = res;
         for (let i = 0; i < requestsAll.length; i++) {
           for (let j = 0; j < res.length; j++) {
             if (res[j].tripTitle === requestsAll[i].tripTitle)
@@ -194,7 +181,6 @@ export class AppComponent implements OnInit {
   }
 
   skipNext() {
-    //this.mapService.loadingProgress.next(false);
     this.skip = 2;
   }
   change() {

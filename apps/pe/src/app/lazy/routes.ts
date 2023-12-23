@@ -1,12 +1,10 @@
 import { NgModule } from '@angular/core';
-import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { ZoomComponent } from './zoom/zoom.component';
 import { EntryComponent } from './entry/entry.component';
 import { UsersComponent } from './users/users.component';
 import { SettingComponent } from './setting/setting.component';
 import { CanActivateGuard } from './guard';
-import { LocationListComponent } from './location-list/location-list.component';
-import { AppComponent } from '@appBase/app.component';
 import { MapComponent } from '@appBase/master/map/map.component';
 const routes: Routes = [
   {

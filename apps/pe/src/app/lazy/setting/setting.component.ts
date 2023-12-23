@@ -2,7 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { actions } from '@appBase/+state/actions';
 import { selectUsersOfSite } from '@appBase/+state/select';
-import { DrawerService } from '@appBase/drawer.service';
+import { LocationGeoService } from '@appBase/drawer.service';
 import { map } from 'rxjs';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { FormControl, FormGroup } from '@angular/forms';
@@ -38,7 +38,7 @@ export class SettingComponent implements OnInit {
 
   constructor(
     private store: Store,
-    private drawerService: DrawerService,
+    private drawerService: LocationGeoService,
     public dialog: MatDialog,
     public mapService: MapService,
     @Inject('userSession') public userSession: any

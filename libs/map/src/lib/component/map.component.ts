@@ -10,7 +10,7 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { MapService } from '@appBase/master/map/service';
-import { DrawerService } from '@appBase/drawer.service';
+import { LocationGeoService } from '@appBase/drawer.service';
 import { Ilocation, typeOflocations } from '@appBase/+state/state';
 import { MapApiService } from './map.service';
 import { LatLngExpression } from 'leaflet';
@@ -110,7 +110,7 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
     private router: Router,
     private helpService: HelpService,
     private mapService: MapService,
-    private drawerService: DrawerService,
+    private drawerService: LocationGeoService,
     private distancePipe: DistancePipe,
     private mapApiService: MapApiService,
     private store: Store,

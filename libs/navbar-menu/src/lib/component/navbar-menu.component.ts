@@ -1,7 +1,7 @@
 import { Component, OnDestroy } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { DrawerService } from '@appBase/drawer.service';
+import { LocationGeoService } from '@appBase/drawer.service';
 
 @Component({
   selector: 'pe-navbar-menu',
@@ -14,7 +14,10 @@ export class NavbarMenuComponent implements OnDestroy {
     email: new FormControl(''),
     comment: new FormControl(''),
   });
-  constructor(private router: Router, private drawerService: DrawerService) {}
+  constructor(
+    private router: Router,
+    private drawerService: LocationGeoService
+  ) {}
   ngOnDestroy(): void {
     this.boardShow = '';
   }

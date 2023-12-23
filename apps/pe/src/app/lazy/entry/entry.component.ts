@@ -2,7 +2,7 @@ import { Component, OnInit, inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { EntryService } from './entry.service';
-import { DrawerService } from '@appBase/drawer.service';
+import { LocationGeoService } from '@appBase/drawer.service';
 import { LocalService } from '@appBase/storage';
 import { Store } from '@ngrx/store';
 import { actions } from '@appBase/+state/actions';
@@ -49,7 +49,7 @@ export class EntryComponent implements OnInit {
     private route: ActivatedRoute,
     private mapService: MapService,
     private service: EntryService,
-    private drawerService: DrawerService,
+    private drawerService: LocationGeoService,
     private localStorage: LocalService,
     private store: Store,
     private socialAuthService: SocialAuthService,

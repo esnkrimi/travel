@@ -4,7 +4,7 @@ import { Ilocation, location } from '@appBase/+state/state';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 @Injectable({ providedIn: 'root' })
-export class DrawerService {
+export class LocationGeoService {
   showMap = new BehaviorSubject(true);
   showLocations = new BehaviorSubject({
     show: false,
