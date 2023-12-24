@@ -8,11 +8,12 @@ import {
   Iuser,
   IuserOfSite,
 } from '@appBase/+state/state';
+import { ILocationTypes } from '@appBase/model';
 import { createActionGroup, props, emptyProps } from '@ngrx/store';
 export const actions = createActionGroup({
   source: 'store',
   events: {
-    'fetch location type': props<{ data: any }>(),
+    'fetch location type': props<{ data: ILocationTypes }>(),
     'start fetch location type': emptyProps(),
     'trip picture uploading': emptyProps(),
     'start trip picture uploading': props<{
@@ -26,9 +27,10 @@ export const actions = createActionGroup({
       uid: number;
       formData: any;
     }>(),
+    'update setting': props<{ data: Iuser[] }>(),
+    //I must change any to specified types:
     'update setting about me': props<{ data: any }>(),
     'get start update setting about me': props<{ uid: any; about: any }>(),
-    'update setting': props<{ data: any }>(),
     'get start update setting': props<{ data: any }>(),
     'delete trip': props<{ data: any }>(),
     'get start delete trip': props<{ userId: any; tripTitle: any }>(),
@@ -39,6 +41,7 @@ export const actions = createActionGroup({
     'write user rates': props<{ data: any }>(),
     'get start write user rates': props<{ data: any }>(),
     'fetch user rates': props<{ data: any }>(),
+    //--------------------------------------
     'get start fetch user rates': emptyProps(),
     'remove user from trip': emptyProps(),
     'get start remove user from trip': props<{

@@ -18,3 +18,11 @@ export interface ILogin {
   email: string;
   password: string;
 }
+
+export interface ILocationtype {
+  type: string;
+}
+
+export interface ILocationTypes {
+  type: ILocationtype[];
+}
