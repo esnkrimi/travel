@@ -16,6 +16,7 @@ import { ProfileSettingService } from '@appBase/lazy/setting/setting.service';
 import { AdvancedAutoCompleteService } from 'libs/advanced-autocomplete/src/lib/auto-complete-advanced/service';
 import { TripUserService } from '@appBase/lazy/users/trip-user.service';
 import { ILocationTypes, ILocationtype } from '@appBase/model';
+import { LocationListsService } from '@appBase/lazy/location-list/location-list.service';
 
 @Injectable()
 export class storeEffects {
@@ -31,9 +32,29 @@ export class storeEffects {
     private locationService: FetchLocationService,
     private usersService: UsersService,
     private profileSettingService: ProfileSettingService,
+    private locationListsService: LocationListsService,
     private zoomService: ZoomApiService
   ) {}
-
+  startFetchShareLocatin: any = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(actions.startFetchShareLocation),
+      switchMap((res: any) => {
+        return this.locationListsService
+          .fetchSharedLocations()
+          .pipe(map((res: any) => actions.fetchShareLocation({ data: res })));
+      })
+    );
+  });
+  startShareLocatin: any = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(actions.startShareLocation),
+      switchMap((res: any) => {
+        return this.zoomService
+          .share(res.userId.id, res.locationId)
+          .pipe(map((res: any) => actions.shareLocation()));
+      })
+    );
+  });
   startFetchLocationTypes: any = createEffect(() => {
     return this.actions$.pipe(
       ofType(actions.startFetchLocationType),

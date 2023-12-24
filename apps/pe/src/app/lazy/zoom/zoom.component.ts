@@ -22,6 +22,8 @@ import { SettingService, ZoomSetting } from '@appBase/setting';
   styleUrls: ['./zoom.component.scss'],
 })
 export class ZoomComponent implements AfterViewInit {
+  destinationSharedUsers: Iuser[];
+  locationID: string;
   locationTypeAutocompleteDataFiltered: any = [];
   locationTypeAutocompleteDataFilteredPre: any = [];
   usersList: Iuser[];
@@ -236,6 +238,7 @@ export class ZoomComponent implements AfterViewInit {
               )
             )
             .subscribe((res: any) => {
+              this.locationID = res[0].id;
               if (res.length) this.setting.existLocation = true;
               this.result = res[0];
               if (this.result) {
@@ -258,7 +261,15 @@ export class ZoomComponent implements AfterViewInit {
         });
     });
   }
-
+  resultSelect(event: any) {
+    this.share(event, this.locationID);
+    this.destinationSharedUsers.push(event);
+  }
+  share(userId: string, locationId: string) {
+    this.store.dispatch(
+      actions.startShareLocation({ userId: userId, locationId: locationId })
+    );
+  }
   doneSubmit() {
     const dialogRef = this.dialog.open(DoneSubmitClass, {
       data: { result: this.form.value },

@@ -88,10 +88,10 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
     this.fetchUser();
   }
-  getShowLocationState() {
+  getShowLocationState(type: string) {
     this.drawerService.showLocations.next({
       show: true,
-      type: 'saved',
+      type: type,
     });
   }
   routeHome() {
@@ -117,12 +117,17 @@ export class HeaderComponent implements OnInit {
     });
   }
   savedLocations() {
-    this.getShowLocationState();
+    this.getShowLocationState('saved');
     this.setting.menuShow = false;
     this.showMap(true);
     this.router.navigateByUrl('');
   }
-
+  sharedLocations() {
+    this.getShowLocationState('shared');
+    this.setting.menuShow = false;
+    this.showMap(true);
+    this.router.navigateByUrl('');
+  }
   route(path: any) {
     this.drawerService.drawerType.next(`/${path}`);
   }

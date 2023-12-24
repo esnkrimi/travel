@@ -7,14 +7,18 @@ import {
   Output,
 } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { selectILocationTypes, selectLocation } from '@appBase/+state/select';
+import {
+  selectILocationTypes,
+  selectLocation,
+  selectSharedLocation,
+} from '@appBase/+state/select';
 import { MapService } from '@appBase/master/map/service';
 import { LocalService } from '@appBase/storage';
 import { LocationGeoService } from '@appBase/drawer.service';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { map } from 'rxjs';
+import { map, tap } from 'rxjs';
 import { LocationSetting } from '@appBase/setting';
 
 @Component({
@@ -88,7 +92,26 @@ export class LocationListComponent implements OnInit {
     this.drawerService.showMap.next(true);
   }
   fetchLocations() {
-    this.fetchAllLocations();
+    if (this.type === 'shared') this.fetchAllSharedLocations();
+    else this.fetchAllLocations();
+  }
+  fetchAllSharedLocations() {
+    this.setting.selectedType = '';
+    this.store
+      .select(selectSharedLocation)
+      .pipe(
+        tap((res) => console.log(res)),
+        map((res) =>
+          res.filter(
+            (res: any) =>
+              Number(res.score) >= Number(this.setting.rateFilterNumber)
+          )
+        )
+      )
+      .subscribe((res: any) => {
+        this.setting.locatinList = res;
+        this.setting.locatinListFiltered = res;
+      });
   }
 
   fetchAllLocations() {

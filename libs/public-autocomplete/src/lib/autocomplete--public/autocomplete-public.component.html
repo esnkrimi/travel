@@ -21,15 +21,11 @@
         (click)="resultSelect(item)"
       >
         <div class="bg-light span-animated-on-hover cursor-pointer">
-          <div class="row d-flex flex-nowrap users">
-            <div style="flex-basis: 10%"></div>
-
-            <div style="flex-basis: 45%" class="text-left">
-              {{ item.name }}
-            </div>
-            <div style="flex-basis: 50%" class="text-left">
-              {{ item.email }}
-            </div>
+          <div>
+            <span class="fw-bold text-capitalize">
+              {{ item.name }} {{ item.lnama }}</span
+            >
+            <span class="fw-light"> {{ item.email }}</span>
           </div>
         </div>
       </div>

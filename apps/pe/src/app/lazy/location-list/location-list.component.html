@@ -71,6 +71,9 @@
               <span class="fw-bold text-capitalize">
                 {{ l.title }}
               </span>
+              <span *ngIf="l.senderUid" class="text-capitalize"
+                >from {{ l.senderName }}
+              </span>
             </div>
           </div>
           <div class="col-md-6 text-right">

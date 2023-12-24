@@ -1,11 +1,6 @@
 import { Component, Input, OnInit, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { debounceTime, tap } from 'rxjs/operators';
 import { EventEmitter } from '@angular/core';
-import { MapService } from '@appBase/master/map/service';
-import { Store } from '@ngrx/store';
-import { actions } from '@appBase/+state/actions';
-import { selectLocation, selectSetview } from '@appBase/+state/select';
 
 @Component({
   selector: 'pe-autocomplete-public',
@@ -26,7 +21,6 @@ export class AutocompletePoublicComponent implements OnInit {
   }
   resultSelect(e: any) {
     this.resultSelected.emit(e);
-
     const tmp = this.result.filter((res: any) => res.email !== e.email);
     this.result = tmp;
   }

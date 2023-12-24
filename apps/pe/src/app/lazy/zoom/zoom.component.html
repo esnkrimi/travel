@@ -202,6 +202,12 @@
                 </i>
               </span>
             </div>
+            <div *ngIf="setting.userListShow">
+              <pe-autocomplete-public
+                (resultSelected)="resultSelect($event)"
+                [data]="usersList"
+              ></pe-autocomplete-public>
+            </div>
           </div>
           <div class="bg-white p-4">
             <p *ngIf="fetchFormInputValue('city')">

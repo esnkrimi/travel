@@ -1,11 +1,14 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class ZoomApiService {
   baseUrl = 'https://www.burjcrown.com/drm/travel/index.php?id=7&lat=';
-  constructor(private httpClient: HttpClient) {}
+  constructor(
+    private httpClient: HttpClient,
+    @Inject('userSession') public userSession: string
+  ) {}
   zoom(lat: string, lon: string, uid: any) {
     this.baseUrl =
       'https://www.burjcrown.com/drm/travel/index.php?id=7&lat=' +
@@ -31,6 +34,13 @@ export class ZoomApiService {
   describtion(uid: number, id: string, des: string, form: any) {
     this.baseUrl = `https://www.burjcrown.com/drm/travel/index.php?id=5&lid=${id}&uid=${uid}&des=${des}`;
     return this.httpClient.post(this.baseUrl, form);
+  }
+
+  share(userId: string, locationId: string) {
+    const uid = JSON.parse(this.userSession)?.id;
+    this.baseUrl = `https://www.burjcrown.com/drm/travel/index.php?id=46&userId=${userId}&locationId=${locationId}&sender=${uid}`;
+    console.log(this.baseUrl);
+    return this.httpClient.get(this.baseUrl);
   }
 
   submitLocation(uid: number, formValue: any) {

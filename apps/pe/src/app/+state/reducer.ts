@@ -6,6 +6,12 @@ export const reducerStates = createFeature({
   name: 'store',
   reducer: createReducer(
     AppState,
+    on(actions.fetchShareLocation, function (states: any, action: any) {
+      return {
+        ...states,
+        sharedLocation: action.data,
+      };
+    }),
     on(actions.fetchLocationType, function (states: any, action: any) {
       return {
         ...states,
