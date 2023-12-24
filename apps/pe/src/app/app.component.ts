@@ -17,6 +17,7 @@ import { actions } from './+state/actions';
 import { MapApiService } from 'libs/map/src/lib/component/map.service';
 import { selectAllTrips, selectTripRequests } from './+state/select';
 import { MatDialog } from '@angular/material/dialog';
+import { IScope } from './model';
 
 @Component({
   selector: 'pe-root',
@@ -39,7 +40,7 @@ export class AppComponent implements OnInit {
   };
 
   skip = -1;
-  scope: any;
+  scope: IScope;
   drawerTypeTmp = '';
   tmpUser: Iuser = {
     id: '',
@@ -51,7 +52,7 @@ export class AppComponent implements OnInit {
   };
 
   constructor(
-    @Inject('userSession') public userSession: any,
+    @Inject('userSession') public userSession: string,
     private translate: TranslateService,
     private draswerService: LocationGeoService,
     private settingService: SettingService,
@@ -66,7 +67,7 @@ export class AppComponent implements OnInit {
   users() {
     this.store.dispatch(actions.startFetchUsersOfSites());
   }
-  zoomActivatorFunction(event: any) {
+  zoomActivatorFunction() {
     this.openDialog();
   }
 
@@ -189,7 +190,7 @@ export class AppComponent implements OnInit {
   fetchUserOfSite() {
     this.store.dispatch(actions.startFetchUsersOfSites());
   }
-  resultOutputs(e: any) {
+  resultOutputs(e: IScope) {
     this.scope = e;
   }
   openDialog() {

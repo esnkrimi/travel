@@ -18,17 +18,17 @@ export class ZoomApiService {
     return this.httpClient.get(this.baseUrl).pipe(map((res: any) => res[0]));
   }
 
-  saved(lid: any, uid: any) {
+  saved(lid: number, uid: number) {
     this.baseUrl = `https://www.burjcrown.com/drm/travel/index.php?id=10&lid=${lid}&uid=${uid}`;
     this.baseUrl;
     return this.httpClient.get(this.baseUrl);
   }
-  rate(uid: any, id: any, rate: number) {
+  rate(uid: number, id: string, rate: number) {
     this.baseUrl = `https://www.burjcrown.com/drm/travel/index.php?id=4&lid=${id}&uid=${uid}&rate=${rate}`;
     return this.httpClient.get(this.baseUrl);
   }
 
-  describtion(uid: any, id: any, des: any, form: any) {
+  describtion(uid: number, id: string, des: string, form: any) {
     this.baseUrl = `https://www.burjcrown.com/drm/travel/index.php?id=5&lid=${id}&uid=${uid}&des=${des}`;
     return this.httpClient.post(this.baseUrl, form);
   }

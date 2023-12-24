@@ -18,8 +18,8 @@ import { EntryService } from '@appBase/lazy/entry/entry.service';
 import { Iuser } from '@appBase/+state/state';
 import { HeaderSetting, SettingService, settings } from '@appBase/setting';
 import { LocalService } from '@appBase/storage';
-import { MapApiService } from 'libs/map/src/lib/component/map.service';
 import { MapService } from '../map/service';
+import { IScope } from '@appBase/model';
 
 @Component({
   selector: 'pe-header',
@@ -44,8 +44,7 @@ import { MapService } from '../map/service';
   ],
 })
 export class HeaderComponent implements OnInit {
-  @Output() resultOutputs = new EventEmitter<any>();
-  @Output() savedLocation = new EventEmitter<any>();
+  @Output() resultOutputs = new EventEmitter<IScope>();
   languages = settings.languages;
   languageIndex = 1;
   setting: HeaderSetting = {
@@ -64,7 +63,6 @@ export class HeaderComponent implements OnInit {
   constructor(
     private drawerService: LocationGeoService,
     private entryService: EntryService,
-    private mapService: MapApiService,
     private progresService: MapService,
     private mapServicePrivate: MapService,
     private localStorage: LocalService,
@@ -74,9 +72,8 @@ export class HeaderComponent implements OnInit {
   @HostListener('window:scroll', ['$event']) onWindowScroll(e: any) {
     this.setting.scrollDown =
       e.target['scrollingElement'].scrollTop > 300 ? true : false;
-
-    // Your Code Here
   }
+
   zoomTrip(tripTitle: string) {
     this.router.navigateByUrl('lazy(secondRouter:lazy/mytrips/');
   }
@@ -111,11 +108,11 @@ export class HeaderComponent implements OnInit {
       this.mapServicePrivate.loadingProgress.next(false);
     }, 1000);
   }
-  resultOutput(event: any) {
+  resultOutput(event: IScope) {
     this.resultOutputs.emit(event);
   }
   fetchUser() {
-    this.entryService.userLoginInformation.subscribe((res: any) => {
+    this.entryService.userLoginInformation.subscribe((res: Iuser) => {
       this.userLoginInformation = res;
     });
   }
@@ -129,9 +126,7 @@ export class HeaderComponent implements OnInit {
   route(path: any) {
     this.drawerService.drawerType.next(`/${path}`);
   }
-  routeViaSecond(path: any) {
-    this.router.navigate([{ outlets: { secondRouter: [`lazy/mytrips`] } }]);
-  }
+
   showLocationsOnMapComponent() {
     this.setting.menuShow = false;
     this.drawerService.showLocations.next({

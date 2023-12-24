@@ -7,6 +7,7 @@ import { map } from 'rxjs';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MapService } from '@appBase/master/map/service';
+import { Iuser } from '@appBase/+state/state';
 
 @Component({
   selector: 'pe-setting',
@@ -15,11 +16,11 @@ import { MapService } from '@appBase/master/map/service';
 })
 export class SettingComponent implements OnInit {
   formSetting = new FormGroup({
-    name: new FormControl(''),
-    lname: new FormControl(''),
-    email: new FormControl(''),
-    pass: new FormControl(''),
-    uid: new FormControl(''),
+    name: new FormControl<string>(''),
+    lname: new FormControl<string>(''),
+    email: new FormControl<string>(''),
+    pass: new FormControl<string>(''),
+    uid: new FormControl<string>(''),
   });
 
   formAboutMe = new FormGroup({
@@ -27,10 +28,9 @@ export class SettingComponent implements OnInit {
     uid: new FormControl(''),
   });
 
-  usersList: any;
-  userId: any;
+  userId: number;
   timestamp = 1;
-  userInformation: any = [];
+  userInformation: Iuser[] = [];
   form = new FormGroup({
     uid: new FormControl(),
     files: new FormControl(),
@@ -102,7 +102,7 @@ export class SettingComponent implements OnInit {
     this.store
       .select(selectUsersOfSite)
       .pipe(map((res) => res.filter((res) => res.id === uid)))
-      .subscribe((res) => {
+      .subscribe((res: any) => {
         this.userInformation = res;
         this.formAboutMe
           .get('aboutme')

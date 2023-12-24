@@ -18,7 +18,6 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { LoadingImageModule } from '@pe/loading-image';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatDialogModule } from '@angular/material/dialog';
-import { VehicleDirective } from '@appBase/directive/vehicle.directive';
 import { AdvancedAutocompleteModule } from '@pe/advanced-autocomplete';
 import { JoyrideModule } from 'ngx-joyride';
 import { MatSelectModule } from '@angular/material/select';
@@ -31,10 +30,6 @@ import { MatChipsModule } from '@angular/material/chips';
 import { LoadingProgressModule } from '@pe/loading-progress';
 import { ScoreDirective } from '@appBase/directive/score.directive';
 import { PublicAutocompleteModule } from '@pe/public-autocomplete';
-
-import { VehicleCOmparePipe } from '@appBase/pipe/vehicle.pipe';
-import { TimeCOmparePipe } from '@appBase/pipe/time.pipe';
-import { MoneyCOmparePipe } from '@appBase/pipe/money.pipe';
 import { ScorePipe } from '@appBase/pipe/score.pipe';
 @NgModule({
   declarations: [
@@ -45,10 +40,6 @@ import { ScorePipe } from '@appBase/pipe/score.pipe';
     ZoomComponent,
     SettingComponent,
     UsersComponent,
-    VehicleDirective,
-    VehicleCOmparePipe,
-    TimeCOmparePipe,
-    MoneyCOmparePipe,
   ],
   imports: [
     CommonModule,

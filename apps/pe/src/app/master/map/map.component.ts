@@ -8,6 +8,7 @@ import {
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MapSetting } from '@appBase/setting';
+import { IScope } from '@appBase/model';
 
 @Component({
   selector: 'pe-map-component',
@@ -15,9 +16,9 @@ import { MapSetting } from '@appBase/setting';
   styleUrls: ['./map.component.scss'],
 })
 export class MapComponent implements OnChanges, OnInit {
-  @Input() scope: any;
-  @Input() showTour: any;
-  @Input() savedLocation: any;
+  @Input() scope: IScope;
+  @Input() showTour: boolean;
+  @Input() savedLocation: boolean;
   @Output() zoomActivator = new EventEmitter<any>();
   setting: MapSetting = {
     center: [40.750929, -73.984326],
@@ -52,7 +53,7 @@ export class MapComponent implements OnChanges, OnInit {
     }
   }
 
-  zoomActivatorFunction(event: any) {
+  zoomActivatorFunction(event: boolean) {
     this.zoomActivator.emit(event);
   }
 }

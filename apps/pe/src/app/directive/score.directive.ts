@@ -8,7 +8,7 @@ import {
 
 @Directive({ selector: '[scoreDirective]' })
 export class ScoreDirective implements OnChanges {
-  @Input() value: any;
+  @Input() value: number;
 
   constructor(private render: Renderer2, private elRef: ElementRef) {}
   ngOnChanges() {

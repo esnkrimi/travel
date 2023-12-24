@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Iuser } from '@appBase/+state/state';
 import { BehaviorSubject } from 'rxjs';
 import { ConditionalExpr } from '@angular/compiler';
+import { ILogin } from '@appBase/model';
 
 @Injectable({ providedIn: 'root' })
 export class EntryService {
@@ -17,13 +18,13 @@ export class EntryService {
   };
   userLoginInformation = new BehaviorSubject<Iuser>(this.userModel);
   constructor(private httpClient: HttpClient) {}
-  login(values: any) {
+  login(values: ILogin) {
     const url =
       this.urlLogin + `id=1&email=${values.email}&pass=${values.password}`;
     return this.httpClient.get(url);
   }
 
-  signup(values: any) {
+  signup(values: ILogin) {
     const url =
       this.urlLogin + `id=0&email=${values.email}&pass=${values.password}`;
     return this.httpClient.get(url);

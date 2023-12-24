@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, Inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { LocationGeoService } from '@appBase/drawer.service';
-import { Ilocation, typeOflocations } from '@appBase/+state/state';
+import { Ilocation, Iuser, typeOflocations } from '@appBase/+state/state';
 import { EntryService } from '../entry/entry.service';
 import { map } from 'rxjs';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
@@ -24,7 +24,7 @@ import { SettingService, ZoomSetting } from '@appBase/setting';
 export class ZoomComponent implements AfterViewInit {
   locationTypeAutocompleteDataFiltered: any = [];
   locationTypeAutocompleteDataFilteredPre: any = [];
-  usersList: any;
+  usersList: Iuser[];
   result: any;
   placeType = typeOflocations;
 
@@ -87,7 +87,7 @@ export class ZoomComponent implements AfterViewInit {
     this.inputListener();
   }
   getUserList() {
-    this.store.select(selectUsersOfSite).subscribe((res) => {
+    this.store.select(selectUsersOfSite).subscribe((res: any) => {
       this.usersList = res;
     });
   }
@@ -176,7 +176,6 @@ export class ZoomComponent implements AfterViewInit {
   onFileChange(event: any) {
     if (event.target.files.length > 0) {
       const file = event.target.files[0];
-      file;
       this.form.patchValue({
         file: file,
       });

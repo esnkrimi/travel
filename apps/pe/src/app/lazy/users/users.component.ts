@@ -14,14 +14,9 @@ import { selectUsersOfSite } from '@appBase/+state/select';
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.scss'],
 })
-export class UsersComponent implements OnChanges {
+export class UsersComponent {
   @Input() users: any;
   constructor(private store: Store) {}
-  ngOnChanges(changes: SimpleChanges): void {
-    console.log(this.users);
-  }
 
-  resultSelected(event: any) {
-    console.log(event);
-  }
+  resultSelected(event: any) {}
 }

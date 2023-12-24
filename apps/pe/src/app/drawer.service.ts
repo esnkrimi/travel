@@ -43,7 +43,7 @@ export class LocationGeoService {
   };
   localInformation = new BehaviorSubject<Ilocation>(this.initialIuser);
   formTripShow = new BehaviorSubject<boolean>(false);
-  drawerType = new BehaviorSubject<any>('');
+  drawerType = new BehaviorSubject<string>('');
 
   urlGetLocation = 'https://api.geoapify.com/v1/geocode/reverse?';
   urlPostfix = '&format=json&apiKey=d611e7b9aa4a407883bd140f5181f856';

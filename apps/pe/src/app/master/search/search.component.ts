@@ -1,6 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { LocationGeoService } from '@appBase/drawer.service';
+import { ILocation, IScope } from '@appBase/model';
 import { SettingService } from '@appBase/setting';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -10,8 +11,8 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrls: ['./search.component.scss'],
 })
 export class SearchComponent implements OnInit {
-  @Output() resultOutput = new EventEmitter<any>();
-  locationSelected: any;
+  @Output() resultOutput = new EventEmitter<IScope>();
+  locationSelected: number;
   setting = {
     placeholder: 'location',
   };
@@ -31,12 +32,12 @@ export class SearchComponent implements OnInit {
       .get('search')
       .subscribe((res) => (this.setting.placeholder = res));
   }
-  results(event: any) {
+  results(event: ILocation) {
     {
       this.locationSelected = event.id;
       this.drawerService.showMap.next(true);
       this.router.navigateByUrl('');
-      const result: any = {
+      const result: IScope = {
         center: [event?.latitude, event?.longitude],
         city: event?.name,
         country: event?.country_name,

@@ -212,9 +212,10 @@ export interface Iuser {
   id: string;
   name: string;
   lname: string;
+  lnama?: string;
   email: string;
   mobile?: string;
-  about?: string;
+  about?: any;
   password: string;
 }
 

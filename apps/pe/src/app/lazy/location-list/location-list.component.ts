@@ -39,8 +39,8 @@ export class LocationListComponent implements OnInit {
   };
   rates = ['0', '0', '0', '0', '0'];
   formSearchTrip = new FormGroup({
-    itemToSearch: new FormControl(''),
-    typeSearch: new FormControl(''),
+    itemToSearch: new FormControl<any>(''),
+    typeSearch: new FormControl<string>(''),
   });
 
   constructor(
@@ -50,12 +50,11 @@ export class LocationListComponent implements OnInit {
     private store: Store
   ) {}
 
-  //John F Kennedy Intl
   inputListener() {
     this.setting.locatinListFiltered = [];
     this.formSearchTrip
       .get('itemToSearch')
-      ?.valueChanges.subscribe((res: any) => {
+      ?.valueChanges.subscribe((res: string) => {
         this.setting.page = 0;
         if (res.length === 0)
           this.changeLocationTypes(this.setting.selectedType);
@@ -69,10 +68,7 @@ export class LocationListComponent implements OnInit {
         }
       });
   }
-  setView(item: any) {
-    //    this.showMap();
-    this.router.navigateByUrl('zoom/');
-  }
+
   changeRates(rate: any) {
     this.setting.page = 1;
     this.setting.rateFilterNumber =
