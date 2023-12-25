@@ -221,6 +221,7 @@ export interface Iuser {
   password: string;
 }
 export interface ISharedLocation {
+  receiverId: string;
   senderUid: string;
   senderFullName: string;
   city: string;

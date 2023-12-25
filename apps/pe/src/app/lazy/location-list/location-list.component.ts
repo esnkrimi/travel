@@ -48,6 +48,7 @@ export class LocationListComponent implements OnInit {
   });
 
   constructor(
+    @Inject('userSession') public userSession: string,
     private drawerService: LocationGeoService,
     private router: Router,
     public dialog: MatDialog,
@@ -96,11 +97,12 @@ export class LocationListComponent implements OnInit {
     else this.fetchAllLocations();
   }
   fetchAllSharedLocations() {
+    const tmp = JSON.parse(this.userSession)?.id;
     this.setting.selectedType = '';
     this.store
       .select(selectSharedLocation)
       .pipe(
-        tap((res) => console.log(res)),
+        map((res) => res.filter((res: any) => res.receiverId === tmp)),
         map((res) =>
           res.filter(
             (res: any) =>

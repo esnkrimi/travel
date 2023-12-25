@@ -427,3 +427,10 @@ textarea{
    color: var(--COLOR-GOLD);
 
 }
+.icon-close{
+   position: absolute;
+   right: 3% !important;
+   top:2%;
+   cursor: pointer;
+   z-index: 9999999 !important;
+ }

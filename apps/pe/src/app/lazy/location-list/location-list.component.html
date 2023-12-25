@@ -13,15 +13,19 @@
     </div>
     <div class="col-md-6">
       <div class="d-flex">
-        <div class="w-100">
+        <div class="w-100 relative flex-cell text-left">
           <pe-advanced-autocomplete
             (results)="changeLocationTypes($event)"
           ></pe-advanced-autocomplete>
-        </div>
-        <div class="flex-cell">
-          <mat-chip *ngIf="setting.selectedType.length > 0">
-            {{ setting.selectedType }}
-          </mat-chip>
+          <span
+            class="type-selected text-large w-100"
+            *ngIf="setting.selectedType.length > 0"
+            >{{ setting.selectedType }}
+            <i
+              class="fa fa-close link-darks"
+              (click)="changeLocationTypes('')"
+            ></i>
+          </span>
         </div>
       </div>
     </div>
@@ -69,10 +73,10 @@
           <div class="col-md-6">
             <div class="border-bottom">
               <span class="fw-bold text-capitalize">
-                {{ l.title }}
+                {{ l.title }} {{ l.type }}
               </span>
               <span *ngIf="l.senderUid" class="text-capitalize"
-                >from {{ l.senderName }}
+                >suggested by {{ l.senderName }}
               </span>
             </div>
           </div>
