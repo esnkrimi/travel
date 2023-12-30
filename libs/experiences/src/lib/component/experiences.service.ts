@@ -12,12 +12,14 @@ export class ExperiencesApiService {
     return this.httpClient.get(this.baseUrl);
   }
 
-  deleteLocationComment(userId: string, locationId: string) {
+  deleteLocationComment(userId: string, locationId: string, id: string) {
     this.baseUrl =
       'https://www.burjcrown.com/drm/travel/index.php?id=31&locationId=' +
       locationId +
       '&userId=' +
-      userId;
+      userId +
+      '&did=' +
+      id;
     return this.httpClient.get(this.baseUrl);
   }
 }

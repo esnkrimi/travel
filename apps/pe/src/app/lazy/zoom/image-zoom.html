@@ -4,9 +4,18 @@
     <div style="flex-basis: 95%" class="text-primary">
       Your experience shared Succesfully !
     </div>
+    <div>
+      <button
+        (click)="onNoClick()"
+        class="bg-light m-1 p-1"
+        mat-stroked-button
+        matDialogClose
+      >
+        Return
+      </button>
+    </div>
   </div>
   <!--
-
    <div>
      <ul>
        <li>{{data.result.country}}</li>

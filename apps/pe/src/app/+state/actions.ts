@@ -57,6 +57,7 @@ export const actions = createActionGroup({
     'get start delete location comments': props<{
       locationId: any;
       userId: string;
+      id: string;
     }>(),
     'fetch location comments': props<{ data: any }>(),
     'get start fetch location comments': props<{ locationId: any }>(),

@@ -12,13 +12,13 @@
       </form>
     </div>
     <div class="col-md-6">
-      <div class="d-flex">
+      <div class="d-flex w-100">
         <div class="w-100 relative flex-cell text-left">
           <pe-advanced-autocomplete
             (results)="changeLocationTypes($event)"
           ></pe-advanced-autocomplete>
           <span
-            class="type-selected text-large w-100"
+            class="type-selected text-large text-capitalize w-100"
             *ngIf="setting.selectedType.length > 0"
             >{{ setting.selectedType }}
             <i

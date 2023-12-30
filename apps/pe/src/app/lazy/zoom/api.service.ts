@@ -33,6 +33,8 @@ export class ZoomApiService {
 
   describtion(uid: number, id: string, des: string, form: any) {
     this.baseUrl = `https://www.burjcrown.com/drm/travel/index.php?id=5&lid=${id}&uid=${uid}&des=${des}`;
+    console.log(this.baseUrl);
+    console.log(form);
     return this.httpClient.post(this.baseUrl, form);
   }
 

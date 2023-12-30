@@ -39,10 +39,6 @@
   class="transparent-bg animated-fadein text-center"
 >
   <div class="inner w-50 bg-light m-4 p-4 relative">
-    <i
-      class="fa fa-close icon-close cursor-pointer m-1 link"
-      (click)="boardShow = ''"
-    ></i>
     <h4 class="fw-bold text-left">what is crown</h4>
     <p class="text-left">
       A crown is a traditional form of head adornment, or hat, worn by monarchs
@@ -90,6 +86,20 @@
       power and dignity. A crown is often, by extension, a symbol of the
       monarch's government or items endorsed by it.
     </p>
+    <div class="w-100 text-left bg-light m-2">
+      <button
+        mat-stroked-button
+        (click)="boardShow = 'contact'"
+        class="bg-light"
+      >
+        Contact us
+      </button>
+    </div>
+    <div class="w-100 text-left bg-light m-2">
+      <button mat-stroked-button (click)="boardShow = ''" class="bg-light">
+        Return
+      </button>
+    </div>
   </div>
 </div>
 <div

@@ -236,7 +236,7 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
         lat: location.trip[0].lat,
         lng: location.trip[0].lon,
       },
-      25
+      15
     );
     this.router.navigateByUrl('lazy/zoom');
     for (let i = 0; i < location.trip.length; i++) {
@@ -332,7 +332,7 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   async changeCenter() {
-    this.positionView = await this.map?.setView(this.center, 25);
+    this.positionView = await this.map?.setView(this.center, 16);
   }
 
   listener(changedCity: boolean) {

@@ -28,18 +28,75 @@
 
       <div class="text-left text-medum p-2">
         {{ item.describtion }}
-      </div>
+        <!--   <span class="text-muted p-1"
+          >(
+          {{ item.rate }}
+          vote )
+        </span>
+        <span class="p-1 cursor-pointer text-green">
+          <i (click)="likeComment(item.id)" class="fa fa-thumbs-up"></i>
+        </span>
+        <span class="p-1 cursor-pointer text-danger">
+          <i (click)="disLikeComment(item.id)" class="fa fa-thumbs-down"></i>
+        </span>
+      --></div>
     </div>
+    <div class="w-25 row border">
+      <div
+        class="gallery-frame w-100 text-center"
+        *ngIf="imageGalleryData.length > 0"
+      >
+        <div class="w-100 inner">
+          <div class="d-flex w-100">
+            <div
+              *ngIf="imageGalleryDataIndex > 0"
+              class="flex-cell"
+              style="flex-basis: 1%"
+              (click)="imageGalleryDataIndex = imageGalleryDataIndex - 1"
+            >
+              <i class="fa fa-2x cursor-pointer fa-arrow-left"></i>
+            </div>
+            <div style="flex-basis: 98%">
+              <img
+                class="image-gallery-item"
+                [src]="imageGalleryData[imageGalleryDataIndex]"
+              />
+            </div>
+            <div
+              *ngIf="imageGalleryDataIndex < imageGalleryData.length - 1"
+              style="flex-basis: 1%"
+              class="flex-cell"
+              (click)="imageGalleryDataIndex = imageGalleryDataIndex + 1"
+            >
+              <i class="fa fa-2x cursor-pointer fa-arrow-right"></i>
+            </div>
+          </div>
+          <div>
+            <button
+              mat-stroked-button
+              class="bg-light"
+              (click)="imageGalleryData = []"
+            >
+              Return
+            </button>
+          </div>
+        </div>
+      </div>
 
-    <img
-      (click)="openImage(img, i)"
-      *ngFor="let img of item?.img; let i = index"
-      [src]="img"
-      class="cursor-pointer m-3"
-    />
+      <ng-container *ngFor="let img of item?.img; let i = index">
+        <div class="col-md-6">
+          <img
+            *ngIf="i < 4"
+            (click)="openImage(item?.img)"
+            [src]="img"
+            class="cursor-pointer w-100"
+          />
+        </div>
+      </ng-container>
+    </div>
     <div class="top-right-absolute" *ngIf="userLoginId === item.userid">
       <i
-        (click)="remove(userLoginId, item.locationid)"
+        (click)="remove(userLoginId, item.locationid, item.id)"
         class="fa fa-trash fa-2x cursor-pointer hover-attention"
       ></i>
     </div>

@@ -1,10 +1,15 @@
-import { AfterViewInit, Component, Inject } from '@angular/core';
+import { AfterViewInit, Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { LocationGeoService } from '@appBase/drawer.service';
 import { Ilocation, Iuser, typeOflocations } from '@appBase/+state/state';
 import { EntryService } from '../entry/entry.service';
 import { map } from 'rxjs';
-import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
+import {
+  MAT_DIALOG_DATA,
+  MatDialog,
+  MatDialogModule,
+  MatDialogRef,
+} from '@angular/material/dialog';
 import { MapService } from '@appBase/master/map/service';
 import { Store } from '@ngrx/store';
 import { actions } from '@appBase/+state/actions';
@@ -15,6 +20,7 @@ import {
 } from '@appBase/+state/select';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { SettingService, ZoomSetting } from '@appBase/setting';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'pe-zoom',
@@ -24,6 +30,7 @@ import { SettingService, ZoomSetting } from '@appBase/setting';
 export class ZoomComponent implements AfterViewInit {
   destinationSharedUsers: Iuser[];
   locationID: string;
+  openZoom = true;
   locationTypeAutocompleteDataFiltered: any = [];
   locationTypeAutocompleteDataFilteredPre: any = [];
   usersList: Iuser[];
@@ -271,6 +278,8 @@ export class ZoomComponent implements AfterViewInit {
     );
   }
   doneSubmit() {
+    this.openZoom = false;
+    this.mapService.loadingProgress.next(false);
     const dialogRef = this.dialog.open(DoneSubmitClass, {
       data: { result: this.form.value },
     });
@@ -282,9 +291,20 @@ export class ZoomComponent implements AfterViewInit {
 @Component({
   selector: 'image-zoom',
   templateUrl: 'image-zoom.html',
+  imports: [MatButtonModule, MatDialogModule],
+  standalone: true,
 })
-export class DoneSubmitClass {
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any) {}
+export class DoneSubmitClass implements OnInit {
+  constructor(
+    private mapService: MapService,
+    public dialogRef: MatDialogRef<DoneSubmitClass>,
+    @Inject(MAT_DIALOG_DATA) public data: any
+  ) {}
+  ngOnInit(): void {}
+  onNoClick(): void {
+    this.mapService.loadingProgress.next(false);
+    this.dialogRef.close();
+  }
 }
 
 @Component({

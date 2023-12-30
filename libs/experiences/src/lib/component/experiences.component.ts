@@ -16,6 +16,8 @@ import { map, tap } from 'rxjs';
 })
 export class ExperiencesComponent implements OnInit {
   @Input() locationId: any;
+  imageGalleryData: any = [];
+  imageGalleryDataIndex = 0;
   result: any;
   userLoginId = JSON.parse(this.userSession)?.id;
   img = [];
@@ -32,15 +34,19 @@ export class ExperiencesComponent implements OnInit {
   ngOnInit(): void {
     this.fetch(this.locationId);
   }
-  remove(userId: string, locationId: string) {
+  remove(userId: string, locationId: string, id: string) {
     this.store.dispatch(
       actions.getStartDeleteLocationComments({
         locationId: locationId,
         userId: userId,
+        id: id,
       })
     );
     this.selectSource();
   }
+  likeComment(commentId: string) {}
+
+  disLikeComment(commentId: string) {}
   selectSource() {
     setTimeout(() => {
       this.store.select(selectLocationComments).subscribe((res: any) => {
@@ -68,32 +74,8 @@ export class ExperiencesComponent implements OnInit {
     );
     this.selectSource();
   }
-  openImage(img: string, index: any) {
-    const dialogRef = this.dialog.open(OpenImage, {
-      data: { image: img, result: this.result[0], index: index + 1 },
-    });
-
-    dialogRef.afterClosed().subscribe((result) => {});
-  }
-}
-
-@Component({
-  selector: 'image-zoom',
-  templateUrl: 'image-zoom.html',
-})
-export class OpenImage implements OnInit {
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any) {}
-  ngOnInit(): void {}
-  next() {
-    this.data.index =
-      this.data.result.img.length === this.data.index ? 1 : this.data.index + 1;
-    this.data.image =
-      'https://www.burjcrown.com/drm/travel/users/' +
-      this.data.result.locationid +
-      '/' +
-      this.data.result.userid +
-      '/' +
-      this.data.index +
-      '.jpg';
+  openImage(imageSource: any) {
+    this.imageGalleryData = imageSource;
+    console.log(this.imageGalleryData);
   }
 }

@@ -125,7 +125,7 @@ export class storeEffects {
       ofType(actions.getStartDeleteLocationComments),
       switchMap((res: any) => {
         return this.experiencesApiService
-          .deleteLocationComment(res.userId, res.locationId)
+          .deleteLocationComment(res.userId, res.locationId, res.id)
           .pipe(
             map((res: any) => actions.deleteLocationComments({ data: res }))
           );

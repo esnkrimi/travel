@@ -1,11 +1,10 @@
 <div class="position-static">
-  <input
-    type="text"
-    matInput
-    class="bg-light text-capitalize"
-    [formControl]="locationInput"
-    placeholder="Search Types"
-  />
+  <form>
+    <mat-form-field class="search-input w-75">
+      <mat-label> {{ 'Search Location Type' }}</mat-label>
+      <input matInput [formControl]="locationInput" class="w-100" />
+    </mat-form-field>
+  </form>
   <div
     *ngIf="autocompleteDataFiltered && autocompleteDataFiltered.length < 10"
     class="lists form"
