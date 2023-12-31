@@ -52,7 +52,6 @@ export class ExperiencesComponent implements OnInit {
       this.store.select(selectLocationComments).subscribe((res: any) => {
         this.result = res;
         this.userIdCommenter.userId = res[0]?.userid;
-
         this.store
           .select(selectUsersOfSite)
           .pipe(
@@ -76,6 +75,5 @@ export class ExperiencesComponent implements OnInit {
   }
   openImage(imageSource: any) {
     this.imageGalleryData = imageSource;
-    console.log(this.imageGalleryData);
   }
 }

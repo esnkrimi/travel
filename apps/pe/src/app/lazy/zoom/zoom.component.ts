@@ -31,6 +31,8 @@ export class ZoomComponent implements AfterViewInit {
   destinationSharedUsers: Iuser[];
   locationID: string;
   openZoom = true;
+  file: any = [];
+  imgSrc: any = [];
   locationTypeAutocompleteDataFiltered: any = [];
   locationTypeAutocompleteDataFilteredPre: any = [];
   usersList: Iuser[];
@@ -125,7 +127,7 @@ export class ZoomComponent implements AfterViewInit {
     );
   }
   inputListener() {
-    this.form.get('type')?.valueChanges.subscribe((res) => {
+    this.form.get('type')?.valueChanges.subscribe((res: any) => {
       this.locationTypeAutocompleteDataFiltered =
         this.locationTypeAutocompleteDataFilteredPre.filter((result: any) =>
           result.type.includes(res)
@@ -153,7 +155,9 @@ export class ZoomComponent implements AfterViewInit {
     if (this.setting.userLogined) {
       this.mapService.loadingProgress.next(true);
       const formData = new FormData();
-      formData.append('file', this.form.get(fileId)?.value);
+      for (let i = 0; i <= this.file.length; i++) {
+        formData.append('file[]', this.file[i]);
+      }
       if (this.result?.id) {
         this.store.dispatch(
           actions.startShareExperience({
@@ -168,6 +172,7 @@ export class ZoomComponent implements AfterViewInit {
           actions.startSubmitLocation({
             form: this.form?.value,
             uid: this.setting.userLogined,
+            formData: formData,
           })
         );
       }
@@ -177,23 +182,26 @@ export class ZoomComponent implements AfterViewInit {
     }
   }
 
+  onFileChange(event: any) {
+    this.file = [];
+    for (let i = 0; i <= event.target.files.length; i++) {
+      this.file.push(event.target.files[i]);
+    }
+    this.form.patchValue({
+      file: this.file,
+    });
+  }
+
   lowercase(country: any) {
     if (country)
       return country.replaceAll(' ', '-').replaceAll('%20', '-').toLowerCase();
   }
 
-  onFileChange(event: any) {
-    if (event.target.files.length > 0) {
-      const file = event.target.files[0];
-      this.form.patchValue({
-        file: file,
-      });
-    }
-  }
   numberToArray(i: number) {
     const arr = ['0', '0', '0', '0', '0'];
     return arr.fill('1', 0, i);
   }
+
   listener() {
     this.entryService.userLoginInformation.subscribe((res: any) => {
       this.setting.userLogined = res.id;
@@ -245,7 +253,8 @@ export class ZoomComponent implements AfterViewInit {
               )
             )
             .subscribe((res: any) => {
-              this.locationID = res[0].id;
+              this.imgSrc = res[0]?.img;
+              this.locationID = res[0]?.id;
               if (res.length) this.setting.existLocation = true;
               this.result = res[0];
               if (this.result) {
@@ -278,13 +287,11 @@ export class ZoomComponent implements AfterViewInit {
     );
   }
   doneSubmit() {
-    this.openZoom = false;
-    this.mapService.loadingProgress.next(false);
-    const dialogRef = this.dialog.open(DoneSubmitClass, {
-      data: { result: this.form.value },
-    });
-    dialogRef.afterClosed().subscribe((result) => {});
-    this.mapService.loadingProgress.next(false);
+    this.listener();
+  }
+
+  openImage(img: string) {
+    console.log(img);
   }
 }
 

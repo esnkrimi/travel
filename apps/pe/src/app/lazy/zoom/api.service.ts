@@ -33,19 +33,16 @@ export class ZoomApiService {
 
   describtion(uid: number, id: string, des: string, form: any) {
     this.baseUrl = `https://www.burjcrown.com/drm/travel/index.php?id=5&lid=${id}&uid=${uid}&des=${des}`;
-    console.log(this.baseUrl);
-    console.log(form);
     return this.httpClient.post(this.baseUrl, form);
   }
 
   share(userId: string, locationId: string) {
     const uid = JSON.parse(this.userSession)?.id;
     this.baseUrl = `https://www.burjcrown.com/drm/travel/index.php?id=46&userId=${userId}&locationId=${locationId}&sender=${uid}`;
-    console.log(this.baseUrl);
     return this.httpClient.get(this.baseUrl);
   }
 
-  submitLocation(uid: number, formValue: any) {
+  submitLocation(uid: number, formValue: any, formFile: any) {
     const formData: any = new FormData();
     formData.append('uid', uid);
     formData.append('title', formValue.title);
@@ -62,11 +59,12 @@ export class ZoomApiService {
     formData.append('district', formValue.district);
     formData.append('describe', formValue.describe);
     formData.append('rate', formValue.score);
-    formData.append('file', formValue.file);
-    const headers = new HttpHeaders({
-      'Content-Type': 'multipart/form-data',
-    });
-    const options = { headers: headers };
+    for (let pair of formFile.entries()) {
+      formData.append('file[]', pair[1]);
+    }
+    for (let pair of formData.entries()) {
+      console.log(pair[0] + ', ' + pair[1]);
+    }
     return this.httpClient.post(
       'https://www.burjcrown.com/drm/travel/index.php?id=3',
       formData

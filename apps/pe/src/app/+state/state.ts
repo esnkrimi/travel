@@ -251,6 +251,7 @@ export interface Ilocation {
   email: string;
   id: number;
   lat: string;
+  img?: string[];
   lon: string;
   phone: string;
   saved?: boolean;

@@ -109,7 +109,11 @@ export const actions = createActionGroup({
     'save action': props<{ updateSaved: any }>(),
     'start rate action': props<{ updateSaved: any }>(),
     'rate action': props<{ updateSaved: any }>(),
-    'start submit location': props<{ form: object; uid: number }>(),
+    'start submit location': props<{
+      form: object;
+      uid: number;
+      formData: any;
+    }>(),
     'submit location': props<{ form: object }>(),
     'start share experience': props<{
       uid: number;

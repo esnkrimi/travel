@@ -217,7 +217,10 @@ export class storeEffects {
             result.describtion,
             result.formData
           )
-          .pipe(map((res: any) => actions.shareExperience()));
+          .pipe(
+            tap((res) => console.log(res)),
+            map((res: any) => actions.shareExperience())
+          );
       })
     );
   });
@@ -227,8 +230,11 @@ export class storeEffects {
       ofType(actions.startSubmitLocation),
       switchMap((result: any) => {
         return this.zoomService
-          .submitLocation(result.uid, result.form)
-          .pipe(map((res: any) => actions.submitLocation({ form: result })));
+          .submitLocation(result.uid, result.form, result.formData)
+          .pipe(
+            tap((res) => console.log(res)),
+            map((res: any) => actions.submitLocation({ form: result }))
+          );
       })
     );
   });

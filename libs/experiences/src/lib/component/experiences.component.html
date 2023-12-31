@@ -2,10 +2,13 @@
   <pe-loading-progress [mode]="'animated'"></pe-loading-progress>
 </div>
 <ng-template #elseTmpl>
-  <div *ngFor="let item of result" class="m-2 p-4 bg-white relative">
-    <div class="d-flex">
+  <div
+    *ngFor="let item of result"
+    class="m-2 p-4 bg-white relative border-light"
+  >
+    <div class="d-flex experience-row p-4">
       <div>
-        <div class="w-100">
+        <div>
           <img
             [src]="
               'https://burjcrown.com/drm/travel/users/profile/' +
@@ -15,14 +18,6 @@
             "
             class="img-icon"
           />
-        </div>
-        <div class="text-left">
-          <span class="text-capitalize">
-            {{ userIdCommenter.userName }} {{ userIdCommenter.userFamily }}
-          </span>
-        </div>
-        <div class="text-muted text-small p-2">
-          {{ item.date }}
         </div>
       </div>
 
@@ -41,7 +36,15 @@
         </span>
       --></div>
     </div>
-    <div class="w-25 row border">
+    <div class="text-left w-100 pl-4">
+      <span class="text-capitalize">
+        {{ userIdCommenter.userName }} {{ userIdCommenter.userFamily }}
+      </span>
+    </div>
+    <div class="text-muted text-small text-left pl-4 w-100">
+      &nbsp;&nbsp;&nbsp; {{ item.date }}
+    </div>
+    <div class="w-100 row pl-4">
       <div
         class="gallery-frame w-100 text-center"
         *ngIf="imageGalleryData.length > 0"
@@ -82,19 +85,27 @@
           </div>
         </div>
       </div>
-
-      <ng-container *ngFor="let img of item?.img; let i = index">
-        <div class="col-md-6">
-          <img
-            *ngIf="i < 4"
-            (click)="openImage(item?.img)"
-            [src]="img"
-            class="cursor-pointer w-100"
-          />
+      <div class="d-flex">
+        <div>
+          <ng-container
+            *ngFor="let img of item?.img; let i = index"
+            class="w-100 d-flex"
+          >
+            <img
+              *ngIf="i < 4"
+              (click)="openImage(item?.img)"
+              [src]="img"
+              class="cursor-pointer img_icon m-1"
+            />
+          </ng-container>
         </div>
-      </ng-container>
+
+        <div *ngIf="item?.img.length - 4 > 0" class="flex-cell text-large">
+          +{{ item?.img.length - 4 }}
+        </div>
+      </div>
     </div>
-    <div class="top-right-absolute" *ngIf="userLoginId === item.userid">
+    <div class="top-right-absolute p-1" *ngIf="userLoginId === item.userid">
       <i
         (click)="remove(userLoginId, item.locationid, item.id)"
         class="fa fa-trash fa-2x cursor-pointer hover-attention"

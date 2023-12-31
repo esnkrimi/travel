@@ -6,6 +6,8 @@
 }
 .img-icon{
     opacity: 1 !important;
+    width: 100% !important;
+    border-radius: 15% !important;
 }
 .gallery-frame{
     left:0;
@@ -20,4 +22,25 @@
     animation: animate-fadein 1s forwards;
     width: 60vw;
     height: 50vw;
+}
+.experience-row>div:first-child{
+    flex-basis: 5%;
+}
+.experience-row>div:last-child{
+    flex-basis: 95%;
+}
+.img_icon{
+    width: 7vh !important;
+    height: 4vh !important;
+    opacity: 0.8;
+}
+.img_icon:hover{
+    opacity: 1;
+}
+
+.border-light{
+    border: solid 1px var(--COLOR-CREAM) !important;
+  }
+.pl-4{
+    padding-left: 1em !important;
 }

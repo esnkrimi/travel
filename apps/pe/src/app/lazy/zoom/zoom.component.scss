@@ -94,3 +94,11 @@ i,mat-icon{
 .display-none{
   display: none !important;
 }
+.img_icon{
+  width: 15vh !important;
+  height: 8vh !important;
+  opacity: 0.8;
+}
+.img_icon:hover{
+  opacity: 1;
+}
