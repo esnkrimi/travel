@@ -4,11 +4,7 @@
     top: 1em;
 
 }
-.img-icon{
-    opacity: 1 !important;
-    width: 100% !important;
-    border-radius: 15% !important;
-}
+
 .gallery-frame{
     left:0;
     top:0;
@@ -29,9 +25,16 @@
 .experience-row>div:last-child{
     flex-basis: 95%;
 }
-.img_icon{
+.img-profile{
+    border-radius: 10%;
     width: 7vh !important;
-    height: 4vh !important;
+    height: 5vh !important;
+    opacity: 0.8;
+}
+.img_icon{
+    border-radius: 5%;
+    width: 10vh !important;
+    height: 5vh !important;
     opacity: 0.8;
 }
 .img_icon:hover{
