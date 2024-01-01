@@ -10,6 +10,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { ExperiencesModule } from '@pe/experiences';
+import { ImageGalleryModule } from '@pe/image-gallery';
 import { ConfirmModalModule } from '@pe/confirm-modal';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { HttpClient } from '@angular/common/http';
@@ -30,6 +31,7 @@ import { LoadingProgressModule } from '@pe/loading-progress';
 import { ScoreDirective } from '@appBase/directive/score.directive';
 import { PublicAutocompleteModule } from '@pe/public-autocomplete';
 import { ScorePipe } from '@appBase/pipe/score.pipe';
+
 @NgModule({
   declarations: [
     ScorePipe,
@@ -41,6 +43,7 @@ import { ScorePipe } from '@appBase/pipe/score.pipe';
     UsersComponent,
   ],
   imports: [
+    ImageGalleryModule,
     CommonModule,
     GoogleSigninButtonModule,
     lazyRouterModule,

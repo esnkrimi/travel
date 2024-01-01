@@ -1,3 +1,8 @@
+<pe-image-gallery
+  [imageGalleryData]="imgSrcToGallery"
+  (action)="action()"
+></pe-image-gallery>
+
 <ng-container
   *ngIf="
     loadinProgressDoSharingLocation || !localInformation?.country;

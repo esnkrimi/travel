@@ -1,0 +1,32 @@
+<div
+  class="gallery-frame w-100 text-center"
+  *ngIf="imageGalleryData.length > 0"
+>
+  <div class="w-100 text-center">
+    <div class="w-75 text-center inner">
+      <div class="d-flex w-100">
+        <div class="relative border width-fit inner">
+          <img
+            class="image-gallery-item"
+            [src]="imageGalleryData[imageGalleryDataIndex]"
+          />
+          <div class="close-button-top-right">
+            <i (click)="close()" class="fa fa-2x fa-close"></i>
+          </div>
+          <img
+            src="../assets/img/left-arrow.svg"
+            *ngIf="imageGalleryDataIndex > 0"
+            (click)="imageGalleryDataIndex = imageGalleryDataIndex - 1"
+            class="cursor-pointer fa-arrow-left"
+          />
+          <img
+            src="../assets/img/right-arrow.png"
+            *ngIf="imageGalleryDataIndex < imageGalleryData.length - 1"
+            (click)="imageGalleryDataIndex = imageGalleryDataIndex + 1"
+            class="cursor-pointer fa-arrow-right"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -34,6 +34,9 @@ export class ExperiencesComponent implements OnInit {
   ngOnInit(): void {
     this.fetch(this.locationId);
   }
+  action() {
+    this.imageGalleryData = [];
+  }
   remove(userId: string, locationId: string, id: string) {
     this.store.dispatch(
       actions.getStartDeleteLocationComments({

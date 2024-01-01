@@ -41,6 +41,7 @@ export class ZoomComponent implements AfterViewInit {
   openZoom = true;
   file: any = [];
   imgSrc: any = [];
+  imgSrcToGallery: any = [];
   locationTypeAutocompleteDataFiltered: any = [];
   locationTypeAutocompleteDataFilteredPre: any = [];
   usersList: Iuser[];
@@ -113,6 +114,9 @@ export class ZoomComponent implements AfterViewInit {
     this.store.select(selectUsersOfSite).subscribe((res: any) => {
       this.usersList = res;
     });
+  }
+  action() {
+    console.log('closing');
   }
   selectFileInput(inputFileId: any) {
     if (inputFileId === 'file1') this.file1.nativeElement.click();
@@ -306,7 +310,8 @@ export class ZoomComponent implements AfterViewInit {
   }
 
   openImage(img: string) {
-    console.log(img);
+    this.imgSrcToGallery = this.imgSrc;
+    console.log(this.imgSrcToGallery);
   }
 }
 
