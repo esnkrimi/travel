@@ -15,7 +15,6 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { HttpClient } from '@angular/common/http';
 import { HttpLoaderFactory } from '@appBase/app.module';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
-import { LoadingImageModule } from '@pe/loading-image';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatDialogModule } from '@angular/material/dialog';
 import { AdvancedAutocompleteModule } from '@pe/advanced-autocomplete';
@@ -56,7 +55,6 @@ import { ScorePipe } from '@appBase/pipe/score.pipe';
     FormsModule,
     MatExpansionModule,
     NgxPaginationModule,
-    LoadingImageModule,
     MatButtonModule,
     LoadingProgressModule,
     MatInputModule,

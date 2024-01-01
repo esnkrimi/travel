@@ -17,6 +17,7 @@ import { AdvancedAutoCompleteService } from 'libs/advanced-autocomplete/src/lib/
 import { TripUserService } from '@appBase/lazy/users/trip-user.service';
 import { ILocationTypes, ILocationtype } from '@appBase/model';
 import { LocationListsService } from '@appBase/lazy/location-list/location-list.service';
+import { MapService } from '@appBase/master/map/service';
 
 @Injectable()
 export class storeEffects {
@@ -26,6 +27,7 @@ export class storeEffects {
     private experiencesApiService: ExperiencesApiService,
     private actions$: Actions,
     private ser: MapApiService,
+    private mapService: MapService,
     private localStorage: LocalService,
     private service: EntryService,
     private advancedAutoCompleteService: AdvancedAutoCompleteService,
@@ -218,7 +220,9 @@ export class storeEffects {
             result.formData
           )
           .pipe(
-            tap((res) => console.log(res)),
+            tap((res) => {
+              this.mapService.loadingProgress.next(false);
+            }),
             map((res: any) => actions.shareExperience())
           );
       })
@@ -232,7 +236,9 @@ export class storeEffects {
         return this.zoomService
           .submitLocation(result.uid, result.form, result.formData)
           .pipe(
-            tap((res) => console.log(res)),
+            tap((res) => {
+              this.mapService.loadingProgress.next(false);
+            }),
             map((res: any) => actions.submitLocation({ form: result }))
           );
       })

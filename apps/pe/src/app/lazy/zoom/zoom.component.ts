@@ -30,6 +30,7 @@ import { MatButtonModule } from '@angular/material/button';
 export class ZoomComponent implements AfterViewInit {
   destinationSharedUsers: Iuser[];
   locationID: string;
+  loadinProgressDoSharingLocation = false;
   openZoom = true;
   file: any = [];
   imgSrc: any = [];
@@ -92,6 +93,9 @@ export class ZoomComponent implements AfterViewInit {
     private store: Store
   ) {}
   ngAfterViewInit(): void {
+    this.mapService.loadingProgress.subscribe((res) => {
+      this.loadinProgressDoSharingLocation = res;
+    });
     this.listener();
     this.getUserList();
     this.selectLocationTypes();

@@ -1,29 +1,22 @@
-<div *ngIf="!result; else elseTmpl">
-  <pe-loading-progress [mode]="'animated'"></pe-loading-progress>
-</div>
-<ng-template #elseTmpl>
-  <div
-    *ngFor="let item of result"
-    class="m-2 p-4 bg-white relative border-light"
-  >
-    <div class="d-flex experience-row p-4">
+<div *ngFor="let item of result" class="m-2 p-4 bg-white relative border-light">
+  <div class="d-flex experience-row p-4">
+    <div>
       <div>
-        <div>
-          <img
-            [src]="
-              'https://burjcrown.com/drm/travel/users/profile/' +
-              item.userid +
-              '/1.jpg?id=' +
-              item.userid
-            "
-            class="img-profile"
-          />
-        </div>
+        <img
+          [src]="
+            'https://burjcrown.com/drm/travel/users/profile/' +
+            item.userid +
+            '/1.jpg?id=' +
+            item.userid
+          "
+          class="img-profile"
+        />
       </div>
+    </div>
 
-      <div class="text-left text-medum p-2">
-        {{ item.describtion }}
-        <!--   <span class="text-muted p-1"
+    <div class="text-left text-medum p-2">
+      {{ item.describtion }}
+      <!--   <span class="text-muted p-1"
           >(
           {{ item.rate }}
           vote )
@@ -34,82 +27,82 @@
         <span class="p-1 cursor-pointer text-danger">
           <i (click)="disLikeComment(item.id)" class="fa fa-thumbs-down"></i>
         </span>
-      --></div>
-    </div>
-    <div class="text-left w-100 pl-4">
-      <span class="text-capitalize">
-        {{ userIdCommenter.userName }} {{ userIdCommenter.userFamily }}
-      </span>
-    </div>
-    <div class="text-muted text-small text-left pl-4 w-100">
-      &nbsp;&nbsp;&nbsp; {{ item.date }}
-    </div>
-    <div class="w-100 row pl-4">
-      <div
-        class="gallery-frame w-100 text-center"
-        *ngIf="imageGalleryData.length > 0"
-      >
-        <div class="w-100 inner">
-          <div class="d-flex w-100">
-            <div
-              *ngIf="imageGalleryDataIndex > 0"
-              class="flex-cell"
-              style="flex-basis: 1%"
-              (click)="imageGalleryDataIndex = imageGalleryDataIndex - 1"
-            >
-              <i class="fa fa-2x cursor-pointer fa-arrow-left"></i>
-            </div>
-            <div style="flex-basis: 98%">
-              <img
-                class="image-gallery-item"
-                [src]="imageGalleryData[imageGalleryDataIndex]"
-              />
-            </div>
-            <div
-              *ngIf="imageGalleryDataIndex < imageGalleryData.length - 1"
-              style="flex-basis: 1%"
-              class="flex-cell"
-              (click)="imageGalleryDataIndex = imageGalleryDataIndex + 1"
-            >
-              <i class="fa fa-2x cursor-pointer fa-arrow-right"></i>
-            </div>
-          </div>
-          <div class="p-4">
-            <button
-              mat-stroked-button
-              class="bg-light"
-              (click)="imageGalleryData = []"
-            >
-              Return
-            </button>
-          </div>
-        </div>
-      </div>
-      <div class="d-flex">
-        <div>
-          <ng-container
-            *ngFor="let img of item?.img; let i = index"
-            class="w-100 d-flex"
-          >
-            <img
-              *ngIf="i < 4"
-              (click)="openImage(item?.img)"
-              [src]="img"
-              class="cursor-pointer img_icon m-1"
-            />
-          </ng-container>
-        </div>
-
-        <div *ngIf="item?.img.length - 4 > 0" class="flex-cell text-large">
-          +{{ item?.img.length - 4 }}
-        </div>
-      </div>
-    </div>
-    <div class="top-right-absolute p-1" *ngIf="userLoginId === item.userid">
-      <i
-        (click)="remove(userLoginId, item.locationid, item.id)"
-        class="fa fa-trash fa-2x cursor-pointer hover-attention"
-      ></i>
+      -->
     </div>
   </div>
-</ng-template>
+  <div class="text-left w-100 pl-4">
+    <span class="text-capitalize">
+      {{ userIdCommenter.userName }} {{ userIdCommenter.userFamily }}
+    </span>
+  </div>
+  <div class="text-muted text-small text-left pl-4 w-100">
+    &nbsp;&nbsp;&nbsp; {{ item.date }}
+  </div>
+  <div class="w-100 row pl-4">
+    <div
+      class="gallery-frame w-100 text-center"
+      *ngIf="imageGalleryData.length > 0"
+    >
+      <div class="w-100 inner">
+        <div class="d-flex w-100">
+          <div
+            *ngIf="imageGalleryDataIndex > 0"
+            class="flex-cell"
+            style="flex-basis: 1%"
+            (click)="imageGalleryDataIndex = imageGalleryDataIndex - 1"
+          >
+            <i class="fa fa-2x cursor-pointer fa-arrow-left"></i>
+          </div>
+          <div style="flex-basis: 98%">
+            <img
+              class="image-gallery-item"
+              [src]="imageGalleryData[imageGalleryDataIndex]"
+            />
+          </div>
+          <div
+            *ngIf="imageGalleryDataIndex < imageGalleryData.length - 1"
+            style="flex-basis: 1%"
+            class="flex-cell"
+            (click)="imageGalleryDataIndex = imageGalleryDataIndex + 1"
+          >
+            <i class="fa fa-2x cursor-pointer fa-arrow-right"></i>
+          </div>
+        </div>
+        <div class="p-4">
+          <button
+            mat-stroked-button
+            class="bg-light"
+            (click)="imageGalleryData = []"
+          >
+            Return
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="d-flex">
+      <div>
+        <ng-container
+          *ngFor="let img of item?.img; let i = index"
+          class="w-100 d-flex"
+        >
+          <img
+            *ngIf="i < 4"
+            (click)="openImage(item?.img)"
+            [src]="img"
+            class="cursor-pointer img_icon m-1"
+          />
+        </ng-container>
+      </div>
+
+      <div *ngIf="item?.img.length - 4 > 0" class="flex-cell text-large">
+        +{{ item?.img.length - 4 }}
+      </div>
+    </div>
+  </div>
+  <div class="top-right-absolute p-1" *ngIf="userLoginId === item.userid">
+    <i
+      (click)="remove(userLoginId, item.locationid, item.id)"
+      class="fa fa-trash fa-2x cursor-pointer hover-attention"
+    ></i>
+  </div>
+</div>

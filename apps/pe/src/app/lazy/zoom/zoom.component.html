@@ -1,4 +1,17 @@
-<ng-container *ngIf="localInformation?.country; else loading">
+<ng-container
+  *ngIf="
+    loadinProgressDoSharingLocation || !localInformation?.country;
+    else showLocationInformation
+  "
+>
+  <div class="w-100 loading-div position-relative p-1">
+    <div class="position-absolute d-inline loading">
+      <pe-loading-progress [mode]="'animated'"></pe-loading-progress>
+    </div>
+  </div>
+</ng-container>
+
+<ng-template #showLocationInformation>
   <div class="text-left p-3 w-100">
     <div class="bg-light inner w-100">
       <div class="p-2" *ngIf="!setting.existLocation; else ExistsLocation">
@@ -356,14 +369,6 @@
           </div>
         </div>
       </ng-template>
-    </div>
-  </div>
-</ng-container>
-
-<ng-template #loading>
-  <div class="w-100 loading-div position-relative p-1">
-    <div class="position-absolute d-inline loading">
-      <pe-loading-image> </pe-loading-image>
     </div>
   </div>
 </ng-template>
