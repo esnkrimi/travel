@@ -1,4 +1,11 @@
-import { AfterViewInit, Component, Inject, OnInit } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  Inject,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { LocationGeoService } from '@appBase/drawer.service';
 import { Ilocation, Iuser, typeOflocations } from '@appBase/+state/state';
@@ -84,7 +91,8 @@ export class ZoomComponent implements AfterViewInit {
     lon: new FormControl('0', Validators.required),
     file: new FormControl<any>('', {}),
   });
-
+  @ViewChild('file1') file1: ElementRef;
+  @ViewChild('file2') file2: ElementRef;
   constructor(
     private dialog: MatDialog,
     private drawerService: LocationGeoService,
@@ -106,7 +114,10 @@ export class ZoomComponent implements AfterViewInit {
       this.usersList = res;
     });
   }
-
+  selectFileInput(inputFileId: any) {
+    if (inputFileId === 'file1') this.file1.nativeElement.click();
+    else this.file2.nativeElement.click();
+  }
   rate(rate: number) {
     if (this.setting.userLogined) {
       this.setting.loadingSmall = true;

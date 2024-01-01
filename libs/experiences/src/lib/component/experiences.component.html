@@ -43,39 +43,38 @@
       class="gallery-frame w-100 text-center"
       *ngIf="imageGalleryData.length > 0"
     >
-      <div class="w-100 inner">
-        <div class="d-flex w-100">
-          <div
-            *ngIf="imageGalleryDataIndex > 0"
-            class="flex-cell"
-            style="flex-basis: 1%"
-            (click)="imageGalleryDataIndex = imageGalleryDataIndex - 1"
-          >
-            <i class="fa fa-2x cursor-pointer fa-arrow-left"></i>
+      <div class="w-100 text-center">
+        <div class="w-75 text-center inner">
+          <div class="d-flex w-100">
+            <div
+              *ngIf="imageGalleryDataIndex > 0"
+              class="flex-cell p-1"
+              style="flex-basis: 1%"
+              (click)="imageGalleryDataIndex = imageGalleryDataIndex - 1"
+            >
+              <i class="fa fa-2x cursor-pointer fa-arrow-left"></i>
+            </div>
+            <div class="relative border width-fit inner">
+              <img
+                class="image-gallery-item"
+                [src]="imageGalleryData[imageGalleryDataIndex]"
+              />
+              <div class="close-button-top-right">
+                <i
+                  (click)="imageGalleryData = []"
+                  class="fa fa-2x fa-close"
+                ></i>
+              </div>
+            </div>
+            <div
+              *ngIf="imageGalleryDataIndex < imageGalleryData.length - 1"
+              style="flex-basis: 1%"
+              class="flex-cell p-1"
+              (click)="imageGalleryDataIndex = imageGalleryDataIndex + 1"
+            >
+              <i class="fa fa-2x cursor-pointer fa-arrow-right"></i>
+            </div>
           </div>
-          <div style="flex-basis: 98%">
-            <img
-              class="image-gallery-item"
-              [src]="imageGalleryData[imageGalleryDataIndex]"
-            />
-          </div>
-          <div
-            *ngIf="imageGalleryDataIndex < imageGalleryData.length - 1"
-            style="flex-basis: 1%"
-            class="flex-cell"
-            (click)="imageGalleryDataIndex = imageGalleryDataIndex + 1"
-          >
-            <i class="fa fa-2x cursor-pointer fa-arrow-right"></i>
-          </div>
-        </div>
-        <div class="p-4">
-          <button
-            mat-stroked-button
-            class="bg-light"
-            (click)="imageGalleryData = []"
-          >
-            Return
-          </button>
         </div>
       </div>
     </div>

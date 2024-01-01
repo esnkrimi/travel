@@ -46,6 +46,7 @@
                     {{ 'County' | translate }}
                   </mat-label>
                   <input
+                    class="text-dark fw-bold"
                     matInput
                     [readonly]="setting.existLocation"
                     formControlName="county"
@@ -57,6 +58,7 @@
                 <mat-form-field>
                   <mat-label> {{ 'district' | translate }} </mat-label>
                   <input
+                    class="text-dark fw-bold"
                     matInput
                     [readonly]="setting.existLocation"
                     formControlName="district"
@@ -68,6 +70,7 @@
                   <mat-label> {{ 'street' | translate }}</mat-label>
                   <input
                     matInput
+                    class="text-dark fw-bold"
                     [readonly]="setting.existLocation"
                     formControlName="street"
                   />
@@ -79,6 +82,7 @@
                   <mat-label> {{ 'placename' | translate }} </mat-label>
                   <input
                     matInput
+                    class="text-dark fw-bold"
                     [readonly]="setting.existLocation"
                     formControlName="title"
                     placeholder="Ex . google company"
@@ -89,6 +93,7 @@
                 <mat-form-field>
                   <mat-label> {{ 'placetype' | translate }}</mat-label>
                   <input
+                    class="text-dark fw-bold"
                     matInput
                     [readonly]="setting.existLocation"
                     formControlName="type"
@@ -131,6 +136,7 @@
                   <mat-label> {{ 'email' | translate }}</mat-label>
                   <input
                     matInput
+                    class="text-dark fw-bold"
                     [readonly]="setting.existLocation"
                     formControlName="email"
                   />
@@ -142,6 +148,7 @@
                   <mat-label> {{ 'tell' | translate }}</mat-label>
                   <input
                     matInput
+                    class="text-dark fw-bold"
                     [readonly]="setting.existLocation"
                     formControlName="phone"
                   />
@@ -153,6 +160,7 @@
                   <mat-label> {{ 'website' | translate }}</mat-label>
                   <input
                     matInput
+                    class="text-dark fw-bold"
                     [readonly]="setting.existLocation"
                     formControlName="web"
                   />
@@ -160,11 +168,14 @@
               </div>
             </div>
           </div>
-
           <div class="w-100">
             <mat-form-field class="w-100">
               <mat-label> {{ 'shareexperience' | translate }} </mat-label>
-              <textarea matInput formControlName="describe"></textarea>
+              <textarea
+                class="text-dark fw-bold"
+                matInput
+                formControlName="describe"
+              ></textarea>
             </mat-form-field>
           </div>
           <div class="w-100 text-left">
@@ -172,9 +183,9 @@
               (change)="onFileChange($event)"
               class="input-file-upload"
               type="file"
-              id="file"
-              #id
-              name="file"
+              id="file1"
+              #file1
+              name="file1"
               multiple="multiple"
               formControlName="file"
             />
@@ -349,9 +360,9 @@
                     (change)="onFileChange($event)"
                     class="input-file-upload"
                     type="file"
-                    id="file"
-                    #id
-                    name="file"
+                    id="file2"
+                    #file2
+                    name="file2"
                     multiple="multiple"
                     formControlName="file"
                   />

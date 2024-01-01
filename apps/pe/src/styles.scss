@@ -435,3 +435,18 @@ textarea{
    z-index: 9999999 !important;
  }
  
+
+.close-button-top-right{
+   color: var(--COLOR-MAGENTA); 
+   cursor: pointer;
+   position: absolute;
+   right:1%;
+   top:1%;
+   width: fit-content;
+   z-index: 1000;
+   animation: animated-scale 0.2s forwards;
+}
+
+.close-button-top-right:hover{
+   color: var(--COLOR-GREEN); 
+}
