@@ -1,10 +1,8 @@
-<br />
-<br />
-<br />
-
-<div class="text-center w-100 m-2">
-  <div class="inner w-75 bg-light">
-    <div class="row m-4 p-4 bg-light">
+<div class="text-left w-100 bg-light">
+  <br />
+  <br />
+  <div class="inner bg-light">
+    <div class="row bg-light">
       <div class="col-md-4 relative">
         <div *ngIf="uploading" class="on-layer">
           <img src="../../../assets//img//loading.png" class="img-icon" />
@@ -18,8 +16,8 @@
             timeStamp()
           "
         />
-        <div class="on-layer top-layer row w-100">
-          <div class="w-100 text-center">
+        <div class="layer-blur row flex-cell text-center">
+          <div class="text-left">
             <input
               (change)="onFileChange($event)"
               class="input-file-upload"
@@ -69,7 +67,8 @@
           </div>
           <div>
             <button
-              mat-raised-button
+              mat-stroked-button
+              class="bg-light"
               type="submit"
               [disabled]="!formSetting.valid"
             >
@@ -84,21 +83,13 @@
       <div class="title-bar text-left">Aboue me</div>
       <form [formGroup]="formAboutMe" (ngSubmit)="updateAboutme()">
         <div class="m-1 p-3 text-left">
-          <textarea class="w-100" formControlName="aboutme">
-        A cryptocurrency, crypto-currency, or crypto is a digital currency designed
-        to work as a medium of exchange through a computer network that is not
-        reliant on any central authority, such as a government or bank, to uphold or
-        maintain it. Wikipedia A cryptocurrency, crypto-currency, or crypto is a
-        digital currency designed to work as a medium of exchange through a computer
-        network that is not reliant on any central authority, such as a government
-        or bank, to uphold or maintain it. Wikipedia
-      </textarea
-          >
+          <textarea class="w-100" formControlName="aboutme"> </textarea>
         </div>
         <div>
           <button
             [disabled]="!formAboutMe.valid"
-            mat-raised-button
+            mat-stroked-button
+            class="bg-light"
             type="submit"
           >
             update
@@ -111,7 +102,9 @@
       <div class="title-bar text-left">wallet connect</div>
       <div class="row text-left">
         <div style="flex-basis: 50%" class="p-2">
-          <button (click)="openDialog()" mat-raised-button>connect</button>
+          <button (click)="openDialog()" mat-stroked-button class="bg-light">
+            connect
+          </button>
         </div>
         <div style="flex-basis: 50%">0x10w0c1er87vf0rfe45rv54e0f54re</div>
       </div>
