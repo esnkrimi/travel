@@ -1,8 +1,8 @@
 :root {
-    --COLOR-WAITING: rgb(214, 110, 24);
+    --COLOR-WAITING:  #ffbc0d;
     --COLOR-RED: rgb(223, 43, 61);
     --COLOR-DARK: rgb(56, 58, 56);
-    --COLOR-DARKER: rgb(18, 19, 18)
+    --COLOR-DARKER: #292929;
     --COLOR-LIGHT-DARK: rgb(212, 218, 212);
     --COLOR-MUTED: rgb(102, 104, 102);
     --COLOR-MAGENTA: rgb(98, 129, 196);
@@ -306,9 +306,12 @@ body{
    color:var( --COLOR-RED) ;
 }
 .title-bar{
-   font-weight: bold;
+   font-weight: 700 !important;
    padding: 0.4em;
    margin: 0.5em;
+   letter-spacing: -.15px;
+   line-height: 2pc;
+   font-family: Speedee,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,Noto Sans,sans-serif !important;
    border-bottom: solid 1px var(--COLOR-BLUEBLACK) !important;
    color: var(--COLOR-BLUEBLACK) !important;
 }
@@ -364,6 +367,7 @@ button:disabled{
 }
 p,span,textarea,input,button,mat-label{
    font-size: 1.6vh  !important;
+   font-family: Speedee,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,Noto Sans,sans-serif !important;
 }
 h1 {
    font-size: calc(1.375rem + 1.5vw);
@@ -466,4 +470,10 @@ textarea{
 }
 .link{
    text-decoration: none;
+}
+.btn-master-orange{
+   background-color: var(--COLOR-WAITING) !important;
+   color: var(--COLOR-DARKER) !important;
+   padding: 0.5em 2em 0.5em 2em !important;
+   text-transform: capitalize;
 }

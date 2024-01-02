@@ -203,7 +203,7 @@
           </div>
           <div class="w-100 text-center">
             <button
-              class="bg-white border"
+              class="btn-master-orange"
               mat-stroked-button
               type="submit"
               [disabled]="!form.valid"
@@ -254,23 +254,21 @@
               >
                 <button class="bg-light" mat-stroked-button>Delete Post</button>
               </span>
-
-              <span
-                *ngIf="confirmDelete && ownerPermission"
-                (click)="deleteLocation()"
-                class="p-2"
-              >
-                <button class="bg-danger text-light" mat-stroked-button>
-                  Confirm ! Delete this post ?
-                </button>
-              </span>
-
               <span
                 *ngIf="confirmDelete && ownerPermission"
                 (click)="confirmDelete = !confirmDelete"
                 class="p-2"
               >
                 <button class="bg-light" mat-stroked-button>Cancel</button>
+              </span>
+              <span
+                *ngIf="confirmDelete && ownerPermission"
+                (click)="deleteLocation()"
+                class="p-2"
+              >
+                <button class="text-light bg-danger" mat-stroked-button>
+                  Confirm ! Delete this post ?
+                </button>
               </span>
             </div>
             <div *ngIf="setting.userListShow">
@@ -415,7 +413,8 @@
                 </div>
                 <div class="w-100 text-left mt-2">
                   <button
-                    class="link-darks border p-2 m-2 fw-bold text-blueblack bg-light"
+                    class="btn-master-orange"
+                    mat-stroked-button
                     type="submit"
                   >
                     {{ 'submit' | translate }}

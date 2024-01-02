@@ -85,7 +85,7 @@
               <button
                 mat-stroked-button
                 style="height: 2.7em !important"
-                class="fw-bold bg-light"
+                class="bg-light"
               >
                 T
               </button>
@@ -123,21 +123,13 @@
                 Distance Meter
               </span>
             </div>
-
-            <div class="p-3">
-              <span
-                joyrideStep="firstStep"
-                text="You can make a trip and schedule it "
-                [class.disabled]="!setting.createTripActivate"
-                (click)="createTrip()"
-                class="text-large m-2 link-darks"
-              >
-                Trip Creator
-              </span>
-            </div>
           </div>
           <div class="text-left p-2 m-2">
-            <button mat-stroked-button (click)="setting.toolsShow = false">
+            <button
+              mat-stroked-button
+              class="bg-light"
+              (click)="setting.toolsShow = false"
+            >
               cancel
             </button>
           </div>

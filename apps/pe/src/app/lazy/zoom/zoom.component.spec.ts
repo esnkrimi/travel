@@ -181,8 +181,8 @@
           </div>
           <div class="w-100 text-center">
             <button
-              class="bg-white border"
-              mat-stroked-button
+            class="btn-master-orange"
+            mat-stroked-button
               type="submit"
               [disabled]="!form.valid"
             >
