@@ -17,9 +17,7 @@ export class ImageGalleryComponent implements OnChanges {
   @Input() imageGalleryData: any;
   imageGalleryDataIndex = 0;
 
-  ngOnChanges(changes: SimpleChanges): void {
-    console.log('a', this.imageGalleryData);
-  }
+  ngOnChanges(changes: SimpleChanges): void {}
   close() {
     this.action.emit('close');
   }

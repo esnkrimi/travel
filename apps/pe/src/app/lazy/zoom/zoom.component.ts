@@ -28,6 +28,7 @@ import {
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { SettingService, ZoomSetting } from '@appBase/setting';
 import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldControl } from '@angular/material/form-field';
 
 @Component({
   selector: 'pe-zoom',
@@ -116,7 +117,7 @@ export class ZoomComponent implements AfterViewInit {
     });
   }
   action() {
-    console.log('closing');
+    this.imgSrcToGallery = [];
   }
   selectFileInput(inputFileId: any) {
     if (inputFileId === 'file1') this.file1.nativeElement.click();
@@ -310,8 +311,10 @@ export class ZoomComponent implements AfterViewInit {
   }
 
   openImage(img: string) {
-    this.imgSrcToGallery = this.imgSrc;
-    console.log(this.imgSrcToGallery);
+    this.imgSrcToGallery = [];
+    setTimeout(() => {
+      this.imgSrcToGallery = [...this.imgSrc];
+    }, 2);
   }
 }
 

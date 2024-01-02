@@ -226,13 +226,12 @@
             </div>
             <div class="flex-cell">
               <span class="p-1">
-                <mat-icon
+                <i
+                  class="fa fa-heart"
                   (click)="saved()"
                   class="cursor-pointer"
                   [class.selected]="result.saved"
-                >
-                  {{ 'favorite' | translate }}
-                </mat-icon>
+                ></i>
               </span>
               <span class="sign p-1">
                 <i
@@ -324,7 +323,7 @@
                     <mat-label>
                       {{ 'shareexperience' | translate }}
                     </mat-label>
-                    <textarea formControlName="describe"></textarea>
+                    <textarea matInput formControlName="describe"></textarea>
                   </mat-form-field>
                 </div>
                 <div *ngIf="setting.existLocation" class="w-100 text-left p-2">
