@@ -94,7 +94,12 @@ export class storeEffects {
       switchMap((result: any) => {
         return this.profileSettingService
           .profilePictureUploading(result.uid, result.formData)
-          .pipe(map((res: any) => actions.profilePictureUploading()));
+          .pipe(
+            tap((res) => {
+              this.mapService.loadingProgress.next(false);
+            }),
+            map((res: any) => actions.profilePictureUploading())
+          );
       })
     );
   });

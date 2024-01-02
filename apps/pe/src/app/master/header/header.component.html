@@ -13,11 +13,8 @@
       </span>
     </div>
   </div>
-  <div class="row">
-    <div
-      class="col-md-3 position-static text-center bg-dark"
-      [class.fix-position]="setting.scrollDown"
-    >
+  <div class="row bg-dark" [class.fix-position]="setting.scrollDown">
+    <div class="col-md-3 position-static text-center bg-dark">
       <div class="d-flex w-100 flex-nowrap">
         <div class="w-50 flex-cell">
           <span class="font-antique text-light text-large"> CROWN </span>
@@ -94,7 +91,8 @@
                         [src]="
                           'https://burjcrown.com/drm/travel/users/profile/' +
                           userLoginInformation?.id +
-                          '/1.jpg?id=1703049139640'
+                          '/1.jpg?id=' +
+                          timeStamp()
                         "
                       />
                       <div class="text-left fw-semibold on-layer top-layer p-2">

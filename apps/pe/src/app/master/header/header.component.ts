@@ -98,6 +98,9 @@ export class HeaderComponent implements OnInit {
     this.drawerService.showMap.next(true);
     window.location.reload();
   }
+  timeStamp() {
+    return new Date().getTime() + 1;
+  }
   changeLanguage(language: string) {
     this.setting.animationFlag =
       this.setting.animationFlag === 'true' ? 'false' : 'true';

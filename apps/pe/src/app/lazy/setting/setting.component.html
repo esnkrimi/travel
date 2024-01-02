@@ -4,8 +4,11 @@
 
 <div class="text-center w-100 m-2">
   <div class="inner w-75 bg-light">
-    <div class="d-flex m-4 p-4 bg-light">
+    <div class="row m-4 p-4 bg-light">
       <div class="col-md-4 relative">
+        <div *ngIf="uploading" class="on-layer">
+          <img src="../../../assets//img//loading.png" class="img-icon" />
+        </div>
         <img
           class="w-100"
           [src]="
@@ -37,31 +40,25 @@
         >
           <div>
             <mat-form-field class="w-100">
-              <mat-label class="text-capitalize">{{
-                userInformation[0].name
-              }}</mat-label>
+              <mat-label class="text-capitalize">First Name</mat-label>
               <input matInput formControlName="name" value="Mahya" />
             </mat-form-field>
           </div>
           <div>
             <mat-form-field class="w-100">
-              <mat-label class="text-capitalize">{{
-                userInformation[0].lnama
-              }}</mat-label>
+              <mat-label class="text-capitalize">Last Name</mat-label>
               <input matInput formControlName="lname" value="Mahya" />
             </mat-form-field>
           </div>
           <div>
             <mat-form-field class="w-100">
-              <mat-label class="text-capitalize">{{
-                userInformation[0].email
-              }}</mat-label>
+              <mat-label class="text-capitalize">Email</mat-label>
               <input matInput formControlName="email" value="Mahya" />
             </mat-form-field>
           </div>
           <div>
             <mat-form-field class="w-100">
-              <mat-label class="text-capitalize">**********</mat-label>
+              <mat-label class="text-capitalize">Password</mat-label>
               <input
                 matInput
                 type="password"
@@ -71,7 +68,13 @@
             </mat-form-field>
           </div>
           <div>
-            <button mat-raised-button type="submit">update</button>
+            <button
+              mat-raised-button
+              type="submit"
+              [disabled]="!formSetting.valid"
+            >
+              update
+            </button>
           </div>
         </form>
       </div>
@@ -93,7 +96,13 @@
           >
         </div>
         <div>
-          <button mat-raised-button type="submit">update</button>
+          <button
+            [disabled]="!formAboutMe.valid"
+            mat-raised-button
+            type="submit"
+          >
+            update
+          </button>
         </div>
       </form>
     </div>

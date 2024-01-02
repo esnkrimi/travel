@@ -5,7 +5,7 @@ import { selectUsersOfSite } from '@appBase/+state/select';
 import { LocationGeoService } from '@appBase/drawer.service';
 import { map } from 'rxjs';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MapService } from '@appBase/master/map/service';
 import { Iuser } from '@appBase/+state/state';
 
@@ -15,16 +15,32 @@ import { Iuser } from '@appBase/+state/state';
   styleUrls: ['./setting.component.scss'],
 })
 export class SettingComponent implements OnInit {
+  uploading = false;
   formSetting = new FormGroup({
-    name: new FormControl<string>(''),
-    lname: new FormControl<string>(''),
-    email: new FormControl<string>(''),
-    pass: new FormControl<string>(''),
+    name: new FormControl<string>('', [
+      Validators.required,
+      Validators.minLength(2),
+    ]),
+    lname: new FormControl<string>('', [
+      Validators.required,
+      Validators.minLength(2),
+    ]),
+    email: new FormControl<string>('', [
+      Validators.required,
+      Validators.minLength(5),
+    ]),
+    pass: new FormControl<string>('', [
+      Validators.required,
+      Validators.minLength(5),
+    ]),
     uid: new FormControl<string>(''),
   });
 
   formAboutMe = new FormGroup({
-    aboutme: new FormControl(''),
+    aboutme: new FormControl('', [
+      Validators.required,
+      Validators.minLength(5),
+    ]),
     uid: new FormControl(''),
   });
 
@@ -43,8 +59,12 @@ export class SettingComponent implements OnInit {
     public mapService: MapService,
     @Inject('userSession') public userSession: any
   ) {}
+  listenerCount() {
+    this.mapService.loadingProgress.subscribe((res) => (this.uploading = res));
+  }
   ngOnInit(): void {
     this.hideMap();
+    this.listenerCount();
     this.userId = JSON.parse(this.userSession)?.id;
     this.selectUser();
   }
@@ -54,6 +74,7 @@ export class SettingComponent implements OnInit {
   }
 
   onFileChange(event: any) {
+    this.mapService.loadingProgress.next(true);
     if (event.target.files.length > 0) {
       const file = event.target.files[0];
       this.form.patchValue({
@@ -104,6 +125,11 @@ export class SettingComponent implements OnInit {
       .pipe(map((res) => res.filter((res) => res.id === uid)))
       .subscribe((res: any) => {
         this.userInformation = res;
+        console.log(res[0]);
+        this.formSetting.get('name')?.setValue(res[0].name);
+        this.formSetting.get('lname')?.setValue(res[0].lnama);
+        this.formSetting.get('email')?.setValue(res[0].email);
+        this.formSetting.get('pass')?.setValue(res[0].pass);
         this.formAboutMe
           .get('aboutme')
           ?.setValue(this.userInformation[0].about);
