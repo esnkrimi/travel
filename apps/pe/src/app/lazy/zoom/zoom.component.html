@@ -35,8 +35,8 @@
         >
           <div class="row flex-nowrap">
             <div>
-              <div class="row flex-nowrap mb-4">
-                <div class="col-md-6">
+              <div class="flex-nowrap mb-4">
+                <div>
                   <img
                     class="rounded-circle img-country m-2 animated-scale"
                     [src]="
@@ -45,12 +45,11 @@
                       '/flag-square-250.png'
                     "
                   />
-                  <span>
+                  <span class="text-blueblack fw-bolder">
                     {{ localInformation.country | uppercase }} -
                     {{ localInformation.city }}
                   </span>
                 </div>
-                <div class="cil-md-6 text-left"></div>
               </div>
               <div>
                 <mat-form-field>
@@ -58,7 +57,7 @@
                     {{ 'County' | translate }}
                   </mat-label>
                   <input
-                    class="text-dark fw-bold"
+                    class="text-blueblack fw-bold"
                     matInput
                     [readonly]="setting.existLocation"
                     formControlName="county"
@@ -70,7 +69,7 @@
                 <mat-form-field>
                   <mat-label> {{ 'district' | translate }} </mat-label>
                   <input
-                    class="text-dark fw-bold"
+                    class="text-blueblack fw-bold"
                     matInput
                     [readonly]="setting.existLocation"
                     formControlName="district"
@@ -82,7 +81,7 @@
                   <mat-label> {{ 'street' | translate }}</mat-label>
                   <input
                     matInput
-                    class="text-dark fw-bold"
+                    class="text-blueblack fw-bold"
                     [readonly]="setting.existLocation"
                     formControlName="street"
                   />
@@ -94,7 +93,7 @@
                   <mat-label> {{ 'placename' | translate }} </mat-label>
                   <input
                     matInput
-                    class="text-dark fw-bold"
+                    class="text-blueblack fw-bold"
                     [readonly]="setting.existLocation"
                     formControlName="title"
                     placeholder="Ex . google company"
@@ -105,7 +104,7 @@
                 <mat-form-field>
                   <mat-label> {{ 'placetype' | translate }}</mat-label>
                   <input
-                    class="text-dark fw-bold"
+                    class="text-blueblack fw-bold"
                     matInput
                     [readonly]="setting.existLocation"
                     formControlName="type"
@@ -148,7 +147,7 @@
                   <mat-label> {{ 'email' | translate }}</mat-label>
                   <input
                     matInput
-                    class="text-dark fw-bold"
+                    class="text-blueblack fw-bold"
                     [readonly]="setting.existLocation"
                     formControlName="email"
                   />
@@ -160,7 +159,7 @@
                   <mat-label> {{ 'tell' | translate }}</mat-label>
                   <input
                     matInput
-                    class="text-dark fw-bold"
+                    class="text-blueblack fw-bold"
                     [readonly]="setting.existLocation"
                     formControlName="phone"
                   />
@@ -172,7 +171,7 @@
                   <mat-label> {{ 'website' | translate }}</mat-label>
                   <input
                     matInput
-                    class="text-dark fw-bold"
+                    class="text-blueblack fw-bold"
                     [readonly]="setting.existLocation"
                     formControlName="web"
                   />
@@ -184,7 +183,7 @@
             <mat-form-field class="w-100">
               <mat-label> {{ 'shareexperience' | translate }} </mat-label>
               <textarea
-                class="text-dark fw-bold"
+                class="text-blueblack fw-bold"
                 matInput
                 formControlName="describe"
               ></textarea>
@@ -219,10 +218,10 @@
         <div class="p-3">
           <div class="title-bar">
             <div>
-              <span class="fw-bold text-title text-large">
+              <span class="fw-bold text-blueblack text-title text-large">
                 {{ fetchFormInputValue('title') | titlecase }}&nbsp;
               </span>
-              <span class="fw-bold text-title text-large">
+              <span class="fw-bold text-blueblack text-title text-large">
                 {{ fetchFormInputValue('type') | titlecase }}
               </span>
             </div>
@@ -248,6 +247,31 @@
                 >
                 </i>
               </span>
+              <span
+                *ngIf="!confirmDelete && ownerPermission"
+                (click)="confirmDelete = !confirmDelete"
+                class="p-2"
+              >
+                <button class="bg-light" mat-stroked-button>Delete Post</button>
+              </span>
+
+              <span
+                *ngIf="confirmDelete && ownerPermission"
+                (click)="deleteLocation()"
+                class="p-2"
+              >
+                <button class="bg-danger text-light" mat-stroked-button>
+                  Confirm ! Delete this post ?
+                </button>
+              </span>
+
+              <span
+                *ngIf="confirmDelete && ownerPermission"
+                (click)="confirmDelete = !confirmDelete"
+                class="p-2"
+              >
+                <button class="bg-light" mat-stroked-button>Cancel</button>
+              </span>
             </div>
             <div *ngIf="setting.userListShow">
               <pe-autocomplete-public
@@ -258,10 +282,10 @@
           </div>
           <div class="bg-white p-4">
             <p *ngIf="fetchFormInputValue('city')">
-              <span class="fw-bold text-blueblack">
+              <span class="fw-bold text-blueblack text-blueblack">
                 {{ fetchFormInputValue('country') }} -
               </span>
-              <span class="fw-bold text-blueblack">
+              <span class="fw-bold text-blueblack text-blueblack">
                 {{ fetchFormInputValue('city') }}
               </span>
             </p>
@@ -284,7 +308,13 @@
             </p>
             <p *ngIf="fetchFormInputValue('web').length > 4">
               <span class="fst-italic">
-                {{ fetchFormInputValue('web') }}
+                <a
+                  [href]="fetchFormInputValue('web')"
+                  class="link"
+                  target="_blank"
+                >
+                  {{ fetchFormInputValue('web') }}</a
+                >
               </span>
             </p>
             <p>
@@ -293,7 +323,7 @@
                 {{ fetchFormInputValue('lat') }}]
               </span>
             </p>
-            <div class="p-3 bg-light bg-white w-100 border">
+            <div class="p-3 bg-light bg-white w-100">
               <div class="row w-100 bg-white">
                 <div
                   class="col-md-3"
@@ -385,7 +415,7 @@
                 </div>
                 <div class="w-100 text-left mt-2">
                   <button
-                    class="link-darks border p-2 m-2 fw-bold bg-light"
+                    class="link-darks border p-2 m-2 fw-bold text-blueblack bg-light"
                     type="submit"
                   >
                     {{ 'submit' | translate }}

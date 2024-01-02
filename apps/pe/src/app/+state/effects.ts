@@ -37,6 +37,16 @@ export class storeEffects {
     private locationListsService: LocationListsService,
     private zoomService: ZoomApiService
   ) {}
+  startDeleteLocatin: any = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(actions.startDeleteLocation),
+      switchMap((res: any) => {
+        return this.locationListsService
+          .deleteLocation(res.locationId)
+          .pipe(map((res: any) => actions.deleteLocation()));
+      })
+    );
+  });
   startFetchShareLocatin: any = createEffect(() => {
     return this.actions$.pipe(
       ofType(actions.startFetchShareLocation),

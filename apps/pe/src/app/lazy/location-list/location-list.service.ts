@@ -15,4 +15,10 @@ export class LocationListsService {
     this.urlBase = 'https://burjcrown.com/drm/travel/index.php?id=47';
     return this.httpClient.get(this.urlBase);
   }
+  deleteLocation(locationId: string) {
+    this.urlBase =
+      'https://burjcrown.com/drm/travel/index.php?id=48&locationid=' +
+      locationId;
+    return this.httpClient.get(this.urlBase);
+  }
 }

@@ -29,6 +29,7 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { SettingService, ZoomSetting } from '@appBase/setting';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldControl } from '@angular/material/form-field';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'pe-zoom',
@@ -37,6 +38,7 @@ import { MatFormFieldControl } from '@angular/material/form-field';
 })
 export class ZoomComponent implements AfterViewInit {
   destinationSharedUsers: Iuser[];
+  confirmDelete = false;
   locationID: string;
   loadinProgressDoSharingLocation = false;
   openZoom = true;
@@ -48,7 +50,7 @@ export class ZoomComponent implements AfterViewInit {
   usersList: Iuser[];
   result: any;
   placeType = typeOflocations;
-
+  ownerPermission = false;
   setting: ZoomSetting = {
     showFormSubmit: true,
     userListShow: false,
@@ -97,15 +99,14 @@ export class ZoomComponent implements AfterViewInit {
   @ViewChild('file2') file2: ElementRef;
   constructor(
     private dialog: MatDialog,
+    private router: Router,
     private drawerService: LocationGeoService,
     private entryService: EntryService,
     private mapService: MapService,
-    private store: Store
+    private store: Store,
+    @Inject('userSession') public userSession: any
   ) {}
   ngAfterViewInit(): void {
-    this.mapService.loadingProgress.subscribe((res) => {
-      this.loadinProgressDoSharingLocation = res;
-    });
     this.listener();
     this.getUserList();
     this.selectLocationTypes();
@@ -223,6 +224,10 @@ export class ZoomComponent implements AfterViewInit {
   }
 
   listener() {
+    this.mapService.loadingProgress.subscribe((res) => {
+      this.loadinProgressDoSharingLocation = res;
+    });
+
     this.entryService.userLoginInformation.subscribe((res: any) => {
       this.setting.userLogined = res.id;
     });
@@ -273,6 +278,10 @@ export class ZoomComponent implements AfterViewInit {
               )
             )
             .subscribe((res: any) => {
+              this.ownerPermission =
+                Number(JSON.parse(this.userSession)?.id) === Number(res[0].uid)
+                  ? true
+                  : false;
               this.imgSrc = res[0]?.img;
               this.locationID = res[0]?.id;
               if (res.length) this.setting.existLocation = true;
@@ -296,6 +305,16 @@ export class ZoomComponent implements AfterViewInit {
             });
         });
     });
+  }
+  deleteLocation() {
+    this.store.dispatch(
+      actions.startDeleteLocation({ locationId: this.locationID })
+    );
+    //AFTER DELETE
+    setTimeout(() => {
+      location.reload();
+    }, 1000);
+    //AFTER DELETE
   }
   resultSelect(event: any) {
     this.share(event, this.locationID);
