@@ -3,9 +3,12 @@
   *ngIf="imageGalleryData.length > 0"
 >
   <div class="w-100 text-center">
-    <div class="w-75 text-center inner">
+    <div class="w-90 text-center inner">
       <div class="d-flex w-100">
-        <div class="relative border width-fit inner">
+        <div class="relative border inner">
+          <div class="text-left text-large fw-semibold on-layer top-layer p-2">
+            {{ title | titlecase }}
+          </div>
           <img
             class="image-gallery-item"
             [src]="imageGalleryData[imageGalleryDataIndex]"

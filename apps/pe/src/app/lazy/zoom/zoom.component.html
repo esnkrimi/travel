@@ -1,6 +1,13 @@
 <pe-image-gallery
   [imageGalleryData]="imgSrcToGallery"
   (action)="action()"
+  [title]="
+    fetchFormInputValue('title') +
+    ' ' +
+    fetchFormInputValue('type') +
+    ' - ' +
+    fetchFormInputValue('city')
+  "
 ></pe-image-gallery>
 
 <ng-container
@@ -226,12 +233,13 @@
             </div>
             <div class="flex-cell">
               <span class="p-1">
-                <i
-                  class="fa fa-heart"
+                <mat-icon
                   (click)="saved()"
                   class="cursor-pointer"
                   [class.selected]="result.saved"
-                ></i>
+                >
+                  {{ 'favorite' | translate }}
+                </mat-icon>
               </span>
               <span class="sign p-1">
                 <i
@@ -285,9 +293,13 @@
                 {{ fetchFormInputValue('lat') }}]
               </span>
             </p>
-            <div class="p-3 bg-light bg-white">
-              <div class="d-flex bg-white">
-                <div *ngFor="let img of imgSrc" (click)="openImage(img)">
+            <div class="p-3 bg-light bg-white w-100 border">
+              <div class="row w-100 bg-white">
+                <div
+                  class="col-md-3"
+                  *ngFor="let img of imgSrc"
+                  (click)="openImage(img)"
+                >
                   <img [src]="img" class="cursor-pointer img_icon m-1" />
                 </div>
               </div>

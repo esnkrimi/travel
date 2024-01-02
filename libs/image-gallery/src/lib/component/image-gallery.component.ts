@@ -15,6 +15,7 @@ import {
 export class ImageGalleryComponent implements OnChanges {
   @Output() action = new EventEmitter<any>();
   @Input() imageGalleryData: any;
+  @Input() title: any;
   imageGalleryDataIndex = 0;
 
   ngOnChanges(changes: SimpleChanges): void {}
