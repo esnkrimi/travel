@@ -30,7 +30,6 @@ export class LocationListsService {
       uid +
       '&city=' +
       city;
-    console.log(this.urlBase);
     return this.httpClient.get(this.urlBase);
   }
 }

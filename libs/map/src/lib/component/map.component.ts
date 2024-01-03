@@ -457,6 +457,7 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
         )
       )
       .subscribe((res: any) => {
+        console.log(res[0]);
         if (res[0]?.location?.length > 1 && res[0] !== 'undefined') {
           const tmpLocation = new L.LatLng(
             JSON.parse(res[0]?.location)?.lat,
@@ -464,8 +465,8 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
           );
           this.center = tmpLocation;
           this.changeCenter();
+          this.city = res[0]?.city;
           this.fetchByCity(res[0]?.city, true);
-
           this.setCurrentLocation(JSON.parse(res[0]?.location));
         }
       });
