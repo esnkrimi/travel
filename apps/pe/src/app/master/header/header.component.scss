@@ -126,6 +126,8 @@ span{
     background-color:var(--COLOR-DARKER) !important;
 }
 .profile-icon{
+    position: relative;
+    z-index: 999999 !important;
     opacity: 1 !important;
     border-radius: 3px;
     width: 100%;

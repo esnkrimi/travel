@@ -208,6 +208,8 @@ export interface IuserOfSite {
   lnama: string;
   email: string;
   about?: string;
+  location?: string;
+  city?: string;
 }
 
 export interface Iuser {

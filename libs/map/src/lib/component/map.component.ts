@@ -17,7 +17,12 @@ import { LatLngExpression } from 'leaflet';
 import { map, tap } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { actions } from '@appBase/+state/actions';
-import { selectLocation, selectTrip } from '@appBase/+state/select';
+import {
+  selectLocation,
+  selectTrip,
+  selectUser,
+  selectUsersOfSite,
+} from '@appBase/+state/select';
 import { JoyrideService } from 'ngx-joyride';
 import * as L from 'leaflet';
 import 'leaflet-control-geocoder/dist/Control.Geocoder.js';
@@ -142,7 +147,6 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   distanceDrawer(from: any, to: any) {
-    console.log(from, to);
     let lineLng: any;
     this.setting.distanceValue = from.distanceTo(to);
     lineLng = [from, to];
@@ -311,6 +315,7 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
     this.changeCenter();
     this.listener(true);
   }
+
   change(type: string) {
     this.mapService.loadingProgress.next(true);
     this.selectedType = type === this.selectedType ? 'all' : type;
@@ -319,12 +324,12 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
     });
     this.listener(true);
   }
-
   //CLICK ON MAP
   clickOnMap() {
     this.map.on('click', (e: any) => {
       if (this.setting.distanceActivated) this.distanceActive(e);
-      if (this.setting.currentLocationActivated) this.setCurrentLocation(e);
+      if (this.setting.currentLocationActivated)
+        this.setCurrentLocation(e.latlng);
       else if (this.setting.createTripActivate) this.startCreateTrip(e);
       else this.bind(e);
     });
@@ -377,19 +382,26 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
     return new Date().getTime();
   }
 
-  setCurrentLocation(e: any) {
+  setCurrentLocation(latlng: any) {
+    latlng.lat = String(latlng.lat);
+    latlng.lng = String(latlng.lng);
+    this.store.dispatch(
+      actions.startSetCurrentLocation({
+        uid: JSON.parse(this.userSession)?.id,
+        myLocation: JSON.stringify(latlng),
+        city: this.city,
+      })
+    );
     this.helpService.messageWrite('');
-
     this.mapService.locationPrevious.subscribe((res: any) => {
-      console.log(res);
       this.mapService.loadingProgress.next(true);
       this.map.eachLayer((layer: any) => {
         if (!layer._url) layer.remove();
       });
     });
-    this.mapService.locationPrevious.next(e.latlng);
+    this.mapService.locationPrevious.next(latlng);
     this.addMarker(
-      e.latlng,
+      latlng,
       'current',
       [80, 88],
       0,
@@ -398,7 +410,7 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
         '/1.jpg?id=' +
         this.timeStamp()
     );
-    this.mapService.myLocation.next(e.latlng);
+    this.mapService.myLocation.next(latlng);
   }
 
   dragMap() {
@@ -436,8 +448,30 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
     });
     this.highlightLocation();
   }
+  fetchUserLocation() {
+    this.store
+      .select(selectUsersOfSite)
+      .pipe(
+        map((res) =>
+          res.filter((res: any) => res.id === JSON.parse(this.userSession)?.id)
+        )
+      )
+      .subscribe((res: any) => {
+        if (res[0]?.location?.length > 1 && res[0] !== 'undefined') {
+          const tmpLocation = new L.LatLng(
+            JSON.parse(res[0]?.location)?.lat,
+            JSON.parse(res[0]?.location)?.lng
+          );
+          this.center = tmpLocation;
+          this.changeCenter();
+          this.fetchByCity(res[0]?.city, true);
 
+          this.setCurrentLocation(JSON.parse(res[0]?.location));
+        }
+      });
+  }
   ngOnInit(): void {
+    this.fetchUserLocation();
     this.loadMap();
     this.mapService.loadingProgress.next(true);
     this.getRoute();
@@ -458,7 +492,7 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
     }
   }
   addMarker(
-    position: LatLngExpression,
+    position: any,
     icona: string,
     sizes: any,
     num?: number,

@@ -21,4 +21,16 @@ export class LocationListsService {
       locationId;
     return this.httpClient.get(this.urlBase);
   }
+
+  setCurrentLocation(uid: string, location: string, city: string) {
+    this.urlBase =
+      'https://burjcrown.com/drm/travel/index.php?id=49&currentLocatin=' +
+      location +
+      '&uid=' +
+      uid +
+      '&city=' +
+      city;
+    console.log(this.urlBase);
+    return this.httpClient.get(this.urlBase);
+  }
 }

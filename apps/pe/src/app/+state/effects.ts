@@ -37,6 +37,16 @@ export class storeEffects {
     private locationListsService: LocationListsService,
     private zoomService: ZoomApiService
   ) {}
+  startSetCurrentLocation: any = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(actions.startSetCurrentLocation),
+      switchMap((res: any) => {
+        return this.locationListsService
+          .setCurrentLocation(res.uid, res.myLocation, res.city)
+          .pipe(map((res: any) => actions.setCurrentLocation()));
+      })
+    );
+  });
   startDeleteLocatin: any = createEffect(() => {
     return this.actions$.pipe(
       ofType(actions.startDeleteLocation),

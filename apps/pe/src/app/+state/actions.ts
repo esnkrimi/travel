@@ -13,6 +13,12 @@ import { createActionGroup, props, emptyProps } from '@ngrx/store';
 export const actions = createActionGroup({
   source: 'store',
   events: {
+    'set current location': emptyProps(),
+    'start set current location': props<{
+      uid: any;
+      myLocation: any;
+      city: string;
+    }>(),
     'start update distance': props<{ data: any; myLocation: any }>(),
     'delete location': emptyProps(),
     'start delete location': props<{ locationId: string }>(),
