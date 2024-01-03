@@ -231,6 +231,7 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
   cancelTools() {
     this.setting.distanceActivated = false;
     this.setting.currentLocationActivated = false;
+    this.listener(true);
     this.helpService.messageWrite('');
   }
   turnOffProgress(time: number) {
@@ -381,8 +382,10 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
 
     this.mapService.locationPrevious.subscribe((res: any) => {
       console.log(res);
-      const marker = new L.Marker(res, { draggable: true });
-      this.map.removeLayer(marker);
+      this.mapService.loadingProgress.next(true);
+      this.map.eachLayer((layer: any) => {
+        if (!layer._url) layer.remove();
+      });
     });
     this.mapService.locationPrevious.next(e.latlng);
     this.addMarker(
