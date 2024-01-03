@@ -48,6 +48,7 @@ export interface LocationSetting {
   locatinTypeList: [];
   selectedType: string;
   page: number;
+  cityActive?: string;
 }
 
 export interface APPSetting {

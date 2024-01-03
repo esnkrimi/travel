@@ -279,7 +279,7 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
     if (changedCity)
       this.store.dispatch(
         actions.startFetchCountryLocationAction({
-          city: city,
+          city: this.city,
         })
       );
 
@@ -457,7 +457,6 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
         )
       )
       .subscribe((res: any) => {
-        console.log(res[0]);
         if (res[0]?.location?.length > 1 && res[0] !== 'undefined') {
           const tmpLocation = new L.LatLng(
             JSON.parse(res[0]?.location)?.lat,

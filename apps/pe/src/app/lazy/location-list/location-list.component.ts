@@ -11,6 +11,7 @@ import {
   selectILocationTypes,
   selectLocation,
   selectSharedLocation,
+  selectUsersOfSite,
 } from '@appBase/+state/select';
 import { MapService } from '@appBase/master/map/service';
 import { LocalService } from '@appBase/storage';
@@ -42,6 +43,7 @@ export class LocationListComponent implements OnInit {
     locatinTypeList: [],
     selectedType: '',
     page: 0,
+    cityActive: '',
   };
   rates = ['0', '0', '0', '0', '0'];
   formSearchTrip = new FormGroup({
@@ -56,7 +58,18 @@ export class LocationListComponent implements OnInit {
     public dialog: MatDialog,
     private store: Store
   ) {}
-
+  selectUser() {
+    this.store
+      .select(selectUsersOfSite)
+      .pipe(
+        map((res) =>
+          res.filter((res: any) => res.id === JSON.parse(this.userSession)?.id)
+        )
+      )
+      .subscribe((res) => {
+        this.setting.cityActive = res[0].city;
+      });
+  }
   inputListener() {
     this.setting.locatinListFiltered = [];
     this.formSearchTrip
@@ -129,14 +142,16 @@ export class LocationListComponent implements OnInit {
               Number(res.score) >= Number(this.setting.rateFilterNumber)
           )
         ),
+        tap((res) => console.log(this.setting.cityActive, res)),
+        map((res) =>
+          res.filter((res: any) => res.city === this.setting.cityActive)
+        ),
         map((res) =>
           res.filter((res: any) => this.type !== 'saved' || res.saved === true)
-        ),
-        tap(function (res: any) {
-          return res;
-        })
+        )
       )
       .subscribe((res: any) => {
+        console.log(res);
         this.setting.locatinList = res;
         this.setting.locatinListFiltered = res.sort((a: any, b: any) => {
           if (a.distanceFromMyLocation < b.distanceFromMyLocation) {
@@ -184,6 +199,7 @@ export class LocationListComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.selectUser();
     this.inputListener();
     setTimeout(() => {
       this.fetchLocations();
