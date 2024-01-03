@@ -20,6 +20,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { map, tap } from 'rxjs';
 import { LocationSetting } from '@appBase/setting';
+import { actions } from '@appBase/+state/actions';
 
 @Component({
   selector: 'pe-location-list',
@@ -32,6 +33,7 @@ export class LocationListComponent implements OnInit {
   @Input() country: string;
   @Input() state: string;
   @Input() type: any;
+  distanceTo: any;
   setting: LocationSetting = {
     rateFilter: 'all rates',
     rateFilterNumber: 0,
@@ -50,7 +52,7 @@ export class LocationListComponent implements OnInit {
   constructor(
     @Inject('userSession') public userSession: string,
     private drawerService: LocationGeoService,
-    private router: Router,
+    private mapService: MapService,
     public dialog: MatDialog,
     private store: Store
   ) {}
@@ -129,13 +131,25 @@ export class LocationListComponent implements OnInit {
         ),
         map((res) =>
           res.filter((res: any) => this.type !== 'saved' || res.saved === true)
-        )
+        ),
+        tap(function (res: any) {
+          return res;
+        })
       )
       .subscribe((res: any) => {
         this.setting.locatinList = res;
-        this.setting.locatinListFiltered = res;
+        this.setting.locatinListFiltered = res.sort((a: any, b: any) => {
+          if (a.distanceFromMyLocation < b.distanceFromMyLocation) {
+            return -1;
+          }
+          if (a.distanceFromMyLocation > b.distanceFromMyLocation) {
+            return 1;
+          }
+          return 0;
+        });
       });
   }
+
   changeLocationTypes(type: string) {
     this.setting.selectedType = type;
     this.setting.page = 1;
@@ -154,10 +168,26 @@ export class LocationListComponent implements OnInit {
       lon: lon,
     });
   }
+  makeDistance() {
+    this.mapService.myLocation.subscribe((res) => {
+      const d = {
+        lat: res.lat,
+        lng: res.lng,
+      };
+      this.store.dispatch(
+        actions.startUpdateDistance({
+          data: this.setting.locatinListFiltered,
+          myLocation: d,
+        })
+      );
+    });
+  }
+
   ngOnInit(): void {
     this.inputListener();
     setTimeout(() => {
       this.fetchLocations();
+      this.makeDistance();
     }, 1000);
   }
 }

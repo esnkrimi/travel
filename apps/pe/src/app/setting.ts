@@ -95,4 +95,5 @@ export interface MapDetailsSetting {
   distanceActivated: boolean;
   selectLocationActivated: boolean;
   loadingProgress: boolean;
+  currentLocationActivated: boolean;
 }

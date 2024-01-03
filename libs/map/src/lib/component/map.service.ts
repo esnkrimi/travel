@@ -13,6 +13,7 @@ export class MapApiService {
     @Inject('userSession') public userSession: any
   ) {}
   savedLocation = new BehaviorSubject(false);
+
   template: ITrip = {
     title: '',
     reviewtrip: [

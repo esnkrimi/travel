@@ -6,6 +6,74 @@ export const reducerStates = createFeature({
   name: 'store',
   reducer: createReducer(
     AppState,
+    on(actions.askToJoin, function (states: any, action: any) {
+      return {
+        ...states,
+        tripUsers: states.tripUsers.map((res: any) => {
+          if (res.tripTitle === action.data.data.tripTitle) {
+            const tmp = {
+              confirmed: '0',
+              family: '',
+              name: '',
+              uid: action.data.data.uid,
+            };
+            return {
+              ...res,
+              users: states?.users?.push(tmp),
+            };
+          } else {
+            return {
+              ...res,
+              // users: [...states.tripUsers],
+            };
+          }
+        }),
+      };
+    }),
+
+    on(actions.startUpdateDistance, function (states: any, action: any) {
+      function degreesToRadians(degrees: any) {
+        return (degrees * Math.PI) / 180;
+      }
+
+      function distanceInKmBetweenEarthCoordinates(
+        lat1: any,
+        lon1: any,
+        lat2: any,
+        lon2: any
+      ) {
+        const earthRadiusKm = 6371;
+
+        const dLat = degreesToRadians(lat2 - lat1);
+        const dLon = degreesToRadians(lon2 - lon1);
+
+        lat1 = degreesToRadians(lat1);
+        lat2 = degreesToRadians(lat2);
+
+        const a =
+          Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+          Math.sin(dLon / 2) *
+            Math.sin(dLon / 2) *
+            Math.cos(lat1) *
+            Math.cos(lat2);
+        const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        return earthRadiusKm * c;
+      }
+      return {
+        ...states,
+        location: states.location.map((res: any) => {
+          return {
+            ...res,
+            distanceFromMyLocation: distanceInKmBetweenEarthCoordinates(
+              res.lat,
+              res.lon,
+              action.myLocation.lat,
+              action.myLocation.lng
+            ),
+          };
+        }),
+      };
+    }),
     on(actions.fetchShareLocation, function (states: any, action: any) {
       return {
         ...states,
@@ -69,30 +137,6 @@ export const reducerStates = createFeature({
       return {
         ...states,
         tripUsers: action.userOfTrip,
-      };
-    }),
-    on(actions.askToJoin, function (states: any, action: any) {
-      return {
-        ...states,
-        tripUsers: states.tripUsers.map((res: any) => {
-          if (res.tripTitle === action.data.data.tripTitle) {
-            const tmp = {
-              confirmed: '0',
-              family: '',
-              name: '',
-              uid: action.data.data.uid,
-            };
-            return {
-              ...res,
-              users: states?.users?.push(tmp),
-            };
-          } else {
-            return {
-              ...res,
-              // users: [...states.tripUsers],
-            };
-          }
-        }),
       };
     }),
     on(actions.deleteLocationComments, function (states: any, action: any) {

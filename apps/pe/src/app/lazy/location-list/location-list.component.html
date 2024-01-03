@@ -101,6 +101,15 @@
               {{ l.street }}
             </span>
           </div>
+
+          <div>
+            <span>Distance from your location : </span>
+            <span class="fw-bold text-capitalize">
+              {{ l.distanceFromMyLocation | number : '2.1-3' }}
+            </span>
+            <span> KM </span>
+          </div>
+
           <div *ngIf="l.email">
             <span class="text-capitalize">Email : {{ l.email }}</span>
           </div>

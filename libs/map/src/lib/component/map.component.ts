@@ -45,6 +45,7 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
     distanceActivated: false,
     selectLocationActivated: false,
     loadingProgress: true,
+    currentLocationActivated: false,
   };
 
   @Input() formTripShow: any;
@@ -107,6 +108,7 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
   };
 
   constructor(
+    @Inject('userSession') public userSession: any,
     private router: Router,
     private helpService: HelpService,
     private mapService: MapService,
@@ -138,7 +140,9 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
   hideForm(e: any) {
     this.formTripShowAction.emit(false);
   }
+
   distanceDrawer(from: any, to: any) {
+    console.log(from, to);
     let lineLng: any;
     this.setting.distanceValue = from.distanceTo(to);
     lineLng = [from, to];
@@ -213,12 +217,20 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
     this.setting.createTripActivate = false;
     this.setting.distanceActivated = !this.setting.distanceActivated;
   }
+  activeCUrrentLocation() {
+    this.setting.toolsShow = false;
+    this.helpService.messageWrite('select your current locatin on map');
+    this.setting.createTripActivate = false;
+    this.setting.distanceActivated = false;
+    this.setting.currentLocationActivated = true;
+  }
   tripFinished(e: any) {
     this.setting.distanceActivated = false;
     this.setting.createTripActivate = true;
   }
   cancelTools() {
     this.setting.distanceActivated = false;
+    this.setting.currentLocationActivated = false;
     this.helpService.messageWrite('');
   }
   turnOffProgress(time: number) {
@@ -311,6 +323,7 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
   clickOnMap() {
     this.map.on('click', (e: any) => {
       if (this.setting.distanceActivated) this.distanceActive(e);
+      if (this.setting.currentLocationActivated) this.setCurrentLocation(e);
       else if (this.setting.createTripActivate) this.startCreateTrip(e);
       else this.bind(e);
     });
@@ -358,6 +371,31 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
     this.store.select(selectTrip).subscribe((res) => {
       this.listOfTrip = res;
     });
+  }
+  timeStamp() {
+    return new Date().getTime();
+  }
+
+  setCurrentLocation(e: any) {
+    this.helpService.messageWrite('');
+
+    this.mapService.locationPrevious.subscribe((res: any) => {
+      console.log(res);
+      const marker = new L.Marker(res, { draggable: true });
+      this.map.removeLayer(marker);
+    });
+    this.mapService.locationPrevious.next(e.latlng);
+    this.addMarker(
+      e.latlng,
+      'current',
+      [80, 88],
+      0,
+      'https://burjcrown.com/drm/travel/users/profile/' +
+        JSON.parse(this.userSession)?.id +
+        '/1.jpg?id=' +
+        this.timeStamp()
+    );
+    this.mapService.myLocation.next(e.latlng);
   }
 
   dragMap() {
@@ -420,12 +458,18 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
     position: LatLngExpression,
     icona: string,
     sizes: any,
-    num?: number
+    num?: number,
+    url?: string
   ) {
     if (position) {
       let tooltipPopup: any;
       let icon: any;
-      if (num) {
+      if (url) {
+        icon = new L.Icon({
+          iconUrl: url,
+          iconSize: [75, 75],
+        });
+      } else if (num) {
         icon = new L.Icon({
           iconUrl: `https://raw.githubusercontent.com/sheiun/leaflet-color-number-markers/main/dist/img/red/marker-icon-2x-red-${num}.png`,
           iconSize: [50, 88],
@@ -480,17 +524,16 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
           closeButton: false,
           className: 'leaflet-popup',
         });
-        tooltipPopup.setContent(
-          `<span class='border-bottom '><b>${this.capitalizeFirstLetter(
-            res[0]?.title
-          )} ${res[0]?.type}
-      </span></b> <br><span class='text-medium m-1 p-2'>
-      ${this.capitalizeFirstLetter(res[0]?.district)} ${res[0]?.street}
-      </span><br><span class='text-medium m-1 p-2'><b>
-      ${res[0]?.phone}</b></span> `
-        );
-        tooltipPopup.setLatLng(e.target.getLatLng());
-        tooltipPopup.openOn(this.map);
+        if (res[0]?.title) {
+          tooltipPopup.setContent(
+            `<span class='border-bottom '><b>${this.capitalizeFirstLetter(
+              res[0]?.title
+            )} ${res[0]?.type}
+              </span></b>`
+          );
+          tooltipPopup.setLatLng(e.target.getLatLng());
+          tooltipPopup.openOn(this.map);
+        }
       });
   }
 

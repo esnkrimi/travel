@@ -263,6 +263,7 @@ export interface Ilocation {
   no?: string;
   describe?: string;
   score: number;
+  distanceFromMyLocation?: number;
 }
 
 export abstract class user implements Iuser {

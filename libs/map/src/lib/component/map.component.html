@@ -1,39 +1,5 @@
 <div class="parent">
   <div class="w-100 text-center box">
-    <!--  <div [class.invisible]="!showMap" class="absolute-50">
-      <div class="w-100 bg-light" cdkDrag>
-        <div
-          *ngFor="let item of typeOflocations"
-          (click)="change(item)"
-          class="w-100"
-        >
-          <img
-            [title]="item"
-            [src]="'./assets/img/' + item + '.png'"
-            class="img-icon m-1"
-            [class.active-type]="
-              selectedType === item || (item === 'saved' && savedLocation)
-            "
-          />
-        </div>
-
-
-        <div
-        class="mt-2"
-        
-        >
-        
-      </div>
-      <div
-      class=""
-      
-      >
-      
-    </div>
-  </div>
-</div>
--->
-
     <div [class.invisible]="!setting.showMap" class="map-container">
       <div class="fixed-country shadow-lg cursor-pointer" cdkDrag>
         <div
@@ -54,7 +20,6 @@
           </span>
         </div>
       </div>
-
       <div class="location-input" cdkDrag>
         <div class="d-flex flex-nowrap">
           <div class="relative flex-cell shadow-lg">
@@ -104,6 +69,20 @@
                 <i class="fa fa-close"></i>
               </button>
             </span>
+            <span
+              *ngIf="setting.currentLocationActivated"
+              (click)="cancelTools()"
+              class="pl-3"
+            >
+              <button
+                mat-stroked-button
+                class="bg-light"
+                style="height: 2.7em !important"
+              >
+                Current Location
+                <i class="fa fa-close"></i>
+              </button>
+            </span>
           </div>
         </div>
       </div>
@@ -116,11 +95,20 @@
               <span
                 joyrideStep="secondStep"
                 text="You can measure distance between two place"
-                [class.disabled]="!setting.distanceActivated"
                 (click)="activeDistanceMeter()"
                 class="text-large m-2 link-darks"
               >
                 Distance Meter
+              </span>
+            </div>
+
+            <div class="p-3">
+              <span
+                joyrideStep="secondStep"
+                (click)="activeCUrrentLocation()"
+                class="text-large m-2 link-darks"
+              >
+                Set Your Current Location
               </span>
             </div>
           </div>
