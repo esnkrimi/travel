@@ -20,21 +20,24 @@
           </span>
         </div>
       </div>
-      <div class="location-input" cdkDrag>
-        <div class="d-flex flex-nowrap">
-          <div class="relative flex-cell shadow-lg">
-            <pe-advanced-autocomplete
-              (results)="change($event)"
-            ></pe-advanced-autocomplete>
+
+      <div #mapContainer class="map-frame w-100 d-relative">
+        <div class="div-tools row w-100">
+          <div class="shadow-lg col-md-6">
+            <div class="w-50">
+              <pe-advanced-autocomplete
+                (results)="change($event)"
+              ></pe-advanced-autocomplete>
+            </div>
             <div
-              *ngIf="selectedType !== 'all'"
+              *ngIf="selectedType !== ''"
               class="w-100 text-left searched-type"
             >
               <button
-                style="height: 2.7em !important"
+                style="height: 2.4em !important"
                 mat-stroked-button
                 class="bg-light shadow-lg fw-bold"
-                (click)="change('all')"
+                (click)="change('')"
               >
                 {{ selectedType }}
                 <i class="fa fa-close"></i>
@@ -42,86 +45,38 @@
             </div>
           </div>
 
-          <div class="flex-cell pl-3">
-            <span
-              *ngIf="!setting.distanceActivated"
-              (click)="setting.toolsShow = true"
-            >
-              <button
-                mat-stroked-button
-                style="height: 2.7em !important"
-                class="bg-light"
-              >
-                T
-              </button>
-            </span>
-            <span
-              *ngIf="setting.distanceActivated"
-              (click)="cancelTools()"
-              class="pl-3"
-            >
-              <button
-                mat-stroked-button
-                class="bg-light"
-                style="height: 2.7em !important"
-              >
-                Distance
-                <i class="fa fa-close"></i>
-              </button>
-            </span>
-            <span
-              *ngIf="setting.currentLocationActivated"
-              (click)="cancelTools()"
-              class="pl-3"
-            >
-              <button
-                mat-stroked-button
-                class="bg-light"
-                style="height: 2.7em !important"
-              >
-                Current Location
-                <i class="fa fa-close"></i>
-              </button>
-            </span>
-          </div>
-        </div>
-      </div>
-
-      <div #mapContainer class="map-frame w-100 d-relative">
-        <div id="map"></div>
-        <div class="d-fixed bg-light animated-fadein" *ngIf="setting.toolsShow">
-          <div class="text-left p- m-1 link-darks">
-            <div class="p-3">
-              <span
-                joyrideStep="secondStep"
-                text="You can measure distance between two place"
-                (click)="activeDistanceMeter()"
-                class="text-large m-2 link-darks"
-              >
-                Distance Meter
-              </span>
-            </div>
-
-            <div class="p-3">
-              <span
-                joyrideStep="secondStep"
-                (click)="activeCUrrentLocation()"
-                class="text-large m-2 link-darks"
-              >
-                Set Your Current Location
-              </span>
-            </div>
-          </div>
-          <div class="text-left p-2 m-2">
+          <div class="fl col-md-6 text-right">
             <button
               mat-stroked-button
-              class="bg-light"
-              (click)="setting.toolsShow = false"
+              class="ml-1 text-light"
+              [class.border-0]="!setting.currentLocationActivated"
+              [class.border-active-btn]="setting.currentLocationActivated"
+              (click)="activeCUrrentLocation()"
             >
-              cancel
+              My Location
+            </button>
+            <button
+              mat-stroked-button
+              class="ml-1 text-light"
+              [class.border-0]="!setting.distanceActivated"
+              [class.border-active-btn]="setting.distanceActivated"
+              (click)="activeDistanceMeter()"
+            >
+              Distance Meter
+            </button>
+            <button
+              mat-stroked-button
+              class="ml-1 text-light"
+              [class.border-0]="!setting.distanceActivated"
+              [class.border-active-btn]="setting.distanceActivated"
+              (click)="activeDistanceMeter()"
+            >
+              Routing
             </button>
           </div>
         </div>
+
+        <div id="map"></div>
       </div>
     </div>
   </div>

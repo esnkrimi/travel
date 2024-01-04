@@ -3,13 +3,16 @@ import {
   EventEmitter,
   Inject,
   Input,
+  OnChanges,
   OnInit,
   Output,
+  SimpleChanges,
 } from '@angular/core';
 import { Store } from '@ngrx/store';
 import {
   selectILocationTypes,
   selectLocation,
+  selectSavedLocation,
   selectSharedLocation,
   selectUsersOfSite,
 } from '@appBase/+state/select';
@@ -58,6 +61,7 @@ export class LocationListComponent implements OnInit {
     public dialog: MatDialog,
     private store: Store
   ) {}
+
   selectUser() {
     this.store
       .select(selectUsersOfSite)
@@ -109,6 +113,7 @@ export class LocationListComponent implements OnInit {
   }
   fetchLocations() {
     if (this.type === 'shared') this.fetchAllSharedLocations();
+    else if (this.type === 'saved') this.savedLocations();
     else this.fetchAllLocations();
   }
   fetchAllSharedLocations() {
@@ -130,7 +135,23 @@ export class LocationListComponent implements OnInit {
         this.setting.locatinListFiltered = res;
       });
   }
-
+  savedLocations() {
+    this.setting.selectedType = '';
+    this.store
+      .select(selectSavedLocation)
+      .pipe(
+        map((res) =>
+          res.filter(
+            (res: any) =>
+              Number(res.score) >= Number(this.setting.rateFilterNumber)
+          )
+        )
+      )
+      .subscribe((res: any) => {
+        this.setting.locatinList = res;
+        this.setting.locatinListFiltered = res;
+      });
+  }
   fetchAllLocations() {
     this.setting.selectedType = '';
     this.store
@@ -142,16 +163,15 @@ export class LocationListComponent implements OnInit {
               Number(res.score) >= Number(this.setting.rateFilterNumber)
           )
         ),
-        tap((res) => console.log(this.setting.cityActive, res)),
         map((res) =>
-          res.filter((res: any) => res.city === this.setting.cityActive)
-        ),
-        map((res) =>
-          res.filter((res: any) => this.type !== 'saved' || res.saved === true)
+          res.filter(
+            (res: any) =>
+              (this.type !== 'saved' && res.city === this.setting.cityActive) ||
+              res.saved === true
+          )
         )
       )
       .subscribe((res: any) => {
-        console.log(res);
         this.setting.locatinList = res;
         this.setting.locatinListFiltered = res.sort((a: any, b: any) => {
           if (a.distanceFromMyLocation < b.distanceFromMyLocation) {

@@ -37,6 +37,16 @@ export class storeEffects {
     private locationListsService: LocationListsService,
     private zoomService: ZoomApiService
   ) {}
+  startFetchSavedLocations: any = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(actions.startFetchSavedLocations),
+      switchMap((res: any) => {
+        return this.locationListsService
+          .fetchSavedLocations()
+          .pipe(map((res: any) => actions.fetchSavedLocations({ data: res })));
+      })
+    );
+  });
   startSetCurrentLocation: any = createEffect(() => {
     return this.actions$.pipe(
       ofType(actions.startSetCurrentLocation),

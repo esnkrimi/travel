@@ -79,7 +79,7 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
     trip: [],
   };
   positionView: any;
-  selectedType = 'all';
+  selectedType = '';
   previous: any = null;
   distance = 0;
   fromOrTo = 'from';
@@ -217,16 +217,25 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
   }
   activeDistanceMeter() {
     this.setting.toolsShow = false;
-    this.helpService.messageWrite('select start point on map');
+    if (!this.setting.distanceActivated)
+      this.helpService.messageWrite('select start point on map');
+    else this.helpService.messageWrite('');
+
     this.setting.createTripActivate = false;
     this.setting.distanceActivated = !this.setting.distanceActivated;
+    this.setting.currentLocationActivated = false;
   }
+  routing() {}
   activeCUrrentLocation() {
     this.setting.toolsShow = false;
-    this.helpService.messageWrite('select your current locatin on map');
+    if (!this.setting.currentLocationActivated)
+      this.helpService.messageWrite('select your current locatin on map');
+    else this.helpService.messageWrite('');
+
     this.setting.createTripActivate = false;
     this.setting.distanceActivated = false;
-    this.setting.currentLocationActivated = true;
+    this.setting.currentLocationActivated =
+      !this.setting.currentLocationActivated;
   }
   tripFinished(e: any) {
     this.setting.distanceActivated = false;
@@ -287,12 +296,7 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
       .select(selectLocation)
       .pipe(
         map((res) => res.filter((res) => res.saved || !this.savedLocation)),
-        map((res) =>
-          res.filter(
-            (res) =>
-              this.selectedType === 'all' || this.selectedType === res?.type
-          )
-        ),
+        map((res) => res.filter((res) => this.selectedType === res?.type)),
         tap((r) => {
           if (r.length === 0) this.mapService.loadingProgress.next(false);
         })
@@ -318,7 +322,7 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
 
   change(type: string) {
     this.mapService.loadingProgress.next(true);
-    this.selectedType = type === this.selectedType ? 'all' : type;
+    this.selectedType = type === this.selectedType ? '' : type;
     this.map.eachLayer((layer: any) => {
       if (!layer._url) layer.remove();
     });
@@ -328,7 +332,7 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
   clickOnMap() {
     this.map.on('click', (e: any) => {
       if (this.setting.distanceActivated) this.distanceActive(e);
-      if (this.setting.currentLocationActivated)
+      else if (this.setting.currentLocationActivated)
         this.setCurrentLocation(e.latlng);
       else if (this.setting.createTripActivate) this.startCreateTrip(e);
       else this.bind(e);
@@ -383,6 +387,7 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   setCurrentLocation(latlng: any) {
+    const tmp = typeof latlng.lat;
     latlng.lat = String(latlng.lat);
     latlng.lng = String(latlng.lng);
     this.store.dispatch(
@@ -392,6 +397,12 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
         city: this.city,
       })
     );
+    if (String(tmp) === 'number') {
+      setTimeout(() => {
+        this.mapService.loadingProgress.next(true);
+        location.reload();
+      }, 1000);
+    }
     this.helpService.messageWrite('');
     this.mapService.locationPrevious.subscribe((res: any) => {
       this.mapService.loadingProgress.next(true);
@@ -477,7 +488,7 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
     this.getRoute();
     this.getShowLocationState();
     this.fetchTrip();
-    this.fetchByCity('New York', true);
+    this.fetchByCity(this.city, true);
     this.clickOnMap(); //CLICK ON MAP
     this.dragMap(); //CLICK ON MAP
     this.changeCenter();
@@ -679,6 +690,7 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
     this.setting.openModalLocationListFlag = false;
     this.center = [Number(event.lat), Number(event.lon)];
     this.changeCenter(); //center focus
+    this.addMarker(event, 'current', [50, 50]);
     this.highlightLocation(); //popup
   }
   openModalLocationList(toggle: boolean) {

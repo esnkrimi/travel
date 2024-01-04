@@ -74,6 +74,12 @@ export const reducerStates = createFeature({
         }),
       };
     }),
+    on(actions.fetchSavedLocations, function (states: any, action: any) {
+      return {
+        ...states,
+        savedLocation: action.data,
+      };
+    }),
     on(actions.fetchShareLocation, function (states: any, action: any) {
       return {
         ...states,

@@ -152,6 +152,7 @@ export interface state {
   reviewtrip: ITrip[];
   location: Ilocation[];
   sharedLocation: ISharedLocation[];
+  savedLocation: Ilocation[];
   user: Iuser;
   usersOfSite: IuserOfSite[];
   loginInfo: IloginInfo;
@@ -200,6 +201,7 @@ export const AppState: state = {
   userRates: [],
   tripComments: [],
   sharedLocation: [],
+  savedLocation: [],
 };
 
 export interface IuserOfSite {
@@ -253,8 +255,8 @@ export interface Ilocation {
   email: string;
   id: number;
   lat: string;
-  img?: string[];
   lon: string;
+  img?: string[];
   phone: string;
   saved?: boolean;
   street: string;

@@ -40,9 +40,8 @@
         <div class="col-md-6">
           <p class="title-bar w-100">
             <span class="fw-bolder">
-              {{ state }}
+              {{ setting.cityActive }}
             </span>
-            <span class="fw-light"> ({{ country }}) </span>
             <span class="fw-bold"> Location List </span>
           </p>
         </div>
@@ -102,7 +101,7 @@
             </span>
           </div>
 
-          <div>
+          <div *ngIf="type !== 'saved'">
             <span>Distance from your location : </span>
             <span class="fw-bold text-capitalize">
               {{ l.distanceFromMyLocation | number : '2.1-3' }}

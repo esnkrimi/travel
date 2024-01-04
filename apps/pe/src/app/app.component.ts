@@ -140,8 +140,12 @@ export class AppComponent implements OnInit {
   fetchSharedLocation() {
     this.store.dispatch(actions.startFetchShareLocation());
   }
+  fetchSavedLocation() {
+    this.store.dispatch(actions.startFetchSavedLocations());
+  }
 
   ngOnInit(): void {
+    this.fetchSavedLocation();
     this.fetchSharedLocation();
     this.fetchLocationTypes();
     this.getRoute();
