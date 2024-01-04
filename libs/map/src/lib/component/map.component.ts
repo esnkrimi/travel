@@ -25,6 +25,7 @@ import { MapDetailsSetting } from '@appBase/setting';
 import * as L from 'leaflet';
 import 'leaflet-control-geocoder/dist/Control.Geocoder.js';
 import 'leaflet-routing-machine';
+import { Router } from '@angular/router';
 @Component({
   selector: 'pe-map',
   templateUrl: './map.component.html',
@@ -105,6 +106,7 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
     @Inject('userSession') public userSession: any,
     @Inject('deviceIsWide') public deviceIsWide: boolean,
     private helpService: HelpService,
+    private router: Router,
     private mapService: MapService,
     private drawerService: LocationGeoService,
     private distancePipe: DistancePipe,
@@ -186,16 +188,20 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
     this.setting.currentLocationActivated = false;
     this.setting.routingActivated = false;
   }
-  ractiveRouting() {
-    const sourceLocation = L.latLng(JSON.parse(this.currentPosition));
-    this.addMarker(sourceLocation, 'current', [60, 60]);
-    this.setting.toolsShow = false;
-    if (!this.setting.routingActivated)
-      this.helpService.messageWrite('select destination on map');
-    else this.helpService.messageWrite('');
-    this.setting.routingActivated = !this.setting.routingActivated;
-    this.setting.currentLocationActivated = false;
-    this.setting.distanceActivated = false;
+  activeRouting() {
+    if (JSON.parse(this.userSession)?.id) {
+      const sourceLocation = L.latLng(JSON.parse(this.currentPosition));
+      this.addMarker(sourceLocation, 'current', [60, 60]);
+      this.setting.toolsShow = false;
+      if (!this.setting.routingActivated)
+        this.helpService.messageWrite('select destination on map');
+      else this.helpService.messageWrite('');
+      this.setting.routingActivated = !this.setting.routingActivated;
+      this.setting.currentLocationActivated = false;
+      this.setting.distanceActivated = false;
+    } else {
+      this.router.navigate([{ outlets: { secondRouter: 'lazy/login' } }]);
+    }
   }
   routing(destinationLocation: any) {
     const sourceLocation = L.latLng(JSON.parse(this.currentPosition));

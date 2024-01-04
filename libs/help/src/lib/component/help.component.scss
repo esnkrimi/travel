@@ -6,3 +6,10 @@
     position: absolute;
 }
  
+.help-content{
+    border-radius: 1em;
+    background-color: white;
+    color: var(--COLOR-BLUEBLACK);
+    text-transform: capitalize;
+    border: solid 7px orange;
+}
