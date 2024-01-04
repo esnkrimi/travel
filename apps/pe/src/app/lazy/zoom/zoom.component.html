@@ -226,8 +226,20 @@
               </span>
             </div>
             <div>
-              <span class="sign" *ngFor="let i of numberToArray(result.score)">
-                <i class="fa fa-star bg-light text-gold" *ngIf="i === '1'"></i>
+              <span class="sign">
+                {{ extractRate(result.avgRate)[0] }}
+              </span>
+              <span class="p-2">
+                <i class="fa fa-thumbs-up cursor-pointer fa-2x text-green"></i>
+              </span>
+
+              <span class="sign">
+                {{ extractRate(result.avgRate)[1] }}
+              </span>
+              <span class="p-2">
+                <i
+                  class="fa fa-thumbs-down cursor-pointer fa-2x text-danger"
+                ></i>
               </span>
             </div>
             <div class="flex-cell">
@@ -367,31 +379,22 @@
                   </mat-form-field>
                 </div>
                 <div *ngIf="setting.existLocation" class="w-100 text-left p-2">
-                  <span
-                    class="fa fa-star cursor-pointer fa-2x checked"
-                    [class.selected-rate]="result.score >= 1"
-                    (click)="rate(1)"
-                  ></span>
-                  <span
-                    class="fa fa-star cursor-pointer fa-2x checked"
-                    [class.selected-rate]="result.score >= 2"
-                    (click)="rate(2)"
-                  ></span>
-                  <span
-                    class="fa fa-star cursor-pointer fa-2x checked"
-                    [class.selected-rate]="result.score >= 3"
-                    (click)="rate(3)"
-                  ></span>
-                  <span
-                    class="fa fa-star cursor-pointer fa-2x"
-                    [class.selected-rate]="result.score >= 4"
-                    (click)="rate(4)"
-                  ></span>
-                  <span
-                    class="fa fa-star cursor-pointer fa-2x"
-                    [class.selected-rate]="result.score === 5"
-                    (click)="rate(5)"
-                  ></span>
+                  <span class="p-2">
+                    <i
+                      class="fa fa-thumbs-up cursor-pointer fa-2x"
+                      [class.selected-rate]="result.score === 1"
+                      (click)="rate(1)"
+                    ></i>
+                  </span>
+
+                  <span class="p-2">
+                    <i
+                      class="fa fa-thumbs-down cursor-pointer fa-2x"
+                      [class.selected-rate]="result.score === -1"
+                      (click)="rate(-1)"
+                    ></i>
+                  </span>
+
                   <span *ngIf="setting.loadingSmall">
                     <img
                       src="../../../assets/img/loading.png"

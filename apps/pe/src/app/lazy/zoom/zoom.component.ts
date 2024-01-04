@@ -306,6 +306,12 @@ export class ZoomComponent implements AfterViewInit {
         });
     });
   }
+
+  extractRate(rate: string) {
+    const tmp = rate.split('-');
+    return tmp;
+  }
+
   deleteLocation() {
     this.store.dispatch(
       actions.startDeleteLocation({ locationId: this.locationID })
