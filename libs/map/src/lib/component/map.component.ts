@@ -190,18 +190,28 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
   }
   activeRouting() {
     if (JSON.parse(this.userSession)?.id) {
-      const sourceLocation = L.latLng(JSON.parse(this.currentPosition));
-      this.addMarker(sourceLocation, 'current', [60, 60]);
-      this.setting.toolsShow = false;
-      if (!this.setting.routingActivated)
-        this.helpService.messageWrite('select destination on map');
-      else this.helpService.messageWrite('');
-      this.setting.routingActivated = !this.setting.routingActivated;
-      this.setting.currentLocationActivated = false;
-      this.setting.distanceActivated = false;
+      if (this.currentPosition) {
+        const sourceLocation = L.latLng(JSON.parse(this.currentPosition));
+        this.addMarker(sourceLocation, 'current', [60, 60]);
+        this.setting.toolsShow = false;
+        if (!this.setting.routingActivated)
+          this.helpService.messageWrite('select destination on map');
+        else this.helpService.messageWrite('');
+        this.setting.routingActivated = !this.setting.routingActivated;
+        this.setting.currentLocationActivated = false;
+        this.setting.distanceActivated = false;
+      } else {
+        this.alertToSelectCurrentPosition();
+      }
     } else {
       this.router.navigate([{ outlets: { secondRouter: 'lazy/login' } }]);
     }
+  }
+
+  alertToSelectCurrentPosition() {
+    this.helpService.messageWrite(
+      'please set your current location via My Location Button '
+    );
   }
   routing(destinationLocation: any) {
     const sourceLocation = L.latLng(JSON.parse(this.currentPosition));
