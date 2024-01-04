@@ -11,30 +11,22 @@ import {
 } from '@angular/core';
 import { MapService } from '@appBase/master/map/service';
 import { LocationGeoService } from '@appBase/drawer.service';
-import { Ilocation, typeOflocations } from '@appBase/+state/state';
+import { Ilocation } from '@appBase/+state/state';
 import { MapApiService } from './map.service';
-import { LatLngExpression } from 'leaflet';
 import { map, tap } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { actions } from '@appBase/+state/actions';
-import {
-  selectLocation,
-  selectTrip,
-  selectUser,
-  selectUsersOfSite,
-} from '@appBase/+state/select';
+import { selectLocation, selectUsersOfSite } from '@appBase/+state/select';
 import { JoyrideService } from 'ngx-joyride';
 import * as L from 'leaflet';
 import 'leaflet-control-geocoder/dist/Control.Geocoder.js';
 import { DistancePipe } from './pipe';
-import { Router } from '@angular/router';
 import { HelpService } from 'libs/help/src/lib/component/help.service';
 import { MapDetailsSetting } from '@appBase/setting';
 @Component({
   selector: 'pe-map',
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.scss'],
-  //changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [DistancePipe],
 })
 export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
@@ -71,20 +63,14 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
     street: '',
     suburb: ' ',
   };
-  listOfTrip: any;
   distanceFrom: any;
   distanceTo: any;
-  currentTrip: any = {
-    title: '',
-    trip: [],
-  };
+
   positionView: any;
   selectedType = '';
   previous: any = null;
   distance = 0;
   fromOrTo = 'from';
-
-  typeOflocations = typeOflocations;
 
   icon: any = new L.Icon({
     className: 'my-markers',
@@ -92,7 +78,6 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
     iconSize: [30, 30],
   });
   title = '';
-  latSelect: any = [];
   locationSelected: Ilocation = {
     id: 0,
     country: '',
@@ -114,7 +99,6 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
 
   constructor(
     @Inject('userSession') public userSession: any,
-    private router: Router,
     private helpService: HelpService,
     private mapService: MapService,
     private drawerService: LocationGeoService,
@@ -131,25 +115,15 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
       this.setting.savedLocationFlag = res.type;
     });
   }
-  cancelTripSubmitVar(event: any) {
-    this.setting.selectLocationActivated = !event;
-    this.mapApiService.bgLoader.next(false);
-    this.formTripShowAction.emit(false);
-  }
+
   submitedForm(e: any) {
     this.setting.selectLocationActivated = e.selectLocationActivated;
-    this.currentTrip = e.currentTrip;
     this.title = e.title;
   }
 
-  hideForm(e: any) {
-    this.formTripShowAction.emit(false);
-  }
-
   distanceDrawer(from: any, to: any) {
-    let lineLng: any;
+    const lineLng = [from, to];
     this.setting.distanceValue = from.distanceTo(to);
-    lineLng = [from, to];
     const polyline = L.polyline(lineLng, {
       smoothFactor: 50,
       noClip: false,
@@ -194,22 +168,6 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
     }
   }
 
-  createTrip() {
-    this.setting.toolsShow = false;
-    this.setting.distanceActivated = false;
-    this.setting.createTripActivate = !this.setting.createTripActivate;
-  }
-
-  startCreateTrip(e: any) {
-    this.formTripShowAction.emit(true);
-    this.helpService.messageWrite('');
-    this.addMarker(e.latlng, 'location', [35, 35]);
-    this.setting.tripSelectIndex++;
-    this.setting.selectLocationActivated = true;
-    this.latSelect = [e.latlng.lat, e.latlng.lng];
-    //this.store.dispatch(actions.startAddTripPoin({ trip: trip }));
-  }
-
   getRoute() {
     this.drawerService.showMap.subscribe((res) => {
       this.setting.showMap = res;
@@ -221,26 +179,22 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
       this.helpService.messageWrite('select start point on map');
     else this.helpService.messageWrite('');
 
-    this.setting.createTripActivate = false;
     this.setting.distanceActivated = !this.setting.distanceActivated;
     this.setting.currentLocationActivated = false;
   }
-  routing() {}
+  routing() {
+    console.log(9);
+  }
   activeCUrrentLocation() {
     this.setting.toolsShow = false;
     if (!this.setting.currentLocationActivated)
       this.helpService.messageWrite('select your current locatin on map');
     else this.helpService.messageWrite('');
-
-    this.setting.createTripActivate = false;
     this.setting.distanceActivated = false;
     this.setting.currentLocationActivated =
       !this.setting.currentLocationActivated;
   }
-  tripFinished(e: any) {
-    this.setting.distanceActivated = false;
-    this.setting.createTripActivate = true;
-  }
+
   cancelTools() {
     this.setting.distanceActivated = false;
     this.setting.currentLocationActivated = false;
@@ -256,42 +210,14 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
     return str?.charAt(0).toUpperCase() + str?.slice(1);
   }
 
-  fetchLocations(location: any) {
-    this.positionView = this.map?.setView(
-      {
-        lat: location.trip[0].lat,
-        lng: location.trip[0].lon,
-      },
-      15
-    );
-    this.router.navigateByUrl('lazy/zoom');
-    for (let i = 0; i < location.trip.length; i++) {
-      const obj: L.LatLng = new L.LatLng(
-        location.trip[i].lat,
-        location.trip[i].lon
-      );
-      this.addMarker(obj, 'location', 0, i + 1);
-      if (i < location.trip.length - 1) {
-        const objDest: L.LatLng = new L.LatLng(
-          location.trip[i + 1].lat,
-          location.trip[i + 1].lon
-        );
-        this.distanceDrawer(obj, objDest);
-        const t: any = obj.distanceTo(objDest);
-      }
-    }
-  }
-
   fetchByCity(city: string, changedCity: boolean) {
     city = city.toLowerCase();
-    let data: any;
     if (changedCity)
       this.store.dispatch(
         actions.startFetchCountryLocationAction({
           city: this.city,
         })
       );
-
     this.store
       .select(selectLocation)
       .pipe(
@@ -328,13 +254,12 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
     });
     this.listener(true);
   }
-  //CLICK ON MAP
+
   clickOnMap() {
     this.map.on('click', (e: any) => {
       if (this.setting.distanceActivated) this.distanceActive(e);
       else if (this.setting.currentLocationActivated)
         this.setCurrentLocation(e.latlng);
-      else if (this.setting.createTripActivate) this.startCreateTrip(e);
       else this.bind(e);
     });
   }
@@ -377,11 +302,7 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
       })
       .addTo(this.map);
   }
-  fetchTrip() {
-    this.store.select(selectTrip).subscribe((res) => {
-      this.listOfTrip = res;
-    });
-  }
+
   timeStamp() {
     return new Date().getTime();
   }
@@ -487,7 +408,6 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
     this.mapService.loadingProgress.next(true);
     this.getRoute();
     this.getShowLocationState();
-    this.fetchTrip();
     this.fetchByCity(this.city, true);
     this.clickOnMap(); //CLICK ON MAP
     this.dragMap(); //CLICK ON MAP
@@ -510,7 +430,6 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
     url?: string
   ) {
     if (position) {
-      let tooltipPopup: any;
       let icon: any;
       if (url) {
         icon = new L.Icon({
@@ -540,7 +459,6 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
           ?.addTo(this.map)
           .on('click', (e) => {
             if (this.setting.distanceActivated) this.distanceActive(e);
-            else if (this.setting.createTripActivate) this.startCreateTrip(e);
             else {
               this.popInformationOfLocation(e);
             }
@@ -675,14 +593,6 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
 
   ngAfterViewInit(): void {
     this.searchBox();
-    this.mapApiService.tripLocations.subscribe((res) => {
-      if (res) {
-        this.map.eachLayer((layer: any) => {
-          if (!layer._url) layer.remove();
-        });
-        this.fetchLocations(res);
-      }
-    });
   }
 
   selectedLocation(event: any) {
