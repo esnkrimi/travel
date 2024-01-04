@@ -57,6 +57,11 @@ display: none !important;
     background: green !important;
 } 
 
+::ng-deep .leaflet-interactive{
+    color:green !important;
+    background-color: orange !important;
+} 
+
 @keyframes animated-scale {
     0%{
         transform: scale(0.2)

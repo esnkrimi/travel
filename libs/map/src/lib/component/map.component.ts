@@ -18,11 +18,13 @@ import { Store } from '@ngrx/store';
 import { actions } from '@appBase/+state/actions';
 import { selectLocation, selectUsersOfSite } from '@appBase/+state/select';
 import { JoyrideService } from 'ngx-joyride';
-import * as L from 'leaflet';
-import 'leaflet-control-geocoder/dist/Control.Geocoder.js';
 import { DistancePipe } from './pipe';
 import { HelpService } from 'libs/help/src/lib/component/help.service';
 import { MapDetailsSetting } from '@appBase/setting';
+
+import * as L from 'leaflet';
+import 'leaflet-control-geocoder/dist/Control.Geocoder.js';
+import 'leaflet-routing-machine';
 @Component({
   selector: 'pe-map',
   templateUrl: './map.component.html',
@@ -30,6 +32,7 @@ import { MapDetailsSetting } from '@appBase/setting';
   providers: [DistancePipe],
 })
 export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
+  currentPosition: any;
   setting: MapDetailsSetting = {
     openModalLocationListFlag: false,
     openModalLocationFlag: false,
@@ -43,6 +46,7 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
     selectLocationActivated: false,
     loadingProgress: true,
     currentLocationActivated: false,
+    routingActivated: false,
   };
 
   @Input() formTripShow: any;
@@ -99,13 +103,13 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
 
   constructor(
     @Inject('userSession') public userSession: any,
+    @Inject('deviceIsWide') public deviceIsWide: boolean,
     private helpService: HelpService,
     private mapService: MapService,
     private drawerService: LocationGeoService,
     private distancePipe: DistancePipe,
     private mapApiService: MapApiService,
     private store: Store,
-    @Inject('deviceIsWide') public deviceIsWide: boolean,
     private readonly joyrideService: JoyrideService
   ) {}
 
@@ -178,14 +182,40 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
     if (!this.setting.distanceActivated)
       this.helpService.messageWrite('select start point on map');
     else this.helpService.messageWrite('');
-
     this.setting.distanceActivated = !this.setting.distanceActivated;
     this.setting.currentLocationActivated = false;
+    this.setting.routingActivated = false;
   }
-  routing() {
-    console.log(9);
+  ractiveRouting() {
+    const sourceLocation = L.latLng(JSON.parse(this.currentPosition));
+    this.addMarker(sourceLocation, 'current', [60, 60]);
+    this.setting.toolsShow = false;
+    if (!this.setting.routingActivated)
+      this.helpService.messageWrite('select destination on map');
+    else this.helpService.messageWrite('');
+    this.setting.routingActivated = !this.setting.routingActivated;
+    this.setting.currentLocationActivated = false;
+    this.setting.distanceActivated = false;
+  }
+  routing(destinationLocation: any) {
+    const sourceLocation = L.latLng(JSON.parse(this.currentPosition));
+    L.Routing.control({
+      showAlternatives: false,
+      waypoints: [sourceLocation, destinationLocation.latlng],
+      routeLine: function (route) {
+        const line = L.Routing.line(route, {
+          addWaypoints: false,
+          extendToWaypoints: true,
+          missingRouteTolerance: 1,
+          styles: [{ color: 'rgb(223, 43, 61)', weight: 12, stroke: true }],
+        });
+        return line;
+      },
+      routeWhileDragging: true,
+    }).addTo(this.map);
   }
   activeCUrrentLocation() {
+    this.setting.routingActivated = false;
     this.setting.toolsShow = false;
     if (!this.setting.currentLocationActivated)
       this.helpService.messageWrite('select your current locatin on map');
@@ -257,7 +287,8 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
 
   clickOnMap() {
     this.map.on('click', (e: any) => {
-      if (this.setting.distanceActivated) this.distanceActive(e);
+      if (this.setting.routingActivated) this.routing(e);
+      else if (this.setting.distanceActivated) this.distanceActive(e);
       else if (this.setting.currentLocationActivated)
         this.setCurrentLocation(e.latlng);
       else this.bind(e);
@@ -311,6 +342,7 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
     const tmp = typeof latlng.lat;
     latlng.lat = String(latlng.lat);
     latlng.lng = String(latlng.lng);
+    this.currentPosition = JSON.stringify(latlng);
     this.store.dispatch(
       actions.startSetCurrentLocation({
         uid: JSON.parse(this.userSession)?.id,

@@ -22,10 +22,12 @@
           "node_modules/leaflet/dist/leaflet.css",
           "node_modules/bootstrap/dist/css/bootstrap.css",
           "node_modules/font-awesome/css/font-awesome.css",
-          "leaflet-control-geocoder/dist/Control.Geocoder.css"
+          "leaflet-control-geocoder/dist/Control.Geocoder.css",
+          "leaflet-routing-machine/dist/leaflet-routing-machine.css"
         ],
         "scripts": [
           "node_modules/bootstrap/dist/js/bootstrap.js",
+          "leaflet-routing-machine/dist/leaflet-routing-machine.js",
           "leaflet-control-geocoder/dist/Control.Geocoder.js"
         ]
       },

@@ -93,6 +93,7 @@ export interface MapDetailsSetting {
   createTripActivate: boolean;
   tripSelectIndex: number;
   distanceValue: number;
+  routingActivated: boolean;
   distanceActivated: boolean;
   selectLocationActivated: boolean;
   loadingProgress: boolean;
