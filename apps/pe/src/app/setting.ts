@@ -41,6 +41,7 @@ export interface LoginSetting {
 }
 
 export interface LocationSetting {
+  loadingProgress: boolean;
   rateFilter: string;
   rateFilterNumber: number;
   locatinListFiltered: any;

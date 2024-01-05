@@ -62,9 +62,7 @@ export class ZoomApiService {
     for (let pair of formFile.entries()) {
       formData.append('file[]', pair[1]);
     }
-    for (let pair of formData.entries()) {
-      console.log(pair[0] + ', ' + pair[1]);
-    }
+
     return this.httpClient.post(
       'https://www.burjcrown.com/drm/travel/index.php?id=3',
       formData

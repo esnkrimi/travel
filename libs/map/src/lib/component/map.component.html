@@ -122,9 +122,24 @@
         }}</span>
       </div>
       <div class="ml-2 pl-2 border-bottom w-90">
-        <span *ngFor="let i of numberToArray(4)">
-          <i class="fa fa-star bg-white text-gold" *ngIf="i === '1'"></i>
-        </span>
+        <div class="d-flex p-1">
+          <div class="p-1 border m-1">
+            <span class="sign">
+              {{ extractRate(locationForModal[0].avgRate)[0] }}
+            </span>
+            <span class="p-2">
+              <i class="fa fa-thumbs-up text-green"></i>
+            </span>
+          </div>
+          <div class="p-1 border m-1">
+            <span class="sign">
+              {{ extractRate(locationForModal[0].avgRate)[1] }}
+            </span>
+            <span class="p-2">
+              <i class="fa fa-thumbs-down text-danger"></i>
+            </span>
+          </div>
+        </div>
       </div>
       <div>
         <span class="text-capitalize m-2 p-2">{{

@@ -16,7 +16,7 @@ export class HelpComponent implements OnInit {
   ngOnInit(): void {
     this.service.textInner.subscribe((res: any) => {
       this.text = res;
-      this.arrayOfText = res.split(' ');
+      this.arrayOfText = res;
     });
   }
 }

@@ -3,10 +3,8 @@ import {
   EventEmitter,
   Inject,
   Input,
-  OnChanges,
   OnInit,
   Output,
-  SimpleChanges,
 } from '@angular/core';
 import { Store } from '@ngrx/store';
 import {
@@ -17,11 +15,9 @@ import {
   selectUsersOfSite,
 } from '@appBase/+state/select';
 import { MapService } from '@appBase/master/map/service';
-import { LocalService } from '@appBase/storage';
 import { LocationGeoService } from '@appBase/drawer.service';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { Router } from '@angular/router';
 import { map, tap } from 'rxjs';
 import { LocationSetting } from '@appBase/setting';
 import { actions } from '@appBase/+state/actions';
@@ -39,7 +35,7 @@ export class LocationListComponent implements OnInit {
   @Input() type: any;
   distanceTo: any;
   setting: LocationSetting = {
-    rateFilter: 'all rates',
+    rateFilter: 'Nearest',
     rateFilterNumber: 0,
     locatinListFiltered: [],
     locatinList: [],
@@ -47,6 +43,7 @@ export class LocationListComponent implements OnInit {
     selectedType: '',
     page: 0,
     cityActive: '',
+    loadingProgress: false,
   };
   rates = ['0', '0', '0', '0', '0'];
   formSearchTrip = new FormGroup({
@@ -94,6 +91,7 @@ export class LocationListComponent implements OnInit {
   }
 
   changeRates(rate: any) {
+    this.setting.loadingProgress = true;
     this.setting.page = 1;
     this.setting.rateFilterNumber =
       this.setting.rateFilter === 'all rates' || this.setting.rateFilter === ''
@@ -131,6 +129,7 @@ export class LocationListComponent implements OnInit {
         )
       )
       .subscribe((res: any) => {
+        this.setting.loadingProgress = false;
         this.setting.locatinList = res;
         this.setting.locatinListFiltered = res;
       });
@@ -148,21 +147,23 @@ export class LocationListComponent implements OnInit {
         )
       )
       .subscribe((res: any) => {
+        this.setting.loadingProgress = false;
         this.setting.locatinList = res;
         this.setting.locatinListFiltered = res;
       });
   }
+
+  extractRate(rate: string) {
+    const tmp = rate.split('-');
+    return tmp;
+  }
+
   fetchAllLocations() {
     this.setting.selectedType = '';
     this.store
       .select(selectLocation)
       .pipe(
-        map((res) =>
-          res.filter(
-            (res: any) =>
-              Number(res.score) >= Number(this.setting.rateFilterNumber)
-          )
-        ),
+        tap((res) => console.log(res)),
         map((res) =>
           res.filter(
             (res: any) =>
@@ -173,15 +174,38 @@ export class LocationListComponent implements OnInit {
       )
       .subscribe((res: any) => {
         this.setting.locatinList = res;
-        this.setting.locatinListFiltered = res.sort((a: any, b: any) => {
-          if (a.distanceFromMyLocation < b.distanceFromMyLocation) {
-            return -1;
-          }
-          if (a.distanceFromMyLocation > b.distanceFromMyLocation) {
-            return 1;
-          }
-          return 0;
-        });
+        console.log(res);
+        console.log(this.setting.rateFilter);
+        if (this.setting.rateFilter === 'Nearest')
+          this.setting.locatinListFiltered = res.sort((a: any, b: any) => {
+            if (a.distanceFromMyLocation < b.distanceFromMyLocation) {
+              return -1;
+            }
+            if (a.distanceFromMyLocation > b.distanceFromMyLocation) {
+              return 1;
+            }
+            return 0;
+          });
+        else
+          this.setting.locatinListFiltered = res.sort((a: any, b: any) => {
+            if (
+              Number(this.extractRate(a.score)[0]) <
+              Number(this.extractRate(b.score)[0])
+            ) {
+              return 1;
+            }
+            if (
+              Number(this.extractRate(a.score)[0]) >
+              Number(this.extractRate(b.score)[0])
+            ) {
+              return -1;
+            }
+            return 0;
+          });
+
+        setTimeout(() => {
+          this.setting.loadingProgress = false;
+        }, 1000);
       });
   }
 

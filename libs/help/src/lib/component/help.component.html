@@ -1,15 +1,18 @@
 <div
-  class="p-2 frame text-large flex-cell"
+  class="frame text-large flex-cell text-center"
   (click)="text = ''"
   *ngIf="text.length > 0"
   cdkDrag
 >
-  <div class="help-content w-100 p-2" cdkDrag>
-    <span
-      class="text-orange fw-bold m-1 text-large"
-      *ngFor="let item of arrayOfText"
-    >
-      {{ item }}
-    </span>
+  <div class="help-content inner w-50 border pb-4 bg-light text-center">
+    <p></p>
+    <p>
+      <span class="text-orange fw-bold m-1 text-meduim">
+        {{ arrayOfText }}
+      </span>
+    </p>
+    <p>
+      <button mat-stroked-button (click)="text = ''">OK</button>
+    </p>
   </div>
 </div>

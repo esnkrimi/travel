@@ -72,7 +72,7 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
   distanceTo: any;
 
   positionView: any;
-  selectedType = '';
+  selectedType = 'restaurant';
   previous: any = null;
   distance = 0;
   fromOrTo = 'from';
@@ -561,9 +561,15 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
         })
       )
       .subscribe((res) => {
+        console.log(res);
         this.locationForModal = res;
       });
   }
+  extractRate(rate: string) {
+    const tmp = rate.split('-');
+    return tmp;
+  }
+
   numberToArray(i: number) {
     const arr = ['0', '0', '0', '0', '0'];
     return arr.fill('1', 0, i);

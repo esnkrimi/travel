@@ -1,3 +1,4 @@
+{{ existLocation }}ss
 <pe-image-gallery
   [imageGalleryData]="imgSrcToGallery"
   (action)="action()"
@@ -26,7 +27,7 @@
 <ng-template #showLocationInformation>
   <div class="text-left p-3 w-100">
     <div class="bg-light inner w-100">
-      <div class="p-2" *ngIf="!setting.existLocation; else ExistsLocation">
+      <div class="p-2" *ngIf="!existLocation; else ExistsLocation">
         <form
           class="m-4"
           [formGroup]="form"
@@ -59,7 +60,7 @@
                   <input
                     class="text-blueblack fw-bold"
                     matInput
-                    [readonly]="setting.existLocation"
+                    [readonly]="existLocation"
                     formControlName="county"
                   />
                 </mat-form-field>
@@ -71,7 +72,7 @@
                   <input
                     class="text-blueblack fw-bold"
                     matInput
-                    [readonly]="setting.existLocation"
+                    [readonly]="existLocation"
                     formControlName="district"
                   />
                 </mat-form-field>
@@ -82,7 +83,7 @@
                   <input
                     matInput
                     class="text-blueblack fw-bold"
-                    [readonly]="setting.existLocation"
+                    [readonly]="existLocation"
                     formControlName="street"
                   />
                 </mat-form-field>
@@ -94,7 +95,7 @@
                   <input
                     matInput
                     class="text-blueblack fw-bold"
-                    [readonly]="setting.existLocation"
+                    [readonly]="existLocation"
                     formControlName="title"
                     placeholder="Ex . google company"
                   />
@@ -106,7 +107,7 @@
                   <input
                     class="text-blueblack fw-bold"
                     matInput
-                    [readonly]="setting.existLocation"
+                    [readonly]="existLocation"
                     formControlName="type"
                     placeholder="Ex . google company"
                   />
@@ -148,7 +149,7 @@
                   <input
                     matInput
                     class="text-blueblack fw-bold"
-                    [readonly]="setting.existLocation"
+                    [readonly]="existLocation"
                     formControlName="email"
                   />
                 </mat-form-field>
@@ -160,7 +161,7 @@
                   <input
                     matInput
                     class="text-blueblack fw-bold"
-                    [readonly]="setting.existLocation"
+                    [readonly]="existLocation"
                     formControlName="phone"
                   />
                 </mat-form-field>
@@ -172,7 +173,7 @@
                   <input
                     matInput
                     class="text-blueblack fw-bold"
-                    [readonly]="setting.existLocation"
+                    [readonly]="existLocation"
                     formControlName="web"
                   />
                 </mat-form-field>
@@ -349,10 +350,7 @@
           </div>
           <div class="modals w-100" *ngIf="setting.showFormSubmit">
             <div>
-              <div
-                class="mt-4 w-100 bg-light bg-primary"
-                *ngIf="setting.existLocation"
-              >
+              <div class="mt-4 w-100 bg-light bg-primary" *ngIf="existLocation">
                 <div class="title-bar">
                   People interrested in
                   {{ fetchFormInputValue('title') | titlecase }}
@@ -380,7 +378,7 @@
                     <textarea matInput formControlName="describe"></textarea>
                   </mat-form-field>
                 </div>
-                <div *ngIf="setting.existLocation" class="w-100 text-left p-2">
+                <div *ngIf="existLocation" class="w-100 text-left p-2">
                   <span class="p-2">
                     <i
                       class="fa fa-thumbs-up cursor-pointer fa-2x"

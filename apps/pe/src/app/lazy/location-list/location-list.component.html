@@ -51,13 +51,16 @@
             [(ngModel)]="setting.rateFilter"
             (ngModelChange)="changeRates($event)"
           >
-            <option selected="selected" [value]="'all rates'">All Rates</option>
-            <option value="top">Top Rates</option>
-            <option value="midle">Midle</option>
+            <option selected="selected" [value]="'Nearest'">
+              Sort By Nearest
+            </option>
+            <option value="Rates">Sort By Rates</option>
           </select>
         </div>
       </div>
-
+      <div *ngIf="setting.loadingProgress">
+        <pe-loading-progress [mode]="'mini'"></pe-loading-progress>
+      </div>
       <div
         *ngFor="
           let l of setting.locatinListFiltered
@@ -66,7 +69,7 @@
         class="m-2 p-3 bg-light w-90 border"
       >
         <div class="row">
-          <div class="col-md-6">
+          <div class="col-md-12">
             <div class="border-bottom">
               <span class="fw-bold text-capitalize">
                 {{ l.title }} {{ l.type }}
@@ -76,13 +79,27 @@
               </span>
             </div>
           </div>
-          <div class="col-md-6 text-right">
-            <span scoreDirective [value]="l.score">
-              {{ l.score | scorePipe }}
-            </span>
+        </div>
+        <div class="col-md-6 text-right">
+          <div class="d-flex p-1">
+            <div class="p-1 border m-1">
+              <span class="sign">
+                {{ extractRate(l.avgRate)[0] }}
+              </span>
+              <span class="p-2">
+                <i class="fa fa-thumbs-up text-green"></i>
+              </span>
+            </div>
+            <div class="p-1 border m-1">
+              <span class="sign">
+                {{ extractRate(l.avgRate)[1] }}
+              </span>
+              <span class="p-2">
+                <i class="fa fa-thumbs-down text-danger"></i>
+              </span>
+            </div>
           </div>
         </div>
-
         <div class="p-4">
           <div>
             <span class="text-capitalize">Type :</span>

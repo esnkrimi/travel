@@ -1,5 +1,6 @@
 import {
   AfterViewInit,
+  ChangeDetectionStrategy,
   Component,
   ElementRef,
   Inject,
@@ -10,7 +11,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { LocationGeoService } from '@appBase/drawer.service';
 import { Ilocation, Iuser, typeOflocations } from '@appBase/+state/state';
 import { EntryService } from '../entry/entry.service';
-import { map } from 'rxjs';
+import { map, tap } from 'rxjs';
 import {
   MAT_DIALOG_DATA,
   MatDialog,
@@ -28,15 +29,16 @@ import {
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { SettingService, ZoomSetting } from '@appBase/setting';
 import { MatButtonModule } from '@angular/material/button';
-import { MatFormFieldControl } from '@angular/material/form-field';
 import { Router } from '@angular/router';
 
 @Component({
   selector: 'pe-zoom',
   templateUrl: './zoom.component.html',
   styleUrls: ['./zoom.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Default,
 })
 export class ZoomComponent implements AfterViewInit {
+  existLocation = false;
   destinationSharedUsers: Iuser[];
   confirmDelete = false;
   locationID: string;
@@ -203,6 +205,12 @@ export class ZoomComponent implements AfterViewInit {
     }
   }
 
+  doneSubmit() {
+    const lat = this.form?.get('lat')?.value;
+    const lon = this.form?.get('lon')?.value;
+    this.updateInformationAfterSubmitLocation(lat, lon);
+  }
+
   onFileChange(event: any) {
     this.file = [];
     for (let i = 0; i <= event.target.files.length; i++) {
@@ -223,23 +231,40 @@ export class ZoomComponent implements AfterViewInit {
     return arr.fill('1', 0, i);
   }
 
-  listener() {
-    this.mapService.loadingProgress.subscribe((res) => {
-      this.loadinProgressDoSharingLocation = res;
-    });
-
+  updateInformationAfterSubmitLocation(lat: any, lng: any) {
+    this.localInformation.lat = lat;
+    this.localInformation.lon = lng;
+    this.drawerService.localInformation.next(this.localInformation);
+  }
+  fetchNewLocations(city: string) {
+    this.store.dispatch(
+      actions.startFetchCountryLocationAction({
+        city: city,
+      })
+    );
+  }
+  getUserLogined() {
     this.entryService.userLoginInformation.subscribe((res: any) => {
       this.setting.userLogined = res.id;
     });
+  }
+  getLoadingProgress() {
+    this.mapService.loadingProgress.subscribe((res) => {
+      this.loadinProgressDoSharingLocation = res;
+    });
+  }
+  getFormUpdate() {
     this.drawerService.localInformation.subscribe((res) => {
       this.localInformation = res;
-      this.setting.existLocation = false;
+
+      this.existLocation = false;
       this.drawerService
         .fetchLocationByLatlng(
           this.localInformation.lat,
           this.localInformation.lon
         )
         .subscribe((res: any) => {
+          this.fetchNewLocations(res.city);
           this.form.reset();
           this.localInformation = {
             id: 0,
@@ -266,6 +291,7 @@ export class ZoomComponent implements AfterViewInit {
           this.form.get('street')?.setValue(res.street);
           this.form.get('district')?.setValue(res.district);
           this.form.get('county')?.setValue(res.county);
+
           this.store
             .select(selectLocation)
             .pipe(
@@ -278,13 +304,15 @@ export class ZoomComponent implements AfterViewInit {
               )
             )
             .subscribe((res: any) => {
+              if (res.length) {
+                this.existLocation = true;
+              }
               this.ownerPermission =
                 Number(JSON.parse(this.userSession)?.id) === Number(res[0].uid)
                   ? true
                   : false;
               this.imgSrc = res[0]?.img;
               this.locationID = res[0]?.id;
-              if (res.length) this.setting.existLocation = true;
               this.result = res[0];
               if (this.result) {
                 this.form.get('email')?.setValue(this.result.email || '');
@@ -306,6 +334,12 @@ export class ZoomComponent implements AfterViewInit {
         });
     });
   }
+  listener() {
+    this.getLoadingProgress();
+    this.getUserLogined();
+    this.getFormUpdate();
+  }
+
   openFile(id: string) {
     document.getElementById(id)?.click();
   }
@@ -332,9 +366,6 @@ export class ZoomComponent implements AfterViewInit {
     this.store.dispatch(
       actions.startShareLocation({ userId: userId, locationId: locationId })
     );
-  }
-  doneSubmit() {
-    this.listener();
   }
 
   openImage(img: string) {
