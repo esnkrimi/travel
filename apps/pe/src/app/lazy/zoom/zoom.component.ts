@@ -306,7 +306,9 @@ export class ZoomComponent implements AfterViewInit {
         });
     });
   }
-
+  openFile(id: string) {
+    document.getElementById(id)?.click();
+  }
   extractRate(rate: string) {
     const tmp = rate.split('-');
     return tmp;

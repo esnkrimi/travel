@@ -190,7 +190,11 @@
             </mat-form-field>
           </div>
           <div class="w-100 text-left">
+            <span class="border p-2 cursor-pointer" (click)="openFile('file1')"
+              >Upload Images</span
+            >
             <input
+              style="visibility: hidden"
               (change)="onFileChange($event)"
               class="input-file-upload"
               type="file"
@@ -223,23 +227,6 @@
               </span>
               <span class="fw-bold text-blueblack text-title text-large">
                 {{ fetchFormInputValue('type') | titlecase }}
-              </span>
-            </div>
-            <div>
-              <span class="sign">
-                {{ extractRate(result.avgRate)[0] }}
-              </span>
-              <span class="p-2">
-                <i class="fa fa-thumbs-up cursor-pointer fa-2x text-green"></i>
-              </span>
-
-              <span class="sign">
-                {{ extractRate(result.avgRate)[1] }}
-              </span>
-              <span class="p-2">
-                <i
-                  class="fa fa-thumbs-down cursor-pointer fa-2x text-danger"
-                ></i>
               </span>
             </div>
             <div class="flex-cell">
@@ -297,6 +284,21 @@
               </span>
               <span class="fw-bold text-blueblack text-blueblack">
                 {{ fetchFormInputValue('city') }}
+              </span>
+            </p>
+            <p>
+              <span class="sign">
+                {{ extractRate(result.avgRate)[0] }}
+              </span>
+              <span class="p-2">
+                <i class="fa fa-thumbs-up fa-2x text-green"></i>
+              </span>
+
+              <span class="sign">
+                {{ extractRate(result.avgRate)[1] }}
+              </span>
+              <span class="p-2">
+                <i class="fa fa-thumbs-down fa-2x text-danger"></i>
               </span>
             </p>
             <p>
@@ -403,7 +405,13 @@
                   </span>
                 </div>
                 <div class="w-100 text-left" *ngIf="result?.id > 0">
+                  <span
+                    class="border p-2 cursor-pointer"
+                    (click)="openFile('file2')"
+                    >Upload Images</span
+                  >
                   <input
+                    style="visibility: hidden"
                     (change)="onFileChange($event)"
                     class="input-file-upload"
                     type="file"
@@ -414,7 +422,7 @@
                     formControlName="file"
                   />
                 </div>
-                <div class="w-100 text-left mt-2">
+                <div class="w-100 text-left mt-4">
                   <button
                     class="btn-master-orange"
                     mat-stroked-button
