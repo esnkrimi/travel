@@ -12,6 +12,7 @@
     --COLOR-CREAM: #eceaea;
     --COLOR-BLUE: #6295f3;
     --COLOR-GOLD: #ffcf77;
+    --COLOR-DARK-ORANGE: #fc9611;
     --COLOR-ORANGE: #fdb42a;
     --BG-LOGIN:'https://topedu.vercel.app/assets/images/login1.png';
     --BG-SUCCESS:'https://cdn.dribbble.com/users/571236/screenshots/2888472/happystate.gif';
@@ -60,6 +61,9 @@
 }
 .bg-orange{
    @include text-bg(--COLOR-ORANGE,--COLOR-CREAM)
+}
+.bg-dark-orange{
+   @include text-bg(--COLOR-DARK-ORANGE,--COLOR-CREAM)
 }
 .bg-green{
    @include text-bg(--COLOR-GREEN,--COLOR-CREAM)
