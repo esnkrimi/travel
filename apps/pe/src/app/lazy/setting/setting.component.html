@@ -18,7 +18,11 @@
         />
         <div class="layer-blur row flex-cell text-center">
           <div class="text-left">
+            <span class="border p-2 cursor-pointer" (click)="openFile('file')"
+              >Upload Images</span
+            >
             <input
+              style="visibility: hidden"
               (change)="onFileChange($event)"
               class="input-file-upload"
               type="file"

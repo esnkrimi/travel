@@ -72,7 +72,9 @@ export class SettingComponent implements OnInit {
   timeStamp() {
     return new Date().getTime() + this.timestamp;
   }
-
+  openFile(id: string) {
+    document.getElementById(id)?.click();
+  }
   onFileChange(event: any) {
     this.mapService.loadingProgress.next(true);
     if (event.target.files.length > 0) {
