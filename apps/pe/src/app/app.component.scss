@@ -13,12 +13,11 @@
   .adv2{
     width: 50%;
     left: 25%;
-    top: 25%;
+    top: 15%;
   }
   .inner{
     width: 60% !important;
   }
-
 }
 .adv{
   position: fixed;
@@ -31,6 +30,13 @@
   z-index: 1202;
   animation: cross 1s forwards;
 }
+.adv2{
+  position: fixed;
+  text-align: center; 
+  height: auto;
+  background-color: white;
+  z-index: 5505; 
+}
 @keyframes cross {
   0%{
     left:-100%
@@ -40,13 +46,7 @@
   }
 
 }
-.adv2{
-  position: fixed;
-  text-align: center; 
-  height: 50vh;
-  background-color: white;
-  z-index: 5505;
-}
+
 .skip1{
   animation: skip 1s forwards;
 }
@@ -153,3 +153,33 @@ text-light{
   border-radius: 10% !important ;
 }
 
+.bg-blueblack{
+  background-color: var(--COLOR-BLUEBLACK) !important;
+}
+.btn-tour{
+  background-color: var(--COLOR-BLUE) !important;
+  color: var(--COLOR-LIGHT) !important;
+  padding: 0.4em 2em 0.4em 2em !important;
+  text-transform: capitalize;
+}
+.btn:hover{
+  background-color: var(--COLOR-LIGHT) !important;
+  color: var(--COLOR-BLUEBLACK) !important;
+
+}
+.parent-layer{
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top:0;
+  z-index: 99999;
+  color: var(--COLOR-LIGHT);
+  background-color: rgba(22, 22, 22, 0.4);
+  -webkit-backdrop-filter: blur(5px);
+  backdrop-filter: blur(5px); 
+}
+.text-font-fantasy{
+  margin: 1em;
+  font-size: 5.0vh !important;
+}

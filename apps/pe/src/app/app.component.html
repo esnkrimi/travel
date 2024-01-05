@@ -18,12 +18,6 @@
           [scope]="scope"
           (zoomActivator)="zoomActivatorFunction()"
         ></pe-map-component>
-
-        <!--
-          <div class="footer pt-high">
-             <pe-footer *ngIf="!showMap"></pe-footer>
-            </div>
-          -->
       </div>
     </div>
     <div></div>
@@ -44,27 +38,27 @@
     </div>
   </div>
 </div>
-
-<!-- 
-
-  <div class="adv2 animated-fadein bg-danger" *ngIf="skip >= 0 && skip < 2">
+<div class="parent-layer" *ngIf="skip >= 0 && skip < 2">
+  <div class="adv2 animated-fadein bg-orange">
+    <h4 class="text-font-fantasy font-fairytail text-large bg-orange">
+      Wellcome to Crown Plaza !
+    </h4>
     <img src="../assets//img/tour.png" class="w-50" />
-  <div class="bg-danger w-100">
-    <span
-      class="btn btn-outline-light text-light cursor-pointer"
-      (click)="skipNext()"
-    >
-    Skip
-  </span>
-</div>
-<div class="bg-danger w-100">
-  <span
-  class="btn bg-green text-dark p-2 m-2 cursor-pointer"
-  (click)="showTours()"
-  >
-  Start Tour
-    </span>
+    <div class="bg-orange w-100">
+      <span
+        class="btn m-2 btn-outline-light text-light cursor-pointer"
+        (click)="skipNext()"
+      >
+        Skip
+      </span>
+    </div>
+    <div class="bg-orange w-100">
+      <span
+        class="btn btn-tour m-2 text-light cursor-pointer"
+        (click)="showTours()"
+      >
+        Start Tour
+      </span>
+    </div>
   </div>
 </div>
-
--->

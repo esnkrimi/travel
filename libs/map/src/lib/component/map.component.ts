@@ -424,8 +424,9 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
     this.savedLocationActive();
     this.mapApiService.savedLocation.subscribe((res) => {
       this.changeCenter();
-      if (this.showTour) this.showTours();
     });
+
+    if (this.showTour) this.showTours();
     this.highlightLocation();
   }
   fetchUserLocation() {
@@ -604,7 +605,13 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
 
   showTours() {
     this.joyrideService.startTour({
-      steps: ['firstStep', 'secondStep'],
+      steps: [
+        'typeChange',
+        'distanceTools',
+        'mylocatioonTools',
+        'routingTools',
+        'board',
+      ],
       themeColor: 'green',
       showCounter: false,
       customTexts: {

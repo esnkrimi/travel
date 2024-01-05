@@ -10,6 +10,7 @@
     --COLOR-GREEN: #17dab8;
     --COLOR-LIGHT: #ffffff;
     --COLOR-CREAM: #eceaea;
+    --COLOR-BLUE: #6295f3;
     --COLOR-GOLD: #ffcf77;
     --COLOR-ORANGE: #fdb42a;
     --BG-LOGIN:'https://topedu.vercel.app/assets/images/login1.png';
@@ -20,7 +21,11 @@
        height: $height;
     }
  }
- 
+
+ @font-face {
+   font-family: fairytail;
+   src: url('./assets/fonts/fairy-tail.regular.ttf')
+ }
  @font-face {
    font-family: bmd;
    src: url('./assets/fonts/marson.ttf')
@@ -351,6 +356,9 @@ button:disabled{
    
 }
  
+.font-fairytail{
+   font-family: fairytail;
+}
 .font-antique{
    font-family: antique;
 }
@@ -416,6 +424,13 @@ h2 {
 .text-blueblack{
    color: var(--COLOR-BLUEBLACK) !important;
 }
+.bg-blue{
+   background-color: var(--COLOR-BLUE) !important;
+}
+.bg-magenta{
+   background-color: var(--COLOR-MAGENTA) !important;
+}
+
 textarea{
    width: 100%;
    height: 15em;
@@ -472,7 +487,7 @@ textarea{
    text-decoration: none;
 }
 .btn-master-orange{
-   background-color: var(--COLOR-WAITING) !important;
+   background-color: var(--COLOR-WAITING) ;
    color: var(--COLOR-DARKER) !important;
    padding: 0.4em 2em 0.4em 2em !important;
    text-transform: capitalize;
