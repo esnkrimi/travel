@@ -72,5 +72,7 @@
 "understand":"يفهم",
 "locationList":"قائمة المواقع",
 "name":"اسم",
-"lastName":"اسم العائلة"
+"lastName":"اسم العائلة",
+"deletePost":"حذف آخر",
+"confirmDeletePost":"يتأكد! احذف هذا المنشور؟"
 }

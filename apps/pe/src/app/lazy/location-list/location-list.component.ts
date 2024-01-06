@@ -163,7 +163,6 @@ export class LocationListComponent implements OnInit {
     this.store
       .select(selectLocation)
       .pipe(
-        tap((res) => console.log(res)),
         map((res) =>
           res.filter(
             (res: any) =>

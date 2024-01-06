@@ -70,5 +70,7 @@
 "understand":"verstehen",
 "guests":"Gäste",
 "name":"Name",
-"lastName":"Familienname"
+"lastName":"Familienname",
+"deletePost":"Beitrag entfernen",
+"confirmDeletePost":"Bestätigen! Lösche diesen Beitrag?"
 }

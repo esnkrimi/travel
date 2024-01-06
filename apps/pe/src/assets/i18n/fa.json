@@ -80,5 +80,7 @@
 "understand":"متوجه شدم !",
 "locationList":"لیست مکان ها",
 "name":"نام",
-"lastName":"نام خانوادگی"
+"lastName":"نام خانوادگی",
+"deletePost":"حذف پست",
+"confirmDeletePost":"آیا از حذف مطمئن هستید ؟"
 }

@@ -22,6 +22,7 @@ export class LocationListsService {
     this.urlBase =
       'https://burjcrown.com/drm/travel/index.php?id=50&uid=' +
       JSON.parse(this.userSession)?.id;
+    console.log(this.urlBase);
     return this.httpClient.get(this.urlBase);
   }
 

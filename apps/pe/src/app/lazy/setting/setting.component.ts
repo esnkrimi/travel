@@ -104,6 +104,12 @@ export class SettingComponent implements OnInit {
     dialogRef.afterClosed().subscribe();
   }
 
+  effectiveReloadPage() {
+    this.mapService.loadingProgress.next(true);
+    setTimeout(() => {
+      location.reload();
+    }, 1000);
+  }
   updateAboutme() {
     this.formAboutMe.get('uid')?.setValue(JSON.parse(this.userSession)?.id);
     this.store.dispatch(
@@ -112,12 +118,14 @@ export class SettingComponent implements OnInit {
         about: this.formAboutMe.value.aboutme,
       })
     );
+    this.effectiveReloadPage();
   }
   updateInfo() {
     this.formSetting.get('uid')?.setValue(JSON.parse(this.userSession)?.id);
     this.store.dispatch(
       actions.getStartUpdateSetting({ data: this.formSetting.value })
     );
+    this.effectiveReloadPage();
   }
   selectUser() {
     const uid = String(JSON.parse(this.userSession)?.id);

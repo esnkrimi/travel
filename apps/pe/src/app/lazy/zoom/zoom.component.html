@@ -252,14 +252,18 @@
                 (click)="confirmDelete = !confirmDelete"
                 class="p-2"
               >
-                <button class="bg-light" mat-stroked-button>Delete Post</button>
+                <button class="bg-light" mat-stroked-button>
+                  {{ 'deletePost' | translate }}
+                </button>
               </span>
               <span
                 *ngIf="confirmDelete && ownerPermission"
                 (click)="confirmDelete = !confirmDelete"
                 class="p-2"
               >
-                <button class="bg-light" mat-stroked-button>Cancel</button>
+                <button class="bg-light" mat-stroked-button>
+                  {{ 'cancel' | translate }}
+                </button>
               </span>
               <span
                 *ngIf="confirmDelete && ownerPermission"
@@ -267,7 +271,7 @@
                 class="p-2"
               >
                 <button class="text-light bg-danger" mat-stroked-button>
-                  Confirm ! Delete this post ?
+                  {{ 'confirmDeletePost' | translate }}
                 </button>
               </span>
             </div>

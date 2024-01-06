@@ -72,5 +72,7 @@
 "understand":"понимать",
 "locationList":"Список местоположений",
 "name":"имя",
-"lastName":"фамилия"
+"lastName":"фамилия",
+"deletePost":"Удалить сообщение",
+"confirmDeletePost":"Подтверждать! Удалить этот пост?"
 }
