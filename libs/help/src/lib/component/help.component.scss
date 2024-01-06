@@ -8,13 +8,19 @@
     background-color: rgba(22, 22, 22, 0.4);
     -webkit-backdrop-filter: blur(5px);
     backdrop-filter: blur(5px); 
-    padding-left: 30% !important;
+    padding: 5% !important;
+}
+@media (max-width:1200px) {
+    .help-content {
+        width:100% !important; 
+    }
 }
  
 .help-content{
-    top:50% !important;
+    margin-top:20vh !important;
     color: var(--COLOR-BLUEBLACK);
     text-transform: capitalize;
+    width:50%;
 }
 .ml-4{
     margin: 1em !important;

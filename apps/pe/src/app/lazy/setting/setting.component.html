@@ -1,7 +1,7 @@
-<div class="text-left w-100 bg-light">
+<div class="text-center w-100 bg-light">
   <br />
   <br />
-  <div class="inner bg-light">
+  <div class="inner w-75 bg-light">
     <div class="row bg-light">
       <div class="col-md-4 relative">
         <div *ngIf="uploading" class="on-layer">
@@ -16,7 +16,7 @@
             timeStamp()
           "
         />
-        <div class="layer-blur row flex-cell text-center">
+        <div class="banner-bottom row flex-cell text-center">
           <div class="text-left">
             <span class="border p-2 cursor-pointer" (click)="openFile('file')"
               >Upload Images</span
@@ -84,7 +84,7 @@
     </div>
 
     <div class="p-2 w-75 bg-light m-4">
-      <div class="title-bar text-left">Aboue me</div>
+      <div class="title-bar text-medium text-left">Aboue me</div>
       <form [formGroup]="formAboutMe" (ngSubmit)="updateAboutme()">
         <div class="m-1 p-3 text-left">
           <textarea class="w-100" formControlName="aboutme"> </textarea>

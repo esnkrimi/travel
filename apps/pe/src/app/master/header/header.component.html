@@ -84,18 +84,17 @@
                   class="position-relative d-inline-block menu"
                   *ngIf="setting.menuShow"
                 >
-                  <div class="position-absolute rounded-1">
+                  <div class="position-absolute rounded-1 border">
                     <div class="w-100 relative">
                       <img
                         class="profile-icon"
                         [src]="
                           'https://burjcrown.com/drm/travel/users/profile/' +
                           userLoginInformation?.id +
-                          '/1.jpg?id=' +
-                          timeStamp()
+                          '/1.jpg'
                         "
                       />
-                      <div class="text-left fw-semibold on-layer top-layer p-2">
+                      <div class="text-left fw-semibold banner-bottom p-2">
                         {{ userLoginInformation?.email | titlecase }}
                       </div>
                       <hr />
@@ -132,7 +131,7 @@
                     </p>
                     <p (click)="sharedLocations()">
                       <span>
-                        <i class="fa fa-2x fa-gratipay" aria-hidden="true"></i>
+                        <i class="fa fa-2x fa-share-alt" aria-hidden="true"></i>
                       </span>
                       <span>
                         {{ 'shared' | translate }}
@@ -165,7 +164,7 @@
       </div>
     </ng-template>
   </div>
-  <div class="navbar">
-    <pe-navbar-menu></pe-navbar-menu>
-  </div>
+</div>
+<div class="bg-blueblack w-100">
+  <pe-navbar-menu></pe-navbar-menu>
 </div>

@@ -318,7 +318,8 @@ body{
    font-weight: 700 !important;
    padding: 0.4em;
    margin: 0.5em;
-   letter-spacing: -.15px;
+   letter-spacing: -.15px; 
+   font-size: 1.5vh  !important;
    line-height: 2pc;
    font-family: Speedee,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,Noto Sans,sans-serif !important;
    border-bottom: solid 1px var(--COLOR-BLUEBLACK) !important;
@@ -495,4 +496,15 @@ textarea{
    color: var(--COLOR-DARKER) !important;
    padding: 0.4em 2em 0.4em 2em !important;
    text-transform: capitalize;
+}
+.banner-bottom{
+   position: absolute;
+   bottom: 0px;
+   left: 0px;
+   z-index: 9999999;
+   background-color: rgba(22, 22, 22, 0.4);
+   -webkit-backdrop-filter: blur(5px);
+   backdrop-filter: blur(5px); 
+   width: 100%;
+   color: var(--COLOR-LIGHT);
 }
