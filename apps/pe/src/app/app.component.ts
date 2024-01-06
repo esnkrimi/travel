@@ -194,9 +194,7 @@ export class AppComponent implements OnInit {
   skipNext() {
     this.skip = 2;
   }
-  change() {
-    this.translate.use('fa');
-  }
+
   fetchUserOfSite() {
     this.store.dispatch(actions.startFetchUsersOfSites());
   }

@@ -105,11 +105,11 @@ export class HeaderComponent implements OnInit {
     this.setting.animationFlag =
       this.setting.animationFlag === 'true' ? 'false' : 'true';
     this.mapServicePrivate.loadingProgress.next(true);
+    this.settingService.language.next(language.toLowerCase());
+    this.languageIndex = this.languageIndex >= 4 ? 0 : this.languageIndex + 1;
     setTimeout(() => {
-      this.settingService.language.next(language.toLowerCase());
-      this.languageIndex = this.languageIndex >= 4 ? 0 : this.languageIndex + 1;
       this.mapServicePrivate.loadingProgress.next(false);
-    }, 1000);
+    }, 2000);
   }
   resultOutput(event: IScope) {
     this.resultOutputs.emit(event);

@@ -2,7 +2,11 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav">
       <li class="nav-item active">
-        <button mat-stroked-button class="link" href="index.html">Home</button>
+        <button mat-stroked-button class="link">
+          <a href="https://burjcrown.com/travel">
+            {{ 'menuHome' | translate }}
+          </a>
+        </button>
       </li>
     </ul>
     <ul class="navbar-nav">
@@ -12,14 +16,14 @@
           class="link"
           (click)="showLocationsOnMapComponent()"
         >
-          Location list
+          {{ 'locationList' | translate }}
         </button>
       </li>
     </ul>
     <ul class="navbar-nav">
       <li class="nav-item active">
         <button mat-stroked-button class="link" (click)="board('contact')">
-          Contact us
+          {{ 'menuContact' | translate }}
         </button>
       </li>
     </ul>
@@ -27,7 +31,7 @@
     <ul class="navbar-nav">
       <li class="nav-item active">
         <button mat-stroked-button class="link" (click)="board('about')">
-          About us
+          {{ 'menuAbout' | translate }}
         </button>
       </li>
     </ul>
@@ -92,12 +96,12 @@
         (click)="boardShow = 'contact'"
         class="bg-light"
       >
-        Contact us
+        {{ 'menuContact' | translate }}
       </button>
     </div>
     <div class="w-100 text-left bg-light m-2">
       <button mat-stroked-button (click)="boardShow = ''" class="bg-light">
-        Return
+        {{ 'return' | translate }}
       </button>
     </div>
   </div>
@@ -111,14 +115,20 @@
       class="fa fa-close icon-close cursor-pointer m-1 link"
       (click)="boardShow = ''"
     ></i>
-    <p><span>Phone :</span><span class="fw-bold"> +989188108019</span></p>
-    <p><span>Email :</span><span class="fw-bold"> info@burjcrown.com</span></p>
+    <p>
+      <span> {{ 'tell' | translate }} :</span
+      ><span class="fw-bold"> +989188108019</span>
+    </p>
+    <p>
+      <span> {{ 'email' | translate }} :</span
+      ><span class="fw-bold"> info@burjcrown.com</span>
+    </p>
 
     <div class="bg-light text-left inner w-100 p-2">
       <form [formGroup]="contactForm">
         <div class="w-100">
           <mat-form-field>
-            <mat-label> Email</mat-label>
+            <mat-label> {{ 'email' | translate }} </mat-label>
             <input placeholder="Email" formControlName="email" />
           </mat-form-field>
         </div>
@@ -134,7 +144,7 @@
             mat-stroked-button
             class="btn-master-orange"
           >
-            send
+            {{ 'send' | translate }}
           </button>
         </div>
       </form>

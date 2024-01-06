@@ -18,8 +18,10 @@
         />
         <div class="banner-bottom row flex-cell text-center">
           <div class="text-left">
-            <span class="border p-2 cursor-pointer" (click)="openFile('file')"
-              >Upload Images</span
+            <span
+              class="border p-2 cursor-pointer"
+              (click)="openFile('file')"
+              >{{ 'uploadImages' | translate }}</span
             >
             <input
               style="visibility: hidden"
@@ -42,31 +44,34 @@
         >
           <div>
             <mat-form-field class="w-100">
-              <mat-label class="text-capitalize">First Name</mat-label>
-              <input matInput formControlName="name" value="Mahya" />
+              <mat-label class="text-capitalize">{{
+                'name' | translate
+              }}</mat-label>
+              <input matInput formControlName="name" />
             </mat-form-field>
           </div>
           <div>
             <mat-form-field class="w-100">
-              <mat-label class="text-capitalize">Last Name</mat-label>
-              <input matInput formControlName="lname" value="Mahya" />
+              <mat-label class="text-capitalize">{{
+                'lastName' | translate
+              }}</mat-label>
+              <input matInput formControlName="lname" />
             </mat-form-field>
           </div>
           <div>
             <mat-form-field class="w-100">
-              <mat-label class="text-capitalize">Email</mat-label>
-              <input matInput formControlName="email" value="Mahya" />
+              <mat-label class="text-capitalize">{{
+                'email' | translate
+              }}</mat-label>
+              <input matInput formControlName="email" />
             </mat-form-field>
           </div>
           <div>
             <mat-form-field class="w-100">
-              <mat-label class="text-capitalize">Password</mat-label>
-              <input
-                matInput
-                type="password"
-                formControlName="pass"
-                value="Mahya"
-              />
+              <mat-label class="text-capitalize">{{
+                'password' | translate
+              }}</mat-label>
+              <input matInput type="password" formControlName="pass" />
             </mat-form-field>
           </div>
           <div>
@@ -76,7 +81,7 @@
               type="submit"
               [disabled]="!formSetting.valid"
             >
-              update
+              {{ 'update' | translate }}
             </button>
           </div>
         </form>
@@ -84,7 +89,9 @@
     </div>
 
     <div class="p-2 w-75 bg-light m-4">
-      <div class="title-bar text-medium text-left">Aboue me</div>
+      <div class="title-bar text-medium text-left">
+        {{ 'aboutMe' | translate }}
+      </div>
       <form [formGroup]="formAboutMe" (ngSubmit)="updateAboutme()">
         <div class="m-1 p-3 text-left">
           <textarea class="w-100" formControlName="aboutme"> </textarea>
@@ -96,7 +103,7 @@
             class="btn-master-orange"
             type="submit"
           >
-            update
+            {{ 'update' | translate }}
           </button>
         </div>
       </form>
@@ -107,7 +114,7 @@
       <div class="row text-left">
         <div style="flex-basis: 50%" class="p-2">
           <button (click)="openDialog()" mat-stroked-button class="bg-light">
-            connect
+            {{ 'walletConnect' | translate }}
           </button>
         </div>
         <div style="flex-basis: 50%">0x10w0c1er87vf0rfe45rv54e0f54re</div>

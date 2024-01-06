@@ -127,7 +127,6 @@ export class SettingComponent implements OnInit {
       .pipe(map((res) => res.filter((res) => res.id === uid)))
       .subscribe((res: any) => {
         this.userInformation = res;
-        console.log(res[0]);
         this.formSetting.get('name')?.setValue(res[0].name);
         this.formSetting.get('lname')?.setValue(res[0].lnama);
         this.formSetting.get('email')?.setValue(res[0].email);

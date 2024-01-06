@@ -5,6 +5,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { LoadingProgressModule } from '@pe/loading-progress';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   imports: [
@@ -15,6 +16,7 @@ import { LoadingProgressModule } from '@pe/loading-progress';
     FormsModule,
     CommonModule,
     MatInputModule,
+    TranslateModule,
     LoadingProgressModule,
   ],
   declarations: [AdvancedAutocompleteComponent],

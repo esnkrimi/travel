@@ -19,7 +19,7 @@
 >
   <div class="w-100 loading-div position-relative p-1">
     <div class="position-absolute d-inline loading">
-      <pe-loading-progress [mode]="'animated'"></pe-loading-progress>
+      <pe-loading-progress [mode]="'full'"></pe-loading-progress>
     </div>
   </div>
 </ng-container>
@@ -55,7 +55,7 @@
               <div>
                 <mat-form-field>
                   <mat-label>
-                    {{ 'County' | translate }}
+                    {{ 'county' | translate }}
                   </mat-label>
                   <input
                     class="text-blueblack fw-bold"
@@ -191,8 +191,8 @@
             </mat-form-field>
           </div>
           <div class="w-100 text-left">
-            <span class="border p-2 cursor-pointer" (click)="openFile('file1')"
-              >Upload Images</span
+            <span class="border p-2 cursor-pointer" (click)="openFile('file1')">
+              {{ 'uploadImages' | translate }}</span
             >
             <input
               style="visibility: hidden"
@@ -237,7 +237,7 @@
                   class="cursor-pointer"
                   [class.selected]="result.saved"
                 >
-                  {{ 'favorite' | translate }}
+                  favorite
                 </mat-icon>
               </span>
               <span class="sign p-1">
@@ -352,9 +352,7 @@
             <div>
               <div class="mt-4 w-100 bg-light bg-primary" *ngIf="existLocation">
                 <div class="title-bar">
-                  People interrested in
-                  {{ fetchFormInputValue('title') | titlecase }}
-                  {{ fetchFormInputValue('type') | titlecase }}
+                  {{ 'peapleInterrested' | translate }}
                 </div>
                 <pe-experiences
                   *ngIf="result?.id > 0"
@@ -406,7 +404,7 @@
                   <span
                     class="border p-2 cursor-pointer"
                     (click)="openFile('file2')"
-                    >Upload Images</span
+                    >{{ 'uploadImages' | translate }}</span
                   >
                   <input
                     style="visibility: hidden"

@@ -83,7 +83,6 @@ export function detectDevice(localService: LocalService) {
     NgxPaginationModule,
     BrowserAnimationsModule,
     TranslateModule.forRoot({
-      defaultLanguage: 'en',
       loader: {
         provide: TranslateLoader,
         useFactory: HttpLoaderFactory,

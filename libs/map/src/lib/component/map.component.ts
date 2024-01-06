@@ -26,6 +26,7 @@ import * as L from 'leaflet';
 import 'leaflet-control-geocoder/dist/Control.Geocoder.js';
 import 'leaflet-routing-machine';
 import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'pe-map',
   templateUrl: './map.component.html',
@@ -105,6 +106,7 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
   constructor(
     @Inject('userSession') public userSession: any,
     @Inject('deviceIsWide') public deviceIsWide: boolean,
+    private translate: TranslateService,
     private helpService: HelpService,
     private router: Router,
     private mapService: MapService,
@@ -159,15 +161,21 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
       polyline.openPopup();
     }, 100);
   }
+  getMultilanguagesMessages(message: string) {
+    return this.translate.get(message).subscribe((res) => {
+      this.helpService.messageWrite(res);
+    });
+  }
   distanceActive(e: any) {
     this.addMarker(e.latlng, 'location', [30, 30]);
     if (this.fromOrTo === 'from') {
       this.distanceFrom = e.latlng;
       this.fromOrTo = 'to';
       this.setting.distanceValue = 0;
-      this.helpService.messageWrite('select destination on map');
+
+      this.getMultilanguagesMessages('destinationPoint');
     } else {
-      this.helpService.messageWrite('click on purple line');
+      this.getMultilanguagesMessages('selectLine');
       this.distanceTo = e.latlng;
       this.fromOrTo = 'from';
       this.distanceDrawer(this.distanceFrom, this.distanceTo);
@@ -182,7 +190,7 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
   activeDistanceMeter() {
     this.setting.toolsShow = false;
     if (!this.setting.distanceActivated)
-      this.helpService.messageWrite('select start point on map');
+      this.getMultilanguagesMessages('startPoint');
     else this.helpService.messageWrite('');
     this.setting.distanceActivated = !this.setting.distanceActivated;
     this.setting.currentLocationActivated = false;
@@ -195,7 +203,7 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
         this.addMarker(sourceLocation, 'current', [60, 60]);
         this.setting.toolsShow = false;
         if (!this.setting.routingActivated)
-          this.helpService.messageWrite('select destination on map');
+          this.getMultilanguagesMessages('destinationPoint');
         else this.helpService.messageWrite('');
         this.setting.routingActivated = !this.setting.routingActivated;
         this.setting.currentLocationActivated = false;
@@ -209,9 +217,7 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   alertToSelectCurrentPosition() {
-    this.helpService.messageWrite(
-      'please set your current location via My Location Button '
-    );
+    this.getMultilanguagesMessages('setCurrentLocationAlert');
   }
   routing(destinationLocation: any) {
     const sourceLocation = L.latLng(JSON.parse(this.currentPosition));
@@ -234,7 +240,7 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
     this.setting.routingActivated = false;
     this.setting.toolsShow = false;
     if (!this.setting.currentLocationActivated)
-      this.helpService.messageWrite('select your current locatin on map');
+      this.getMultilanguagesMessages('setYourCurrent');
     else this.helpService.messageWrite('');
     this.setting.distanceActivated = false;
     this.setting.currentLocationActivated =
@@ -562,7 +568,6 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
         })
       )
       .subscribe((res) => {
-        console.log(res);
         this.locationForModal = res;
       });
   }

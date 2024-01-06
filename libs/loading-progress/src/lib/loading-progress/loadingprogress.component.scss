@@ -1,7 +1,7 @@
 .loading{
   width:0%;
   height: 0.2em;
-  background-color: var(--COLOR-WAITING);
+  background-color: var(--COLOR-MAGENTA);
   animation: loading 2s forwards;
 }
 @keyframes loading {

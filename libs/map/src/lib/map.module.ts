@@ -16,6 +16,7 @@ import { HelpModule } from '@pe/help';
 import { RouterModule } from '@angular/router';
 import { AdvancedAutocompleteModule } from '@pe/advanced-autocomplete';
 import { LazyModule } from '@appBase/lazy/lazy.module';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [MapBoardComponent, DistancePipe],
@@ -36,6 +37,7 @@ import { LazyModule } from '@appBase/lazy/lazy.module';
     JoyrideModule.forRoot(),
     MatDialogModule,
     DragDropModule,
+    TranslateModule,
     MatButtonModule,
   ],
   exports: [MapBoardComponent],

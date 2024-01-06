@@ -66,14 +66,7 @@ import { ScorePipe } from '@appBase/pipe/score.pipe';
     MatSnackBarModule,
     MatIconModule,
     ExperiencesModule,
-    TranslateModule.forRoot({
-      defaultLanguage: 'en',
-      loader: {
-        provide: TranslateLoader,
-        useFactory: HttpLoaderFactory,
-        deps: [HttpClient],
-      },
-    }),
+    TranslateModule,
   ],
   exports: [LocationListComponent],
 })

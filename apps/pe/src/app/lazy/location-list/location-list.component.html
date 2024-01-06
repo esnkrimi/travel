@@ -3,7 +3,9 @@
     <div class="col-md-6">
       <form [formGroup]="formSearchTrip">
         <mat-form-field class="search-input w-75">
-          <mat-label> {{ 'Search Location' }}</mat-label>
+          <mat-label>
+            {{ 'search' | translate }}
+          </mat-label>
           <input matInput formControlName="itemToSearch" class="w-100" />
         </mat-form-field>
       </form>
@@ -42,7 +44,9 @@
             <span class="fw-bolder">
               {{ setting.cityActive }}
             </span>
-            <span class="fw-bold"> Location List </span>
+            <span class="fw-bold">
+              {{ 'locationList' | translate }}
+            </span>
           </p>
         </div>
         <div class="col-md-6 flex-cell text-right">
@@ -52,9 +56,11 @@
             (ngModelChange)="changeRates($event)"
           >
             <option selected="selected" [value]="'Nearest'">
-              Sort By Nearest
+              {{ 'sortbynearest' | translate }}
             </option>
-            <option value="Rates">Sort By Rates</option>
+            <option value="Rates">
+              {{ 'sortbyrates' | translate }}
+            </option>
           </select>
         </div>
       </div>
@@ -102,12 +108,14 @@
         </div>
         <div class="p-4">
           <div>
-            <span class="text-capitalize">Type :</span>
+            <span class="text-capitalize"
+              >{{ 'locationType' | translate }} :</span
+            >
             <span class="text-capitalize fw-bold"> {{ l.type }}</span>
           </div>
 
           <div>
-            <span>Address : </span>
+            <span> {{ 'address' | translate }} : </span>
             <span class="fw-bold text-capitalize">
               {{ l.country }} {{ l.city }}
             </span>
@@ -131,7 +139,11 @@
           </div>
 
           <div *ngIf="l.phone">
-            <span>Phone : {{ l.phone }}</span>
+            <span>
+              {{ 'tell' | translate }}
+
+              : {{ l.phone }}</span
+            >
           </div>
         </div>
         <div>
@@ -139,7 +151,7 @@
             (click)="selectLocation(l.lat, l.lon)"
             class="link-darks fw-bold border border-green p-2"
           >
-            View on map
+            {{ 'viewOnMap' | translate }}
           </a>
         </div>
       </div>

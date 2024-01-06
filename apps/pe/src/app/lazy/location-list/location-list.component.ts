@@ -174,8 +174,6 @@ export class LocationListComponent implements OnInit {
       )
       .subscribe((res: any) => {
         this.setting.locatinList = res;
-        console.log(res);
-        console.log(this.setting.rateFilter);
         if (this.setting.rateFilter === 'Nearest')
           this.setting.locatinListFiltered = res.sort((a: any, b: any) => {
             if (a.distanceFromMyLocation < b.distanceFromMyLocation) {

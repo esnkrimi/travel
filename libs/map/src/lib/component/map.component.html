@@ -11,7 +11,7 @@
           class="animated-fadein text-large text-green bg-white w-100"
           *ngIf="setting.distanceActivated"
         >
-          <span> DISTANCE MODE </span>
+          <span> {{ 'distanceMode' | translate }} </span>
         </div>
         <div>
           <span
@@ -64,7 +64,7 @@
               [class.border-active-btn]="setting.currentLocationActivated"
               (click)="activeCUrrentLocation()"
             >
-              My Location
+              {{ 'current' | translate }}
             </button>
             <button
               mat-stroked-button
@@ -75,7 +75,7 @@
               [class.border-active-btn]="setting.distanceActivated"
               (click)="activeDistanceMeter()"
             >
-              Distance Meter
+              {{ 'distanceMeter' | translate }}
             </button>
             <button
               mat-stroked-button
@@ -86,7 +86,7 @@
               [class.border-active-btn]="setting.routingActivated"
               (click)="activeRouting()"
             >
-              Routing
+              {{ 'routing' | translate }}
             </button>
           </div>
         </div>
@@ -172,7 +172,7 @@
             class="link-darks border p-2 m-2 fw-bold"
             (click)="bindExistsLocation(locationForModal[0])"
           >
-            view
+            {{ 'view' | translate }}
           </a>
         </span>
         <span>
@@ -180,7 +180,7 @@
             class="link-darks border p-2 m-2"
             (click)="setting.openModalLocationFlag = false"
           >
-            cancel
+            {{ 'cancel' | translate }}
           </a>
         </span>
       </div>

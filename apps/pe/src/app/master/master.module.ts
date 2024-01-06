@@ -15,6 +15,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { masterRouterModule } from './routes';
 import { HelpModule } from '@pe/help';
 import { NavbarMenuModule } from '@pe/navbar-menu';
+import { LoadingProgressModule } from '@pe/loading-progress';
 
 @NgModule({
   declarations: [
@@ -28,19 +29,13 @@ import { NavbarMenuModule } from '@pe/navbar-menu';
     MapModule,
     AutoCompleteModule,
     masterRouterModule,
+    LoadingProgressModule,
     HelpModule,
     NavbarMenuModule,
     RouterModule,
     MatButtonModule,
     MatIconModule,
-    TranslateModule.forRoot({
-      defaultLanguage: 'en',
-      loader: {
-        provide: TranslateLoader,
-        useFactory: HttpLoaderFactory,
-        deps: [HttpClient],
-      },
-    }),
+    TranslateModule,
   ],
   exports: [HeaderComponent, FooterComponent, MapComponent],
 })

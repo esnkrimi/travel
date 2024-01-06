@@ -75,8 +75,9 @@
                   class="bg-blueblack text-light"
                 >
                   <mat-icon>arrow_drop_down</mat-icon>
-                  <span class="fw-bold text-meduim"
-                    >Hi ! {{ userLoginInformation?.name | titlecase }}</span
+                  <span class="fw-bold text-meduim">
+                    {{ 'hello' | translate }}
+                    ! {{ userLoginInformation?.name | titlecase }}</span
                   >
                   <span class="m-2">{{ userLoginInformation?.lname }}</span>
                 </button>
