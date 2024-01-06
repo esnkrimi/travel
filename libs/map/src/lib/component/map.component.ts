@@ -200,7 +200,16 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
     if (JSON.parse(this.userSession)?.id) {
       if (this.currentPosition) {
         const sourceLocation = L.latLng(JSON.parse(this.currentPosition));
-        this.addMarker(sourceLocation, 'current', [60, 60]);
+        this.addMarker(
+          sourceLocation,
+          'current',
+          [80, 88],
+          0,
+          'https://burjcrown.com/drm/travel/users/profile/' +
+            JSON.parse(this.userSession)?.id +
+            '/1.jpg?id=' +
+            this.timeStamp()
+        );
         this.setting.toolsShow = false;
         if (!this.setting.routingActivated)
           this.getMultilanguagesMessages('destinationPoint');
@@ -347,7 +356,9 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
       zoomControl: false,
     });
     L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-      attribution: '© OpenStreetMap contributors',
+      attribution:
+        '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+      detectRetina: true,
     }).addTo(this.map);
     L.control
       .zoom({

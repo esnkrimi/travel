@@ -122,7 +122,6 @@ export class EntryComponent implements OnInit {
         : false;
     if (passEqual) {
       const signupInfo: IloginInfo = { ...this.formSubmit.value };
-      console.log(signupInfo);
       this.store.dispatch(actions.startSignupAction({ user: signupInfo }));
       this.store.dispatch(actions.startLoginAction({ user: signupInfo }));
       setTimeout(() => {

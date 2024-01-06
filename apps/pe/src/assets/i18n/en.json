@@ -83,5 +83,14 @@
 "name":"name",
 "lastName":"last name",
 "deletePost":"Delete Post",
-"confirmDeletePost":"Confirm! Delete this post?"
+"distanceFromYourLocation":"Distance From Your Location",
+"confirmDeletePost":"Confirm! Delete this post?",
+"connect":"Connect",
+"aboutMessageTitleA":"Where is here?",
+"aboutMessageTitleB":"How work it?",
+"aboutMessageTitleC":"Is it free to use ?",
+"aboutMessageA":" ",
+"aboutMessageB":"Users can introduce their jobs or others or the places they have recently seen on the site. For example, if you have used a hotel, you can register it and enter its advantages and disadvantages and rate them by inserting relevant pictures. Other users can choose this place and see you experimentally and if they have met there or have already hired those people for their respective work, express their opinion and rate them. As a result of these matters, other users can choose the jobs they need from the map according to their geographic location, taking into account the users' points.",
+"aboutMessageC":"Oooh yeah! Everything is free here. We have not set any usage restrictions for users.Users can introduce businesses and places unlimitedly and also use the places introduced by other users and use their experiences. ",
+"aboutMessageB-2":"You can also use other people's experiences to see the destination in order to have a safe trip. It is very important which hotel and accommodation you choose."
 }

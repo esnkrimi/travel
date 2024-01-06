@@ -108,7 +108,10 @@
           </div>
 
           <div *ngIf="type !== 'saved'">
-            <span>Distance from your location : </span>
+            <span>
+              {{ 'distanceFromYourLocation' | translate }}
+              :
+            </span>
             <span class="fw-bold text-capitalize">
               {{ l.distanceFromMyLocation | number : '2.1-3' }}
             </span>
