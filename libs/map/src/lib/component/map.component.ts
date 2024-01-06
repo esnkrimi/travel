@@ -226,14 +226,14 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
       waypoints: [sourceLocation, destinationLocation.latlng],
       routeLine: function (route) {
         const line = L.Routing.line(route, {
-          addWaypoints: false,
+          addWaypoints: true,
           extendToWaypoints: true,
           missingRouteTolerance: 1,
           styles: [{ color: 'rgb(223, 43, 61)', weight: 12, stroke: true }],
         });
         return line;
       },
-      routeWhileDragging: true,
+      routeWhileDragging: false,
     }).addTo(this.map);
   }
   activeCUrrentLocation() {
