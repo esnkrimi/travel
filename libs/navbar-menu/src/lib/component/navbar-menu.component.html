@@ -42,7 +42,11 @@
   *ngIf="boardShow === 'about'"
   class="transparent-bg animated-fadein text-center"
 >
-  <div class="inner w-50 bg-light m-4 p-4 relative">
+  <div class="inner w-50 about-contact-board bg-light m-4 p-4 relative">
+    <i
+      class="fa fa-close close-button-top-right cursor-pointer m-1 link"
+      (click)="boardShow = ''"
+    ></i>
     <h4 class="fw-bold text-left title">
       {{ 'aboutMessageTitleB' | translate }}
     </h4>
@@ -52,7 +56,7 @@
     <div>
       <img
         class="w-50"
-        src="https://www.thestreet.com/.image/ar_4:3%2Cc_fill%2Ccs_srgb%2Cfl_progressive%2Cq_auto:good%2Cw_1200/MTk3MjI3NTAyMDU2MjUyNDk5/international_travel_lead_jg041323.jpg"
+        src="https://redlakejobs.ca/wp-content/uploads/2020/10/employment.jpg"
       />
     </div>
     <p class="text-left content-message">
@@ -61,7 +65,7 @@
     <div>
       <img
         class="w-50"
-        src="https://redlakejobs.ca/wp-content/uploads/2020/10/employment.jpg"
+        src="https://www.thestreet.com/.image/ar_4:3%2Cc_fill%2Ccs_srgb%2Cfl_progressive%2Cq_auto:good%2Cw_1200/MTk3MjI3NTAyMDU2MjUyNDk5/international_travel_lead_jg041323.jpg"
       />
     </div>
     <h4 class="fw-bold text-left title mt-4">
@@ -92,7 +96,7 @@
 >
   <div class="inner w-50 bg-light m-4 p-4 relative text-left">
     <i
-      class="fa fa-close icon-close cursor-pointer m-1 link"
+      class="fa fa-close close-button-top-right cursor-pointer m-1 link"
       (click)="boardShow = ''"
     ></i>
     <p>

@@ -27,7 +27,7 @@
       </div>
 
       <div #mapContainer class="map-frame w-100 d-relative">
-        <div class="div-tools row w-100">
+        <div class="div-tools bg-light row w-100">
           <div class="shadow-lg col-md-6">
             <div
               class="w-50"
@@ -54,12 +54,12 @@
             </div>
           </div>
 
-          <div class="fl col-md-6 text-right gradient">
+          <div class="fl col-md-6 text-right bg-light">
             <button
               mat-stroked-button
               joyrideStep="mylocatioonTools"
               text="set your current location.It can be used later"
-              class="ml-1 text-light"
+              class="ml-1 text-dark fw-bold"
               [class.border-0]="!setting.currentLocationActivated"
               [class.border-active-btn]="setting.currentLocationActivated"
               (click)="activeCUrrentLocation()"
@@ -70,7 +70,7 @@
               mat-stroked-button
               joyrideStep="distanceTools"
               text="calculate distance between two point"
-              class="ml-1 text-light"
+              class="ml-1 text-dark fw-bold"
               [class.border-0]="!setting.distanceActivated"
               [class.border-active-btn]="setting.distanceActivated"
               (click)="activeDistanceMeter()"
@@ -81,7 +81,7 @@
               mat-stroked-button
               joyrideStep="routingTools"
               text="You can get direction to routing from your current location  to destination"
-              class="ml-1 text-light"
+              class="ml-1 text-dark fw-bold"
               [class.border-0]="!setting.routingActivated"
               [class.border-active-btn]="setting.routingActivated"
               (click)="activeRouting()"
@@ -115,8 +115,9 @@
         [country]="country"
         (selectedLocation)="selectedLocation($event)"
       ></pe-location-list>
+
       <i
-        class="fa fa-close icon-close link-darks fa-2x"
+        class="fa fa-close close-button-top-right link-darks fa-2x text-muted"
         (click)="openModalLocationList(false)"
       ></i>
     </div>
@@ -126,63 +127,43 @@
 <div *ngIf="setting.openModalLocationFlag" class="modal-absolute text-center">
   <div class="inner w-25 bg-light m-3">
     <div class="d-relative ml-2 pl-2 rounded-0 text-dark text-left">
-      <br />
-      <div class="ml-2 pl-2">
-        <span class="fw-bold text-capitalize">{{
+      <div class="headers w-100 text-right pr-3 opacity-75">
+        <span>
+          <i
+            class="fa fa-close cursor-pointer text-muted"
+            (click)="setting.openModalLocationFlag = false"
+          >
+          </i>
+        </span>
+      </div>
+      <div class="border-bottom text-blueblack p-2 m-1">
+        <span class="fw-bold text-capitalize text-large">{{
           locationForModal[0].title
         }}</span
         >&nbsp;
-        <span class="fw-bold text-capitalize">{{
+        <span class="fw-bold text-capitalize text-large">{{
           locationForModal[0].type
         }}</span>
       </div>
-      <div class="ml-2 pl-2 border-bottom w-90">
-        <div class="d-flex p-1">
-          <div class="p-1 border m-1">
-            <span class="sign">
-              {{ extractRate(locationForModal[0].avgRate)[0] }}
-            </span>
-            <span class="p-2">
-              <i class="fa fa-thumbs-up text-green"></i>
-            </span>
-          </div>
-          <div class="p-1 border m-1">
-            <span class="sign">
-              {{ extractRate(locationForModal[0].avgRate)[1] }}
-            </span>
-            <span class="p-2">
-              <i class="fa fa-thumbs-down text-danger"></i>
-            </span>
-          </div>
-        </div>
-      </div>
-      <div>
-        <span class="text-capitalize m-2 p-2">{{
-          locationForModal[0].district
-        }}</span>
-      </div>
-      <div>
-        <span class="text-capitalize m-2 p-2">{{
-          locationForModal[0].phone
-        }}</span>
-      </div>
+
       <div class="m-2 p-2">
-        <span>
+        <div class="p-2">
           <a
-            class="link-darks border p-2 m-2 fw-bold"
+            class="link-darks p-2 m-2"
             (click)="bindExistsLocation(locationForModal[0])"
           >
             {{ 'view' | translate }}
           </a>
-        </span>
-        <span>
+        </div>
+
+        <div class="p-2">
           <a
-            class="link-darks border p-2 m-2"
-            (click)="setting.openModalLocationFlag = false"
+            class="link-darks p-2 m-2"
+            (click)="getRouteHere(locationForModal[0])"
           >
-            {{ 'cancel' | translate }}
+            {{ 'directionHere' | translate }}
           </a>
-        </span>
+        </div>
       </div>
     </div>
   </div>

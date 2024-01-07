@@ -15,11 +15,10 @@ import {
 import { Router } from '@angular/router';
 import { LocationGeoService } from '@appBase/drawer.service';
 import { EntryService } from '@appBase/lazy/entry/entry.service';
-import { Iuser } from '@appBase/+state/state';
+import { IScope, Iuser } from '@appBase/+state/state';
 import { HeaderSetting, SettingService, settings } from '@appBase/setting';
 import { LocalService } from '@appBase/storage';
 import { MapService } from '../map/service';
-import { IScope } from '@appBase/model';
 
 @Component({
   selector: 'pe-header',

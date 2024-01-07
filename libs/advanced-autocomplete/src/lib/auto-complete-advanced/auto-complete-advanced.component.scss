@@ -22,6 +22,7 @@
 
 input{
   background-color: transparent !important;
-  border-bottom: solid 1px white !important ;
-  color: white !important;
+  border-bottom: solid 1px var(--COLOR-BLUEBLACK) !important ;
+  color: var(--COLOR-BLUEBLACK) !important;
+  width: 50% !important;
 }

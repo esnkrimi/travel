@@ -57,8 +57,8 @@
     </div>
     <ng-template #elseLogin>
       <div class="col-md-9 text-right flex-cell">
-        <div class="d-flex w-100">
-          <div class="w-50">
+        <div class="d-flex w-100 row-parent">
+          <div>
             <div class="w-100 flex-cell pl-2">
               <pe-search
                 class="w-100"
@@ -66,97 +66,97 @@
               ></pe-search>
             </div>
           </div>
-          <div class="w-50">
-            <div class="flex-50 w-100">
-              <div class="w-100 animated-fadein">
-                <button
-                  (click)="setting.menuShow = !setting.menuShow"
-                  mat-button
-                  class="bg-blueblack text-light"
+          <div>
+            <div class="w-100 animated-fadein text-right">
+              <button
+                (click)="setting.menuShow = !setting.menuShow"
+                mat-button
+                class="bg-blueblack text-light"
+              >
+                <mat-icon>arrow_drop_down</mat-icon>
+                <span class="fw-bold text-meduim">
+                  {{ 'hello' | translate }}
+                  ! {{ userLoginInformation?.name | titlecase }}</span
                 >
-                  <mat-icon>arrow_drop_down</mat-icon>
-                  <span class="fw-bold text-meduim">
-                    {{ 'hello' | translate }}
-                    ! {{ userLoginInformation?.name | titlecase }}</span
-                  >
-                  <span class="m-2">{{ userLoginInformation?.lname }}</span>
-                </button>
-                <div
-                  class="position-relative d-inline-block menu"
-                  *ngIf="setting.menuShow"
-                >
-                  <div class="position-absolute border">
-                    <div class="w-100 relative">
-                      <img
-                        class="profile-icon"
-                        [src]="
-                          'https://burjcrown.com/drm/travel/users/profile/' +
-                          userLoginInformation?.id +
-                          '/1.jpg'
-                        "
-                      />
-                      <div class="text-left fw-semibold banner-bottom p-2">
-                        {{ userLoginInformation?.email | titlecase }}
-                      </div>
-                      <hr />
+                <span *ngIf="userLoginInformation?.lname" class="m-2">{{
+                  userLoginInformation?.lname
+                }}</span>
+              </button>
+              <div
+                class="position-relative d-inline-block menu"
+                *ngIf="setting.menuShow"
+              >
+                <div class="position-absolute border">
+                  <div class="w-100 relative">
+                    <img
+                      class="profile-icon"
+                      [src]="
+                        'https://burjcrown.com/drm/travel/users/profile/' +
+                        userLoginInformation?.id +
+                        '/1.jpg'
+                      "
+                    />
+                    <div class="text-left fw-semibold banner-bottom p-2">
+                      {{ userLoginInformation?.email | titlecase }}
                     </div>
-
-                    <p (click)="routeHome()">
-                      <span>
-                        <i class="fa fa-home fa-2x" aria-hidden="true"></i>
-                      </span>
-                      <span>
-                        {{ 'home' | translate }}
-                      </span>
-                    </p>
-                    <p (click)="setting.menuShow = false">
-                      <span>
-                        <i class="fa fa-cog fa-2x" aria-hidden="true"></i>
-                      </span>
-                      <span
-                        (click)="setting.menuShow = false"
-                        [routerLink]="[
-                          { outlets: { secondRouter: 'lazy/setting' } }
-                        ]"
-                      >
-                        {{ 'settings' | translate }}
-                      </span>
-                    </p>
-                    <p (click)="savedLocations()">
-                      <span>
-                        <i class="fa fa-2x fa-gratipay" aria-hidden="true"></i>
-                      </span>
-                      <span>
-                        {{ 'savelocation' | translate }}
-                      </span>
-                    </p>
-                    <p (click)="sharedLocations()">
-                      <span>
-                        <i class="fa fa-2x fa-share-alt" aria-hidden="true"></i>
-                      </span>
-                      <span>
-                        {{ 'shared' | translate }}
-                      </span>
-                    </p>
-
-                    <p
-                      class="location-list"
-                      (click)="showLocationsOnMapComponent()"
-                    >
-                      <span>
-                        {{ 'locationList' | translate }}
-                      </span>
-                    </p>
-
-                    <p (click)="logout()">
-                      <span>
-                        <i class="fa fa-2x fa-sign-out" aria-hidden="true"></i>
-                      </span>
-                      <span>
-                        {{ 'logout' | translate }}
-                      </span>
-                    </p>
+                    <hr />
                   </div>
+
+                  <p (click)="routeHome()">
+                    <span>
+                      <i class="fa fa-home fa-2x" aria-hidden="true"></i>
+                    </span>
+                    <span>
+                      {{ 'home' | translate }}
+                    </span>
+                  </p>
+                  <p (click)="setting.menuShow = false">
+                    <span>
+                      <i class="fa fa-cog fa-2x" aria-hidden="true"></i>
+                    </span>
+                    <span
+                      (click)="setting.menuShow = false"
+                      [routerLink]="[
+                        { outlets: { secondRouter: 'lazy/setting' } }
+                      ]"
+                    >
+                      {{ 'settings' | translate }}
+                    </span>
+                  </p>
+                  <p (click)="savedLocations()">
+                    <span>
+                      <i class="fa fa-2x fa-gratipay" aria-hidden="true"></i>
+                    </span>
+                    <span>
+                      {{ 'savelocation' | translate }}
+                    </span>
+                  </p>
+                  <p (click)="sharedLocations()">
+                    <span>
+                      <i class="fa fa-2x fa-share-alt" aria-hidden="true"></i>
+                    </span>
+                    <span>
+                      {{ 'shared' | translate }}
+                    </span>
+                  </p>
+
+                  <p
+                    class="location-list"
+                    (click)="showLocationsOnMapComponent()"
+                  >
+                    <span>
+                      {{ 'locationList' | translate }}
+                    </span>
+                  </p>
+
+                  <p (click)="logout()">
+                    <span>
+                      <i class="fa fa-2x fa-sign-out" aria-hidden="true"></i>
+                    </span>
+                    <span>
+                      {{ 'logout' | translate }}
+                    </span>
+                  </p>
                 </div>
               </div>
             </div>

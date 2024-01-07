@@ -8,7 +8,7 @@ import {
 import { TranslateService } from '@ngx-translate/core';
 import { LocationGeoService } from './drawer.service';
 import { Router } from '@angular/router';
-import { Iuser } from '@appBase/+state/state';
+import { IScope, Iuser } from '@appBase/+state/state';
 import { EntryService } from './lazy/entry/entry.service';
 import { Store } from '@ngrx/store';
 import { MapService } from './master/map/service';
@@ -17,7 +17,6 @@ import { actions } from './+state/actions';
 import { MapApiService } from 'libs/map/src/lib/component/map.service';
 import { selectAllTrips, selectTripRequests } from './+state/select';
 import { MatDialog } from '@angular/material/dialog';
-import { IScope } from './model';
 
 @Component({
   selector: 'pe-root',

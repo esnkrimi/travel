@@ -15,7 +15,6 @@ import { UsersService } from '@appBase/lazy/users/users.service';
 import { ProfileSettingService } from '@appBase/lazy/setting/setting.service';
 import { AdvancedAutoCompleteService } from 'libs/advanced-autocomplete/src/lib/auto-complete-advanced/service';
 import { TripUserService } from '@appBase/lazy/users/trip-user.service';
-import { ILocationTypes, ILocationtype } from '@appBase/model';
 import { LocationListsService } from '@appBase/lazy/location-list/location-list.service';
 import { MapService } from '@appBase/master/map/service';
 

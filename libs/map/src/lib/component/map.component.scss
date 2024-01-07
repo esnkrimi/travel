@@ -32,12 +32,37 @@
 .my-markers{
     opacity: 0.2 !important;
 }
+@media only screen and (max-width: 1200px) {
+    ::ng-deep  .leaflet-routing-container  {
+        display: none !important;
+     }
+    .div-location div{
+        left:5% !important;
+        height: 100% !important;
+        width: 90% !important;
+    }
+    .gradient{
+        background-color: rgba(50, 51, 49, 0.6);
+        -webkit-backdrop-filter: blur(5px);
+        backdrop-filter: blur(5px); 
+    }
 
-@media (min-width:1400px) {
+    .modal-absolute>div{
+        width: 90% !important;
+        text-align: left;
+     }
+}
+@media (min-width:1200px) {
+    ::ng-deep  .leaflet-routing-container  {
+        position: fixed !important;
+        left:0px !important;
+     }
     .parent{
         width: 100%;
         height:1200px
     }
+
+  
 }
 .ride{
     position:fixed;
@@ -161,24 +186,6 @@ display: none !important;
     width: 50%;
 }
 
-@media only screen and (max-width: 1200px) {
-    .div-location div{
-        left:5% !important;
-        height: 100% !important;
-        width: 90% !important;
-    }
-    .gradient{
-        background-color: rgba(50, 51, 49, 0.6);
-        -webkit-backdrop-filter: blur(5px);
-        backdrop-filter: blur(5px); 
-    }
-
-    .modal-absolute>div{
-        width: 90% !important;
-        text-align: left;
-     }
-}
-
 
 .frame{
     left:0px;
@@ -187,18 +194,15 @@ display: none !important;
     background-color: var(--COLOR-GREEN);
     position: absolute;
 }
-
 .d-relative{
     position: relative !important;
 }
-
 ::ng-deep{
     .leaflet-marker-icon {
         border: solid 5px var(--COLOR-BLUEBLACK) !important;
         border-radius: 50% !important;
     }
 }
-
 .fixed-country{
     position: fixed;
     left: 4%;
@@ -214,7 +218,7 @@ display: none !important;
     color:var(--COLOR-RED)
   }
 .line{
-z-index: 600 !important;
+    z-index: 600 !important;
 }
 .leaflet-touch .leaflet-bar a {
     top: 10em !important;

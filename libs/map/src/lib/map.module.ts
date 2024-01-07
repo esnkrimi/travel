@@ -7,7 +7,6 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { JoyrideModule } from 'ngx-joyride';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { DistancePipe } from './component/pipe';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -17,6 +16,7 @@ import { RouterModule } from '@angular/router';
 import { AdvancedAutocompleteModule } from '@pe/advanced-autocomplete';
 import { LazyModule } from '@appBase/lazy/lazy.module';
 import { TranslateModule } from '@ngx-translate/core';
+import { DistancePipe } from '@appBase/pipe/distance-to-time.pipe';
 
 @NgModule({
   declarations: [MapBoardComponent, DistancePipe],

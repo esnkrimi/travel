@@ -42,7 +42,7 @@ export class LocationListComponent implements OnInit {
     locatinTypeList: [],
     selectedType: '',
     page: 0,
-    cityActive: '',
+    cityActive: 'New York',
     loadingProgress: false,
   };
   rates = ['0', '0', '0', '0', '0'];
@@ -172,6 +172,7 @@ export class LocationListComponent implements OnInit {
         )
       )
       .subscribe((res: any) => {
+        this.setting.locatinListFiltered = res;
         this.setting.locatinList = res;
         if (this.setting.rateFilter === 'Nearest')
           this.setting.locatinListFiltered = res.sort((a: any, b: any) => {
@@ -240,7 +241,7 @@ export class LocationListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.selectUser();
+    if (JSON.parse(this.userSession)?.id) this.selectUser();
     this.inputListener();
     setTimeout(() => {
       this.fetchLocations();

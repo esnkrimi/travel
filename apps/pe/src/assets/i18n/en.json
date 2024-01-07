@@ -3,12 +3,12 @@
 "menuHome": "Home",
 "menuLocationList": "Location List",
 "menuContact": "Contact Us",
-"menuAbout": "About Use",
+"menuAbout": "About Us",
 "myLocation": "My Location",
-"distanceMeter": "Distance Meter",
+"distanceMeter": "Distance",
 "routing": "Routing",
 "setYourCurrent": "set your current location",
-"current": "My current location",
+"current": "My location",
 "startPoint": "select start point on map",
 "destinationPoint": "select destination point on map",
 "selectLine": "select on purple line",
@@ -21,7 +21,7 @@
 "viewOnMap": "view on map",
 "locationType": "location type",
 "address": "address",
-"view": "view",
+"view": "View Details",
 "cancel": "cancel",
 "peapleInterrested": "People interrested in here",
 "uploadImages": "upload images",
@@ -92,5 +92,6 @@
 "aboutMessageA":" ",
 "aboutMessageB":"Users can introduce their jobs or others or the places they have recently seen on the site. For example, if you have used a hotel, you can register it and enter its advantages and disadvantages and rate them by inserting relevant pictures. Other users can choose this place and see you experimentally and if they have met there or have already hired those people for their respective work, express their opinion and rate them. As a result of these matters, other users can choose the jobs they need from the map according to their geographic location, taking into account the users' points.",
 "aboutMessageC":"Oooh yeah! Everything is free here. We have not set any usage restrictions for users.Users can introduce businesses and places unlimitedly and also use the places introduced by other users and use their experiences. ",
-"aboutMessageB-2":"You can also use other people's experiences to see the destination in order to have a safe trip. It is very important which hotel and accommodation you choose."
+"aboutMessageB-2":"You can also use other people's experiences to see the destination in order to have a safe trip. It is very important which hotel and accommodation you choose.",
+"directionHere":"Route Here"
 }

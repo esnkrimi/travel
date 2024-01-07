@@ -1,6 +1,5 @@
 import {
   IAllTrips,
-  ILocationInTrip,
   ITrip,
   ITripUsers,
   Ilocation,
@@ -8,7 +7,7 @@ import {
   Iuser,
   IuserOfSite,
 } from '@appBase/+state/state';
-import { ILocationTypes } from '@appBase/model';
+import { ILocationTypes } from '@appBase/+state/state';
 import { createActionGroup, props, emptyProps } from '@ngrx/store';
 export const actions = createActionGroup({
   source: 'store',

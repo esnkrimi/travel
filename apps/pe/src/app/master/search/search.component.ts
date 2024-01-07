@@ -1,7 +1,8 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { LocationGeoService } from '@appBase/drawer.service';
-import { ILocation, IScope } from '@appBase/model';
+import { ILocation, IScope } from '@appBase/+state/state';
+
 import { SettingService } from '@appBase/setting';
 import { TranslateService } from '@ngx-translate/core';
 

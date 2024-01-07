@@ -27,13 +27,18 @@
     *ngIf="setting && setting.openModalLocationRoute"
     class="modal-absolute w-100 text-center"
   >
-    <div class="inner w-100 text-left">
+    <div class="inner w-100 bg-white text-left">
       <div class="relative">
+        <div class="headers w-100 text-right p-2">
+          <span>
+            <i
+              class="fa fa-close fa-2x cursor-pointer text-muted opacity-25"
+              (click)="setting.openModalLocationRoute = false"
+            >
+            </i>
+          </span>
+        </div>
         <router-outlet></router-outlet>
-        <i
-          class="fa fa-close fa-2x close-button-top-right"
-          (click)="setting.openModalLocationRoute = false"
-        ></i>
       </div>
     </div>
   </div>

@@ -1,6 +1,96 @@
-export interface ILocationTypes {
+export interface state {
+  autoCompleteFind: IAutoCompleteFind[];
+  locationComments: IlocationComments[];
+  tripUsers: ITripUsers[];
+  userRates: IUsersRates[];
+  tripRequests: ITripRequests[];
+  myTripRequests: IMyTripRequests[];
+  allTrips: IAllTrips[];
+  trip: ITrip[];
+  reviewtrip: ITrip[];
+  location: Ilocation[];
+  sharedLocation: ISharedLocation[];
+  savedLocation: Ilocation[];
+  user: Iuser;
+  usersOfSite: IuserOfSite[];
+  loginInfo: IloginInfo;
+  setview: ISetview;
+  tripComments: ITripComments[];
+  iLocationTypes: ILocationTypes[];
+}
+
+export const AppState: state = {
+  iLocationTypes: [],
+  trip: [],
+  reviewtrip: [],
+  location: [],
+  user: {
+    id: '',
+    name: '',
+    lname: '',
+    email: '',
+    mobile: '',
+    password: '',
+  },
+  loginInfo: {
+    email: 'emails',
+    password: 'passwords',
+  },
+  setview: {
+    country_code: '',
+    country_id: '',
+    country_name: '',
+    id: 0,
+    latitude: '',
+    longitude: '',
+    name: '',
+    state_code: '',
+    state_id: 0,
+    state_name: '',
+    wikiDataId: '',
+  },
+  usersOfSite: [],
+  allTrips: [],
+  tripRequests: [],
+  tripUsers: [],
+  myTripRequests: [],
+  locationComments: [],
+  autoCompleteFind: [],
+  userRates: [],
+  tripComments: [],
+  sharedLocation: [],
+  savedLocation: [],
+};
+
+export interface ILocationtype {
   type: string;
 }
+
+export interface ILocationTypes {
+  type: ILocationtype[];
+}
+
+export interface IScope {
+  center: any;
+  city: string;
+  country: string;
+  state: string;
+}
+
+export interface ILocation {
+  country_name: string;
+  id: number;
+  latitude: string;
+  longitude: string;
+  name: string;
+  state_name: string;
+}
+
+export interface ILogin {
+  email: string;
+  password: string;
+}
+
 export interface ILocationInTrip {
   lat: string;
   lon: string;
@@ -139,70 +229,6 @@ export interface IlocationComments {
   time: string;
   userid: string;
 }
-
-export interface state {
-  autoCompleteFind: IAutoCompleteFind[];
-  locationComments: IlocationComments[];
-  tripUsers: ITripUsers[];
-  userRates: IUsersRates[];
-  tripRequests: ITripRequests[];
-  myTripRequests: IMyTripRequests[];
-  allTrips: IAllTrips[];
-  trip: ITrip[];
-  reviewtrip: ITrip[];
-  location: Ilocation[];
-  sharedLocation: ISharedLocation[];
-  savedLocation: Ilocation[];
-  user: Iuser;
-  usersOfSite: IuserOfSite[];
-  loginInfo: IloginInfo;
-  setview: ISetview;
-  tripComments: ITripComments[];
-  iLocationTypes: ILocationTypes[];
-}
-
-export const AppState: state = {
-  iLocationTypes: [],
-  trip: [],
-  reviewtrip: [],
-  location: [],
-  user: {
-    id: '',
-    name: '',
-    lname: '',
-    email: '',
-    mobile: '',
-    password: '',
-  },
-  loginInfo: {
-    email: 'emails',
-    password: 'passwords',
-  },
-  setview: {
-    country_code: '',
-    country_id: '',
-    country_name: '',
-    id: 0,
-    latitude: '',
-    longitude: '',
-    name: '',
-    state_code: '',
-    state_id: 0,
-    state_name: '',
-    wikiDataId: '',
-  },
-  usersOfSite: [],
-  allTrips: [],
-  tripRequests: [],
-  tripUsers: [],
-  myTripRequests: [],
-  locationComments: [],
-  autoCompleteFind: [],
-  userRates: [],
-  tripComments: [],
-  sharedLocation: [],
-  savedLocation: [],
-};
 
 export interface IuserOfSite {
   id: string;

@@ -18,7 +18,7 @@ import { Store } from '@ngrx/store';
 import { actions } from '@appBase/+state/actions';
 import { selectLocation, selectUsersOfSite } from '@appBase/+state/select';
 import { JoyrideService } from 'ngx-joyride';
-import { DistancePipe } from './pipe';
+import { DistancePipe } from '@appBase/pipe/distance-to-time.pipe';
 import { HelpService } from 'libs/help/src/lib/component/help.service';
 import { MapDetailsSetting } from '@appBase/setting';
 
@@ -35,6 +35,8 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
   currentPosition: any;
+  colorOfRoute = ['#99d60a', '#6295f3', '#ffbc0d', '#0d3d50'];
+  colorOfRouteIndex = 0;
   setting: MapDetailsSetting = {
     openModalLocationListFlag: false,
     openModalLocationFlag: false,
@@ -229,6 +231,9 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
     this.getMultilanguagesMessages('setCurrentLocationAlert');
   }
   routing(destinationLocation: any) {
+    this.colorOfRouteIndex =
+      this.colorOfRouteIndex + 1 < 4 ? this.colorOfRouteIndex + 1 : 0;
+    const colorOfRoute = this.colorOfRoute[this.colorOfRouteIndex];
     const sourceLocation = L.latLng(JSON.parse(this.currentPosition));
     L.Routing.control({
       showAlternatives: false,
@@ -238,22 +243,42 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
           addWaypoints: true,
           extendToWaypoints: true,
           missingRouteTolerance: 1,
-          styles: [{ color: 'rgb(223, 43, 61)', weight: 12, stroke: true }],
+          styles: [{ color: colorOfRoute, weight: 12, stroke: true }],
         });
         return line;
       },
       routeWhileDragging: false,
     }).addTo(this.map);
   }
+  routingDirectLatlng(destinationLocation: any) {
+    const sourceLocation = L.latLng(JSON.parse(this.currentPosition));
+    L.Routing.control({
+      showAlternatives: false,
+      waypoints: [sourceLocation, destinationLocation],
+      routeLine: function (route) {
+        const line = L.Routing.line(route, {
+          addWaypoints: true,
+          extendToWaypoints: true,
+          missingRouteTolerance: 1,
+          styles: [{ color: '#99d60a', weight: 12, stroke: true }],
+        });
+        return line;
+      },
+      routeWhileDragging: false,
+    }).addTo(this.map);
+  }
+
   activeCUrrentLocation() {
-    this.setting.routingActivated = false;
-    this.setting.toolsShow = false;
-    if (!this.setting.currentLocationActivated)
-      this.getMultilanguagesMessages('setYourCurrent');
-    else this.helpService.messageWrite('');
-    this.setting.distanceActivated = false;
-    this.setting.currentLocationActivated =
-      !this.setting.currentLocationActivated;
+    if (JSON.parse(this.userSession)?.id) {
+      this.setting.routingActivated = false;
+      this.setting.toolsShow = false;
+      if (!this.setting.currentLocationActivated)
+        this.getMultilanguagesMessages('setYourCurrent');
+      else this.helpService.messageWrite('');
+      this.setting.distanceActivated = false;
+      this.setting.currentLocationActivated =
+        !this.setting.currentLocationActivated;
+    } else this.router.navigate([{ outlets: { secondRouter: 'lazy/login' } }]);
   }
 
   cancelTools() {
@@ -315,7 +340,11 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
     });
     this.listener(true);
   }
-
+  getRouteHere(t: any) {
+    const tmp = L.latLng(t.lat, t.lon);
+    this.setting.openModalLocationFlag = false;
+    this.routingDirectLatlng(tmp);
+  }
   clickOnMap() {
     this.map.on('click', (e: any) => {
       if (this.setting.routingActivated) this.routing(e);
@@ -342,7 +371,7 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   async changeCenter() {
-    this.positionView = await this.map?.setView(this.center, 16);
+    this.positionView = await this.map?.setView(this.center, 22);
   }
 
   listener(changedCity: boolean) {

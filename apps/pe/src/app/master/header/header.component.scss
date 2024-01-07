@@ -29,6 +29,9 @@
        text-align: right; 
     }
 }
+.row-parent>div{
+    flex-basis: 50%;
+}
 span{
     cursor: pointer;
     vertical-align: middle;

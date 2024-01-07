@@ -7,8 +7,8 @@ import {
   Output,
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { IScope } from '@appBase/+state/state';
 import { MapSetting } from '@appBase/setting';
-import { IScope } from '@appBase/model';
 
 @Component({
   selector: 'pe-map-component',

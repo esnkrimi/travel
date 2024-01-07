@@ -25,7 +25,7 @@
 
 <ng-template #showLocationInformation>
   <div class="text-left p-3 w-100">
-    <div class="bg-light inner w-100">
+    <div class="bg-white inner w-100">
       <div class="p-2" *ngIf="!existLocation; else ExistsLocation">
         <form
           class="m-4"
@@ -229,50 +229,55 @@
                 {{ fetchFormInputValue('type') | titlecase }}
               </span>
             </div>
-            <div class="flex-cell">
-              <span class="p-1">
-                <mat-icon
-                  (click)="saved()"
-                  class="cursor-pointer"
-                  [class.selected]="result.saved"
-                >
-                  favorite
-                </mat-icon>
-              </span>
-              <span class="sign p-1">
-                <i
-                  class="cursor-pointer fa fa-2x fa-share-alt"
-                  (click)="setting.userListShow = true"
-                >
-                </i>
-              </span>
-              <span
-                *ngIf="!confirmDelete && ownerPermission"
-                (click)="confirmDelete = !confirmDelete"
-                class="p-2"
-              >
-                <button class="bg-light" mat-stroked-button>
-                  {{ 'deletePost' | translate }}
-                </button>
-              </span>
-              <span
-                *ngIf="confirmDelete && ownerPermission"
-                (click)="confirmDelete = !confirmDelete"
-                class="p-2"
-              >
-                <button class="bg-light" mat-stroked-button>
-                  {{ 'cancel' | translate }}
-                </button>
-              </span>
-              <span
-                *ngIf="confirmDelete && ownerPermission"
-                (click)="deleteLocation()"
-                class="p-2"
-              >
-                <button class="text-light bg-danger" mat-stroked-button>
-                  {{ 'confirmDeletePost' | translate }}
-                </button>
-              </span>
+            <div class="flex-cell w-100">
+              <div class="d-flex w-100">
+                <div style="flex-basis: 50%">
+                  <span class="sign p-1">
+                    <i
+                      [class.selected]="result.saved"
+                      class="cursor-pointer fa fa-2x fa-heart"
+                      (click)="saved()"
+                    >
+                    </i>
+                  </span>
+                  <span class="sign p-1">
+                    <i
+                      class="cursor-pointer fa fa-2x fa-share-alt"
+                      (click)="setting.userListShow = true"
+                    >
+                    </i>
+                  </span>
+                </div>
+                <div style="flex-basis: 50%" class="text-right">
+                  <span
+                    *ngIf="!confirmDelete && ownerPermission"
+                    (click)="confirmDelete = !confirmDelete"
+                    class="p-2"
+                  >
+                    <button class="bg-light" mat-stroked-button>
+                      {{ 'deletePost' | translate }}
+                    </button>
+                  </span>
+                  <span
+                    *ngIf="confirmDelete && ownerPermission"
+                    (click)="confirmDelete = !confirmDelete"
+                    class="p-2"
+                  >
+                    <button class="bg-light" mat-stroked-button>
+                      {{ 'cancel' | translate }}
+                    </button>
+                  </span>
+                  <span
+                    *ngIf="confirmDelete && ownerPermission"
+                    (click)="deleteLocation()"
+                    class="p-2"
+                  >
+                    <button class="text-light bg-danger" mat-stroked-button>
+                      {{ 'confirmDeletePost' | translate }}
+                    </button>
+                  </span>
+                </div>
+              </div>
             </div>
             <div *ngIf="setting.userListShow">
               <pe-autocomplete-public
