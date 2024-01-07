@@ -102,6 +102,25 @@ body{
    position: absolute;
    animation: animate-cross 0.3s forwards;
 }
+
+.animated-cross-inverse{
+   position: absolute;
+   animation: animate-cross-inverse 0.3s forwards;
+}
+.animated-fadein{
+   animation: animate-fadein 1s forwards;
+}
+
+.animated-display {
+   animation: animate-display  0.6s forwards;
+}
+.animated-height-zero-to-complete {
+   animation: animate-height-zero-to-complete  2s forwards;
+}
+
+.animated-rotate{
+   animation: animated-rotate 0.5s forwards;
+}
 @keyframes animate-cross {
    0%{
        top:-2000px
@@ -110,11 +129,6 @@ body{
    100%{
       top:0px;
    }
-}
-
-.animated-cross-inverse{
-   position: absolute;
-   animation: animate-cross-inverse 0.3s forwards;
 }
 @keyframes animate-cross-inverse {
    0%{
@@ -125,9 +139,6 @@ body{
       top:0px;
    }
 }
-.animated-fadein{
-   animation: animate-fadein 1s forwards;
-}
 @keyframes animate-fadein {
    0%{
        opacity: 0;
@@ -136,9 +147,7 @@ body{
       opacity: 1;
    }
 }
-.animated-display {
-   animation: animate-display  0.6s forwards;
-}
+
 @keyframes animate-display {
    0%{
       opacity: 1;
@@ -149,9 +158,7 @@ body{
      visibility: hidden;
   }
 }
-.animated-height-zero-to-complete {
-   animation: animate-height-zero-to-complete  2s forwards;
-}
+
 @keyframes animate-height-zero-to-complete {
    0%{
       height: 5px;   
@@ -159,9 +166,6 @@ body{
    100%{
       height: 0;
    }
-}
-.animated-rotate{
-   animation: animated-rotate 0.5s forwards;
 }
 @keyframes animated-rotate {
    0%{
@@ -172,9 +176,7 @@ body{
        transform: rotate(720deg);
    }
 }
-.animatedscale{
-   animation: animated-scale 0.5s forwards;
-}
+
 @keyframes animated-scale {
    0%{
        transform: scale(0.2)
@@ -187,12 +189,6 @@ body{
        transform: scale(1)
    }
 }
-.text-left{
-   text-align: left;
-}
-.relative{
-   position: relative !important;
-}
 @keyframes clicked {
    0%{
        transform: rotateY(0deg);
@@ -201,6 +197,16 @@ body{
        transform: rotateY(180deg);
    } 
 }
+.animatedscale{
+   animation: animated-scale 0.5s forwards;
+}
+.text-left{
+   text-align: left;
+}
+.relative{
+   position: relative !important;
+}
+
  .close-div{
    position: absolute;
    right: 1%;

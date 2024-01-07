@@ -52,13 +52,13 @@
 }
 @keyframes skip {
   0%{
-    rigth:0
+    right: 0;
   }
   50%{
-    left:-100px
+    left: -100px;
   }
   100%{
-    left:5000px
+    left: 5000px;
   }
 }
 

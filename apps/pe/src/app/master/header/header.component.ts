@@ -9,6 +9,7 @@ import {
   Component,
   EventEmitter,
   HostListener,
+  Inject,
   OnInit,
   Output,
 } from '@angular/core';
@@ -19,6 +20,7 @@ import { IScope, Iuser } from '@appBase/+state/state';
 import { HeaderSetting, SettingService, settings } from '@appBase/setting';
 import { LocalService } from '@appBase/storage';
 import { MapService } from '../map/service';
+import { DOCUMENT } from '@angular/common';
 
 @Component({
   selector: 'pe-header',
@@ -60,6 +62,7 @@ export class HeaderComponent implements OnInit {
     password: '',
   };
   constructor(
+    @Inject(DOCUMENT) private document: Document,
     private drawerService: LocationGeoService,
     private entryService: EntryService,
     private progresService: MapService,
@@ -100,12 +103,38 @@ export class HeaderComponent implements OnInit {
   timeStamp() {
     return new Date().getTime() + 1;
   }
+  changeCssFile(language: string) {
+    const headTag = this.document.getElementsByTagName(
+      'head'
+    )[0] as HTMLHeadElement;
+    const existingLink = this.document.getElementById(
+      'langCss'
+    ) as HTMLLinkElement;
+    const bundleName =
+      language === 'ar' || language === 'fa'
+        ? 'arabicStyle.css'
+        : 'englishStyle.css';
+    if (existingLink) {
+      existingLink.href = bundleName;
+    } else {
+      const newLink = this.document.createElement('link');
+      newLink.rel = 'stylesheet';
+      newLink.type = 'text/css';
+      newLink.id = 'langCss';
+      newLink.href = bundleName;
+      headTag.appendChild(newLink);
+    }
+  }
+
   changeLanguage(language: string) {
+    this.changeCssFile(language);
+
     this.setting.animationFlag =
       this.setting.animationFlag === 'true' ? 'false' : 'true';
     this.mapServicePrivate.loadingProgress.next(true);
     this.settingService.language.next(language.toLowerCase());
     this.languageIndex = this.languageIndex >= 4 ? 0 : this.languageIndex + 1;
+
     setTimeout(() => {
       this.mapServicePrivate.loadingProgress.next(false);
     }, 2000);

@@ -1,6 +1,7 @@
 import {
   Component,
   EventEmitter,
+  Inject,
   Input,
   OnChanges,
   OnInit,
@@ -8,7 +9,9 @@ import {
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { IScope } from '@appBase/+state/state';
+import { LocationGeoService } from '@appBase/drawer.service';
 import { MapSetting } from '@appBase/setting';
+import { MapService } from './service';
 
 @Component({
   selector: 'pe-map-component',
@@ -29,9 +32,15 @@ export class MapComponent implements OnChanges, OnInit {
     showMap: true,
   };
 
-  constructor(private route: ActivatedRoute) {}
+  constructor(
+    @Inject('userSession') public userSession: any,
+    private route: ActivatedRoute,
+    private mapService: MapService,
+    private geoService: LocationGeoService
+  ) {}
   ngOnInit(): void {
     this.getRoutePath();
+    this.fetchLocationByIpAddress('2.182.31.147');
   }
   formTripShowAction(e: any) {
     this.setting.formTripShow = e;
@@ -52,7 +61,19 @@ export class MapComponent implements OnChanges, OnInit {
       this.setting.state = this.scope.state;
     }
   }
-
+  fetchLocationByIpAddress(ipAddress: string) {
+    this.mapService.loadingProgress.next(true);
+    if (!JSON.parse(this.userSession)?.id)
+      this.geoService
+        .fetchLocationByIpAddress(ipAddress)
+        .subscribe((res: any) => {
+          this.setting.center = [res?.latitude, res?.longitude];
+          this.setting.country = res?.country_name;
+          this.setting.city = res?.city_name;
+          this.setting.state = res?.region_name;
+          this.mapService.loadingProgress.next(false);
+        });
+  }
   zoomActivatorFunction(event: boolean) {
     this.zoomActivator.emit(event);
   }

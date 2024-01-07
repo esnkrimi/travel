@@ -1,7 +1,11 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, map } from 'rxjs';
 import { Ilocation, location } from '@appBase/+state/state';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpClientModule,
+  HttpHeaders,
+} from '@angular/common/http';
 
 @Injectable({ providedIn: 'root' })
 export class LocationGeoService {
@@ -27,16 +31,11 @@ export class LocationGeoService {
     web: 'www.berlin.com',
     describe: '',
     type: 'Night Club',
-    submit: function (): void {
-      //
-    },
+    submit: function (): void {},
     search: function (): object {
       return new Object();
-      //
     },
-    vote: function (): void {
-      //
-    },
+    vote: function (): void {},
     browse: function (): object {
       return new Object();
     },
@@ -55,5 +54,10 @@ export class LocationGeoService {
       str =
         this.urlGetLocation + 'lat=' + lat + '&lon=' + lon + this.urlPostfix;
     return this.http.get(str).pipe(map((res: any) => res.results[0]));
+  }
+
+  fetchLocationByIpAddress(ipAddress: string) {
+    const url = `https://burjcrown.com/drm/travel/index.php?id=51&ip=${ipAddress}`;
+    return this.http.get(url);
   }
 }

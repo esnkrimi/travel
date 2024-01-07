@@ -67,7 +67,7 @@ export class AppComponent implements OnInit {
     this.store.dispatch(actions.startFetchUsersOfSites());
   }
   zoomActivatorFunction() {
-    this.openDialog();
+    this.openDialoge();
   }
 
   fetchTrip() {
@@ -200,7 +200,7 @@ export class AppComponent implements OnInit {
   resultOutputs(e: IScope) {
     this.scope = e;
   }
-  openDialog() {
+  openDialoge() {
     this.setting.openModalLocationRoute = true;
   }
 

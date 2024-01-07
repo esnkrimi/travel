@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { AppComponent } from './app.component';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
@@ -33,12 +32,9 @@ import {
   GoogleLoginProvider,
 } from '@abacritt/angularx-social-login';
 import { HelpModule } from '@pe/help';
-import { MatFormFieldControl } from '@angular/material/form-field';
 
 export function debug(reducer: ActionReducer<any>): ActionReducer<any> {
   return function (state: any, action: any) {
-    //  ('state', state);
-    //  ('action', action);
     return reducer(state, action);
   };
 }
