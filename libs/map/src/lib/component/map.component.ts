@@ -251,7 +251,6 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
           missingRouteTolerance: 1,
           styles: [{ color: colorOfRoute, weight: 12, stroke: true }],
         });
-        le.log(line._route.summary.totalDistance);
         if (line._route.summary.totalDistance > 500000) map?.setView(center, 5);
         else if (line._route.summary.totalDistance > 50000)
           map?.setView(center, 10);
