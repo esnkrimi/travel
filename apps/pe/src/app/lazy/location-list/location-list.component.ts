@@ -131,7 +131,6 @@ export class LocationListComponent implements OnInit {
       .subscribe((res: any) => {
         this.setting.loadingProgress = false;
         this.setting.locatinList = res;
-        console.log(res);
         this.setting.locatinListFiltered = res;
       });
   }
