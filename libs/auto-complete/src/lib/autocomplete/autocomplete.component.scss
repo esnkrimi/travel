@@ -14,9 +14,9 @@
 }
 input{
   border: none !important;
-  outline: none;
+  outline: solid 2px var(--COLOR-GOLD);
   border-radius: 2px;
-  width: 100% !important;
+  width: 80% !important;
   height: 2.5em !important;
   text-transform: capitalize;
   text-indent: 1em;

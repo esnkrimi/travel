@@ -128,6 +128,13 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
 
   setViewMylocation() {
     this.changeCenter(22);
+    this.addMarker(
+      this.center,
+      'current',
+      [44, 44],
+      0,
+      'https://cdn-icons-png.flaticon.com/512/4860/4860667.png'
+    );
   }
 
   submitedForm(e: any) {

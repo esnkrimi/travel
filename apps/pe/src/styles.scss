@@ -11,7 +11,7 @@
     --COLOR-LIGHT: #ffffff;
     --COLOR-CREAM: #eceaea;
     --COLOR-BLUE: #6295f3;
-    --COLOR-GOLD: #ffcf77;
+    --COLOR-GOLD: #f0bb58;
     --COLOR-DARK-ORANGE: #fc9611;
     --COLOR-ORANGE: #fdb42a;
     --BG-LOGIN:'https://topedu.vercel.app/assets/images/login1.png';
@@ -264,7 +264,14 @@ body{
 .link:hover{
    color: var(--COLOR-GREEN); 
 }
-
+.link-gold{
+   color: var(--COLOR-DARK); 
+   transition: 1s !important;
+}
+.link-gold:hover{
+   color: var(--COLOR-GOLD); 
+   background-color:var(--COLOR-LIGHT) !important; 
+}
 .link-darks{
    cursor: pointer;
    text-decoration: none;
