@@ -158,8 +158,9 @@ export class ZoomComponent implements AfterViewInit {
     });
   }
   changeLocatioType(type: string) {
-    this.locationTypeAutocompleteDataFiltered = [];
     this.form.get('type')?.setValue(type);
+    this.locationTypeAutocompleteDataFiltered.length = 0;
+    this.locationTypeAutocompleteDataFiltered = [];
   }
   selectLocationTypes() {
     this.store.select(selectILocationTypes).subscribe((res) => {

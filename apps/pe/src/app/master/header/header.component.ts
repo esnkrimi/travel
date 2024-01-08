@@ -64,6 +64,7 @@ export class HeaderComponent implements OnInit {
   };
   constructor(
     @Inject(DOCUMENT) private document: Document,
+    @Inject('deviceIsWide') public deviceIsWide: any,
     private drawerService: LocationGeoService,
     private entryService: EntryService,
     private progresService: MapService,
@@ -89,6 +90,7 @@ export class HeaderComponent implements OnInit {
     }, 1000);
   }
   ngOnInit(): void {
+    this.setting.shearchShow = this.deviceIsWide;
     this.fetchUser();
   }
   getShowLocationState(type: string) {

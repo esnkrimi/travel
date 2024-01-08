@@ -130,7 +130,7 @@
                       <div class="row d-flex flex-nowrap">
                         <div
                           style="flex-basis: 45%"
-                          class="text-left"
+                          class="text-left text-capitalize fw-bold"
                           (click)="changeLocatioType(item.type)"
                           *ngIf="item.type !== 'null'"
                         >
@@ -243,7 +243,7 @@
                   <span class="sign p-1">
                     <i
                       class="cursor-pointer fa fa-2x fa-share-alt"
-                      (click)="setting.userListShow = true"
+                      (click)="setting.userListShow = !setting.userListShow"
                     >
                     </i>
                   </span>

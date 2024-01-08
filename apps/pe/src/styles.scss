@@ -524,3 +524,11 @@ textarea{
 .pr-3{
    padding-right: 1% !important;
 }
+
+
+@media only screen and (min-width: 1200px) {
+   .pc-hide{
+       display: none;
+   }
+ 
+}

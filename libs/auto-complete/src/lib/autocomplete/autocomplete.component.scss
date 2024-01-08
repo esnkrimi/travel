@@ -13,11 +13,12 @@
   line-height: 2.2em;
 }
 input{
-  border: none !important;
-  outline: solid 2px var(--COLOR-GOLD);
-  border-radius: 2px;
-  width: 80% !important;
-  height: 2.5em !important;
+  outline: none !important;
+  border: solid 4px var(--COLOR-BLUEBLACK);
+  border-radius: 30px;
+  width: 100% !important;
+  height: 4em !important;
+  margin: 0.3em;
   text-transform: capitalize;
   text-indent: 1em;
 }

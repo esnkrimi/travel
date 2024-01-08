@@ -51,6 +51,9 @@
         width: 90% !important;
         text-align: left;
      }
+     .div-tools{
+        width: 45vw !important;
+     }
 }
 @media (min-width:1200px) {
     ::ng-deep  .leaflet-routing-container  {
@@ -278,8 +281,8 @@ display: none !important;
     top:0;
  }
  .div-tools{
+    width: 25vw;
     margin: 0.5em;
-    width: 100%;
     background-color: #fff !important;
     position: absolute;
     left:0;
@@ -296,7 +299,7 @@ display: none !important;
  }
 
  .tools-pane{
-    width: fit-content;
+    width: fit-content !important;
     border-radius: 0.5em;
     margin: 0.2em;
     padding: 0.8em 1.2em 0.8em 1.2em ;

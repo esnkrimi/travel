@@ -120,7 +120,6 @@ span{
     left:0;
     animation:appear-from-top .85s forwards;
 }
-
 @keyframes appear-from-top {
         0%{
             top:-200px;
@@ -129,7 +128,6 @@ span{
             top:0px;
         }
 }
-
 .profile-icon{
     position: relative;
     z-index: 999999 !important;
@@ -140,11 +138,8 @@ span{
 .rounded-1{
     border-radius: 15px !important;
 }
-
 .pl-2{
     padding-bottom: 0.5em !important;
-}
-.search-frame{
 }
 .bg-gold{
     background-color: var(--COLOR-GOLD);
