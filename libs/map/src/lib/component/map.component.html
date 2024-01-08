@@ -26,11 +26,29 @@
         </div>
       </div>
 
-      <div #mapContainer class="map-frame w-100 d-relative">
-        <div class="div-tools bg-light row w-100">
-          <div class="shadow-lg col-md-6">
+      <div #mapContainer class="map-framed-relative">
+        <div class="my-position-button" (click)="setViewMylocation()">
+          <img
+            src="https://cdn.icon-icons.com/icons2/1875/PNG/512/mylocation_120247.png"
+            class="img-icon"
+          />
+        </div>
+        <div
+          *ngIf="!setting.toolsShow"
+          class="tools-pane text-left div-tools"
+          (click)="setting.toolsShow = !setting.toolsShow"
+        >
+          <i class="fa fa-wrench fa-2x"></i>
+        </div>
+        <div *ngIf="setting.toolsShow" class="w-25 text-left div-tools">
+          <div>
+            <i
+              (click)="setting.toolsShow = !setting.toolsShow"
+              class="fa fa-close close-button-top-right"
+            ></i>
+          </div>
+          <div class="p-2">
             <div
-              class="w-50"
               joyrideStep="typeChange"
               text="change location type, eg. Hotel"
             >
@@ -53,35 +71,38 @@
               </button>
             </div>
           </div>
-
-          <div class="fl col-md-6 text-right bg-light">
+          <div>
             <button
               mat-stroked-button
               joyrideStep="mylocatioonTools"
               text="set your current location.It can be used later"
-              class="ml-1 text-dark fw-bold"
+              class="text-dark"
               [class.border-0]="!setting.currentLocationActivated"
               [class.border-active-btn]="setting.currentLocationActivated"
               (click)="activeCUrrentLocation()"
             >
               {{ 'current' | translate }}
             </button>
+          </div>
+          <div>
             <button
               mat-stroked-button
               joyrideStep="distanceTools"
               text="calculate distance between two point"
-              class="ml-1 text-dark fw-bold"
+              class="text-dark"
               [class.border-0]="!setting.distanceActivated"
               [class.border-active-btn]="setting.distanceActivated"
               (click)="activeDistanceMeter()"
             >
               {{ 'distanceMeter' | translate }}
             </button>
+          </div>
+          <div>
             <button
               mat-stroked-button
               joyrideStep="routingTools"
               text="You can get direction to routing from your current location  to destination"
-              class="ml-1 text-dark fw-bold"
+              class="text-dark"
               [class.border-0]="!setting.routingActivated"
               [class.border-active-btn]="setting.routingActivated"
               (click)="activeRouting()"

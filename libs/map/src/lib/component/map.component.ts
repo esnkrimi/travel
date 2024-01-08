@@ -126,6 +126,10 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
     });
   }
 
+  setViewMylocation() {
+    this.changeCenter(22);
+  }
+
   submitedForm(e: any) {
     this.setting.selectLocationActivated = e.selectLocationActivated;
     this.title = e.title;
@@ -235,16 +239,22 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
       this.colorOfRouteIndex + 1 < 4 ? this.colorOfRouteIndex + 1 : 0;
     const colorOfRoute = this.colorOfRoute[this.colorOfRouteIndex];
     const sourceLocation = L.latLng(JSON.parse(this.currentPosition));
+    const map = this.map;
+    const center = this.center;
     L.Routing.control({
       showAlternatives: false,
       waypoints: [sourceLocation, destinationLocation.latlng],
       routeLine: function (route) {
-        const line = L.Routing.line(route, {
+        const line: any = L.Routing.line(route, {
           addWaypoints: true,
           extendToWaypoints: true,
           missingRouteTolerance: 1,
           styles: [{ color: colorOfRoute, weight: 12, stroke: true }],
         });
+        le.log(line._route.summary.totalDistance);
+        if (line._route.summary.totalDistance > 500000) map?.setView(center, 5);
+        else if (line._route.summary.totalDistance > 50000)
+          map?.setView(center, 10);
         return line;
       },
       routeWhileDragging: false,
@@ -328,7 +338,7 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
     this.map?.eachLayer((layer: any) => {
       if (!layer._url) layer.remove();
     });
-    this.changeCenter();
+    this.changeCenter(22);
     this.listener(true);
   }
 
@@ -370,8 +380,8 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
     this.drawerService.localInformation.next(this.locationSelected);
   }
 
-  async changeCenter() {
-    this.positionView = await this.map?.setView(this.center, 22);
+  async changeCenter(zoom: number) {
+    this.positionView = await this.map?.setView(this.center, zoom);
   }
 
   listener(changedCity: boolean) {
@@ -469,7 +479,7 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
     };
     this.savedLocationActive();
     this.mapApiService.savedLocation.subscribe((res) => {
-      this.changeCenter();
+      this.changeCenter(22);
     });
 
     if (this.showTour) this.showTours();
@@ -490,7 +500,7 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
             JSON.parse(res[0]?.location)?.lng
           );
           this.center = tmpLocation;
-          this.changeCenter();
+          this.changeCenter(22);
           this.city = res[0]?.city;
           this.fetchByCity(res[0]?.city, true);
           this.setCurrentLocation(JSON.parse(res[0]?.location));
@@ -506,7 +516,7 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
     this.fetchByCity(this.city, true);
     this.clickOnMap(); //CLICK ON MAP
     this.dragMap(); //CLICK ON MAP
-    this.changeCenter();
+    this.changeCenter(22);
   }
   imageexists(url: any) {
     const image = new Image();
@@ -705,7 +715,7 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
     //select location in location-list
     this.setting.openModalLocationListFlag = false;
     this.center = [Number(event.lat), Number(event.lon)];
-    this.changeCenter(); //center focus
+    this.changeCenter(22); //center focus
     this.addMarker(event, 'current', [50, 50]);
     this.highlightLocation(); //popup
   }

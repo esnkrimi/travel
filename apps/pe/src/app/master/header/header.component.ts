@@ -52,6 +52,7 @@ export class HeaderComponent implements OnInit {
     animationFlag: 'false',
     menuShow: false,
     scrollDown: false,
+    shearchShow: false,
   };
   userLoginInformation: Iuser = {
     id: '',

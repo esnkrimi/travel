@@ -278,12 +278,9 @@ display: none !important;
     top:0;
  }
  .div-tools{
-    background-color: var(--COLOR-DARK);
-    height: 4vh;
+    margin: 0.5em;
     width: 100%;
-    background-color: rgba(22, 22, 22, 0.4);
-    -webkit-backdrop-filter: blur(5px);
-    backdrop-filter: blur(5px); 
+    background-color: #fff !important;
     position: absolute;
     left:0;
     top:0;
@@ -296,4 +293,22 @@ display: none !important;
  }
  .row{
     margin-left:0 !important
+ }
+
+ .tools-pane{
+    width: fit-content;
+    border-radius: 0.5em;
+    margin: 0.2em;
+    padding: 0.8em 1.2em 0.8em 1.2em ;
+    cursor: pointer;
+ }
+ .my-position-button{
+    position: fixed;
+    right: 4%;
+    bottom: 5% !important;
+    padding: 0 1.5em 0 1em;
+    z-index: 500;
+    font-weight: bold;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+
  }

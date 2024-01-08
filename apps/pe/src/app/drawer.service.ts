@@ -60,4 +60,8 @@ export class LocationGeoService {
     const url = `https://burjcrown.com/drm/travel/index.php?id=51&ip=${ipAddress}`;
     return this.http.get(url);
   }
+
+  getIPAddress() {
+    return this.http.get('http://api.ipify.org/?format=json');
+  }
 }

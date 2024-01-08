@@ -1,11 +1,13 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-blueblack text-light">
+<nav class="navbar navbar-expand-lg navbar-light bg-white text-blueblack">
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav">
       <li class="nav-item active">
-        <button mat-stroked-button class="link">
-          <a class="link" href="https://burjcrown.com/travel">
-            {{ 'menuHome' | translate }}
-          </a>
+        <button
+          mat-stroked-button
+          class="link"
+          (click)="showLocationsOnMapComponent()"
+        >
+          {{ 'menuHome' | translate }}
         </button>
       </li>
     </ul>

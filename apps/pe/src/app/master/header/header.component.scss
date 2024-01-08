@@ -15,7 +15,12 @@
         text-align: right !important;
     }
 
-  
+    .mobile-display-none{
+        display: none !important;
+    }
+  .mobile-width-full{
+    width: 100% !important;
+  }
 }
 @media only screen and (min-width: 1200px) {
     .location-list{
@@ -138,4 +143,7 @@ span{
 
 .pl-2{
     padding-bottom: 0.5em !important;
+}
+.search-frame{
+    border-bottom: solid 3px var(--COLOR-BLUEBLACK);
 }

@@ -76,6 +76,7 @@ export interface HeaderSetting {
   animationFlag: string;
   menuShow: boolean;
   scrollDown: boolean;
+  shearchShow: boolean;
 }
 export interface MapSetting {
   center: any;

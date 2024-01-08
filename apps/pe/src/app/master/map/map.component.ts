@@ -22,6 +22,7 @@ export class MapComponent implements OnChanges, OnInit {
   @Input() scope: IScope;
   @Input() showTour: boolean;
   @Input() savedLocation: boolean;
+  clientIp: any;
   @Output() zoomActivator = new EventEmitter<any>();
   setting: MapSetting = {
     center: [40.750929, -73.984326],
@@ -39,11 +40,17 @@ export class MapComponent implements OnChanges, OnInit {
     private geoService: LocationGeoService
   ) {}
   ngOnInit(): void {
+    //this.getIPAddress();
     this.getRoutePath();
-    this.fetchLocationByIpAddress('2.182.31.147');
   }
   formTripShowAction(e: any) {
     this.setting.formTripShow = e;
+  }
+  getIPAddress() {
+    this.geoService.getIPAddress().subscribe((res: any) => {
+      this.clientIp = res.ip;
+      this.fetchLocationByIpAddress(this.clientIp);
+    });
   }
   getRoutePath() {
     if (Number(this.route.snapshot.paramMap.get('lat')) !== 0)
