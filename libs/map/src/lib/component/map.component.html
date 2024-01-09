@@ -38,7 +38,7 @@
           class="tools-pane text-left div-tools"
           (click)="setting.toolsShow = !setting.toolsShow"
         >
-          <i class="fa fa-wrench fa-2x"></i>
+          <i class="fa fa-wrench fa-1x"></i>
         </div>
         <div *ngIf="setting.toolsShow" class="text-left div-tools">
           <div>
@@ -147,7 +147,7 @@
 
 <div *ngIf="setting.openModalLocationFlag" class="modal-absolute text-center">
   <div class="inner w-25 bg-light m-3">
-    <div class="d-relative ml-2 pl-2 rounded-0 text-dark text-left">
+    <div class="d-relative ml-2 rounded-0 text-dark text-left">
       <div class="headers w-100 text-right pr-3 opacity-75">
         <span>
           <i
@@ -157,7 +157,7 @@
           </i>
         </span>
       </div>
-      <div class="border-bottom text-blueblack p-2 m-1">
+      <div class="border-bottom text-blueblack">
         <span class="fw-bold text-capitalize text-large">{{
           locationForModal[0].title
         }}</span
@@ -167,10 +167,10 @@
         }}</span>
       </div>
 
-      <div class="m-2 p-2">
+      <div class="p-1">
         <div class="p-2">
           <a
-            class="link-darks p-2 m-2"
+            class="link-darks p-2"
             (click)="bindExistsLocation(locationForModal[0])"
           >
             {{ 'view' | translate }}
@@ -178,10 +178,7 @@
         </div>
 
         <div class="p-2">
-          <a
-            class="link-darks p-2 m-2"
-            (click)="getRouteHere(locationForModal[0])"
-          >
+          <a class="link-darks p-2" (click)="getRouteHere(locationForModal[0])">
             {{ 'directionHere' | translate }}
           </a>
         </div>

@@ -77,7 +77,10 @@ export class HeaderComponent implements OnInit {
     this.setting.scrollDown =
       e.target['scrollingElement'].scrollTop > 300 ? true : false;
   }
-
+  activeSearchFixedWidth(active: boolean) {
+    this.setting.shearchShow = active;
+    this.mapServicePrivate.loadingProgress.next(active);
+  }
   zoomTrip(tripTitle: string) {
     this.router.navigateByUrl('lazy(secondRouter:lazy/mytrips/');
   }
@@ -131,13 +134,11 @@ export class HeaderComponent implements OnInit {
 
   changeLanguage(language: string) {
     this.changeCssFile(language);
-
     this.setting.animationFlag =
       this.setting.animationFlag === 'true' ? 'false' : 'true';
     this.mapServicePrivate.loadingProgress.next(true);
     this.settingService.language.next(language.toLowerCase());
     this.languageIndex = this.languageIndex >= 4 ? 0 : this.languageIndex + 1;
-
     setTimeout(() => {
       this.mapServicePrivate.loadingProgress.next(false);
     }, 2000);

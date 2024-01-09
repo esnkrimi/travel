@@ -15,7 +15,7 @@ export const settings = {
     },
     {
       title: 'fa',
-      language: 'فارسی',
+      language: 'farsi',
     },
     {
       title: 'ge',
@@ -27,7 +27,7 @@ export const settings = {
     },
     {
       title: 'ar',
-      language: 'العربی',
+      language: 'arabic',
     },
   ],
 };

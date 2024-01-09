@@ -1,8 +1,8 @@
-<div class="text-left w-100 bg-light">
+<div class="text-left w-100 bg-white">
   <br />
   <br />
-  <div class="inner w-100 bg-light">
-    <div class="row bg-light">
+  <div class="inner w-100 bg-white">
+    <div class="row bg-white">
       <div class="col-md-4 relative">
         <img
           class="w-100"
@@ -85,19 +85,19 @@
       </div>
     </div>
 
-    <div class="p-2 w-75 bg-light m-4">
+    <div class="w-100">
       <div class="title-bar text-medium text-left">
         {{ 'aboutMe' | translate }}
       </div>
       <form [formGroup]="formAboutMe" (ngSubmit)="updateAboutme()">
-        <div class="m-1 p-3 text-left">
+        <div class="p-1 text-left">
           <textarea class="w-100" formControlName="aboutme"> </textarea>
         </div>
         <div>
           <button
             [disabled]="!formAboutMe.valid"
             mat-stroked-button
-            class="btn-master-orange"
+            class="C"
             type="submit"
           >
             {{ 'update' | translate }}
@@ -106,7 +106,7 @@
       </form>
     </div>
 
-    <div class="m-4 p-1 w-75 bg-light">
+    <div class="w-100 bg-white">
       <div class="title-bar text-left">{{ 'walletConnect' | translate }}</div>
       <div class="row text-left">
         <div style="flex-basis: 50%" class="p-2">

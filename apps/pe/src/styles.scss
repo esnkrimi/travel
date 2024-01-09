@@ -100,7 +100,7 @@ body{
 
 .animated-cross{
    position: absolute;
-   animation: animate-cross 0.3s forwards;
+   animation: animate-cross 0.7s forwards;
 }
 
 .animated-cross-inverse{
@@ -121,6 +121,7 @@ body{
 .animated-rotate{
    animation: animated-rotate 0.5s forwards;
 }
+ 
 @keyframes animate-cross {
    0%{
        top:-2000px
@@ -375,17 +376,17 @@ button:disabled{
 }
  
 .font-fairytail{
-   font-family: fairytail;
+   font-family: fairytail !important;
 }
 .font-antique{
-   font-family: antique;
+   font-family: antique !important;;
 }
 .font-mathilda{
-   font-family: mathilda;
+   font-family: mathilda !important;;
 } 
 
 .font-darkmagic{
-   font-family: darkmagic;
+   font-family: darkmagic !important;;
    font-size: calc(0.5vw + 0.5vh + 1.5vmin) !important;
 }
 .bg-blueblack{
@@ -507,7 +508,7 @@ textarea{
 .btn-master-orange{
    background-color: var(--COLOR-WAITING) ;
    color: var(--COLOR-DARKER) !important;
-   padding: 0.4em 2em 0.4em 2em !important;
+   padding: 0.2em 1.4em 0.2em 1.4em !important;
    text-transform: capitalize;
 }
 .banner-bottom{
@@ -518,7 +519,7 @@ textarea{
    background-color: rgba(22, 22, 22, 0.4);
    -webkit-backdrop-filter: blur(5px);
    backdrop-filter: blur(5px); 
-   width: 100%;
+   width: 98% !important;
    color: var(--COLOR-LIGHT);
 }
 .pr-3{
