@@ -23,9 +23,9 @@ import { MapService } from '../map/service';
 import { DOCUMENT } from '@angular/common';
 
 @Component({
-  selector: 'pe-header',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss'],
+  selector: 'pe-responsive-header',
+  templateUrl: './responsive-header.component.html',
+  styleUrls: ['./responsive-header.component.scss'],
   animations: [
     trigger('animate', [
       state(
@@ -44,7 +44,7 @@ import { DOCUMENT } from '@angular/common';
     ]),
   ],
 })
-export class HeaderComponent implements OnInit {
+export class ResponsiveHeaderComponent implements OnInit {
   @Output() resultOutputs = new EventEmitter<IScope>();
   languages = settings.languages;
   languageIndex = 1;

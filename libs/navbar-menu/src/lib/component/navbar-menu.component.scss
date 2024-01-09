@@ -4,7 +4,10 @@ a{
 .bg-dark{
     background-color:var(--COLOR-DARKER) !important;
 }
-.navbar{
+.navbar{ 
+    background-color: white;
+    -webkit-backdrop-filter: blur(5px) !important;
+    backdrop-filter: blur(5px) !important;
     z-index: 1 !important;
 }
 .icon-close{

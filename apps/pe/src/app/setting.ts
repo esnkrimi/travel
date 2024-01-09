@@ -77,6 +77,7 @@ export interface HeaderSetting {
   menuShow: boolean;
   scrollDown: boolean;
   shearchShow: boolean;
+  languageMenu: boolean;
 }
 export interface MapSetting {
   center: any;

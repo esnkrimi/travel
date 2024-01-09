@@ -52,6 +52,7 @@ export class AppComponent implements OnInit {
 
   constructor(
     @Inject('userSession') public userSession: string,
+    @Inject('deviceIsWide') public deviceIsWide: any,
     private translate: TranslateService,
     private draswerService: LocationGeoService,
     private settingService: SettingService,
@@ -198,6 +199,9 @@ export class AppComponent implements OnInit {
     this.store.dispatch(actions.startFetchUsersOfSites());
   }
   resultOutputs(e: IScope) {
+    this.scope = e;
+  }
+  resultOutputss(e: IScope) {
     this.scope = e;
   }
   openDialoge() {

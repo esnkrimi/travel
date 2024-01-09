@@ -5,9 +5,16 @@
 <div class="w-100 relative">
   <div class="bg-light w-100">
     <pe-header
-      (savedLocation)="savedLocation($event)"
+      *ngIf="deviceIsWide; else responsiveHeader"
       (resultOutputs)="resultOutputs($event)"
     ></pe-header>
+    <ng-template #responsiveHeader>
+      <pe-responsive-header
+        (savedLocation)="savedLocation($event)"
+        (resultOutputs)="resultOutputs($event)"
+      >
+      </pe-responsive-header>
+    </ng-template>
     <div class="w-100">
       <div class="w-100 relative">
         <router-outlet name="secondRouter"></router-outlet>

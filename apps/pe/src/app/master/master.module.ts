@@ -4,14 +4,13 @@ import { SearchComponent } from './search/search.component';
 import { MapComponent } from './map/map.component';
 import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
+import { ResponsiveHeaderComponent } from './responsive-header/responsive-header.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MapModule } from '@pe/map';
 import { AutoCompleteModule } from '@pe/auto-complete';
-import { HttpClient } from '@angular/common/http';
-import { HttpLoaderFactory } from '@appBase/app.module';
-import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
-import { RouterModule, Routes } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
+import { RouterModule } from '@angular/router';
 import { masterRouterModule } from './routes';
 import { HelpModule } from '@pe/help';
 import { NavbarMenuModule } from '@pe/navbar-menu';
@@ -23,6 +22,7 @@ import { LoadingProgressModule } from '@pe/loading-progress';
     MapComponent,
     FooterComponent,
     HeaderComponent,
+    ResponsiveHeaderComponent,
   ],
   imports: [
     CommonModule,
@@ -37,6 +37,11 @@ import { LoadingProgressModule } from '@pe/loading-progress';
     MatIconModule,
     TranslateModule,
   ],
-  exports: [HeaderComponent, FooterComponent, MapComponent],
+  exports: [
+    HeaderComponent,
+    FooterComponent,
+    MapComponent,
+    ResponsiveHeaderComponent,
+  ],
 })
 export class MasterModule {}

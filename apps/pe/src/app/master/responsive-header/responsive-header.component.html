@@ -1,74 +1,63 @@
-<div class="w-100 header-fix z-index bg-gold">
-  <div class="d-flex bg-white" [class.fix-position]="setting.scrollDown">
-    <div class="flex-cell w-25 position-static text-center">
-      <div class="d-flex flex-cell w-100 flex-nowrap">
-        <div class="w-50">
-          <span
-            class="font-antique text-logo text-blueblack text-large flex-cell"
-          >
-            CROWN
-          </span>
-        </div>
-      </div>
-    </div>
-    <div class="text-center w-75 flex-cell">
+<div class="w-100 header-fix z-index bg-gold shadow-sm">
+  <div class="row bg-white" [class.fix-position]="setting.scrollDown">
+    <div class="text-center col-md-9 flex-cell pt-4 pb-4">
       <div class="d-flex w-100 text-left flex-cell">
-        <!-- SPACE II-->
-        <div class="w-75">
-          <div class="flex-cell text-center w-100">
-            <pe-search
-              class="w-100"
-              (resultOutput)="resultOutput($event)"
-            ></pe-search>
+        <div class="flex-cell pc-hide">
+          <!-- SPACE I-->
+          <div>
             <span
               [@animate]="setting.animationFlag"
-              class="text-meduim text-darks fw-bold rounded-circle"
+              class="bg-gold text-meduim p-2 m-3 rounded-circle icon-width"
               (click)="changeLanguage(languages[languageIndex].title)"
             >
               {{ 'titles' | translate | slice : 0 : 2 }}
             </span>
-            <div class="position-relative bg-white">
-              <mat-icon (click)="setting.languageMenu = !setting.languageMenu"
-                >arrow_drop_down</mat-icon
-              >
-              <div
-                *ngIf="setting.languageMenu"
-                class="absolute-menu menu-items"
-              >
-                <div class="w-100 bg-light" (click)="changeLanguage('fa')">
-                  <span>فارسی</span>
-                </div>
-                <div (click)="changeLanguage('ge')">
-                  <span>German</span>
-                </div>
-                <div (click)="changeLanguage('ru')">
-                  <span>Russian</span>
-                </div>
-                <div (click)="changeLanguage('ar')">
-                  <span>Arabic</span>
-                </div>
-                <div class="w-100 bg-light" (click)="changeLanguage('en')">
-                  <span>English</span>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
+        <!-- SPACE II-->
+        <div
+          class="w-100"
+          [class.animated-cross]="setting.shearchShow"
+          [class.d-fixed-top]="setting.shearchShow"
+          *ngIf="setting.shearchShow; else shearchHide"
+        >
+          <div class="mobile-width-full flex-cell search-frame">
+            <pe-search
+              class="w-100"
+              (resultOutput)="resultOutput($event)"
+            ></pe-search>
+          </div>
+          <div class="text-center">
+            <span
+              (click)="activeSearchFixedWidth(false)"
+              class="bg-white icon-width p-2 m-4 fw-bold rounded-circle"
+              >close</span
+            >
+          </div>
+        </div>
+        <ng-template #shearchHide>
+          <div class="text-left">
+            <i
+              class="fa fa-search fa-2x text-danger"
+              (click)="activeSearchFixedWidth(true)"
+            ></i>
+          </div>
+        </ng-template>
 
         <!-- SPACE III-->
-        <div class="w-25" *ngIf="!userLoginInformation?.id; else elseLogin">
+        <div class="w-100" *ngIf="!userLoginInformation?.id; else elseLogin">
           <div class="d-flex w-100">
             <div class="w-100">
               <div class="child text-right w-100">
                 <span
-                  class="text-meduim link-darks"
+                  class="text-meduim link-dark"
                   [routerLink]="[{ outlets: { secondRouter: 'lazy/login' } }]"
                 >
                   {{ 'login' | translate }}</span
                 >
-                <span class="text-meduim text-darks">|</span>
+                <span class="text-meduim text-dark">|</span>
                 <span
-                  class="text-meduim link-darks"
+                  class="text-meduim link-dark"
                   [routerLink]="[{ outlets: { secondRouter: 'lazy/signup' } }]"
                 >
                   {{ 'signup' | translate }}</span
@@ -77,8 +66,9 @@
             </div>
           </div>
         </div>
+
         <ng-template #elseLogin>
-          <div class="w-25">
+          <div class="w-100 position-relative">
             <div class="d-flex w-100">
               <div class="text-right w-100">
                 <button
@@ -95,10 +85,7 @@
                     userLoginInformation?.lname
                   }}</span>
                 </button>
-                <div
-                  class="position-relative d-inline-block menu"
-                  *ngIf="setting.menuShow"
-                >
+                <div class="d-inline-block menu" *ngIf="setting.menuShow">
                   <div class="position-absolute">
                     <div class="w-100 relative">
                       <img
@@ -188,6 +175,6 @@
     </div>
   </div>
 </div>
-<div class="w-100 nav-div shadow-sm">
+<div class="w-100 nav-div">
   <pe-navbar-menu></pe-navbar-menu>
 </div>
