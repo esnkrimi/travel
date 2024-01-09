@@ -305,6 +305,7 @@ export class ZoomComponent implements AfterViewInit {
               )
             )
             .subscribe((res: any) => {
+              console.log(res);
               if (res.length) {
                 this.existLocation = true;
               }
@@ -316,6 +317,7 @@ export class ZoomComponent implements AfterViewInit {
               this.locationID = res[0]?.id;
               this.result = res[0];
               if (this.result) {
+                this.form.get('describe')?.setValue(this.result.describe || '');
                 this.form.get('email')?.setValue(this.result.email || '');
                 this.form.get('phone')?.setValue(this.result.phone || '');
                 this.form.get('web')?.setValue(this.result.web);

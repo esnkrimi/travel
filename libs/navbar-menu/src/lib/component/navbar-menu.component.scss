@@ -43,7 +43,8 @@ input{
 .content-message{
     font-size: calc(0.4vw + 0.45vh + 1vmin) !important;
     color: var(--COLOR-BLUEBLACK);
-
+    line-height: 1.7em;
+    text-justify: kashida;
 }
 .mt-4{
     margin-top: 2em !important;

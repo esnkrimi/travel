@@ -372,6 +372,7 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   bind(e: any) {
+    this.mapService.loadingProgress.next(true);
     this.zoomActivator.emit(true);
     this.locationSelected.lon = e.latlng.lng;
     this.locationSelected.lat = e.latlng.lat;
@@ -379,6 +380,7 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   bindExistsLocation(location: any) {
+    this.mapService.loadingProgress.next(true);
     this.setting.openModalLocationFlag = false;
     this.zoomActivator.emit(true);
     this.locationSelected.lon = location.lon;

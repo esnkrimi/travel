@@ -511,6 +511,10 @@ textarea{
    padding: 0.2em 1.4em 0.2em 1.4em !important;
    text-transform: capitalize;
 }
+.btn-master-orange:hover{
+   background-color: var(--COLOR-RED)  !important;
+   color: var(--COLOR-GOLD)  !important;
+}
 .banner-bottom{
    position: absolute;
    bottom: 0px;
