@@ -1,3 +1,17 @@
+<div class="mobile-display-none light-div bg-danger d-flex flex-nowrap w-100">
+  <div class="text-left text-dark w-50">
+    <span class="text-light"> Crown Plaza </span>
+  </div>
+  <div class="text-right w-50">
+    <span
+      [@animate]="setting.animationFlag"
+      class="link-light text-meduim"
+      (click)="changeLanguage(languages[languageIndex].title)"
+    >
+      {{ 'titles' | translate }}
+    </span>
+  </div>
+</div>
 <div class="w-100 header-fix z-index bg-gold">
   <div class="d-flex bg-white" [class.fix-position]="setting.scrollDown">
     <div class="flex-cell w-25 position-static text-center">
@@ -15,43 +29,11 @@
       <div class="d-flex w-100 text-left flex-cell">
         <!-- SPACE II-->
         <div class="w-75">
-          <div class="flex-cell text-center w-100">
+          <div class="flex-cell text-center w-100 d-flex">
             <pe-search
               class="w-100"
               (resultOutput)="resultOutput($event)"
             ></pe-search>
-            <span
-              [@animate]="setting.animationFlag"
-              class="text-meduim text-darks fw-bold rounded-circle"
-              (click)="changeLanguage(languages[languageIndex].title)"
-            >
-              {{ 'titles' | translate | slice : 0 : 2 }}
-            </span>
-            <div class="position-relative bg-white">
-              <mat-icon (click)="setting.languageMenu = !setting.languageMenu"
-                >arrow_drop_down</mat-icon
-              >
-              <div
-                *ngIf="setting.languageMenu"
-                class="absolute-menu menu-items"
-              >
-                <div class="w-100 bg-light" (click)="changeLanguage('fa')">
-                  <span>فارسی</span>
-                </div>
-                <div (click)="changeLanguage('ge')">
-                  <span>German</span>
-                </div>
-                <div (click)="changeLanguage('ru')">
-                  <span>Russian</span>
-                </div>
-                <div (click)="changeLanguage('ar')">
-                  <span>Arabic</span>
-                </div>
-                <div class="w-100 bg-light" (click)="changeLanguage('en')">
-                  <span>English</span>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
 
@@ -188,6 +170,6 @@
     </div>
   </div>
 </div>
-<div class="w-100 nav-div shadow-sm">
+<div class="w-100 nav-div shadow">
   <pe-navbar-menu></pe-navbar-menu>
 </div>
