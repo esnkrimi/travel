@@ -92,6 +92,7 @@ export interface MapDetailsSetting {
   openModalLocationFlag: boolean;
   toolsShow: boolean;
   savedLocationFlag: boolean;
+  showCityDistanceFlag: boolean;
   showMap: boolean;
   createTripActivate: boolean;
   tripSelectIndex: number;

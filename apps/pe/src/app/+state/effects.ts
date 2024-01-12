@@ -17,6 +17,7 @@ import { AdvancedAutoCompleteService } from 'libs/advanced-autocomplete/src/lib/
 import { TripUserService } from '@appBase/lazy/users/trip-user.service';
 import { LocationListsService } from '@appBase/lazy/location-list/location-list.service';
 import { MapService } from '@appBase/master/map/service';
+import { CityDistanceService } from '@appBase/lazy/city-distance/city-distance.service';
 
 @Injectable()
 export class storeEffects {
@@ -34,8 +35,19 @@ export class storeEffects {
     private usersService: UsersService,
     private profileSettingService: ProfileSettingService,
     private locationListsService: LocationListsService,
-    private zoomService: ZoomApiService
+    private zoomService: ZoomApiService,
+    private cityDistanceService: CityDistanceService
   ) {}
+  startFetchCities: any = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(actions.startFetchCities),
+      switchMap((res: any) => {
+        return this.cityDistanceService
+          .fetchCities(res.searchItem)
+          .pipe(map((res: any) => actions.fetchCities({ data: res })));
+      })
+    );
+  });
   startFetchSavedLocations: any = createEffect(() => {
     return this.actions$.pipe(
       ofType(actions.startFetchSavedLocations),

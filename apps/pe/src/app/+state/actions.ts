@@ -12,6 +12,8 @@ import { createActionGroup, props, emptyProps } from '@ngrx/store';
 export const actions = createActionGroup({
   source: 'store',
   events: {
+    'fetch cities': props<{ data: any }>(),
+    'start fetch cities': props<{ searchItem: string }>(),
     'fetch saved locations': props<{ data: any }>(),
     'start fetch saved locations': emptyProps(),
     'set current location': emptyProps(),

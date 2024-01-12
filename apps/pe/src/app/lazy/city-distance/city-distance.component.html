@@ -1,0 +1,27 @@
+<div class="bg-light w-100 p-2 animated-fadein fixed">
+  <div class="row w-100 d-relative">
+    <div class="col-md-4">
+      <pe-dynamic-autocomplete
+        (results)="sourceComebackesults($event)"
+      ></pe-dynamic-autocomplete>
+    </div>
+    <div class="col-md-4">
+      <pe-dynamic-autocomplete
+        (results)="destinationComebackesults($event)"
+      ></pe-dynamic-autocomplete>
+    </div>
+    <div class="col-md-4">
+      <button mat-stroked-button (click)="routing()">Calculate</button>
+    </div>
+  </div>
+</div>
+<div class="w-100 text-center bg-white">
+  <div class="w-75 inner">
+    <div>
+      <div class="d-flex">
+        <span>Direct</span>
+      </div>
+    </div>
+  </div>
+</div>
+<div style="visibility: hidden" id="mapd"></div>

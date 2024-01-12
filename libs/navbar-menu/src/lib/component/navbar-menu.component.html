@@ -16,6 +16,17 @@
         <button
           mat-stroked-button
           class="link-gold"
+          (click)="showCityDIstanceMapComponent()"
+        >
+          {{ 'cityDistance' | translate }}
+        </button>
+      </li>
+    </ul>
+    <ul class="navbar-nav">
+      <li class="nav-item active">
+        <button
+          mat-stroked-button
+          class="link-gold"
           (click)="showLocationsOnMapComponent()"
         >
           {{ 'locationList' | translate }}

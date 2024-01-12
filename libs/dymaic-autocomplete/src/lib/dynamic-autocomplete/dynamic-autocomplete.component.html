@@ -1,0 +1,40 @@
+<div class="parent">
+  <form class="w-100">
+    <input
+      type="text"
+      [formControl]="locationInput"
+      placeholder="search location"
+    />
+  </form>
+  <ng-container *ngIf="loading; else suggest">
+    <pe-loading-progress [mode]="'mini'"></pe-loading-progress>
+  </ng-container>
+  <ng-template #suggest>
+    <div
+      [id]="divId"
+      *ngIf="result.length > 0"
+      class="lists w-100 bg-light p-3"
+    >
+      <div class="w-100 text-left border-bottom">
+        <span class="text-muted"> Cities </span>
+      </div>
+      <div
+        class="cursor-pointer bg-light item-found text-meduim"
+        (click)="comebackResult(item)"
+        *ngFor="let item of result; let i = index"
+      >
+        <ng-container *ngIf="item">
+          <div *ngIf="!item.title && item.city.length > 1">
+            <div class="cursor-pointer">
+              <div class="row d-flex flex-nowrap">
+                <div class="text-left text-dark fw-bold text-capitalize">
+                  <span> {{ item.city }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </ng-template>
+</div>

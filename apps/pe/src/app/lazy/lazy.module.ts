@@ -13,11 +13,10 @@ import { ExperiencesModule } from '@pe/experiences';
 import { ImageGalleryModule } from '@pe/image-gallery';
 import { ConfirmModalModule } from '@pe/confirm-modal';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { HttpClient } from '@angular/common/http';
-import { HttpLoaderFactory } from '@appBase/app.module';
-import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateModule } from '@ngx-translate/core';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatDialogModule } from '@angular/material/dialog';
+import { DymaicAutocompleteModule } from '@pe/dymaic-autocomplete';
 import { AdvancedAutocompleteModule } from '@pe/advanced-autocomplete';
 import { JoyrideModule } from 'ngx-joyride';
 import { MatSelectModule } from '@angular/material/select';
@@ -31,10 +30,12 @@ import { LoadingProgressModule } from '@pe/loading-progress';
 import { ScoreDirective } from '@appBase/directive/score.directive';
 import { PublicAutocompleteModule } from '@pe/public-autocomplete';
 import { ScorePipe } from '@appBase/pipe/score.pipe';
+import { CityDistanceComponent } from './city-distance/city-distance.component';
 
 @NgModule({
   declarations: [
     ScorePipe,
+    CityDistanceComponent,
     ScoreDirective,
     EntryComponent,
     LocationListComponent,
@@ -47,6 +48,7 @@ import { ScorePipe } from '@appBase/pipe/score.pipe';
     CommonModule,
     GoogleSigninButtonModule,
     lazyRouterModule,
+    DymaicAutocompleteModule,
     MatChipsModule,
     AdvancedAutocompleteModule,
     MatDialogModule,
@@ -68,6 +70,6 @@ import { ScorePipe } from '@appBase/pipe/score.pipe';
     ExperiencesModule,
     TranslateModule,
   ],
-  exports: [LocationListComponent],
+  exports: [LocationListComponent, CityDistanceComponent],
 })
 export class LazyModule {}

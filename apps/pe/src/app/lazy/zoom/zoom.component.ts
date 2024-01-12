@@ -305,7 +305,6 @@ export class ZoomComponent implements AfterViewInit {
               )
             )
             .subscribe((res: any) => {
-              console.log(res);
               if (res.length) {
                 this.existLocation = true;
               }

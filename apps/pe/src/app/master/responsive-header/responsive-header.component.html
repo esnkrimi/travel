@@ -1,6 +1,6 @@
 <div class="w-100 header-fix z-index bg-gold shadow-sm">
   <div class="row bg-white" [class.fix-position]="setting.scrollDown">
-    <div class="text-center col-md-9 flex-cell pt-4 pb-4">
+    <div class="text-center col-md-9 flex-cell pt-2 pb-3">
       <div class="d-flex w-100 text-left flex-cell">
         <div class="flex-cell pc-hide">
           <!-- SPACE I-->
@@ -22,17 +22,20 @@
           *ngIf="setting.shearchShow; else shearchHide"
         >
           <div class="mobile-width-full flex-cell search-frame">
-            <pe-search
-              class="w-100"
-              (resultOutput)="resultOutput($event)"
-            ></pe-search>
-          </div>
-          <div class="text-center">
-            <span
-              (click)="activeSearchFixedWidth(false)"
-              class="bg-white icon-width p-2 m-4 fw-bold rounded-circle"
-              >close</span
-            >
+            <div class="d-flex w-100">
+              <div>
+                <pe-search
+                  class="w-100"
+                  (resultOutput)="resultOutput($event)"
+                ></pe-search>
+              </div>
+              <div class="text-center flex-cell">
+                <i
+                  class="fa fa-close fa-2x"
+                  (click)="activeSearchFixedWidth(false)"
+                ></i>
+              </div>
+            </div>
           </div>
         </div>
         <ng-template #shearchHide>

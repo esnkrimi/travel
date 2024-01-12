@@ -17,6 +17,7 @@ export interface state {
   setview: ISetview;
   tripComments: ITripComments[];
   iLocationTypes: ILocationTypes[];
+  city: ICity[];
 }
 
 export const AppState: state = {
@@ -60,6 +61,7 @@ export const AppState: state = {
   tripComments: [],
   sharedLocation: [],
   savedLocation: [],
+  city: [],
 };
 
 export interface ILocationtype {
@@ -273,6 +275,12 @@ export interface ISharedLocation {
   describe?: string;
   score: number;
 }
+export interface ICity {
+  city: string;
+  latitude: string;
+  longitude: string;
+}
+
 export interface Ilocation {
   city: string;
   country: string;

@@ -14,6 +14,9 @@ export class LocationGeoService {
     show: false,
     type: '',
   });
+  showCityDistance = new BehaviorSubject({
+    show: false,
+  });
   initialIuser: location = {
     id: 1,
     country: 'Germany',

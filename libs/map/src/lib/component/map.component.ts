@@ -42,6 +42,7 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
     openModalLocationFlag: false,
     toolsShow: false,
     savedLocationFlag: false,
+    showCityDistanceFlag: false,
     showMap: true,
     createTripActivate: false,
     tripSelectIndex: 1,
@@ -123,6 +124,11 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
     this.drawerService.showLocations.subscribe((res: any) => {
       this.setting.openModalLocationListFlag = res.show;
       this.setting.savedLocationFlag = res.type;
+    });
+  }
+  getShowCityDistanceState() {
+    this.drawerService.showCityDistance.subscribe((res: any) => {
+      this.setting.showCityDistanceFlag = res.show;
     });
   }
 
@@ -241,6 +247,7 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
   alertToSelectCurrentPosition() {
     this.getMultilanguagesMessages('setCurrentLocationAlert');
   }
+
   routing(destinationLocation: any) {
     this.colorOfRouteIndex =
       this.colorOfRouteIndex + 1 < 4 ? this.colorOfRouteIndex + 1 : 0;
@@ -258,6 +265,11 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
           missingRouteTolerance: 1,
           styles: [{ color: colorOfRoute, weight: 12, stroke: true }],
         });
+        console.log(
+          sourceLocation,
+          destinationLocation.latlng,
+          line._route.summary.totalDistance
+        );
         if (line._route.summary.totalDistance > 500000) map?.setView(center, 5);
         else if (line._route.summary.totalDistance > 50000)
           map?.setView(center, 10);
@@ -266,6 +278,7 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
       routeWhileDragging: false,
     }).addTo(this.map);
   }
+
   routingDirectLatlng(destinationLocation: any) {
     const sourceLocation = L.latLng(JSON.parse(this.currentPosition));
     L.Routing.control({
@@ -521,6 +534,7 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
     this.mapService.loadingProgress.next(true);
     this.getRoute();
     this.getShowLocationState();
+    this.getShowCityDistanceState();
     this.fetchByCity(this.city, true);
     this.clickOnMap(); //CLICK ON MAP
     this.dragMap(); //CLICK ON MAP

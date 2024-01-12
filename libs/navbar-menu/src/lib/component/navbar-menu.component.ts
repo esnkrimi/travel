@@ -26,6 +26,23 @@ export class NavbarMenuComponent implements OnDestroy {
       show: true,
       type: '',
     });
+    this.drawerService.showCityDistance.next({
+      show: false,
+    });
+
+    this.showMap(true);
+    this.router.navigateByUrl('');
+  }
+
+  showCityDIstanceMapComponent() {
+    this.drawerService.showLocations.next({
+      show: false,
+      type: '',
+    });
+
+    this.drawerService.showCityDistance.next({
+      show: true,
+    });
     this.showMap(true);
     this.router.navigateByUrl('');
   }
