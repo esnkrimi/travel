@@ -44,7 +44,6 @@ export class DynamicAutocompleteDestinationsComponent implements OnInit {
   }
   selectFoundItems() {
     this.store.select(selectDestinationCity).subscribe((res) => {
-      console.log(res);
       this.myresult = res.slice(0, 5);
       this.loading = false;
     });

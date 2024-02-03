@@ -30,17 +30,22 @@
         <span class="p-1">Direct Distance </span
         ><span class="fw-bold p-1">{{ this.distance.direct }}</span>
       </div>
-
       <div class="d-flex">
-        <span class="p-1">Car Distance </span
-        ><span class="fw-bold p-1" [innerHTML]="this.distance.car"></span>
+        <span class="p-1">Routing Distance </span
+        ><span class="fw-bold p-1">{{ this.distance.routingDistance }}</span>
       </div>
 
       <div class="d-flex">
-        <span class="p-1">Walk Distance </span
-        ><span class="fw-bold p-1" [innerHTML]="this.distance.walk"></span>
+        <span class="fw-bold p-1" [innerHTML]="this.distance.car"></span>
+      </div>
+
+      <div class="d-flex">
+        <span class="fw-bold p-1" [innerHTML]="this.distance.walk"></span>
       </div>
     </div>
   </div>
+</div>
+<div class="w-100 text-left">
+  <button mat-stroked-button (click)="showMapComponent()">Route</button>
 </div>
 <div style="visibility: hidden" id="mapd"></div>

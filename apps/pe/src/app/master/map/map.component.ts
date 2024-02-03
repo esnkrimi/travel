@@ -22,8 +22,8 @@ export class MapComponent implements OnChanges, OnInit {
   @Input() scope: IScope;
   @Input() showTour: boolean;
   @Input() savedLocation: boolean;
-  clientIp: any;
   @Output() zoomActivator = new EventEmitter<any>();
+  clientIp: any;
   setting: MapSetting = {
     center: [40.750929, -73.984326],
     country: 'United States',
@@ -31,6 +31,12 @@ export class MapComponent implements OnChanges, OnInit {
     state: 'New York',
     formTripShow: false,
     showMap: true,
+    distance: {
+      destinationLat: '',
+      destinationLon: '',
+      sourceLat: '',
+      sourceLon: '',
+    },
   };
 
   constructor(
@@ -43,6 +49,7 @@ export class MapComponent implements OnChanges, OnInit {
     //this.getIPAddress();
     this.getRoutePath();
   }
+
   formTripShowAction(e: any) {
     this.setting.formTripShow = e;
   }

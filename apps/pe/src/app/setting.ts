@@ -86,6 +86,12 @@ export interface MapSetting {
   state: string;
   formTripShow: boolean;
   showMap: boolean;
+  distance: {
+    sourceLat: string;
+    sourceLon: string;
+    destinationLat: string;
+    destinationLon: string;
+  };
 }
 export interface MapDetailsSetting {
   openModalLocationListFlag: boolean;

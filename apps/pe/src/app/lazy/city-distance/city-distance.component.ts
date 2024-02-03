@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { LocationGeoService } from '@appBase/drawer.service';
 import { DistancePipe } from '@appBase/pipe/distance-to-time.pipe';
 import * as L from 'leaflet';
 
@@ -14,15 +16,33 @@ export class CityDistanceComponent implements OnInit {
   line: any;
   distance = {
     direct: 0,
+    routingDistance: '0',
     car: '0',
     walk: '0',
     bicycle: '0',
   };
-  constructor(private distancePipe: DistancePipe) {}
+  constructor(
+    private distancePipe: DistancePipe,
+    private locationGeoService: LocationGeoService,
+    private router: Router
+  ) {}
   ngOnInit(): void {
     this.map = L.map('mapd', {
       crs: L.CRS.EPSG900913,
       zoomControl: false,
+    });
+  }
+
+  showMapComponent() {
+    this.locationGeoService.showCityDistance.next({
+      show: false,
+    });
+    this.locationGeoService.showMap.next(true);
+    this.locationGeoService.cityDistance.next({
+      sourceLat: this.sourceCity.latitude,
+      sourceLon: this.sourceCity.longitude,
+      destinationLat: this.destinationCity.latitude,
+      destinationLon: this.destinationCity.longitude,
     });
   }
   sourceComebackesults(city: any) {
@@ -46,26 +66,21 @@ export class CityDistanceComponent implements OnInit {
       waypoints: [tmpSource, tmpDestination],
       routeLine: (route) => {
         const line: any = L.Routing.line(route);
-        this.distance.car =
-          Math.round(line._route.summary.totalDistance) +
-          'm - ' +
-          this.distancePipe.transform(
-            Math.round(line._route.summary.totalDistance),
-            'car'
-          );
+        this.distance.routingDistance =
+          Math.round(line._route.summary.totalDistance) + 'm';
+        this.distance.car = this.distancePipe.transform(
+          Math.round(line._route.summary.totalDistance),
+          'car'
+        );
 
-        this.distance.walk =
-          Math.round(line._route.summary.totalDistance) +
-          'm - ' +
-          this.distancePipe.transform(
-            Math.round(line._route.summary.totalDistance),
-            'walk'
-          );
+        this.distance.walk = this.distancePipe.transform(
+          Math.round(line._route.summary.totalDistance),
+          'walk'
+        );
         return line._route.summary.totalDistance;
       },
     })
       .addTo(this.map)
       .hide();
-    console.log(t);
   }
 }

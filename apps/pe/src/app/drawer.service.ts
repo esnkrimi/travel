@@ -10,6 +10,12 @@ import {
 @Injectable({ providedIn: 'root' })
 export class LocationGeoService {
   showMap = new BehaviorSubject(true);
+  cityDistance = new BehaviorSubject({
+    sourceLat: '',
+    sourceLon: '',
+    destinationLat: '',
+    destinationLon: '',
+  });
   showLocations = new BehaviorSubject({
     show: false,
     type: '',

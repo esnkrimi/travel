@@ -32,6 +32,10 @@ const routes: Routes = [
     component: MapComponent,
   },
   {
+    path: 'destination/:sourceLatitude/:sourceLongtude/:destinationLatitude/:destinationLongtude',
+    component: MapComponent,
+  },
+  {
     path: 'users/:user',
     component: UsersComponent,
   },

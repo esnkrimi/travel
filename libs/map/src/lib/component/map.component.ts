@@ -113,7 +113,7 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
     private helpService: HelpService,
     private router: Router,
     private mapService: MapService,
-    private drawerService: LocationGeoService,
+    private geoService: LocationGeoService,
     private distancePipe: DistancePipe,
     private mapApiService: MapApiService,
     private store: Store,
@@ -121,13 +121,13 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
   ) {}
 
   getShowLocationState() {
-    this.drawerService.showLocations.subscribe((res: any) => {
+    this.geoService.showLocations.subscribe((res: any) => {
       this.setting.openModalLocationListFlag = res.show;
       this.setting.savedLocationFlag = res.type;
     });
   }
   getShowCityDistanceState() {
-    this.drawerService.showCityDistance.subscribe((res: any) => {
+    this.geoService.showCityDistance.subscribe((res: any) => {
       this.setting.showCityDistanceFlag = res.show;
     });
   }
@@ -202,7 +202,7 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   getRoute() {
-    this.drawerService.showMap.subscribe((res) => {
+    this.geoService.showMap.subscribe((res) => {
       this.setting.showMap = res;
     });
   }
@@ -265,11 +265,7 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
           missingRouteTolerance: 1,
           styles: [{ color: colorOfRoute, weight: 12, stroke: true }],
         });
-        console.log(
-          sourceLocation,
-          destinationLocation.latlng,
-          line._route.summary.totalDistance
-        );
+
         if (line._route.summary.totalDistance > 500000) map?.setView(center, 5);
         else if (line._route.summary.totalDistance > 50000)
           map?.setView(center, 10);
@@ -389,7 +385,7 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
     this.zoomActivator.emit(true);
     this.locationSelected.lon = e.latlng.lng;
     this.locationSelected.lat = e.latlng.lat;
-    this.drawerService.localInformation.next(this.locationSelected);
+    this.geoService.localInformation.next(this.locationSelected);
   }
 
   bindExistsLocation(location: any) {
@@ -398,14 +394,38 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
     this.zoomActivator.emit(true);
     this.locationSelected.lon = location.lon;
     this.locationSelected.lat = location.lat;
-    this.drawerService.localInformation.next(this.locationSelected);
+    this.geoService.localInformation.next(this.locationSelected);
   }
 
   async changeCenter(zoom: number) {
     this.positionView = await this.map?.setView(this.center, zoom);
   }
-
+  getDistanceCIty() {
+    this.geoService.cityDistance.subscribe((res) => this.cityDistance(res));
+  }
+  cityDistance(location: any) {
+    const sourceLocation = L.latLng(location.sourceLat, location.sourceLon);
+    const sourceAndDestination = L.latLng(
+      location.destinationLat,
+      location.destinationLon
+    );
+    L.Routing.control({
+      showAlternatives: false,
+      waypoints: [sourceLocation, sourceAndDestination],
+      routeLine: function (route) {
+        const line = L.Routing.line(route, {
+          addWaypoints: true,
+          extendToWaypoints: true,
+          missingRouteTolerance: 1,
+          styles: [{ color: '#99d60a', weight: 12, stroke: true }],
+        });
+        return line;
+      },
+      routeWhileDragging: false,
+    }).addTo(this.map);
+  }
   listener(changedCity: boolean) {
+    this.getDistanceCIty();
     const fetchByLocation = this.state ? this.state : this.city;
     this.fetchByCity(fetchByLocation, changedCity);
   }
@@ -472,7 +492,7 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
 
   dragMap() {
     this.map.on('mouseup', (e: any) => {
-      this.drawerService
+      this.geoService
         .fetchLocationByLatlng(e.latlng.lat, e.latlng.lng)
         .subscribe((res) => {
           this.draggingLocation.country = res.country;
@@ -742,7 +762,7 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
     this.highlightLocation(); //popup
   }
   openModalLocationList(toggle: boolean) {
-    this.drawerService.showLocations.next({
+    this.geoService.showLocations.next({
       show: toggle,
       type: '',
     });
