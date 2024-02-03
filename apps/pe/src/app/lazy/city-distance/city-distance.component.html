@@ -42,10 +42,10 @@
       <div class="d-flex">
         <span class="fw-bold p-1" [innerHTML]="this.distance.walk"></span>
       </div>
+      <div class="w-100 text-left">
+        <button mat-stroked-button (click)="showMapComponent()">Route</button>
+      </div>
     </div>
   </div>
-</div>
-<div class="w-100 text-left">
-  <button mat-stroked-button (click)="showMapComponent()">Route</button>
 </div>
 <div style="visibility: hidden" id="mapd"></div>

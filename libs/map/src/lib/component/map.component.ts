@@ -766,5 +766,8 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
       show: toggle,
       type: '',
     });
+    this.geoService.showCityDistance.next({
+      show: toggle,
+    });
   }
 }
