@@ -38,6 +38,19 @@ export class storeEffects {
     private zoomService: ZoomApiService,
     private cityDistanceService: CityDistanceService
   ) {}
+  startFetchDestinationCities: any = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(actions.startFetchDestinationCities),
+      switchMap((res: any) => {
+        return this.cityDistanceService
+          .fetchCities(res.searchItem)
+          .pipe(
+            map((res: any) => actions.fetchDestinationCities({ data: res }))
+          );
+      })
+    );
+  });
+
   startFetchCities: any = createEffect(() => {
     return this.actions$.pipe(
       ofType(actions.startFetchCities),

@@ -132,7 +132,18 @@ export class HeaderComponent implements OnInit {
       headTag.appendChild(newLink);
     }
   }
+  showCityDIstanceMapComponent() {
+    this.drawerService.showLocations.next({
+      show: false,
+      type: '',
+    });
 
+    this.drawerService.showCityDistance.next({
+      show: true,
+    });
+    this.showMap(true);
+    this.router.navigateByUrl('');
+  }
   changeLanguage(language: string) {
     this.changeCssFile(language);
     this.setting.animationFlag =

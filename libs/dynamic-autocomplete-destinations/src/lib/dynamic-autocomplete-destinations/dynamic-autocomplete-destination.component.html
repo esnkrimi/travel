@@ -2,7 +2,7 @@
   <form class="w-100">
     <input
       type="text"
-      [formControl]="locationInput"
+      [formControl]="locationInputDestination"
       placeholder="search location"
     />
   </form>
@@ -10,14 +10,14 @@
     <pe-loading-progress [mode]="'mini'"></pe-loading-progress>
   </div>
   <div *ngIf="!loading" [id]="divId">
-    <div *ngIf="result.length > 0" class="lists w-100 bg-light p-3">
+    <div *ngIf="myresult.length > 0" class="lists w-100 bg-light p-3">
       <div class="w-100 text-left border-bottom">
         <span class="text-muted"> Cities </span>
       </div>
       <div
         class="cursor-pointer bg-light item-found text-meduim"
         (click)="comebackResult(item)"
-        *ngFor="let item of result; let i = index"
+        *ngFor="let item of myresult; let i = index"
       >
         <div *ngIf="item">
           <div *ngIf="!item.title && item.city.length > 1">

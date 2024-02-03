@@ -2,24 +2,43 @@
   <div class="row w-100 d-relative">
     <div class="col-md-4">
       <pe-dynamic-autocomplete
+        [divId]="'ac1'"
         (results)="sourceComebackesults($event)"
       ></pe-dynamic-autocomplete>
     </div>
     <div class="col-md-4">
-      <pe-dynamic-autocomplete
+      <pe-dynamic-autocomplete-destinations
+        [divId]="'ac2'"
         (results)="destinationComebackesults($event)"
-      ></pe-dynamic-autocomplete>
+      ></pe-dynamic-autocomplete-destinations>
     </div>
-    <div class="col-md-4">
-      <button mat-stroked-button (click)="routing()">Calculate</button>
+    <div class="col-md-4 p-2">
+      <button
+        mat-stroked-button
+        [disabled]="!destinationCity || !sourceCity"
+        (click)="routing()"
+      >
+        Calculate
+      </button>
     </div>
   </div>
 </div>
 <div class="w-100 text-center bg-white">
   <div class="w-75 inner">
-    <div>
+    <div class="p-2" *ngIf="this.distance.direct > 0">
       <div class="d-flex">
-        <span>Direct</span>
+        <span class="p-1">Direct Distance </span
+        ><span class="fw-bold p-1">{{ this.distance.direct }}</span>
+      </div>
+
+      <div class="d-flex">
+        <span class="p-1">Car Distance </span
+        ><span class="fw-bold p-1" [innerHTML]="this.distance.car"></span>
+      </div>
+
+      <div class="d-flex">
+        <span class="p-1">Walk Distance </span
+        ><span class="fw-bold p-1" [innerHTML]="this.distance.walk"></span>
       </div>
     </div>
   </div>

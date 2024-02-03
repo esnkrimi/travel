@@ -5,19 +5,19 @@ import { EventEmitter } from '@angular/core';
 import { MapService } from '@appBase/master/map/service';
 import { Store } from '@ngrx/store';
 import { actions } from '@appBase/+state/actions';
-import { selectCity } from '@appBase/+state/select';
+import { selectCity, selectDestinationCity } from '@appBase/+state/select';
 
 @Component({
-  selector: 'pe-dynamic-autocomplete',
-  templateUrl: './dynamic-autocomplete.component.html',
-  styleUrls: ['./dynamic-autocomplete.component.scss'],
+  selector: 'pe-dynamic-autocomplete-destinations',
+  templateUrl: './dynamic-autocomplete-destination.component.html',
+  styleUrls: ['./dynamic-autocomplete-destination.component.scss'],
 })
-export class DynamicAutocompleteComponent implements OnInit {
-  result: any = [];
+export class DynamicAutocompleteDestinationsComponent implements OnInit {
+  myresult: any = [];
   loading = false;
   @Input() divId: any;
   @Output() results = new EventEmitter<any>();
-  locationInput = new FormControl('', []);
+  locationInputDestination = new FormControl('', []);
 
   constructor(private mapService: MapService, private store: Store) {}
   ngOnInit(): void {
@@ -26,10 +26,10 @@ export class DynamicAutocompleteComponent implements OnInit {
   }
   comebackResult(result: any) {
     this.results.emit(result);
-    this.result = [];
+    this.myresult = [];
   }
   listener() {
-    this.locationInput.valueChanges
+    this.locationInputDestination.valueChanges
       .pipe(
         tap((res: any) => {
           if (res.length === 0) this.loading = false;
@@ -43,8 +43,9 @@ export class DynamicAutocompleteComponent implements OnInit {
       .subscribe();
   }
   selectFoundItems() {
-    this.store.select(selectCity).subscribe((res) => {
-      this.result = res.slice(0, 5);
+    this.store.select(selectDestinationCity).subscribe((res) => {
+      console.log(res);
+      this.myresult = res.slice(0, 5);
       this.loading = false;
     });
   }
@@ -52,7 +53,9 @@ export class DynamicAutocompleteComponent implements OnInit {
     return str.toLocaleLowerCase();
   }
   search(searchItem: string) {
-    this.store.dispatch(actions.startFetchCities({ searchItem: searchItem }));
+    this.store.dispatch(
+      actions.startFetchDestinationCities({ searchItem: searchItem })
+    );
   }
 
   lower(str: any) {

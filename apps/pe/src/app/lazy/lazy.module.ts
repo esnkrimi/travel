@@ -17,6 +17,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatDialogModule } from '@angular/material/dialog';
 import { DymaicAutocompleteModule } from '@pe/dymaic-autocomplete';
+import { DynamicAutocompleteDestinationsModule } from '@pe/dynamic-autocomplete-destinations';
 import { AdvancedAutocompleteModule } from '@pe/advanced-autocomplete';
 import { JoyrideModule } from 'ngx-joyride';
 import { MatSelectModule } from '@angular/material/select';
@@ -48,6 +49,7 @@ import { CityDistanceComponent } from './city-distance/city-distance.component';
     CommonModule,
     GoogleSigninButtonModule,
     lazyRouterModule,
+    DynamicAutocompleteDestinationsModule,
     DymaicAutocompleteModule,
     MatChipsModule,
     AdvancedAutocompleteModule,

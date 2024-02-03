@@ -1,16 +1,5 @@
-import {
-  Component,
-  EventEmitter,
-  Inject,
-  Input,
-  OnChanges,
-  OnInit,
-  Output,
-  SimpleChanges,
-} from '@angular/core';
-import { actions } from '@appBase/+state/actions';
-import { selectCity, selectLocation } from '@appBase/+state/select';
-import { Store } from '@ngrx/store';
+import { Component, OnInit } from '@angular/core';
+import { DistancePipe } from '@appBase/pipe/distance-to-time.pipe';
 import * as L from 'leaflet';
 
 @Component({
@@ -25,11 +14,11 @@ export class CityDistanceComponent implements OnInit {
   line: any;
   distance = {
     direct: 0,
-    car: 0,
-    walk: 0,
-    bicycle: 0,
+    car: '0',
+    walk: '0',
+    bicycle: '0',
   };
-  constructor(private store: Store) {}
+  constructor(private distancePipe: DistancePipe) {}
   ngOnInit(): void {
     this.map = L.map('mapd', {
       crs: L.CRS.EPSG900913,
@@ -51,16 +40,30 @@ export class CityDistanceComponent implements OnInit {
       this.destinationCity.latitude,
       this.destinationCity.longitude
     );
-    this.distance.direct = tmpSource.distanceTo(tmpDestination);
+    this.distance.direct = Math.round(tmpSource.distanceTo(tmpDestination));
     const t = L.Routing.control({
       showAlternatives: false,
       waypoints: [tmpSource, tmpDestination],
-      routeLine: function (route) {
+      routeLine: (route) => {
         const line: any = L.Routing.line(route);
-        return line;
+        this.distance.car =
+          Math.round(line._route.summary.totalDistance) +
+          'm - ' +
+          this.distancePipe.transform(
+            Math.round(line._route.summary.totalDistance),
+            'car'
+          );
+
+        this.distance.walk =
+          Math.round(line._route.summary.totalDistance) +
+          'm - ' +
+          this.distancePipe.transform(
+            Math.round(line._route.summary.totalDistance),
+            'walk'
+          );
+        return line._route.summary.totalDistance;
       },
     })
-      //this.distance.car=line._route.summary.totalDistance
       .addTo(this.map)
       .hide();
     console.log(t);

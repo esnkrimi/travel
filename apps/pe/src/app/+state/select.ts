@@ -19,4 +19,5 @@ export const {
   selectSharedLocation,
   selectSavedLocation,
   selectCity,
+  selectDestinationCity,
 } = reducerStates;

@@ -21,6 +21,9 @@
       "@pe/auto-complete": ["libs/auto-complete/src/index.ts"],
       "@pe/confirm-modal": ["libs/confirm-modal/src/index.ts"],
       "@pe/dymaic-autocomplete": ["libs/dymaic-autocomplete/src/index.ts"],
+      "@pe/dynamic-autocomplete-destinations": [
+        "libs/dynamic-autocomplete-destinations/src/index.ts"
+      ],
       "@pe/experiences": ["libs/experiences/src/index.ts"],
       "@pe/form-trip-location": ["libs/form-trip-location/src/index.ts"],
       "@pe/help": ["libs/help/src/index.ts"],
