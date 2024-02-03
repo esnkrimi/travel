@@ -1,12 +1,7 @@
 <div class="parent">
   <div class="w-100 text-center box">
     <div [class.invisible]="!setting.showMap" class="map-container">
-      <div
-        joyrideStep="distanceTools"
-        text="get current your location"
-        class="fixed-country shadow-lg cursor-pointer"
-        cdkDrag
-      >
+      <div class="fixed-country shadow-lg cursor-pointer" cdkDrag>
         <div
           class="animated-fadein text-large text-green bg-white w-100"
           *ngIf="setting.distanceActivated"
@@ -34,6 +29,8 @@
           />
         </div>
         <div
+          joyrideStep="typeChange"
+          text="change location type, eg. Hotel"
           *ngIf="!setting.toolsShow"
           class="tools-pane text-left div-tools"
           (click)="setting.toolsShow = !setting.toolsShow"
@@ -48,10 +45,7 @@
             ></i>
           </div>
           <div class="p-2">
-            <div
-              joyrideStep="typeChange"
-              text="change location type, eg. Hotel"
-            >
+            <div>
               <pe-advanced-autocomplete
                 (results)="change($event)"
               ></pe-advanced-autocomplete>
@@ -73,8 +67,6 @@
           <div>
             <button
               mat-stroked-button
-              joyrideStep="mylocatioonTools"
-              text="set your current location.It can be used later"
               class="text-dark"
               [class.border-0]="!setting.currentLocationActivated"
               [class.border-active-btn]="setting.currentLocationActivated"
@@ -86,8 +78,6 @@
           <div>
             <button
               mat-stroked-button
-              joyrideStep="distanceTools"
-              text="calculate distance between two point"
               class="text-dark"
               [class.border-0]="!setting.distanceActivated"
               [class.border-active-btn]="setting.distanceActivated"
@@ -99,8 +89,6 @@
           <div>
             <button
               mat-stroked-button
-              joyrideStep="routingTools"
-              text="You can get direction to routing from your current location  to destination"
               class="text-dark"
               [class.border-0]="!setting.routingActivated"
               [class.border-active-btn]="setting.routingActivated"

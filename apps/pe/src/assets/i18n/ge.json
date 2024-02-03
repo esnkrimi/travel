@@ -15,6 +15,7 @@
 "aboutMe": "über mich",
 "update": "aktualisieren",
 "walletConnect": "Wallet verbinden",
+"cityDistance": "Stadtentfernung",
 "LocationList": "Standortliste",
 "sortbynearest": "Sortieren Sie nach dem nächstgelegenen",
 "sortbyrates": "nach Tarifen sortieren",
@@ -84,5 +85,12 @@
 "aboutMessageC":"Oooh ja! Hier ist alles kostenlos. Wir haben keine Nutzungsbeschränkungen für Benutzer festgelegt. Benutzer können Unternehmen und Orte unbegrenzt vorstellen und auch die von anderen Benutzern eingeführten Orte nutzen und deren Erfahrungen nutzen. ",
 "aboutMessageB-2":"Sie können auch die Erfahrungen anderer Menschen nutzen, um sich das Reiseziel anzusehen und so eine sichere Reise zu haben. Es ist sehr wichtig, welches Hotel und welche Unterkunft Sie wählen.",
 "directionHere":"Route hierher",
-"suggestedBy":"Vorgeschlagen von"
+"suggestedBy":"Vorgeschlagen von",
+"featureA":"Sie können jeden Ort auf der ganzen Welt finden, Tarife, Benutzerkommentare und einige Informationen einsehen, die Ihnen bei der Auswahl oder dem Widerruf der Nutzung helfen",
+"featureB":"Sie können einen Ort, den Sie zuvor besucht haben, einreichen, indem Sie auf die Karte klicken. Geben Sie Ihre Idee und Preise für andere ein",
+"featureC":"Sie können Ihren aktuellen Standort festlegen und nächstgelegene Standorttypen finden, z. B. Hotels, Clubs ...",
+"featureD":"Sie können die Entfernung zwischen Orten oder zwischen Ihrem Ort und einem bestimmten Ort ermitteln",
+"featureE":"Sie können Routen zwischen Orten finden",
+"featureF":"Sie können einige Orte in Ihrer Wunschliste speichern, um sie später zu verwenden",
+"featureG":"Direkte Entfernungen und Routenentfernungen finden Sie auch zwischen zwei Städten"
 }

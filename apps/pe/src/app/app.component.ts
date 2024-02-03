@@ -17,6 +17,7 @@ import { actions } from './+state/actions';
 import { MapApiService } from 'libs/map/src/lib/component/map.service';
 import { selectAllTrips, selectTripRequests } from './+state/select';
 import { MatDialog } from '@angular/material/dialog';
+import { JoyrideService } from 'ngx-joyride';
 
 @Component({
   selector: 'pe-root',
@@ -62,7 +63,8 @@ export class AppComponent implements OnInit {
     private mapService: MapService,
     private mapApiService: MapApiService,
     private drawerService: LocationGeoService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private readonly joyrideService: JoyrideService
   ) {}
   users() {
     this.store.dispatch(actions.startFetchUsersOfSites());
@@ -192,7 +194,7 @@ export class AppComponent implements OnInit {
   }
 
   skipNext() {
-    this.skip = 2;
+    this.skip = 3;
   }
 
   fetchUserOfSite() {
@@ -201,6 +203,7 @@ export class AppComponent implements OnInit {
   resultOutputs(e: IScope) {
     this.scope = e;
   }
+
   resultOutputss(e: IScope) {
     this.scope = e;
   }

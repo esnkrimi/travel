@@ -95,5 +95,12 @@
 "aboutMessageC":"Oooh yeah! Everything is free here. We have not set any usage restrictions for users.Users can introduce businesses and places unlimitedly and also use the places introduced by other users and use their experiences. ",
 "aboutMessageB-2":"You can also use other people's experiences to see the destination in order to have a safe trip. It is very important which hotel and accommodation you choose.",
 "directionHere":"Route Here",
-"suggestedBy":"Suggested By"
+"suggestedBy":"Suggested By",
+"featureA":"You can find any places in all around the world,see rates,users comment and some information that help you to select or revoke to use",
+"featureB":"You can submit a location that you visited before by click on the map.Insert your idea and rates for others",
+"featureC":"You can set your current location and find nearest location types e.g hotels,club ...",
+"featureD":"You can find distance between places or between your place and a specific place",
+"featureE":"You can find routes between places",
+"featureF":"You can save some places in your wishlist to use after",
+"featureG":"You can find direct distance and routing distance also between two cities"
 }

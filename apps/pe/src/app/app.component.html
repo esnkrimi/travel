@@ -50,9 +50,9 @@
     </div>
   </div>
 </div>
-<!--
 
 <div class="parent-layer" *ngIf="skip >= 0 && skip < 2">
+  {{ skip }}
   <div class="adv2 animated-fadein bg-dark-orange">
     <h4 class="text-font-fantasy font-fairytail text-large bg-dark-orange">
       Wellcome to Crown Plaza !
@@ -76,4 +76,47 @@
     </div>
   </div>
 </div>
--->
+
+<div class="parent-layer" *ngIf="skip === 2">
+  <div class="scroller-div adv2 animated-fadein">
+    <h4 class="text-font-fantasy text-dark font-fairytail text-large bg-white">
+      Wellcome to Crown Plaza !
+    </h4>
+    <h4 class="fw-bold text-left title">
+      {{ 'aboutMessageTitleB' | translate }}
+    </h4>
+    <div class="text-left content-message p-2">
+      {{ 'aboutMessageB' | translate }}
+    </div>
+    <h4 class="fw-bold text-left title">Our Features</h4>
+    <div class="text-left content-message p-2">
+      <ul>
+        <li>
+          {{ 'featureA' | translate }}
+        </li>
+        <li>
+          {{ 'featureB' | translate }}
+        </li>
+        <li>
+          {{ 'featureC' | translate }}
+        </li>
+        <li>
+          {{ 'featureD' | translate }}
+        </li>
+        <li>{{ 'featureE' | translate }}</li>
+        <li>{{ 'featureF' | translate }}</li>
+        <li>
+          {{ 'featureG' | translate }}
+        </li>
+      </ul>
+    </div>
+    <div class="text-left w-100">
+      <span
+        class="btn m-2 btn-outline-light text-dark cursor-pointer"
+        (click)="skipNext()"
+      >
+        Skip
+      </span>
+    </div>
+  </div>
+</div>

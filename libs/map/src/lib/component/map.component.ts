@@ -116,8 +116,7 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
     private geoService: LocationGeoService,
     private distancePipe: DistancePipe,
     private mapApiService: MapApiService,
-    private store: Store,
-    private readonly joyrideService: JoyrideService
+    private store: Store
   ) {}
 
   getShowLocationState() {
@@ -526,7 +525,6 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
       this.changeCenter(22);
     });
 
-    if (this.showTour) this.showTours();
     this.highlightLocation();
   }
   fetchUserLocation() {
@@ -703,23 +701,6 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
       });
   }
 
-  showTours() {
-    this.joyrideService.startTour({
-      steps: [
-        'typeChange',
-        'distanceTools',
-        'mylocatioonTools',
-        'routingTools',
-        'board',
-      ],
-      themeColor: 'green',
-      showCounter: false,
-      customTexts: {
-        prev: 'prev',
-        next: 'next',
-      },
-    });
-  }
   searchBox() {
     (L.Control as any)
       .geocoder({

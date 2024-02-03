@@ -2,6 +2,7 @@
   .adv2{
     width: 100%;
     left: 0%;
+    height: 60vh !important;
     bottom:0px;
   }
   .img-adv{
@@ -138,7 +139,12 @@ text-light{
   padding-top: 20em;
   width: 100%;
 }
-
+.content-message{
+  font-size: calc(0.4vw + 0.45vh + 1vmin) !important;
+  color: var(--COLOR-BLUEBLACK);
+  line-height: 1.7em;
+  text-justify: kashida;
+}
 .modal-absolute{ 
   position: absolute;
   left: 0;
@@ -186,4 +192,8 @@ text-light{
 }
 .headers{
   height: 1em !important;
+}
+.scroller-div{
+  height: 70vh;
+  overflow: scroll;
 }
