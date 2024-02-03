@@ -409,6 +409,9 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
       location.destinationLat,
       location.destinationLon
     );
+    //this.addMarker(sourceLocation, 'current', [50, 50]);
+    //this.addMarker(sourceAndDestination, 'current', [50, 50]);
+
     L.Routing.control({
       showAlternatives: false,
       waypoints: [sourceLocation, sourceAndDestination],
@@ -421,7 +424,7 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
         });
         return line;
       },
-      routeWhileDragging: false,
+      routeWhileDragging: true,
     }).addTo(this.map);
   }
   listener(changedCity: boolean) {
