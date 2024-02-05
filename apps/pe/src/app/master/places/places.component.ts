@@ -40,9 +40,9 @@ export class PlacesComponent implements OnInit {
     const tmp = rate.split('-');
     return tmp;
   }
-  changeCenter(lat: any, lon: any) {
+  changeCenter(lat: any, lon: any, city: string, type: string) {
     this.showContent = false;
-    const tmp = [lat, lon];
+    const tmp = [[lat, lon], city, type];
     this.viewOnMap.emit(tmp);
   }
 }

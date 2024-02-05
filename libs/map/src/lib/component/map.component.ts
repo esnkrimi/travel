@@ -54,6 +54,7 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
     routingActivated: false,
   };
 
+  @Input() typeForceChange: any;
   @Input() formTripShow: any;
   @Output() formTripShowAction = new EventEmitter<any>();
   @Input() country: any;
@@ -512,6 +513,7 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
+    if (this.typeForceChange) this.selectedType = this.typeForceChange;
     this.draggingLocation.city = this.city;
     this.draggingLocation.country = this.country;
     this.draggingLocation = {

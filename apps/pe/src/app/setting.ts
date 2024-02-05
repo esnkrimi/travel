@@ -83,6 +83,7 @@ export interface MapSetting {
   center: any;
   country: string;
   city: string;
+  type: string;
   state: string;
   formTripShow: boolean;
   showMap: boolean;

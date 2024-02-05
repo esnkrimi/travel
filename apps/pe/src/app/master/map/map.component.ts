@@ -37,6 +37,7 @@ export class MapComponent implements OnChanges, OnInit {
       sourceLat: '',
       sourceLon: '',
     },
+    type: '',
   };
 
   constructor(
@@ -77,7 +78,9 @@ export class MapComponent implements OnChanges, OnInit {
     }
   }
   viewOnMap(location: any) {
-    this.setting.center = location;
+    this.setting.center = location[0];
+    this.setting.city = location[1];
+    this.setting.type = location[2];
   }
   fetchLocationByIpAddress(ipAddress: string) {
     this.mapService.loadingProgress.next(true);

@@ -30,7 +30,14 @@
             <div *ngIf="types.type === location.type">
               <div>
                 <img
-                  (click)="changeCenter(location.lat, location.lon)"
+                  (click)="
+                    changeCenter(
+                      location.lat,
+                      location.lon,
+                      location.city,
+                      location.type
+                    )
+                  "
                   [src]="
                     'https://burjcrown.com/drm/travel/users/' +
                     location.id +
