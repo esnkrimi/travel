@@ -281,6 +281,7 @@ export interface ICity {
   city: string;
   latitude: string;
   longitude: string;
+  country?: any;
 }
 
 export interface Ilocation {

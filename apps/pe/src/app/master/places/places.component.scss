@@ -23,3 +23,15 @@
     width: 100%;
     text-align: center;
 }
+::ng-deep{
+    .carousel-control-prev-icon{
+        background-image: url('https://cdn-icons-png.flaticon.com/512/137/137623.png') !important;
+    }
+    .carousel-control-next-icon{
+        background-image: url('https://cdn-icons-png.flaticon.com/512/137/137624.png') !important
+    }
+    .carousel-control-prev, .carousel-control-next{
+        opacity: 1 !important;
+    }
+    
+}

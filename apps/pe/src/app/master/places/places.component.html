@@ -17,7 +17,7 @@
       data-bs-ride="carousel"
     >
       <ng-container *ngIf="orderByType(types.type).length > 0">
-        <div class="title-bar bg-light text-capitalize">
+        <div class="title p-2 joyride-button text-light text-capitalize">
           {{ types.type }}
         </div>
 
@@ -38,11 +38,7 @@
                       location.type
                     )
                   "
-                  [src]="
-                    'https://burjcrown.com/drm/travel/users/' +
-                    location.id +
-                    '/master/1.jpg'
-                  "
+                  [src]="location.img[0]"
                   onerror="this.src='../../../assets/img/unknown-loc.jpg'"
                   class="d-block w-100"
                   alt="..."
