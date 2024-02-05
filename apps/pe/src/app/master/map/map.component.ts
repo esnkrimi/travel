@@ -41,6 +41,7 @@ export class MapComponent implements OnChanges, OnInit {
 
   constructor(
     @Inject('userSession') public userSession: any,
+    @Inject('deviceIsWide') public deviceIsWide: any,
     private route: ActivatedRoute,
     private mapService: MapService,
     private geoService: LocationGeoService
@@ -74,6 +75,9 @@ export class MapComponent implements OnChanges, OnInit {
       this.setting.country = this.scope.country;
       this.setting.state = this.scope.state;
     }
+  }
+  viewOnMap(location: any) {
+    this.setting.center = location;
   }
   fetchLocationByIpAddress(ipAddress: string) {
     this.mapService.loadingProgress.next(true);

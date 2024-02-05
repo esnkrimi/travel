@@ -1,0 +1,80 @@
+<div
+  class="btn-bottom p-1 bg-light text-dark"
+  *ngIf="!showContent"
+  (click)="showContent = true"
+>
+  <img src="../../../assets/img/circles.jpeg" class="w-25" />
+</div>
+<div class="transparent-bg-div animated-fadein" *ngIf="showContent">
+  <div class="text-center p-1 bg-light text-dark" (click)="showContent = false">
+    <img src="../../../assets/img/circles.jpeg" class="w-25" />
+  </div>
+  <div>
+    <div
+      *ngFor="let types of locationType; let i = index"
+      [attr.id]="'p' + types.type"
+      class="carousel slide m-1"
+      data-bs-ride="carousel"
+    >
+      <ng-container *ngIf="orderByType(types.type).length > 0">
+        <div class="title-bar bg-light text-capitalize">
+          {{ types.type }}
+        </div>
+
+        <div class="carousel-inner">
+          <div
+            class="carousel-item"
+            [class.active]="i === 1"
+            *ngFor="let location of orderByType(types.type); let i = index"
+          >
+            <div *ngIf="types.type === location.type">
+              <div>
+                <img
+                  (click)="changeCenter(location.lat, location.lon)"
+                  [src]="
+                    'https://burjcrown.com/drm/travel/users/' +
+                    location.id +
+                    '/master/1.jpg'
+                  "
+                  onerror="this.src='../../../assets/img/unknown-loc.jpg'"
+                  class="d-block w-100"
+                  alt="..."
+                />
+              </div>
+              <div class="col-md-10 bg-light">
+                <div class="text-left fw-bold">
+                  <span> {{ location.title }}</span>
+                  <span> {{ extractRate(location.score)[0] }}</span>
+                </div>
+                <div>
+                  <span> {{ location.country }}</span>
+                  <span> {{ location.city }}</span>
+                  <span> {{ location.county }}</span>
+                  <span> {{ location.street }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button
+          class="carousel-control-prev fw-bold"
+          type="button"
+          [attr.data-bs-target]="'#p' + types.type"
+          data-bs-slide="prev"
+        >
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button
+          class="carousel-control-next"
+          type="button"
+          [attr.data-bs-target]="'#p' + types.type"
+          data-bs-slide="next"
+        >
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </ng-container>
+    </div>
+  </div>
+</div>

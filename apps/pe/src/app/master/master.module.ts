@@ -15,6 +15,8 @@ import { masterRouterModule } from './routes';
 import { HelpModule } from '@pe/help';
 import { NavbarMenuModule } from '@pe/navbar-menu';
 import { LoadingProgressModule } from '@pe/loading-progress';
+import { PlacesComponent } from './places/places.component';
+import { NgImageSliderModule } from 'ng-image-slider';
 
 @NgModule({
   declarations: [
@@ -23,11 +25,13 @@ import { LoadingProgressModule } from '@pe/loading-progress';
     FooterComponent,
     HeaderComponent,
     ResponsiveHeaderComponent,
+    PlacesComponent,
   ],
   imports: [
     CommonModule,
     MapModule,
     AutoCompleteModule,
+    NgImageSliderModule,
     masterRouterModule,
     LoadingProgressModule,
     HelpModule,
@@ -40,6 +44,7 @@ import { LoadingProgressModule } from '@pe/loading-progress';
   exports: [
     HeaderComponent,
     FooterComponent,
+    PlacesComponent,
     MapComponent,
     ResponsiveHeaderComponent,
   ],

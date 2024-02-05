@@ -11,4 +11,5 @@
     (formTripShowAction)="formTripShowAction($event)"
   ></pe-map>
   <pe-help></pe-help>
+  <pe-places *ngIf="!deviceIsWide" (viewOnMap)="viewOnMap($event)"></pe-places>
 </div>
