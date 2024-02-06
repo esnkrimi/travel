@@ -11,7 +11,7 @@ export class PlacesComponent implements OnInit {
   @Output() viewOnMap = new EventEmitter<any>();
   locationType: any = [];
   location: any = [];
-  showContent = true;
+  showContent = false;
   data = [
     {
       id: 591,
