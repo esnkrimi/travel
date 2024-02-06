@@ -43,13 +43,11 @@
  @font-face {
    font-family: darkmagic;
    src: url('./assets/fonts/darkmagic.otf')
- }
- 
+ } 
  @mixin text-bg($bg,$col){
    color: var($col)  !important;
    background-color: var($bg) !important;
 }
-
 .bg-cream{
    @include text-bg(--COLOR-CREAM,--COLOR-DARK)
 }
@@ -110,7 +108,10 @@ body{
 .animated-fadein{
    animation: animate-fadein 1s forwards;
 }
+.animated-scoll-up {
+   animation: animation-scoll-up 2s forwards;
 
+}
 .animated-display {
    animation: animate-display  0.6s forwards;
 }
@@ -140,6 +141,16 @@ body{
       top:0px;
    }
 }
+
+@keyframes animation-scoll-up {
+   0%{
+       bottom: 0;
+   }
+   100%{
+      bottom: 90%;
+   }
+}
+
 @keyframes animate-fadein {
    0%{
        opacity: 0;
@@ -372,9 +383,7 @@ button:disabled{
 .flex-cell{
    display: flex;
    align-items: center; 
-   
 }
- 
 .font-fairytail{
    font-family: fairytail !important;
 }
@@ -472,8 +481,6 @@ textarea{
    cursor: pointer;
    z-index: 9999999 !important;
  }
- 
-
 .close-button-top-right{
    color: var(--COLOR-MAGENTA); 
    cursor: pointer;
@@ -529,8 +536,6 @@ textarea{
 .pr-3{
    padding-right: 1% !important;
 }
-
-
 @media only screen and (min-width: 1200px) {
    .pc-hide{
        display: none;

@@ -102,5 +102,6 @@
 "featureD":"You can find distance between places or between your place and a specific place",
 "featureE":"You can find routes between places",
 "featureF":"You can save some places in your wishlist to use after",
-"featureG":"You can find direct distance and routing distance also between two cities"
+"featureG":"You can find direct distance and routing distance also between two cities",
+"knownPlaces":"Sights in "
 }

@@ -2,7 +2,6 @@
     z-index: 9999999 !important;
     left:0;
     top:0%;
-    overflow: scroll;
     width: 100% !important;
     height: 1000% !important;
     position: absolute;
@@ -34,4 +33,11 @@
         opacity: 1 !important;
     }
     
+}
+.btn-icon{
+    width: 3vh !important;
+    height: 3vh !important;
+}
+.font-mathilda{
+    font-size: 1.3em !important;
 }

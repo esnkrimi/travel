@@ -17,6 +17,7 @@ import { NavbarMenuModule } from '@pe/navbar-menu';
 import { LoadingProgressModule } from '@pe/loading-progress';
 import { PlacesComponent } from './places/places.component';
 import { NgImageSliderModule } from 'ng-image-slider';
+import { EsnCarouselModule } from '@pe/esn-carousel';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { NgImageSliderModule } from 'ng-image-slider';
     masterRouterModule,
     LoadingProgressModule,
     HelpModule,
+    EsnCarouselModule,
     NavbarMenuModule,
     RouterModule,
     MatButtonModule,

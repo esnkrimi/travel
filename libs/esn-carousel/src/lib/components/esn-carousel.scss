@@ -1,0 +1,76 @@
+.carousel {
+    overflow-x: hidden;
+    overflow-y: hidden;
+    scrollbar-color: #6969dd #dd2f2f;
+    scrollbar-width: thin;
+    width: 100%;
+    align-items: center;
+    position: relative;
+}
+
+.frame {
+    position: relative;
+    width: 100%;
+}
+
+div.relative {
+    position: relative;
+}
+
+div.absolute {
+    position: absolute;
+}
+
+.arrow-right ,.arrow-left {
+    top: 50%;
+    vertical-align: middle;
+    justify-content: baseline;
+    z-index: 999999999 !important;
+}
+.arrow-right {
+    right: 0 !important;
+}
+
+.arrow-left {
+    left: 0 !important;
+}
+
+.button:focus {
+    outline: none;
+}
+
+.items>div>div,
+.price {
+    font-size: 0.8em;
+    text-align: center;
+}
+
+.items {
+    border: solid 1px #eeeeee;
+    margin: 0.3em;
+    cursor: pointer;
+    opacity: 0.9;
+    transition: transform 0.3s;
+}
+
+.items:hover {
+    opacity: 1;
+    transform: scale(1.05);
+}
+
+img {
+    margin-bottom: 0.6em;
+}
+.relative{
+    height: 1000% !important;
+}
+.bg-unknown{
+    background-image: url('https://cdn.dribbble.com/users/1406378/screenshots/4018459/fasterdots.gif');
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.fa{
+    color: var(--COLOR-DARK) !important;
+    font-size: 2.5em !important;
+}

@@ -1,0 +1,38 @@
+<div class="relative bg-light">
+  <div #frame id="frame" class="frame d-flex flex-nowrap">
+    <div class="items" *ngFor="let i of data; let j = index">
+      <div>
+        <img
+          (click)="changeCenter(i.lat, i.lon, i.city, i.type)"
+          class="rounded-3"
+          [ngStyle]="{ width: info.imgWidth, height: info.imgHeight }"
+          [src]="info.imagePrefix + i.id + info.imagePostfix"
+          onerror="this.src='https://cf.bstatic.com/xdata/images/hotel/max1024x768/517375334.jpg?k=385a65184319e2f1524ad2e24498ac62b2611736d3c4599c9cc7fe9e8e9f81bf&o=&hp=1'"
+        />
+        <div
+          class="font-weight-bold"
+          [ngStyle]="{ 'border-color': info.borderColor }"
+          *ngIf="i.title"
+        >
+          <div>
+            <span class="fw-bold">{{ i.title }}</span>
+          </div>
+          <div>
+            <span>{{ i.city }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="absolute arrow-right">
+    <button class="btn rounded-circle" (click)="scroll(0)">
+      <i class="fa fa-chevron-circle-right"></i>
+    </button>
+  </div>
+  <div class="absolute arrow-left">
+    <button class="btn rounded-circle" (click)="scroll(1)">
+      <i class="fa fa-chevron-circle-left"></i>
+    </button>
+  </div>
+</div>
