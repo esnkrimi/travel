@@ -27,7 +27,7 @@ export class PlacesComponent implements OnInit {
     bgColor: 'white',
     textColor: 'black',
     borderColor: '#ccffdd',
-    imgWidth: '14em',
+    imgWidth: '13em',
     imgHeight: '7em',
     numberOfPage: 3,
     arrowColor: '#ffffff',
@@ -44,7 +44,7 @@ export class PlacesComponent implements OnInit {
 
   orderByType(type: string) {
     const result = this.location.filter((res: any) => res.type === type);
-    return result;
+    return result.slice(0, 5);
   }
 
   fetchLocationTypes() {
@@ -60,9 +60,5 @@ export class PlacesComponent implements OnInit {
   viewOnMaps(event: any) {
     this.showContent = false;
     this.viewOnMap.emit(event);
-  }
-  extractRate(rate: string) {
-    const tmp = rate.split('-');
-    return tmp;
   }
 }

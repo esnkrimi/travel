@@ -25,16 +25,18 @@
       [attr.id]="'p' + types.type"
     >
       <ng-container *ngIf="orderByType(types.type).length > 0">
-        <div class="bg-light text-dark p-2 fw-bolder text-capitalize">
-          {{ types.type }}
-        </div>
+        <div class="shadow-lg m-low">
+          <div class="bg-light text-dark p-2 fw-bolder text-capitalize">
+            {{ types.type }}
+          </div>
 
-        <esn-carousels
-          (viewOnMap)="viewOnMaps($event)"
-          [id]="types.type"
-          [info]="info"
-          [data]="orderByType(types.type)"
-        ></esn-carousels>
+          <esn-carousels
+            (viewOnMap)="viewOnMaps($event)"
+            [id]="types.type"
+            [info]="info"
+            [data]="orderByType(types.type)"
+          ></esn-carousels>
+        </div>
       </ng-container>
     </div>
   </div>

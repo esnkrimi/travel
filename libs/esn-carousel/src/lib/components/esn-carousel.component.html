@@ -7,18 +7,28 @@
           class="rounded-3"
           [ngStyle]="{ width: info.imgWidth, height: info.imgHeight }"
           [src]="info.imagePrefix + i.id + info.imagePostfix"
-          onerror="this.src='https://cf.bstatic.com/xdata/images/hotel/max1024x768/517375334.jpg?k=385a65184319e2f1524ad2e24498ac62b2611736d3c4599c9cc7fe9e8e9f81bf&o=&hp=1'"
+          onerror="this.src='https://resources.alleghenycounty.us/css/images/Default_No_Image_Available.png'"
         />
         <div
           class="font-weight-bold"
           [ngStyle]="{ 'border-color': info.borderColor }"
           *ngIf="i.title"
         >
-          <div>
-            <span class="fw-bold">{{ i.title }}</span>
+          <div class="w-100 text-left pb-2 mb-1">
+            <span>{{ i.title }}</span>
           </div>
-          <div>
-            <span>{{ i.city }}</span>
+        </div>
+        <div class="d-flex flex-nowrap">
+          <div class="text-left">
+            <span
+              ><i
+                *ngFor="let start of getArray(extractRate(i.score)[0])"
+                class="fa fa-star text-geen score-star p-1"
+              ></i
+            ></span>
+          </div>
+          <div class="text-left">
+            <span class="fw-bold"> 12000 KM </span>
           </div>
         </div>
       </div>

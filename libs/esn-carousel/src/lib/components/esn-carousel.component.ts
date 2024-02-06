@@ -42,7 +42,14 @@ export class EsnCarouselComponent implements OnInit {
             this.render.setStyle(this.frame.nativeElement, 'left', '0px');
         });
   }
-
+  getArray(num: any) {
+    const arr = ['0', '0', '0', '0', '0'];
+    return arr.slice(0, Number(num));
+  }
+  extractRate(rate: string) {
+    const tmp = rate.split('-');
+    return tmp;
+  }
   changeCenter(lat: any, lon: any, city: string, type: string) {
     const tmp = [[lat, lon], city, type];
     this.viewOnMap.emit(tmp);

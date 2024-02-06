@@ -3,13 +3,15 @@
     left:0;
     top:0%;
     width: 100% !important;
-    height: 1000% !important;
-    position: absolute;
-    background-color: rgba(14, 7, 78, 0.4);
+    height: 100%;
+    position: fixed;
+    background-color: rgb(248, 245, 245) !important;
     -webkit-backdrop-filter: blur(5px);
     backdrop-filter: blur(5px);
 }
-
+.height-long{
+    overflow: scroll;
+}
 .title-bar{
     margin: 0em !important;
 }
@@ -40,4 +42,7 @@
 }
 .font-mathilda{
     font-size: 1.3em !important;
+}
+.m-low{
+    margin-bottom: 0.3em !important;
 }
