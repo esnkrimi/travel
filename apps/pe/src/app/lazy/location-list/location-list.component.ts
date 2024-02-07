@@ -71,6 +71,7 @@ export class LocationListComponent implements OnInit {
         )
       )
       .subscribe((res) => {
+        console.log(this.citySelectToLocationList);
         if (this.citySelectToLocationList)
           this.setting.cityActive = this.citySelectToLocationList;
         else this.setting.cityActive = res[0].city;
@@ -253,6 +254,8 @@ export class LocationListComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if (this.citySelectToLocationList)
+      this.setting.cityActive = this.citySelectToLocationList;
     if (JSON.parse(this.userSession)?.id) this.selectUser();
     this.inputListener();
     setTimeout(() => {

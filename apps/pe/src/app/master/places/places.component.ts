@@ -67,6 +67,7 @@ export class PlacesComponent implements OnInit {
   }
   showMoreLocationType(type: string) {
     this.showContent = false;
+
     this.drawerService.showLocations.next({
       show: true,
       type: '',
