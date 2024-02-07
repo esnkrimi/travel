@@ -3,9 +3,11 @@ import {
   ElementRef,
   EventEmitter,
   Input,
+  OnChanges,
   OnInit,
   Output,
   Renderer2,
+  SimpleChanges,
   ViewChild,
 } from '@angular/core';
 import { interval, take } from 'rxjs';
@@ -15,7 +17,7 @@ import { interval, take } from 'rxjs';
   templateUrl: `esn-carousel.component.html`,
   styleUrls: ['esn-carousel.scss'],
 })
-export class EsnCarouselComponent implements OnInit {
+export class EsnCarouselComponent implements OnChanges {
   @ViewChild('frame') frame: ElementRef;
   @Output() viewOnMap = new EventEmitter<any>();
   @Input() info: any;
@@ -26,7 +28,7 @@ export class EsnCarouselComponent implements OnInit {
   numberOfPage: any;
   constructor(private render: Renderer2) {}
 
-  ngOnInit(): void {
+  ngOnChanges(changes: SimpleChanges): void {
     this.numberOfPage = this.info.numberOfPage;
     const tmp = this.numberOfPage;
     if (this.info.autoPlay)

@@ -1,7 +1,15 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  EventEmitter,
+  OnInit,
+  Output,
+} from '@angular/core';
+import { actions } from '@appBase/+state/actions';
 import { selectILocationTypes, selectLocation } from '@appBase/+state/select';
 import { LocationGeoService } from '@appBase/drawer.service';
 import { Store } from '@ngrx/store';
+import { MapService } from '../map/service';
 
 @Component({
   selector: 'pe-places',
@@ -38,12 +46,14 @@ export class PlacesComponent implements OnInit {
   };
   constructor(
     private store: Store,
-    private drawerService: LocationGeoService
+    private drawerService: LocationGeoService,
+    private mapService: MapService
   ) {}
 
   ngOnInit(): void {
-    this.fetchLocations();
     this.fetchLocationTypes();
+    this.fetchLocations();
+    this.makeDistance();
   }
 
   orderByType(type: string) {
@@ -65,6 +75,21 @@ export class PlacesComponent implements OnInit {
     this.showContent = false;
     this.viewOnMap.emit(event);
   }
+  makeDistance() {
+    this.mapService.myLocation.subscribe((res) => {
+      const d = {
+        lat: 4275902,
+        lng: -73.97208306,
+      };
+      this.store.dispatch(
+        actions.startUpdateDistance({
+          data: this.location,
+          myLocation: d,
+        })
+      );
+    });
+  }
+
   showMoreLocationType(type: string) {
     this.showContent = false;
 

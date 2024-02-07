@@ -1,3 +1,8 @@
+@media only screen and (min-width: 1200px) {
+   .pc-hide{
+       display: none;
+   }
+}
 :root {
     --COLOR-WAITING:  #ffbc0d;
     --COLOR-RED: rgb(223, 43, 61);
@@ -535,10 +540,4 @@ textarea{
 }
 .pr-3{
    padding-right: 1% !important;
-}
-@media only screen and (min-width: 1200px) {
-   .pc-hide{
-       display: none;
-   }
- 
 }
