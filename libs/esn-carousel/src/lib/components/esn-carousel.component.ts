@@ -22,13 +22,17 @@ export class EsnCarouselComponent implements OnChanges {
   @Output() viewOnMap = new EventEmitter<any>();
   @Input() info: any;
   @Input() data: any;
-
+  simplePictureInCarousel = false;
   left = 0;
   count = 0;
   numberOfPage: any;
   constructor(private render: Renderer2) {}
 
   ngOnChanges(changes: SimpleChanges): void {
+    //this.data = [this.data];
+    this.simplePictureInCarousel =
+      this.data?.length === undefined ? false : true;
+    this.data = this.data?.length === undefined ? [this.data] : this.data;
     this.numberOfPage = this.info.numberOfPage;
     const tmp = this.numberOfPage;
     if (this.info.autoPlay)

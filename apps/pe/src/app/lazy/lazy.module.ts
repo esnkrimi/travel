@@ -32,6 +32,7 @@ import { ScoreDirective } from '@appBase/directive/score.directive';
 import { PublicAutocompleteModule } from '@pe/public-autocomplete';
 import { ScorePipe } from '@appBase/pipe/score.pipe';
 import { CityDistanceComponent } from './city-distance/city-distance.component';
+import { EsnCarouselModule } from '@pe/esn-carousel';
 
 @NgModule({
   declarations: [
@@ -59,6 +60,7 @@ import { CityDistanceComponent } from './city-distance/city-distance.component';
     PublicAutocompleteModule,
     ConfirmModalModule,
     ReactiveFormsModule,
+    EsnCarouselModule,
     FormsModule,
     MatExpansionModule,
     NgxPaginationModule,

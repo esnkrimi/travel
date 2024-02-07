@@ -53,7 +53,21 @@ export class LocationListComponent implements OnInit {
     itemToSearch: new FormControl<any>(''),
     typeSearch: new FormControl<string>(''),
   });
-
+  info = {
+    imagePrefix: 'https://burjcrown.com/drm/travel/users/',
+    imagePostfix: '/master/1.jpg',
+    destinationUrlPrefix: 'https://www.burjcrown.com/zoom/',
+    bgColor: 'white',
+    textColor: 'black',
+    borderColor: '#ccffdd',
+    imgWidth: '13em',
+    imgHeight: '7em',
+    numberOfPage: 3,
+    arrowColor: '#ffffff',
+    Speed: 3,
+    //Speed ,for mobile view select 3 or lower for pc view select 8 or more height: '24em',
+    autoPlay: false,
+  };
   constructor(
     @Inject('userSession') public userSession: string,
     private drawerService: LocationGeoService,
@@ -71,7 +85,6 @@ export class LocationListComponent implements OnInit {
         )
       )
       .subscribe((res) => {
-        console.log(this.citySelectToLocationList);
         if (this.citySelectToLocationList)
           this.setting.cityActive = this.citySelectToLocationList;
         else this.setting.cityActive = res[0].city;
