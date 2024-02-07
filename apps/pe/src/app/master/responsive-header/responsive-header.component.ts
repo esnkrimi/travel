@@ -82,6 +82,19 @@ export class ResponsiveHeaderComponent implements OnInit {
     this.setting.shearchShow = active;
     this.mapServicePrivate.loadingProgress.next(active);
   }
+  showCityDIstanceMapComponent() {
+    this.drawerService.showLocations.next({
+      show: false,
+      type: '',
+    });
+
+    this.drawerService.showCityDistance.next({
+      show: true,
+    });
+    this.showMap(true);
+    this.router.navigateByUrl('');
+  }
+
   zoomTrip(tripTitle: string) {
     this.router.navigateByUrl('lazy(secondRouter:lazy/mytrips/');
   }
