@@ -50,6 +50,7 @@
             <span class="fw-bold">
               {{ 'locationList' | translate }}
             </span>
+            <span *ngIf="typeOfLocation"> ({{ typeOfLocation }})</span>
           </p>
         </div>
         <div class="col-md-6 flex-cell text-right">

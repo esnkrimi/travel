@@ -135,6 +135,7 @@
       <pe-location-list
         *ngIf="setting.openModalLocationListFlag"
         [type]="setting.savedLocationFlag"
+        [typeOfLocation]="setting.savedLocationFlag"
         [city]="city"
         [state]="state"
         [country]="country"

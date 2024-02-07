@@ -109,4 +109,5 @@ export interface MapDetailsSetting {
   selectLocationActivated: boolean;
   loadingProgress: boolean;
   currentLocationActivated: boolean;
+  showLocationsToLocationList?: string;
 }

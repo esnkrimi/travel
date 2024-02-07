@@ -52,6 +52,7 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
     loadingProgress: true,
     currentLocationActivated: false,
     routingActivated: false,
+    showLocationsToLocationList: '',
   };
 
   @Input() typeForceChange: any;
@@ -124,6 +125,7 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
     this.geoService.showLocations.subscribe((res: any) => {
       this.setting.openModalLocationListFlag = res.show;
       this.setting.savedLocationFlag = res.type;
+      this.setting.savedLocationFlag = res.typeOfLocation;
     });
   }
   getShowCityDistanceState() {
@@ -751,6 +753,7 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
     this.geoService.showLocations.next({
       show: toggle,
       type: '',
+      typeOfLocation: '',
     });
     this.geoService.showCityDistance.next({
       show: toggle,

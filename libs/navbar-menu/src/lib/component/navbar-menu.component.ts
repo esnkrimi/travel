@@ -25,6 +25,7 @@ export class NavbarMenuComponent implements OnDestroy {
     this.drawerService.showLocations.next({
       show: true,
       type: '',
+      typeOfLocation: '',
     });
     this.drawerService.showCityDistance.next({
       show: false,
@@ -38,6 +39,7 @@ export class NavbarMenuComponent implements OnDestroy {
     this.drawerService.showLocations.next({
       show: false,
       type: '',
+      typeOfLocation: '',
     });
 
     this.drawerService.showCityDistance.next({

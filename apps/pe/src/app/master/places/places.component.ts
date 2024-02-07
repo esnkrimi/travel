@@ -1,5 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { selectILocationTypes, selectLocation } from '@appBase/+state/select';
+import { LocationGeoService } from '@appBase/drawer.service';
 import { Store } from '@ngrx/store';
 
 @Component({
@@ -35,7 +36,10 @@ export class PlacesComponent implements OnInit {
     //Speed ,for mobile view select 3 or lower for pc view select 8 or more height: '24em',
     autoPlay: false,
   };
-  constructor(private store: Store) {}
+  constructor(
+    private store: Store,
+    private drawerService: LocationGeoService
+  ) {}
 
   ngOnInit(): void {
     this.fetchLocations();
@@ -60,5 +64,13 @@ export class PlacesComponent implements OnInit {
   viewOnMaps(event: any) {
     this.showContent = false;
     this.viewOnMap.emit(event);
+  }
+  showMoreLocationType(type: string) {
+    this.showContent = false;
+    this.drawerService.showLocations.next({
+      show: true,
+      type: '',
+      typeOfLocation: type,
+    });
   }
 }

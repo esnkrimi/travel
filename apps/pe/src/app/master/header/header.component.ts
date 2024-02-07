@@ -101,6 +101,7 @@ export class HeaderComponent implements OnInit {
     this.drawerService.showLocations.next({
       show: true,
       type: type,
+      typeOfLocation: '',
     });
   }
   routeHome() {
@@ -136,6 +137,7 @@ export class HeaderComponent implements OnInit {
     this.drawerService.showLocations.next({
       show: false,
       type: '',
+      typeOfLocation: '',
     });
 
     this.drawerService.showCityDistance.next({
@@ -184,6 +186,7 @@ export class HeaderComponent implements OnInit {
     this.drawerService.showLocations.next({
       show: true,
       type: '',
+      typeOfLocation: '',
     });
     this.showMap(true);
     this.router.navigateByUrl('');

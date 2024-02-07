@@ -33,6 +33,8 @@ export class LocationListComponent implements OnInit {
   @Input() country: string;
   @Input() state: string;
   @Input() type: any;
+  @Input() typeOfLocation: any;
+
   distanceTo: any;
   setting: LocationSetting = {
     rateFilter: 'Nearest',
@@ -168,6 +170,12 @@ export class LocationListComponent implements OnInit {
             (res: any) =>
               (this.type !== 'saved' && res.city === this.setting.cityActive) ||
               res.saved === true
+          )
+        ),
+        map((res) =>
+          res.filter(
+            (res: any) =>
+              this.typeOfLocation === '' || res.type === this.typeOfLocation
           )
         )
       )

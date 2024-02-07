@@ -19,6 +19,7 @@ export class LocationGeoService {
   showLocations = new BehaviorSubject({
     show: false,
     type: '',
+    typeOfLocation: '',
   });
   showCityDistance = new BehaviorSubject({
     show: false,
