@@ -7,17 +7,33 @@
     {{ 'knownPlaces' | translate }} {{ location[0].city }}
   </span>
 </div>
+
 <div class="transparent-bg-div animated-fadein w-100" *ngIf="showContent">
   <div
     class="text-center p-1 bg-light text-dark w-100 border"
     (click)="showContent = false"
   >
-    <span class="fw-bold w-100 text-center">
-      {{ 'knownPlaces' | translate }} {{ location[0].city }}
-    </span>
-    <span>
-      <i class="fa fa-close"></i>
-    </span>
+    <div class="d-flex flex-nowrap">
+      <div
+        style="flex-basis: 50%"
+        class="text-left text-dark p-2 fw-bolder text-capitalize"
+      >
+        <span class="fw-bold w-100 text-center">
+          {{ 'knownPlaces' | translate }} {{ location[0].city }}
+        </span>
+      </div>
+      <div
+        style="flex-basis: 50%"
+        class="text-right text-meduim p-1 text-blueblack cursor-pointer"
+      >
+        <span class="p-3">
+          <img
+            src="../../../assets//img//arrow-down-icon-png-6687.png"
+            class="img-icon"
+          />
+        </span>
+      </div>
+    </div>
   </div>
   <div>
     <div
@@ -26,8 +42,19 @@
     >
       <ng-container *ngIf="orderByType(types.type).length > 0">
         <div class="shadow-lg m-low">
-          <div class="bg-light text-dark p-2 fw-bolder text-capitalize">
-            {{ types.type }}
+          <div class="d-flex flex-nowrap">
+            <div
+              style="flex-basis: 50%"
+              class="text-left text-dark p-2 fw-bolder text-capitalize"
+            >
+              {{ types.type }}
+            </div>
+            <div
+              style="flex-basis: 50%"
+              class="text-right text-meduim p-1 text-blueblack cursor-pointer"
+            >
+              More >>
+            </div>
           </div>
 
           <esn-carousels

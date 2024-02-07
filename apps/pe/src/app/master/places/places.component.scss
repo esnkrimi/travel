@@ -4,6 +4,7 @@
     top:0%;
     width: 100% !important;
     height: 100%;
+    overflow: scroll !important;
     position: fixed;
     background-color: rgb(248, 245, 245) !important;
     -webkit-backdrop-filter: blur(5px);
@@ -45,4 +46,8 @@
 }
 .m-low{
     margin-bottom: 0.3em !important;
+}
+.img-icon{
+   width: 2vh !important;     
+   height: 2vh !important;     
 }

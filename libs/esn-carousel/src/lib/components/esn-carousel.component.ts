@@ -3,15 +3,12 @@ import {
   ElementRef,
   EventEmitter,
   Input,
-  OnChanges,
   OnInit,
   Output,
   Renderer2,
-  SimpleChanges,
   ViewChild,
 } from '@angular/core';
 import { interval, take } from 'rxjs';
-import { EsnCarouselService } from './esn-carousel.service';
 
 @Component({
   selector: 'esn-carousels',
@@ -42,6 +39,7 @@ export class EsnCarouselComponent implements OnInit {
             this.render.setStyle(this.frame.nativeElement, 'left', '0px');
         });
   }
+
   getArray(num: any) {
     const arr = ['0', '0', '0', '0', '0'];
     return arr.slice(0, Number(num));
