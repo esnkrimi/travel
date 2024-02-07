@@ -87,6 +87,7 @@ export class ResponsiveHeaderComponent implements OnInit {
       show: false,
       type: '',
       typeOfLocation: '',
+      city: '',
     });
 
     this.drawerService.showCityDistance.next({
@@ -116,6 +117,7 @@ export class ResponsiveHeaderComponent implements OnInit {
       show: true,
       type: type,
       typeOfLocation: '',
+      city: '',
     });
   }
   routeHome() {
@@ -189,6 +191,7 @@ export class ResponsiveHeaderComponent implements OnInit {
       show: true,
       type: '',
       typeOfLocation: '',
+      city: '',
     });
     this.showMap(true);
     this.router.navigateByUrl('');

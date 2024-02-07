@@ -34,6 +34,7 @@ export class LocationListComponent implements OnInit {
   @Input() state: string;
   @Input() type: any;
   @Input() typeOfLocation: any;
+  @Input() citySelectToLocationList: any;
 
   distanceTo: any;
   setting: LocationSetting = {
@@ -70,7 +71,9 @@ export class LocationListComponent implements OnInit {
         )
       )
       .subscribe((res) => {
-        this.setting.cityActive = res[0].city;
+        if (this.citySelectToLocationList)
+          this.setting.cityActive = this.citySelectToLocationList;
+        else this.setting.cityActive = res[0].city;
       });
   }
   inputListener() {
@@ -172,6 +175,7 @@ export class LocationListComponent implements OnInit {
               res.saved === true
           )
         ),
+        //   tap((res) => console.log(this.setting.cityActive, res)),
         map((res) =>
           res.filter(
             (res: any) =>

@@ -20,6 +20,7 @@ export class LocationGeoService {
     show: false,
     type: '',
     typeOfLocation: '',
+    city: '',
   });
   showCityDistance = new BehaviorSubject({
     show: false,

@@ -71,6 +71,7 @@ export class PlacesComponent implements OnInit {
       show: true,
       type: '',
       typeOfLocation: type,
+      city: this.location[0].city,
     });
   }
 }

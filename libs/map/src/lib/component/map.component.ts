@@ -53,6 +53,7 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
     currentLocationActivated: false,
     routingActivated: false,
     showLocationsToLocationList: '',
+    citySelectToLocationList: '',
   };
 
   @Input() typeForceChange: any;
@@ -126,6 +127,7 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
       this.setting.openModalLocationListFlag = res.show;
       this.setting.savedLocationFlag = res.type;
       this.setting.savedLocationFlag = res.typeOfLocation;
+      this.setting.citySelectToLocationList = res.city;
     });
   }
   getShowCityDistanceState() {
@@ -754,6 +756,7 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
       show: toggle,
       type: '',
       typeOfLocation: '',
+      city: '',
     });
     this.geoService.showCityDistance.next({
       show: toggle,
