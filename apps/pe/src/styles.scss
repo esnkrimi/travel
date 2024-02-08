@@ -328,12 +328,7 @@ body{
 .mat-raised-button[disabled]{
    background-color: white !important;
 }
-
-.img-icon{
-   width: 5em;
-   opacity: 0.5;
-   cursor: pointer;
-}
+ 
 .img-icon:hover{
    opacity: 1;
 }
@@ -492,7 +487,8 @@ textarea{
    position: absolute;
    right:1%;
    top:1%;
-   width: fit-content;
+   width: 5vh !important;
+   height: 5vh !important;
    z-index: 1000;
    animation: animated-scale 0.2s forwards;
 }
@@ -502,7 +498,6 @@ textarea{
 }
 .on-layer{
    position: absolute;
-   width: 100%;
    z-index: 440;
    
 }
@@ -541,3 +536,9 @@ textarea{
 .pr-3{
    padding-right: 1% !important;
 }
+
+.img-icon{
+   width: 2vh !important;     
+   height: 2vh !important;     
+   opacity: 0.5;
+   cursor: pointer;}

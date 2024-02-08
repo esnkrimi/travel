@@ -83,6 +83,8 @@ export class ResponsiveHeaderComponent implements OnInit {
     this.mapServicePrivate.loadingProgress.next(active);
   }
   showCityDIstanceMapComponent() {
+    this.setting.menuShow = false;
+
     this.drawerService.showLocations.next({
       show: false,
       type: '',

@@ -76,7 +76,7 @@
           let l of setting.locatinListFiltered
             | paginate : { itemsPerPage: 6, currentPage: setting.page }
         "
-        class="m-2 p-3 bg-light w-100 border"
+        class="m-2 p-2 bg-light w-100 border"
       >
         <div class="row">
           <div class="col-md-12">
@@ -103,7 +103,7 @@
         <div>
           <esn-carousels [info]="info" [data]="l"></esn-carousels>
         </div>
-        <div class="p-4">
+        <div class="p-1">
           <div>
             <span class="text-capitalize"
               >{{ 'locationType' | translate }} :</span
@@ -146,10 +146,10 @@
             >
           </div>
         </div>
-        <div>
+        <div class="mt-3">
           <a
             (click)="selectLocation(l.lat, l.lon)"
-            class="link-darks fw-bold border border-green p-2"
+            class="link-darks text-meduim fw-bold border border-green mt-2 p-2"
           >
             {{ 'viewOnMap' | translate }}
           </a>

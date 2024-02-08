@@ -287,47 +287,57 @@
             </div>
           </div>
           <div class="bg-white p-4">
-            <p *ngIf="fetchFormInputValue('city')">
-              <span class="fw-bold text-blueblack text-blueblack">
-                {{ fetchFormInputValue('country') }} -
-              </span>
-              <span class="fw-bold text-blueblack text-blueblack">
-                {{ fetchFormInputValue('city') }}
-              </span>
-            </p>
             <p>
+              <span class="text-muted"> Positive Score </span>
               <span class="sign">
                 {{ extractRate(result.avgRate)[0] }}
               </span>
-              <span class="p-2">
-                <i class="fa fa-thumbs-up fa-2x text-green"></i>
-              </span>
-
+            </p>
+            <p>
+              <span class="text-muted"> Negative Score </span>
               <span class="sign">
                 {{ extractRate(result.avgRate)[1] }}
               </span>
-              <span class="p-2">
-                <i class="fa fa-thumbs-down fa-2x text-danger"></i>
-              </span>
             </p>
             <p>
+              <span class="text-muted"> {{ 'Address' | translate }} </span>
+
               <span>
                 {{ fetchFormInputValue('district') }}
               </span>
               <span>
                 {{ fetchFormInputValue('street') }}
               </span>
+              <span
+                *ngIf="fetchFormInputValue('city')"
+                class="text-blueblack text-blueblack"
+              >
+                , {{ fetchFormInputValue('city') }}
+              </span>
+              <span
+                *ngIf="fetchFormInputValue('country')"
+                class="text-blueblack text-blueblack"
+              >
+                , {{ fetchFormInputValue('country') }}
+              </span>
             </p>
 
             <p *ngIf="fetchFormInputValue('phone').length > 4">
+              <span class="text-muted"> {{ 'tell' | translate }} </span>
+
               <span class="fw-bold">
                 {{ fetchFormInputValue('phone') }}
               </span>
             </p>
             <p *ngIf="fetchFormInputValue('email').length > 4">
-              {{ fetchFormInputValue('email') }}
+              <span class="text-muted"> {{ 'email' | translate }} </span>
+              <span>
+                {{ fetchFormInputValue('email') }}
+              </span>
             </p>
             <p *ngIf="fetchFormInputValue('web').length > 4">
+              <span class="text-muted"> {{ 'website' | translate }} </span>
+
               <span class="fst-italic">
                 <a
                   [href]="fetchFormInputValue('web')"

@@ -135,6 +135,7 @@ export class HeaderComponent implements OnInit {
     }
   }
   showCityDIstanceMapComponent() {
+    this.setting.menuShow = false;
     this.drawerService.showLocations.next({
       show: false,
       type: '',

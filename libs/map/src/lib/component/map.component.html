@@ -21,7 +21,7 @@
         </div>
       </div>
 
-      <div #mapContainer class="map-framed-relative">
+      <div #mapContainer class="shadow-lg map-framed-relative">
         <div class="my-position-button" (click)="setViewMylocation()">
           <img
             src="https://cdn.icon-icons.com/icons2/1875/PNG/512/mylocation_120247.png"
@@ -37,11 +37,11 @@
         >
           <i class="fa fa-wrench fa-1x"></i>
         </div>
-        <div *ngIf="setting.toolsShow" class="text-left div-tools">
+        <div *ngIf="setting.toolsShow" class="text-left div-tools p-1">
           <div>
             <i
               (click)="setting.toolsShow = !setting.toolsShow"
-              class="fa fa-close close-button-top-right"
+              class="fa fa-close close-button-top-right cursor-pointer"
             ></i>
           </div>
           <div class="p-2">
@@ -59,8 +59,8 @@
                 class="bg-light fw-bold text-capitalize"
                 (click)="change('')"
               >
-                {{ selectedType }}
-                <i class="fa fa-close"></i>
+                Show Only {{ selectedType }}s
+                <i class="fa fa-close cursor-pointer"></i>
               </span>
             </div>
           </div>
@@ -72,7 +72,15 @@
               [class.border-active-btn]="setting.currentLocationActivated"
               (click)="activeCUrrentLocation()"
             >
-              {{ 'current' | translate }}
+              <span>
+                <img
+                  src="https://cdn2.iconfinder.com/data/icons/greenline/512/check-512.png"
+                  class="img-icon"
+                />
+              </span>
+              <span>
+                {{ 'current' | translate }}
+              </span>
             </button>
           </div>
           <div>
@@ -83,7 +91,15 @@
               [class.border-active-btn]="setting.distanceActivated"
               (click)="activeDistanceMeter()"
             >
-              {{ 'distanceMeter' | translate }}
+              <span>
+                <img
+                  src="https://cdn2.iconfinder.com/data/icons/greenline/512/check-512.png"
+                  class="img-icon"
+                />
+              </span>
+              <span>
+                {{ 'distanceMeter' | translate }}
+              </span>
             </button>
           </div>
           <div>
@@ -94,7 +110,15 @@
               [class.border-active-btn]="setting.routingActivated"
               (click)="activeRouting()"
             >
-              {{ 'routing' | translate }}
+              <span>
+                <img
+                  src="https://cdn2.iconfinder.com/data/icons/greenline/512/check-512.png"
+                  class="img-icon"
+                />
+              </span>
+              <span>
+                {{ 'routing' | translate }}
+              </span>
             </button>
           </div>
         </div>
@@ -117,11 +141,13 @@
   <div class="inner w-75 text-left">
     <div class="d-relative">
       <pe-city-distance-list></pe-city-distance-list>
-
-      <i
-        class="fa fa-close close-button-top-right link-darks fa-2x text-muted"
-        (click)="openModalLocationList(false)"
-      ></i>
+      <span class="p-3 close-button-top-right">
+        <img
+          src="../../../assets//img//arrow-down-icon-png-6687.png"
+          class="img-icon"
+          (click)="openModalLocationList(false)"
+        />
+      </span>
     </div>
   </div>
 </div>
@@ -145,11 +171,13 @@
       <pe-city-distance-list
         *ngIf="setting.showCityDistanceFlag"
       ></pe-city-distance-list>
-
-      <i
-        class="fa fa-close close-button-top-right link-darks fa-2x text-muted"
-        (click)="openModalLocationList(false)"
-      ></i>
+      <span class="p-3 close-button-top-right">
+        <img
+          src="../../../assets//img//arrow-down-icon-png-6687.png"
+          class="img-icon"
+          (click)="openModalLocationList(false)"
+        />
+      </span>
     </div>
   </div>
 </div>

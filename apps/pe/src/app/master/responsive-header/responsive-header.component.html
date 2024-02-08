@@ -30,10 +30,13 @@
                 ></pe-search>
               </div>
               <div class="text-center flex-cell">
-                <i
-                  class="fa fa-close fa-2x"
-                  (click)="activeSearchFixedWidth(false)"
-                ></i>
+                <span class="p-3 close-button-top-right">
+                  <img
+                    src="../../../assets//img//arrow-down-icon-png-6687.png"
+                    class="img-icon"
+                    (click)="activeSearchFixedWidth(false)"
+                  />
+                </span>
               </div>
             </div>
           </div>
@@ -149,7 +152,10 @@
                         {{ 'shared' | translate }}
                       </span>
                     </p>
+                    <p></p>
                     <p>
+                      <span> <i class="fa fa-road fa-2x"></i> </span>
+
                       <span
                         class="link-gold"
                         (click)="showCityDIstanceMapComponent()"
@@ -161,11 +167,15 @@
                       class="location-list"
                       (click)="showLocationsOnMapComponent()"
                     >
+                      <span> <i class="fa fa-map-marker fa-2x"></i> </span>
+
                       <span>
                         {{ 'locationList' | translate }}
                       </span>
                     </p>
                     <div class="text-left p-3 fw-bold w-100">
+                      <span class="text-muted"> Language </span>
+
                       <span
                         [@animate]="setting.animationFlag"
                         class="link-dark text-meduim"
