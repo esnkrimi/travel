@@ -72,17 +72,10 @@
           <div>
             <button
               mat-stroked-button
-              class="text-dark"
-              [class.border-0]="!setting.currentLocationActivated"
+              class="text-dark m-1"
               [class.border-active-btn]="setting.currentLocationActivated"
               (click)="activeCUrrentLocation()"
             >
-              <span>
-                <img
-                  src="https://cdn2.iconfinder.com/data/icons/greenline/512/check-512.png"
-                  class="img-icon"
-                />
-              </span>
               <span>
                 {{ 'current' | translate }}
               </span>
@@ -91,17 +84,10 @@
           <div>
             <button
               mat-stroked-button
-              class="text-dark"
-              [class.border-0]="!setting.distanceActivated"
+              class="text-dark m-1"
               [class.border-active-btn]="setting.distanceActivated"
               (click)="activeDistanceMeter()"
             >
-              <span>
-                <img
-                  src="https://cdn2.iconfinder.com/data/icons/greenline/512/check-512.png"
-                  class="img-icon"
-                />
-              </span>
               <span>
                 {{ 'distanceMeter' | translate }}
               </span>
@@ -110,17 +96,10 @@
           <div>
             <button
               mat-stroked-button
-              class="text-dark"
-              [class.border-0]="!setting.routingActivated"
+              class="text-dark m-1"
               [class.border-active-btn]="setting.routingActivated"
               (click)="activeRouting()"
             >
-              <span>
-                <img
-                  src="https://cdn2.iconfinder.com/data/icons/greenline/512/check-512.png"
-                  class="img-icon"
-                />
-              </span>
               <span>
                 {{ 'routing' | translate }}
               </span>

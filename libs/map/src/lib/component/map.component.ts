@@ -362,6 +362,7 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   change(type: string) {
+    if (type) this.setting.toolsShow = false;
     this.mapService.loadingProgress.next(true);
     this.selectedType = type === this.selectedType ? '' : type;
     this.map.eachLayer((layer: any) => {
