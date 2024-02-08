@@ -26,23 +26,27 @@
 <div class="w-100 text-center bg-white">
   <div class="w-75 inner">
     <div class="p-2" *ngIf="this.distance.direct > 0">
-      <div class="d-flex">
+      <div class="d-flex p-1">
         <span class="p-1">Direct Distance </span
-        ><span class="fw-bold p-1">{{ this.distance.direct }}</span>
+        ><span class="fw-bold p-1">{{
+          this.distance.direct | distanceOrder
+        }}</span>
       </div>
-      <div class="d-flex">
+      <div class="d-flex p-1">
         <span class="p-1">Routing Distance </span
-        ><span class="fw-bold p-1">{{ this.distance.routingDistance }}</span>
+        ><span class="fw-bold p-1">{{
+          this.distance.routingDistance | distanceOrder
+        }}</span>
       </div>
 
-      <div class="d-flex">
+      <div class="d-flex p-1">
         <span class="fw-bold p-1" [innerHTML]="this.distance.car"></span>
       </div>
 
-      <div class="d-flex">
+      <div class="d-flex p-1">
         <span class="fw-bold p-1" [innerHTML]="this.distance.walk"></span>
       </div>
-      <div class="w-100 text-left">
+      <div class="w-100 text-left p-1 mt-1">
         <button mat-stroked-button (click)="showMapComponent()">Route</button>
       </div>
     </div>

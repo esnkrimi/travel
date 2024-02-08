@@ -39,11 +39,15 @@
         </div>
         <div *ngIf="setting.toolsShow" class="text-left div-tools p-1">
           <div>
-            <i
-              (click)="setting.toolsShow = !setting.toolsShow"
-              class="fa fa-close close-button-top-right cursor-pointer"
-            ></i>
+            <span class="p-3 close-button-top-right">
+              <img
+                src="../../../assets//img//arrow-down-icon-png-6687.png"
+                class="img-icon"
+                (click)="setting.toolsShow = !setting.toolsShow"
+              />
+            </span>
           </div>
+
           <div class="p-2">
             <div>
               <pe-advanced-autocomplete
@@ -55,11 +59,12 @@
               style="height: 3.4em !important"
               class="w-100 p-1 bg-light text-left searched-type text-blueblack"
             >
+              <span class="text-muted">Show Only </span>
               <span
                 class="bg-light fw-bold text-capitalize"
                 (click)="change('')"
               >
-                Show Only {{ selectedType }}s
+                {{ selectedType }}s
                 <i class="fa fa-close cursor-pointer"></i>
               </span>
             </div>

@@ -33,6 +33,7 @@ import { PublicAutocompleteModule } from '@pe/public-autocomplete';
 import { ScorePipe } from '@appBase/pipe/score.pipe';
 import { CityDistanceComponent } from './city-distance/city-distance.component';
 import { EsnCarouselModule } from '@pe/esn-carousel';
+import { DistanceOredrPipe } from '@appBase/pipe/distance-order';
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import { EsnCarouselModule } from '@pe/esn-carousel';
     ZoomComponent,
     SettingComponent,
     UsersComponent,
+    DistanceOredrPipe,
   ],
   imports: [
     ImageGalleryModule,

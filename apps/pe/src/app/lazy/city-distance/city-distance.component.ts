@@ -67,7 +67,7 @@ export class CityDistanceComponent implements OnInit {
       routeLine: (route) => {
         const line: any = L.Routing.line(route);
         this.distance.routingDistance =
-          Math.round(line._route.summary.totalDistance) + 'm';
+          Math.round(line._route.summary.totalDistance) + '';
         this.distance.car = this.distancePipe.transform(
           Math.round(line._route.summary.totalDistance),
           'car'

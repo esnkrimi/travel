@@ -39,9 +39,11 @@ export class AdvancedAutocompleteComponent implements OnInit {
   }
   inputListener() {
     this.locationInput.valueChanges.subscribe((res: any) => {
-      this.autocompleteDataFiltered = this.data.filter((result: any) =>
-        result.type.toLowerCase().includes(res.toLowerCase())
-      );
+      this.autocompleteDataFiltered = this.data
+        .filter((result: any) =>
+          result.type.toLowerCase().includes(res.toLowerCase())
+        )
+        .slice(0, 3);
     });
   }
   selectLocationTypes() {
