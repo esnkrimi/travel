@@ -207,6 +207,7 @@
           </div>
           <div class="w-100 text-center p-3 m-2">
             <button
+              *ngIf="setting.userLogined; else mustLogin"
               class="btn-master-orange"
               mat-stroked-button
               type="submit"
@@ -214,6 +215,11 @@
             >
               {{ 'submit' | translate }}
             </button>
+            <ng-template #mustLogin>
+              <button mat-stroked-button>
+                {{ 'mustLogin' | translate }} to submit location
+              </button>
+            </ng-template>
           </div>
         </form>
       </div>

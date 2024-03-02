@@ -343,6 +343,7 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
         })
       )
       .subscribe((data) => {
+        //console.log(data);
         for (let i = 0; i < data.length; i++) {
           const obj: any = {
             lat: data[i]?.lat,
@@ -566,7 +567,8 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
     this.fetchByCity(this.city, true);
     this.clickOnMap(); //CLICK ON MAP
     this.dragMap(); //CLICK ON MAP
-    this.changeCenter(22);
+    if (JSON.parse(this.userSession)?.id) this.changeCenter(22);
+    else this.changeCenter(15);
   }
   imageexists(url: any) {
     const image = new Image();
@@ -647,9 +649,9 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
         });
         if (res[0]?.title) {
           tooltipPopup.setContent(
-            `<span class='border-bottom '><b>${this.capitalizeFirstLetter(
-              res[0]?.title
-            )} ${res[0]?.type}
+            `<span class='border-bottom '>${
+              res[0]?.id
+            }  ) <b>${this.capitalizeFirstLetter(res[0]?.title)} ${res[0]?.type}
               </span></b>`
           );
           tooltipPopup.setLatLng(e.target.getLatLng());

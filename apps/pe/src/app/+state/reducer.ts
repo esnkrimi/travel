@@ -224,7 +224,7 @@ export const reducerStates = createFeature({
     on(actions.fetchAction, function (states: any, action: any) {
       return {
         ...states,
-        location: Object.values(action.location),
+        location: [...states.location, ...Object.values(action.location)],
       };
     }),
     on(actions.startFetchCountryLocationAction, (states: any, action: any) => ({
