@@ -20,4 +20,5 @@ export const {
   selectSavedLocation,
   selectCity,
   selectDestinationCity,
+  selectCitiesRoutes,
 } = reducerStates;

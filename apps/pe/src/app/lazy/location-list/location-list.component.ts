@@ -3,8 +3,10 @@ import {
   EventEmitter,
   Inject,
   Input,
+  OnChanges,
   OnInit,
   Output,
+  SimpleChanges,
 } from '@angular/core';
 import { Store } from '@ngrx/store';
 import {
@@ -27,7 +29,7 @@ import { actions } from '@appBase/+state/actions';
   templateUrl: './location-list.component.html',
   styleUrls: ['./location-list.component.scss'],
 })
-export class LocationListComponent implements OnInit {
+export class LocationListComponent implements OnInit, OnChanges {
   @Output() selectedLocation = new EventEmitter<any>();
   @Input() city: string;
   @Input() country: string;
@@ -75,6 +77,16 @@ export class LocationListComponent implements OnInit {
     public dialog: MatDialog,
     private store: Store
   ) {}
+  ngOnChanges(changes: SimpleChanges): void {
+    if (this.citySelectToLocationList)
+      this.setting.cityActive = this.citySelectToLocationList;
+    if (JSON.parse(this.userSession)?.id) this.selectUser();
+    this.inputListener();
+    setTimeout(() => {
+      this.fetchLocations();
+      this.makeDistance();
+    }, 1000);
+  }
 
   selectUser() {
     this.store
@@ -129,9 +141,12 @@ export class LocationListComponent implements OnInit {
     this.drawerService.showMap.next(true);
   }
   fetchLocations() {
-    if (this.type === 'shared') this.fetchAllSharedLocations();
-    else if (this.type === 'saved') this.savedLocations();
-    else this.fetchAllLocations();
+    this.drawerService.showLocations.subscribe((res) => {
+      this.type = res.type;
+      if (this.type === 'shared') this.fetchAllSharedLocations();
+      else if (this.type === 'saved') this.savedLocations();
+      else this.fetchAllLocations();
+    });
   }
   fetchAllSharedLocations() {
     const tmp = JSON.parse(this.userSession)?.id;
@@ -179,14 +194,16 @@ export class LocationListComponent implements OnInit {
 
   fetchAllLocations() {
     this.setting.selectedType = '';
+    this.setting.cityActive = '';
+
+    if (this.city) this.setting.cityActive = this.city;
     this.store
       .select(selectLocation)
       .pipe(
         map((res) =>
           res.filter(
             (res: any) =>
-              (this.type !== 'saved' && res.city === this.setting.cityActive) ||
-              res.saved === true
+              this.type !== 'saved' && res.city === this.setting.cityActive
           )
         ),
         //   tap((res) => console.log(this.setting.cityActive, res)),
@@ -266,14 +283,5 @@ export class LocationListComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {
-    if (this.citySelectToLocationList)
-      this.setting.cityActive = this.citySelectToLocationList;
-    if (JSON.parse(this.userSession)?.id) this.selectUser();
-    this.inputListener();
-    setTimeout(() => {
-      this.fetchLocations();
-      this.makeDistance();
-    }, 1000);
-  }
+  ngOnInit(): void {}
 }

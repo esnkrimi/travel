@@ -108,7 +108,7 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
     district: '',
     score: 0,
   };
-
+  cityRoutes = new Set();
   constructor(
     @Inject('userSession') public userSession: any,
     @Inject('deviceIsWide') public deviceIsWide: boolean,
@@ -327,12 +327,16 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
 
   fetchByCity(city: string, changedCity: boolean) {
     city = city.toLowerCase();
-    if (changedCity)
-      this.store.dispatch(
-        actions.startFetchCountryLocationAction({
-          city: this.city,
-        })
-      );
+    if (changedCity) {
+      if (!this.cityRoutes.has(city)) {
+        this.cityRoutes.add(city);
+        this.store.dispatch(
+          actions.startFetchCountryLocationAction({
+            city: this.city,
+          })
+        );
+      }
+    }
     this.store
       .select(selectLocation)
       .pipe(
@@ -343,7 +347,6 @@ export class MapBoardComponent implements OnInit, OnChanges, AfterViewInit {
         })
       )
       .subscribe((data) => {
-        //console.log(data);
         for (let i = 0; i < data.length; i++) {
           const obj: any = {
             lat: data[i]?.lat,

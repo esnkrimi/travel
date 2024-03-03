@@ -34,17 +34,14 @@ export class SearchComponent implements OnInit {
       .subscribe((res) => (this.setting.placeholder = res));
   }
   results(event: ILocation) {
-    {
-      this.locationSelected = event.id;
-      this.drawerService.showMap.next(true);
-      this.router.navigateByUrl('');
-      const result: IScope = {
-        center: [event?.latitude, event?.longitude],
-        city: event?.name,
-        country: event?.country_name,
-        state: event?.name,
-      };
-      this.resultOutput.emit(result);
-    }
+    this.drawerService.showMap.next(true);
+    this.router.navigateByUrl('');
+    const result: IScope = {
+      center: [event?.latitude, event?.longitude],
+      city: event?.name,
+      country: event?.country_name,
+      state: event?.name,
+    };
+    this.resultOutput.emit(result);
   }
 }

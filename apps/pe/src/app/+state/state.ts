@@ -9,6 +9,7 @@ export interface state {
   trip: ITrip[];
   reviewtrip: ITrip[];
   location: Ilocation[];
+  citiesRoutes: ICitiesRoutes[];
   sharedLocation: ISharedLocation[];
   savedLocation: Ilocation[];
   user: Iuser;
@@ -64,6 +65,7 @@ export const AppState: state = {
   savedLocation: [],
   city: [],
   destinationCity: [],
+  citiesRoutes: [],
 };
 
 export interface ILocationtype {
@@ -284,6 +286,9 @@ export interface ICity {
   country?: any;
 }
 
+export interface ICitiesRoutes {
+  city: string;
+}
 export interface Ilocation {
   city: string;
   country: string;

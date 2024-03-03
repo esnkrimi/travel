@@ -31,6 +31,16 @@ export const reducerStates = createFeature({
       };
     }),
 
+    on(actions.fetchAction, function (states: any, action: any) {
+      return {
+        ...states,
+        location: [...states.location, ...Object.values(action.location)],
+        citiesRoutes: new Set([
+          ...states.citiesRoutes,
+          action.location[0].city,
+        ]),
+      };
+    }),
     on(actions.startUpdateDistance, function (states: any, action: any) {
       function degreesToRadians(degrees: any) {
         return (degrees * Math.PI) / 180;
@@ -221,12 +231,6 @@ export const reducerStates = createFeature({
       ...states,
       country: action.country,
     })),
-    on(actions.fetchAction, function (states: any, action: any) {
-      return {
-        ...states,
-        location: [...states.location, ...Object.values(action.location)],
-      };
-    }),
     on(actions.startFetchCountryLocationAction, (states: any, action: any) => ({
       ...states,
       country: action.country,

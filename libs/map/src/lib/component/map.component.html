@@ -142,6 +142,7 @@
 >
   <div class="inner w-75 text-left">
     <div class="d-relative">
+      {{ setting.citySelectToLocationList }}
       <pe-location-list
         *ngIf="setting.openModalLocationListFlag"
         [type]="setting.savedLocationFlag"
